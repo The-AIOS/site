@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { GitHubLink } from "./GitHubLink";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Logo } from "./Logo";
 import type { Locale, Messages } from "@/messages";
@@ -89,14 +90,13 @@ export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
                 {item.label}
               </a>
             ))}
-            <a
+            <GitHubLink
               href="https://github.com/The-AIOS/aios"
-              target="_blank"
-              rel="noreferrer"
+              surface="nav-mobile"
               onClick={() => setOpen(false)}
             >
               {m.nav.github}
-            </a>
+            </GitHubLink>
           </nav>
 
           <div className="mm-footer">

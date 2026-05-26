@@ -1,4 +1,5 @@
 import { ContextLoopDiagram, TrapCurveDiagram, InflectionCurveDiagram, DestinationNetworkDiagram, SkipDiagram, PlateauDiagram } from "./diagrams";
+import { GitHubLink } from "./GitHubLink";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
@@ -61,9 +62,9 @@ function Header({ m, locale }: Props) {
           <a href="#thinking-ahead" className="caption" style={{ textDecoration: "none" }}>{m.nav.ahead}</a>
           <a href="#operator-job" className="caption" style={{ textDecoration: "none" }}>{m.nav.arc}</a>
           <a href="#get-started" className="caption" style={{ textDecoration: "none" }}>{m.nav.getStarted}</a>
-          <a href="https://github.com/The-AIOS/aios" className="caption" style={{ textDecoration: "none" }} target="_blank" rel="noreferrer">
+          <GitHubLink href="https://github.com/The-AIOS/aios" surface="nav-desktop" className="caption" style={{ textDecoration: "none" }}>
             {m.nav.github}
-          </a>
+          </GitHubLink>
           <LocaleSwitcher current={locale} />
         </nav>
         <MobileMenu m={m} locale={locale} />
@@ -90,9 +91,9 @@ function Hero({ m }: { m: Messages }) {
           {m.hero.lede}
         </p>
         <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="https://github.com/The-AIOS/aios" className="btn-primary" target="_blank" rel="noreferrer">
+          <GitHubLink href="https://github.com/The-AIOS/aios" surface="hero-primary" className="btn-primary">
             {m.hero.ctaGithub}
-          </a>
+          </GitHubLink>
           <a href="#get-started" className="btn-secondary">
             {m.hero.ctaGetStarted}
           </a>
@@ -589,14 +590,13 @@ function Bundles({ m }: { m: Messages }) {
             <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body1}</p>
             <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body2}</p>
           </div>
-          <a
+          <GitHubLink
             href="https://github.com/The-AIOS/aios/blob/main/FORTRESS.md"
+            surface="fortress-section"
             className="btn-secondary"
-            target="_blank"
-            rel="noreferrer"
           >
             {m.repoLink.readFortress}
-          </a>
+          </GitHubLink>
         </div>
       </div>
     </section>
@@ -673,12 +673,12 @@ function GetStarted({ m }: { m: Messages }) {
         </p>
 
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
-          <a href="https://github.com/The-AIOS/aios/blob/main/START-HERE.md" className="btn-primary" target="_blank" rel="noreferrer">
+          <GitHubLink href="https://github.com/The-AIOS/aios/blob/main/START-HERE.md" surface="get-started-primary" className="btn-primary">
             {m.getStarted.ctaReadStart}
-          </a>
-          <a href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" className="btn-secondary" target="_blank" rel="noreferrer">
+          </GitHubLink>
+          <GitHubLink href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" surface="get-started-secondary" className="btn-secondary">
             {m.getStarted.ctaSetup}
-          </a>
+          </GitHubLink>
         </div>
 
         <div className="ai-affordance" style={{ maxWidth: "780px" }}>
@@ -714,8 +714,8 @@ function Footer({ m }: { m: Messages }) {
           <div>
             <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionRepo}</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><a href="https://github.com/The-AIOS" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.githubOrg}</a></li>
-              <li><a href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.setup}</a></li>
+              <li><GitHubLink href="https://github.com/The-AIOS" surface="footer-org" className="caption">{m.footer.repoLinks.githubOrg}</GitHubLink></li>
+              <li><GitHubLink href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" surface="footer-setup" className="caption">{m.footer.repoLinks.setup}</GitHubLink></li>
             </ul>
           </div>
           <div>
@@ -736,7 +736,7 @@ function Footer({ m }: { m: Messages }) {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
           <p className="caption" style={{ margin: 0 }}>{m.footer.copyright}</p>
           <p className="caption" style={{ margin: 0 }}>
-            <a href="https://github.com/The-AIOS" target="_blank" rel="noreferrer">{m.footer.org}</a>
+            <GitHubLink href="https://github.com/The-AIOS" surface="footer-copyright">{m.footer.org}</GitHubLink>
           </p>
         </div>
       </div>
