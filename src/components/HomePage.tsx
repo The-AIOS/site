@@ -1,5 +1,6 @@
 import { ContextLoopDiagram } from "./diagrams";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { Logo } from "./Logo";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
 import type { Locale, Messages } from "@/messages";
 
@@ -42,11 +43,24 @@ function Header({ m, locale }: Props) {
         className="container"
         style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 1.5rem", gap: "1rem", flexWrap: "wrap" }}
       >
-        <span
-          style={{ fontFamily: "var(--font-display)", fontSize: "1rem", letterSpacing: "-0.025em", fontWeight: 700, color: "var(--color-ink)" }}
+        <a
+          href="#top"
+          aria-label="The-AIOS — back to top"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            fontFamily: "var(--font-display)",
+            fontSize: "1rem",
+            letterSpacing: "-0.025em",
+            fontWeight: 700,
+            color: "var(--color-ink)",
+            textDecoration: "none",
+          }}
         >
+          <Logo size={18} />
           The-AIOS
-        </span>
+        </a>
         <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
           <a href="#thesis" className="caption" style={{ textDecoration: "none" }}>{m.nav.thesis}</a>
           <a href="#capabilities" className="caption" style={{ textDecoration: "none" }}>{m.nav.capabilities}</a>
@@ -477,12 +491,12 @@ function Footer({ m }: { m: Messages }) {
       <div className="container">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
           <div>
-            <p
-              className="byline"
-              style={{ fontFamily: "var(--font-display)", fontSize: "1.125rem", letterSpacing: "-0.01em", textTransform: "none", fontWeight: 600, color: "var(--color-ink)", marginBottom: "0.75rem" }}
+            <div
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem", fontFamily: "var(--font-display)", fontSize: "1.125rem", letterSpacing: "-0.01em", fontWeight: 600, color: "var(--color-ink)" }}
             >
+              <Logo size={20} />
               The-AIOS
-            </p>
+            </div>
             <p className="caption" style={{ marginBottom: 0 }}>
               {m.footer.tagline}<br />
               {m.footer.license}
@@ -493,7 +507,6 @@ function Footer({ m }: { m: Messages }) {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
               <li><a href="https://github.com/The-AIOS" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.githubOrg}</a></li>
               <li><a href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.setup}</a></li>
-              <li><a href="https://github.com/The-AIOS/aios/blob/main/TOOLS.md" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.tools}</a></li>
             </ul>
           </div>
           <div>

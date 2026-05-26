@@ -40,7 +40,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <span id="top" aria-hidden="true" />
+        {children}
+      </body>
     </html>
   );
 }
