@@ -139,30 +139,34 @@ export function InflectionCurveDiagram({ inflectionLabel, plateauNote, accelerat
 export function DestinationNetworkDiagram({ humanLabel, humanSub, agentLabels, caption }: {
   humanLabel: string; humanSub: string; agentLabels: [string, string, string, string, string]; caption: string;
 }) {
+  // Wider node spread so larger circles + labels don't crowd the center
   const positions: [number, number][] = [
-    [350, 40], [540, 68], [540, 254], [160, 254], [160, 68],
+    [380, 40], [620, 80], [620, 280], [140, 280], [140, 80],
   ];
+  const humanR = 56;
+  const agentR = 32;
   return (
-    <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="The destination: one human orchestrates five agents">
-      <circle cx="350" cy="160" r={44} fill="rgba(255,93,77,0.18)" stroke="#ff5d4d" strokeWidth={2} />
-      <text x="350" y="158" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={9} fill="#ff5d4d" letterSpacing={1.6}>{humanLabel}</text>
-      <text x="350" y="176" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={10} fill="#c4c4c4">{humanSub}</text>
+    <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="The destination: one human orchestrates five agents">
+      {/* Human (center) */}
+      <circle cx="380" cy="180" r={humanR} fill="rgba(255,93,77,0.18)" stroke="#ff5d4d" strokeWidth={2} />
+      <text x="380" y="175" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={800} fontSize={14} fill="#ff5d4d" letterSpacing={1.6}>{humanLabel}</text>
+      <text x="380" y="195" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={500} fontSize={11} fill="#fafafa">{humanSub}</text>
+      {/* 5 agent nodes */}
       {positions.map(([cx, cy], i) => {
-        // Connector from human edge toward node — approximation
-        const dx = cx - 350; const dy = cy - 160;
+        const dx = cx - 380; const dy = cy - 180;
         const len = Math.hypot(dx, dy);
         const ux = dx / len; const uy = dy / len;
-        const x1 = 350 + ux * 44; const y1 = 160 + uy * 44;
-        const x2 = cx - ux * 20; const y2 = cy - uy * 20;
+        const x1 = 380 + ux * humanR; const y1 = 180 + uy * humanR;
+        const x2 = cx - ux * agentR; const y2 = cy - uy * agentR;
         return (
           <g key={i}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#262626" strokeWidth={1} />
-            <circle cx={cx} cy={cy} r={20} fill="#111111" stroke="#262626" strokeWidth={1} />
-            <text x={cx} y={cy + 4} textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={8} fill="#c4c4c4" letterSpacing={1.2}>{agentLabels[i]}</text>
+            <circle cx={cx} cy={cy} r={agentR} fill="#111111" stroke="#262626" strokeWidth={1.5} />
+            <text x={cx} y={cy + 4} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={600} fontSize={10} fill="#fafafa" letterSpacing={1}>{agentLabels[i]}</text>
           </g>
         );
       })}
-      <text x="350" y="320" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{caption}</text>
+      <text x="380" y="358" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={12} fill="#c4c4c4">{caption}</text>
     </svg>
   );
 }
@@ -188,8 +192,6 @@ export function WhyMostFailDiagram({ skipLabel, skipTitle, skipBody, plateauLabe
         <StageBox x={230} label="3" faded />
         <StageBox x={325} label="4" active />
         <path d="M 75 60 Q 218 0, 360 60" fill="none" stroke="#ff5d4d" strokeWidth={1.5} strokeDasharray="5 4" />
-        <line x1="208" y1="14" x2="228" y2="34" stroke="#ff5d4d" strokeWidth={2.5} />
-        <line x1="228" y1="14" x2="208" y2="34" stroke="#ff5d4d" strokeWidth={2.5} />
         <text x="220" y="148" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={12} fontWeight={700} fill="#fafafa">{skipTitle}</text>
         <text x="220" y="172" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{skipBody}</text>
       </g>

@@ -139,10 +139,8 @@ function Intro({ m }: { m: Messages }) {
           {m.intro.badge}
         </blockquote>
 
-        <hr className="hairline" style={{ margin: "4rem 0 3rem" }} />
-
-        {/* ── Beat 2: your fear has data behind it (the Opening, now nested) ── */}
-        <h3 className="display-md" style={{ marginBottom: "1.5rem", maxWidth: "780px" }}>{m.opening.headline}</h3>
+        {/* ── Beat 2: your fear has data behind it (separated by spacing, not a line) ── */}
+        <h3 className="display-md" style={{ marginTop: "5rem", marginBottom: "1.5rem", maxWidth: "780px" }}>{m.opening.headline}</h3>
         <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2.5rem" }}>{m.opening.body}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
           {m.opening.stats.map((s) => (
@@ -158,10 +156,8 @@ function Intro({ m }: { m: Messages }) {
           <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>{m.opening.sourceLabel}</span> · {m.opening.sourceText}
         </p>
 
-        <hr className="hairline" style={{ margin: "4rem 0 3rem" }} />
-
         {/* ── Beat 3: the reframe quote that pivots into the thesis ── */}
-        <blockquote className="pullquote" style={{ maxWidth: "880px", marginBottom: "0.75rem", fontSize: "1.25rem" }}>
+        <blockquote className="pullquote" style={{ marginTop: "5rem", maxWidth: "880px", marginBottom: "0.75rem", fontSize: "1.25rem" }}>
           {m.intro.reframePullquote}
         </blockquote>
         <p className="caption" style={{ color: "var(--color-ink-subtle)", marginLeft: "24px" }}>
@@ -228,6 +224,7 @@ function Arc({ m }: { m: Messages }) {
 
         {/* Stage 4 — The Destination */}
         <ArcStage
+          isLast
           stage={m.arc.stages.four.stage}
           headline={m.arc.stages.four.headline}
           lede={m.arc.stages.four.lede}
@@ -243,9 +240,8 @@ function Arc({ m }: { m: Messages }) {
           }
         />
 
-        {/* Why Most Fail — closes The Arc */}
-        <div style={{ marginTop: "5rem" }}>
-          <hr className="hairline" style={{ marginBottom: "2.5rem" }} />
+        {/* Why Most Fail — closes The Arc (separated by spacing, not a line) */}
+        <div style={{ marginTop: "6rem" }}>
           <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.arc.failEyebrow}</p>
           <h3 className="display-md" style={{ marginBottom: "2rem", fontSize: "1.5rem" }}>{m.arc.failHeadline}</h3>
           <WhyMostFailDiagram
@@ -266,7 +262,7 @@ function Arc({ m }: { m: Messages }) {
   );
 }
 
-function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution, signal, diagram }: {
+function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution, signal, diagram, isLast = false }: {
   stage: string;
   headline: string;
   lede: string;
@@ -275,9 +271,10 @@ function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution
   pullquoteAttribution?: string;
   signal?: string;
   diagram?: React.ReactNode;
+  isLast?: boolean;
 }) {
   return (
-    <div style={{ paddingBottom: "4rem", marginBottom: "4rem", borderBottom: "1px solid var(--color-hairline)" }}>
+    <div style={{ paddingBottom: isLast ? "0" : "4rem", marginBottom: isLast ? "0" : "4rem", borderBottom: isLast ? "none" : "1px solid var(--color-hairline)" }}>
       <p className="eyebrow" style={{ color: "var(--color-accent)", marginBottom: "0.875rem", letterSpacing: "0.12em" }}>{stage}</p>
       <h3 className="display-lg" style={{ marginBottom: "1rem", fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>{headline}</h3>
       <p className="lede" style={{ maxWidth: "780px", marginBottom: "1.25rem" }}>{lede}</p>
@@ -529,9 +526,7 @@ function Bundles({ m }: { m: Messages }) {
           ))}
         </div>
 
-        <hr className="hairline" style={{ margin: "3.5rem 0 2.5rem" }} />
-
-        <div>
+        <div style={{ marginTop: "5rem" }}>
           <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.bundles.fortress.eyebrow}</p>
           <h3 className="display-md" style={{ marginBottom: "1rem" }}>{m.bundles.fortress.headline}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem", marginBottom: "1.75rem" }}>
