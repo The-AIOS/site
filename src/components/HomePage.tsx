@@ -11,7 +11,6 @@ export default function HomePage({ m, locale }: Props) {
     <main>
       <Header m={m} locale={locale} />
       <Hero m={m} />
-      <Opening m={m} />
       <Intro m={m} />
       <Thesis m={m} />
       <Arc m={m} />
@@ -114,36 +113,11 @@ function Hero({ m }: { m: Messages }) {
 
 /* ------------------------------------------------------------------ */
 
-function Opening({ m }: { m: Messages }) {
-  return (
-    <section id="opening" className="section">
-      <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.opening.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "780px" }}>{m.opening.headline}</h2>
-        <p className="lede" style={{ maxWidth: "780px", marginBottom: "2.5rem" }}>{m.opening.body}</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
-          {m.opening.stats.map((s) => (
-            <div key={s.value} style={{ borderTop: "1px solid var(--color-hairline)", paddingTop: "1rem" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, color: "var(--color-accent)", lineHeight: 1, letterSpacing: "-0.02em" }}>
-                {s.value}
-              </div>
-              <p className="caption" style={{ marginTop: "0.5rem", color: "var(--color-ink-muted)", lineHeight: 1.5 }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
-        <p className="caption" style={{ color: "var(--color-ink-subtle)" }}>
-          <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>{m.opening.sourceLabel}</span> · {m.opening.sourceText}
-        </p>
-      </div>
-    </section>
-  );
-}
-
 function Intro({ m }: { m: Messages }) {
   return (
     <section id="intro" className="section">
       <div className="container">
+        {/* ── Beat 1: what is this & who it's for ── */}
         <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.intro.eyebrow}</p>
         <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
         <h2 className="display-lg" style={{ marginBottom: "2.5rem", maxWidth: "920px" }}>
@@ -157,25 +131,42 @@ function Intro({ m }: { m: Messages }) {
           <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whoForHtml }} />
         </div>
 
-        <blockquote className="pullquote" style={{ maxWidth: "880px", marginBottom: "0.75rem" }}>
-          {m.intro.reframePullquote}
-        </blockquote>
-        <p className="caption" style={{ color: "var(--color-ink-subtle)", marginLeft: "24px", marginBottom: "2rem" }}>
-          {m.intro.reframeAttribution}
-        </p>
-
-        <div
-          style={{
-            borderLeft: "2px solid var(--color-accent)",
-            paddingLeft: "1rem",
-            color: "var(--color-ink-muted)",
-            fontStyle: "italic",
-            fontSize: "1rem",
-            maxWidth: "780px",
-          }}
+        {/* badge → repositioned as the invitation quote that closes beat 1 */}
+        <blockquote
+          className="pullquote"
+          style={{ maxWidth: "880px", fontStyle: "italic", fontSize: "1.125rem", color: "var(--color-ink-muted)" }}
         >
           {m.intro.badge}
+        </blockquote>
+
+        <hr className="hairline" style={{ margin: "4rem 0 3rem" }} />
+
+        {/* ── Beat 2: your fear has data behind it (the Opening, now nested) ── */}
+        <h3 className="display-md" style={{ marginBottom: "1.5rem", maxWidth: "780px" }}>{m.opening.headline}</h3>
+        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2.5rem" }}>{m.opening.body}</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+          {m.opening.stats.map((s) => (
+            <div key={s.value} style={{ borderTop: "1px solid var(--color-hairline)", paddingTop: "1rem" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, color: "var(--color-accent)", lineHeight: 1, letterSpacing: "-0.02em" }}>
+                {s.value}
+              </div>
+              <p className="caption" style={{ marginTop: "0.5rem", color: "var(--color-ink-muted)", lineHeight: 1.5 }}>{s.label}</p>
+            </div>
+          ))}
         </div>
+        <p className="caption" style={{ color: "var(--color-ink-subtle)" }}>
+          <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>{m.opening.sourceLabel}</span> · {m.opening.sourceText}
+        </p>
+
+        <hr className="hairline" style={{ margin: "4rem 0 3rem" }} />
+
+        {/* ── Beat 3: the reframe quote that pivots into the thesis ── */}
+        <blockquote className="pullquote" style={{ maxWidth: "880px", marginBottom: "0.75rem", fontSize: "1.25rem" }}>
+          {m.intro.reframePullquote}
+        </blockquote>
+        <p className="caption" style={{ color: "var(--color-ink-subtle)", marginLeft: "24px" }}>
+          {m.intro.reframeAttribution}
+        </p>
       </div>
     </section>
   );
