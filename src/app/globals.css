@@ -431,6 +431,25 @@ img, svg { max-width: 100%; height: auto; }
 .footer a { color: var(--color-ink-muted); text-decoration: none; }
 .footer a:hover { color: var(--color-accent); }
 
+/* ---------- Site header — sticky on all viewports ----------
+   Cross-browser stick: -webkit-sticky for older iOS Safari fallback,
+   then the standard sticky. Top: 0 + z-index above content + a
+   backdrop-blurred translucent background so content under shows
+   subtly when scrolled. */
+.site-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-hairline);
+  /* Hint to compositor that this element moves / repaints on scroll
+     — improves stickiness reliability on iOS Safari. */
+  will-change: transform;
+}
+
 /* ---------- Mobile menu (full-screen drawer) ----------
    Solid opaque background — NO backdrop-filter (caused transparency
    rendering bugs on mobile Chrome + Safari where the menu showed the

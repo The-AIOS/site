@@ -31,16 +31,7 @@ export default function HomePage({ m, locale }: Props) {
 
 function Header({ m, locale }: Props) {
   return (
-    <header
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-        backdropFilter: "blur(12px)",
-        background: "rgba(10, 10, 10, 0.78)",
-        borderBottom: "1px solid var(--color-hairline)",
-      }}
-    >
+    <header className="site-header">
       <div
         className="container"
         style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 1.5rem", gap: "1rem" }}
