@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   title: "The-AIOS — the AI Operating System framework",
   description:
     "Personal context substrate for working with Claude. Make every session start from your actual knowledge instead of from zero. Workflow-first, anti-hype, compounds across sessions.",
-  metadataBase: new URL("https://the-aios.com"),
+  metadataBase: new URL("https://www.the-aios.com"),
   openGraph: {
     title: "The-AIOS",
     description:
       "The AI Operating System framework. Personal context substrate for working with Claude that compounds across sessions.",
     type: "website",
-    url: "https://the-aios.com",
+    url: "https://www.the-aios.com",
   },
   twitter: {
     card: "summary_large_image",
