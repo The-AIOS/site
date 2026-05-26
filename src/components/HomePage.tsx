@@ -4,6 +4,7 @@ import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
+import { SubstackLink } from "./SubstackLink";
 import type { Locale, Messages } from "@/messages";
 
 type Props = { m: Messages; locale: Locale };
@@ -721,8 +722,8 @@ function Footer({ m }: { m: Messages }) {
           <div>
             <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionNarrative}</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><a href="https://chuycepeda.substack.com/p/the-ai-operating-system" className="caption" target="_blank" rel="noreferrer">{m.footer.narrativeLinks.amplifier}</a></li>
-              <li><a href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" className="caption" target="_blank" rel="noreferrer">{m.footer.narrativeLinks.agenticCulture}</a></li>
+              <li><SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="caption">{m.footer.narrativeLinks.amplifier}</SubstackLink></li>
+              <li><SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="caption">{m.footer.narrativeLinks.agenticCulture}</SubstackLink></li>
             </ul>
           </div>
           <div>
