@@ -111,6 +111,13 @@ const allowedIdentical = new Set([
   // Brand names
   "footer.org",            // "The AIOS"
   "intro.headlinePart2",   // "The AIOS." (brand)
+  // Footer link labels — proper-noun English, intentional across all locales
+  "footer.repoLinks.githubOrg",
+  "footer.repoLinks.setup",
+  "footer.repoLinks.tools",
+  "footer.narrativeLinks.amplifier",
+  "footer.narrativeLinks.agenticCulture",
+  "footer.aiLinks.llmstxt",
 ]);
 
 const enMap = new Map(flatEn.map((x) => [x.path, x.value]));

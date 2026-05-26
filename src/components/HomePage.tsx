@@ -468,23 +468,22 @@ function Footer({ m }: { m: Messages }) {
           <div>
             <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionRepo}</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><a href="https://github.com/The-AIOS/aios" className="caption" target="_blank" rel="noreferrer">github.com/The-AIOS/aios</a></li>
-              <li><a href="https://github.com/The-AIOS/aios/blob/main/README.md" className="caption" target="_blank" rel="noreferrer">README</a></li>
-              <li><a href="https://github.com/The-AIOS/aios/blob/main/CHANGELOG.md" className="caption" target="_blank" rel="noreferrer">Changelog</a></li>
-              <li><a href="https://github.com/The-AIOS/aios/issues" className="caption" target="_blank" rel="noreferrer">Issues</a></li>
+              <li><a href="https://github.com/The-AIOS" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.githubOrg}</a></li>
+              <li><a href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.setup}</a></li>
+              <li><a href="https://github.com/The-AIOS/aios/blob/main/TOOLS.md" className="caption" target="_blank" rel="noreferrer">{m.footer.repoLinks.tools}</a></li>
             </ul>
           </div>
           <div>
             <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionNarrative}</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><a href="https://chuycepeda.substack.com" className="caption" target="_blank" rel="noreferrer">chuycepeda.substack.com</a></li>
-              <li><a href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" className="caption" target="_blank" rel="noreferrer">The Agentic Culture</a></li>
+              <li><a href="https://chuycepeda.substack.com/p/the-ai-operating-system" className="caption" target="_blank" rel="noreferrer">{m.footer.narrativeLinks.amplifier}</a></li>
+              <li><a href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" className="caption" target="_blank" rel="noreferrer">{m.footer.narrativeLinks.agenticCulture}</a></li>
             </ul>
           </div>
           <div>
             <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionAi}</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><a href="/llms.txt" className="caption">/llms.txt</a></li>
+              <li><a href="/llms.txt" className="caption">{m.footer.aiLinks.llmstxt}</a></li>
             </ul>
           </div>
         </div>

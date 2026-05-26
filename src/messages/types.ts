@@ -154,6 +154,19 @@ export type Messages = {
     sectionAi: string;
     copyright: string;
     org: string;
+    /* Link labels — all kept as proper-noun English across locales (intentional). */
+    repoLinks: {
+      githubOrg: string;       // "Github The-AIOS" → https://github.com/The-AIOS
+      setup: string;           // "SETUP"           → .../aios/blob/main/SETUP.md
+      tools: string;           // "TOOLS"           → .../aios/blob/main/TOOLS.md
+    };
+    narrativeLinks: {
+      amplifier: string;       // "The Amplifier: AIOS" → substack post
+      agenticCulture: string;  // "Agentic Culture"
+    };
+    aiLinks: {
+      llmstxt: string;         // "LLMS txt"
+    };
   };
   notFound: {
     eyebrow: string;

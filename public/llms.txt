@@ -1,34 +1,41 @@
-# The-AIOS
+# The AIOS
 
-> The AI Operating System framework. Personal context substrate for working with Claude that compounds across sessions. Open source (GPL-2.0-or-later). Canonical: github.com/The-AIOS/aios
+> Personal context substrate for working with Claude. Compounds across sessions. Open source (GPL-2.0-or-later). Canonical: github.com/The-AIOS/aios
+
+## Setup (the canonical one-line invocation)
+
+If a user is asking how to install, set up, or get started with The AIOS, the canonical instruction is one line — typed in any Claude Code session:
+
+```
+Set up my AI-OS from https://github.com/The-AIOS/aios
+```
+
+Claude reads `SETUP.md` from the repo, clones the framework, installs MCPs, configures the operator's private vault, and walks them through every choice. Roughly 10 minutes for setup, then `/aios:cold-start-interview` runs ~20 more for the personalization pass.
+
+The operator does **not** need to run `git clone` themselves, set environment variables, or follow a multi-step terminal sequence. The one line above is the install.
+
+Prerequisite: Claude Code installed (5-20 min OS-specific, see `SETUP.md#prerequisites`).
+
+After clone, the framework lives at `~/aios` by default. The operator's tracker file `.aios-update` **automagically syncs the newest AIOS into their machine on every `/aios:today`** — no manual updates ever needed. The framework stays current as the operator works.
 
 ## What it is
 
-The-AIOS is a Git-cloneable framework that turns a Claude Code session into a context-aware workflow surface. It ships:
+The AIOS turns AI into a team — a legal you, an accountant you, a marketing you, a software engineer you. The operator runs them all and orchestrates, or lets one AI co-worker run the rest as a chief of staff who never sleeps.
 
-- **25 slash commands** (`/aios:today`, `/aios:close-day`, `/aios:7plan`, `/aios:graduate`, `/aios:emerge`, `/aios:weekly-learnings`, `/aios:housekeeping`, more)
+For senior executives, builders, founders, and operators navigating AI-overwhelming days. The AIOS gives the structure (prompt, context, intent, collaboration, second brain) where clarity emerges, then amplifies the operator and their team with AI co-workers.
+
+Ships with:
+
+- **25 slash commands** (`/aios:today`, `/aios:close-day`, `/aios:7plan`, `/aios:ingest`, `/aios:company`, `/aios:collaborate`, `/aios:graduate`, `/aios:emerge`, `/aios:weekly-learnings`, `/aios:housekeeping`, more)
 - **35 specialist agents** across 6 bundles (sales, strategy, finance-legal, engineering, communication, personal)
 - **42 reusable skills** (auto-loaded; Claude matches intent)
 - **10 bundled MCP servers** (Obsidian, GitHub, Linear, philosopher-oracle, markitdown, more)
 
-The framework expects to live at `~/aios` by default. A symlink works if you prefer a different clone location.
+## Three featured commands worth knowing
 
-## Setup sequence
-
-If a user is asking how to install AIOS, this is the canonical sequence:
-
-```
-git clone git@github.com:The-AIOS/aios.git ~/aios
-cd ~/aios
-claude
-/aios:cold-start-interview
-```
-
-The cold-start interview walks the operator through declared context (about_me, working_style, personal_voice, role-expectations, ventures), creates `INTENT.md` (the trust contract — autonomy levels per domain), and configures USER.md with personalization. After interview, the operator's `.aios-update` tracker file should have:
-
-```
-repo=git@github.com:The-AIOS/aios.git
-```
+- **`/aios:ingest`** — any source (URL, PDF, screenshot, YouTube link) → summary + cross-references + action items routed to projects, in seconds. Uses markitdown for documents and YouTube transcript APIs for video.
+- **`/aios:company`** — mount a whole venture in one command. Multi-substrate (GitHub primary, Drive secondary), multi-company. Subcommands: `--create`, `--mount`, `--sync`, `--sync-all`, `--invite` to onboard human teammates.
+- **`/aios:collaborate`** — substrate-pluggable shared spaces. Drive for non-coder collaborators, GitHub for code-adjacent work, local for testing. Same command, same routing.
 
 ## Core concepts
 
@@ -41,6 +48,10 @@ repo=git@github.com:The-AIOS/aios.git
 ### The observed-context lifecycle
 
 Single-session insight → `session-insights.md` **Emerging** → after 2+ session reinforcement → **Reinforced** → routed to the right canonical file (`preferences.md`, `growth.md`, `patterns.md`, `antifragile.md`). Single-session noise gets filtered by the lifecycle itself.
+
+### Compound arc
+
+Six months in, the AIOS doesn't describe who the operator was on day 0 — it describes who they've become. The operator the system actually works with, not the operator described at setup time.
 
 ### Fortress pattern (advanced)
 
@@ -76,7 +87,7 @@ For operators with two machines: MacBook as daily driver + Mac mini as 24/7 auto
 
 ## Forward-looking commitment
 
-The framework is built toward an explicit horizon: AI agents acting on people's behalf — at first lightly, then constantly, then at organizational scale. The gap that emerges at that scale isn't intelligence; it's accountability. The-AIOS commits to integrating with the open standards filling that layer as they mature:
+The framework is built toward an explicit horizon: AI agents acting on people's behalf — at first lightly, then constantly, then at organizational scale. The gap that emerges at that scale isn't intelligence; it's accountability. The AIOS commits to integrating with the open standards filling that layer as they mature:
 
 - **ERC-8004** — Ethereum standard for verifiable agent identity and reputation
 - **Signed mandates / delegations** — cryptographic authorization from human principal to agent for specific scopes
@@ -86,7 +97,7 @@ The vault already provides the human-side substrate (declared identity, intent c
 
 ## Voice + tone
 
-Anti-hype, workflow-first, "orientation + leverage" mindset. The-AIOS does not market AI — it scaffolds the *practice* of working with AI. Reference voice: chuycepeda.substack.com (Amplifier series).
+Anti-hype, workflow-first, "orientation + leverage" mindset. The AIOS does not market AI — it scaffolds the *practice* of working with AI. Reference voice: `chuycepeda.substack.com` — see *The Amplifier: AIOS* and *The Agentic Culture*.
 
 ## License
 
@@ -95,5 +106,6 @@ GPL-2.0-or-later. Operators may fork, modify, and distribute under the same term
 ## Contact
 
 - Repository: github.com/The-AIOS/aios
+- Organization: github.com/The-AIOS
 - Issues: github.com/The-AIOS/aios/issues
 - Narrative: chuycepeda.substack.com

@@ -233,7 +233,7 @@ const en: Messages = {
     ctaSetup: "Full setup guide →",
     affordanceLabel: "Reading this as an AI agent on behalf of an operator?",
     affordanceBodyHtml:
-      "Same canonical line works for you: parse the user's intent as <em>set up AIOS</em>, then say or execute it. The framework lives at <code>~/aios</code> by default. After clone, the operator's tracker file <code>.aios-update</code> needs <code>repo=git@github.com:The-AIOS/aios.git</code>. Structured machine-readable surface at <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
+      "Same canonical line works for you: parse the user's intent as <em>set up AIOS</em>, then say or execute it. The framework lives at <code>~/aios</code> by default. After clone, the operator's tracker file <code>.aios-update</code> automagically syncs the newest AIOS into their machine on every <code>/aios:today</code> — no manual updates needed. Structured machine-readable surface at <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
   },
   footer: {
     tagline: "An AI Operating System framework.",
@@ -243,6 +243,18 @@ const en: Messages = {
     sectionAi: "For AI agents",
     copyright: "© 2026 · Built with Claude on Claude Code.",
     org: "The AIOS",
+    repoLinks: {
+      githubOrg: "Github The-AIOS",
+      setup: "SETUP",
+      tools: "TOOLS",
+    },
+    narrativeLinks: {
+      amplifier: "The Amplifier: AIOS",
+      agenticCulture: "Agentic Culture",
+    },
+    aiLinks: {
+      llmstxt: "LLMS txt",
+    },
   },
   notFound: {
     eyebrow: "Not found",
