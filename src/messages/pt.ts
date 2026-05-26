@@ -51,9 +51,6 @@ const pt: Messages = {
       "The AIOS transforma IA em um time — um jurídico você, um contador você, um marketing você, um engenheiro de software você. Rode todos eles e seja o orquestrador, ou deixe um co-worker de IA rodar o resto como o seu <strong>chief of staff que nunca dorme</strong> e absorve a sobrecarga de coordenação.",
     whoForHtml:
       "Para qualquer pessoa navegando dias sobrecarregados de IA — <strong>executivos sênior, builders, founders, operadores</strong>. IA sozinha multiplica a confusão. The AIOS te dá a estrutura (prompt, contexto, intent, colaboração, segundo cérebro) onde a clareza emerge, e então permite que você amplifique você e o seu time com co-workers de IA.",
-    reframePullquote:
-      "A pergunta errada: “Como eu trago IA para a minha empresa?” A pergunta certa: “O que acontece com o meu pessoal quando a IA se junta a eles?”",
-    reframeAttribution: "— O Reframe",
     badge:
       "Se você quer tirar o máximo da IA sem perder o que te torna insubstituível — e sem risco de IP/PII — isto é para você.",
   },

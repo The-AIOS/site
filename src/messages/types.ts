@@ -61,8 +61,6 @@ export type Messages = {
     headlinePart2: string;
     whatIsHtml: string;       // "The AIOS turns AI into a team..."
     whoForHtml: string;       // "For anyone navigating AI-overwhelming days..."
-    reframePullquote: string; // "What becomes of my people when AI joins them?"
-    reframeAttribution: string;
     badge: string;            // small closing "if you want..." line
   };
   arc: {

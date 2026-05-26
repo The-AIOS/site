@@ -153,14 +153,6 @@ function Intro({ m }: { m: Messages }) {
         <p className="caption" style={{ color: "var(--color-ink-subtle)" }}>
           <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>{m.opening.sourceLabel}</span> · {m.opening.sourceText}
         </p>
-
-        {/* ── Beat 3: the reframe quote that pivots into the thesis ── */}
-        <blockquote className="pullquote" style={{ marginTop: "5rem", maxWidth: "880px", marginBottom: "0.75rem", fontSize: "1.25rem" }}>
-          {m.intro.reframePullquote}
-        </blockquote>
-        <p className="caption" style={{ color: "var(--color-ink-subtle)", marginLeft: "24px" }}>
-          {m.intro.reframeAttribution}
-        </p>
       </div>
     </section>
   );

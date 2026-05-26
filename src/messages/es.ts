@@ -50,9 +50,6 @@ const es: Messages = {
       "The AIOS convierte la IA en un equipo — un legal tú, un contador tú, un marketing tú, un ingeniero de software tú. Corre todos y sé su orquestador, o deja que un co-worker de IA corra al resto como tu <strong>chief of staff que nunca duerme</strong> y absorbe la sobrecarga de coordinación.",
     whoForHtml:
       "Para cualquiera navegando días saturados de IA — <strong>ejecutivos senior, builders, founders, operadores</strong>. La IA sola multiplica la confusión. The AIOS te da la estructura (prompt, contexto, intent, colaboración, segundo cerebro) donde emerge la claridad, y luego te permite amplificarte a ti y a tu equipo con co-workers de IA.",
-    reframePullquote:
-      "La pregunta equivocada: “¿Cómo meto la IA a mi empresa?” La pregunta correcta: “¿En qué se convierte mi gente cuando la IA se les une?”",
-    reframeAttribution: "— El Reframe",
     badge:
       "Si quieres sacarle el máximo a la IA sin perder lo que te hace irreemplazable — y sin riesgo de IP/PII — esto es para ti.",
   },

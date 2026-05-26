@@ -45,9 +45,6 @@ const en: Messages = {
       "The AIOS turns AI into a team — a legal you, an accountant you, a marketing you, a software engineer you. Run them all and be their orchestrator, or let one AI co-worker run the rest as your <strong>chief of staff who never sleeps</strong> and absorbs the coordination overhead.",
     whoForHtml:
       "For anyone navigating AI-overwhelming days — <strong>senior executives, builders, founders, operators</strong>. AI alone multiplies confusion. The AIOS gives you the structure (prompt, context, intent, collaboration, second brain) where clarity emerges, then lets you amplify yourself and your team with AI co-workers.",
-    reframePullquote:
-      "The wrong question: “How do I bring AI into my company?” The right question: “What becomes of my people when AI joins them?”",
-    reframeAttribution: "— The Reframe",
     badge:
       "If you want to make the most of AI without losing what makes you irreplaceable — and without IP/PII risk — this is for you.",
   },
