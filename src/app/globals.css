@@ -39,7 +39,17 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "cv11", "ss01", "ss03";  /* Inter's modern alternates */
+  /* Defensive: clip any accidental horizontal overflow at the root */
+  overflow-x: hidden;
+  width: 100%;
 }
+
+/* Long URLs / commands inside code + ai-affordance wrap on mobile */
+.code-block { word-break: break-word; overflow-wrap: anywhere; }
+.ai-affordance code { word-break: break-all; overflow-wrap: anywhere; }
+
+/* Images + SVGs never exceed their container width */
+img, svg { max-width: 100%; height: auto; }
 
 ::selection {
   background: var(--color-accent);
