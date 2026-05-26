@@ -1,4 +1,4 @@
-import { ContextLoopDiagram, TrapCurveDiagram, InflectionCurveDiagram, DestinationNetworkDiagram, WhyMostFailDiagram } from "./diagrams";
+import { ContextLoopDiagram, TrapCurveDiagram, InflectionCurveDiagram, DestinationNetworkDiagram, SkipDiagram, PlateauDiagram } from "./diagrams";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
@@ -243,16 +243,20 @@ function OperatorJobAndArc({ m }: { m: Messages }) {
         <div style={{ marginTop: "6rem" }}>
           <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.arc.failEyebrow}</p>
           <h3 className="display-md" style={{ marginBottom: "2rem", fontSize: "1.5rem" }}>{m.arc.failHeadline}</h3>
-          <WhyMostFailDiagram
-            skipLabel="THE SKIP"
-            skipTitle={m.arc.failSkipTitle}
-            skipBody={m.arc.failSkipBody}
-            plateauLabel="THE PLATEAU"
-            wallLabel="WALL"
-            plateauTitle={m.arc.failPlateauTitle}
-            plateauBody={m.arc.failPlateauBody}
-          />
-          <p className="body-text" style={{ textAlign: "center", fontStyle: "italic", color: "var(--color-ink-subtle)", marginTop: "1.5rem", marginBottom: 0 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "3rem", alignItems: "start" }}>
+            <SkipDiagram
+              label="THE SKIP"
+              title={m.arc.failSkipTitle}
+              body={m.arc.failSkipBody}
+            />
+            <PlateauDiagram
+              label="THE PLATEAU"
+              wallLabel="WALL"
+              title={m.arc.failPlateauTitle}
+              body={m.arc.failPlateauBody}
+            />
+          </div>
+          <p className="body-text" style={{ textAlign: "center", fontStyle: "italic", color: "var(--color-ink-subtle)", marginTop: "2rem", marginBottom: 0 }}>
             {m.arc.failClose}
           </p>
         </div>

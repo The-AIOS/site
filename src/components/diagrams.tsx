@@ -212,43 +212,47 @@ export function DestinationNetworkDiagram({ humanLabel, humanSub, agentLabels, c
   );
 }
 
-/* ---------- 5. Why Most Fail — two-pane diagram (The Skip vs The Plateau) ---------- */
+/* ---------- 5. Why Most Fail — split into two single-pane diagrams that
+              stack on mobile via a responsive grid in the page. ---------- */
 
-export function WhyMostFailDiagram({ skipLabel, skipTitle, skipBody, plateauLabel, wallLabel, plateauTitle, plateauBody }: {
-  skipLabel: string; skipTitle: string; skipBody: string; plateauLabel: string; wallLabel: string; plateauTitle: string; plateauBody: string;
-}) {
-  const StageBox = ({ x, label, active = false, faded = false }: { x: number; label: string; active?: boolean; faded?: boolean }) => (
-    <g opacity={faded ? 0.25 : 1}>
-      <rect x={x} y={60} width={70} height={50} fill={active ? "rgba(255,93,77,0.18)" : "#111111"} stroke={active ? "#ff5d4d" : "#262626"} />
-      <text x={x + 35} y={89} textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={9} fill={active ? "#ff5d4d" : "#707070"} letterSpacing={1.2}>{label}</text>
-    </g>
-  );
+const FailStageBox = ({ x, label, active = false, faded = false }: {
+  x: number; label: string; active?: boolean; faded?: boolean;
+}) => (
+  <g opacity={faded ? 0.25 : 1}>
+    <rect x={x} y={60} width={70} height={50} fill={active ? "rgba(255,93,77,0.18)" : "#111111"} stroke={active ? "#ff5d4d" : "#262626"} />
+    <text x={x + 35} y={89} textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={9} fill={active ? "#ff5d4d" : "#707070"} letterSpacing={1.2}>{label}</text>
+  </g>
+);
+
+export function SkipDiagram({ label, title, body }: { label: string; title: string; body: string }) {
   return (
-    <svg viewBox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="Why most fail: two ways companies break">
-      {/* LEFT — THE SKIP */}
-      <g>
-        <text x="220" y="22" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={11} letterSpacing={1.8} fill="#ff5d4d">{skipLabel}</text>
-        <StageBox x={40} label="1" />
-        <StageBox x={135} label="2" faded />
-        <StageBox x={230} label="3" faded />
-        <StageBox x={325} label="4" active />
-        <path d="M 75 60 Q 218 0, 360 60" fill="none" stroke="#ff5d4d" strokeWidth={1.5} strokeDasharray="5 4" />
-        <text x="220" y="148" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={12} fontWeight={700} fill="#fafafa">{skipTitle}</text>
-        <text x="220" y="172" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{skipBody}</text>
-      </g>
-      <line x1="500" y1="40" x2="500" y2="220" stroke="#262626" strokeWidth={1} />
-      {/* RIGHT — THE PLATEAU */}
-      <g transform="translate(540, 0)">
-        <text x="220" y="22" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={11} letterSpacing={1.8} fill="#ff5d4d">{plateauLabel}</text>
-        <StageBox x={40} label="1" />
-        <StageBox x={135} label="2" />
-        <line x1="218" y1="46" x2="218" y2="124" stroke="#ff5d4d" strokeWidth={3} strokeLinecap="round" />
-        <text x="218" y="40" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={9} fill="#ff5d4d" letterSpacing={1.4}>{wallLabel}</text>
-        <StageBox x={230} label="3" faded />
-        <StageBox x={325} label="4" faded />
-        <text x="220" y="148" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={12} fontWeight={700} fill="#fafafa">{plateauTitle}</text>
-        <text x="220" y="172" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{plateauBody}</text>
-      </g>
+    <svg viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="Why most fail: the skip">
+      <text x="220" y="22" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={11} letterSpacing={1.8} fill="#ff5d4d">{label}</text>
+      <FailStageBox x={40} label="1" />
+      <FailStageBox x={135} label="2" faded />
+      <FailStageBox x={230} label="3" faded />
+      <FailStageBox x={325} label="4" active />
+      <path d="M 75 60 Q 218 0, 360 60" fill="none" stroke="#ff5d4d" strokeWidth={1.5} strokeDasharray="5 4" />
+      <text x="220" y="148" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={12} fontWeight={700} fill="#fafafa">{title}</text>
+      <text x="220" y="172" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{body}</text>
+    </svg>
+  );
+}
+
+export function PlateauDiagram({ label, wallLabel, title, body }: {
+  label: string; wallLabel: string; title: string; body: string;
+}) {
+  return (
+    <svg viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="Why most fail: the plateau">
+      <text x="220" y="22" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={11} letterSpacing={1.8} fill="#ff5d4d">{label}</text>
+      <FailStageBox x={40} label="1" />
+      <FailStageBox x={135} label="2" />
+      <line x1="218" y1="46" x2="218" y2="124" stroke="#ff5d4d" strokeWidth={3} strokeLinecap="round" />
+      <text x="218" y="40" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={9} fill="#ff5d4d" letterSpacing={1.4}>{wallLabel}</text>
+      <FailStageBox x={230} label="3" faded />
+      <FailStageBox x={325} label="4" faded />
+      <text x="220" y="148" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={12} fontWeight={700} fill="#fafafa">{title}</text>
+      <text x="220" y="172" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{body}</text>
     </svg>
   );
 }
