@@ -12,7 +12,7 @@
     "i18n:audit": "tsx scripts/i18n-audit.ts"
   },
   "dependencies": {
-    "next": "16.0.0",
+    "next": "16.0.10",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
