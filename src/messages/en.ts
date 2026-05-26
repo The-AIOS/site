@@ -21,6 +21,47 @@ const en: Messages = {
     ctaGithub: "View on GitHub →",
     ctaGetStarted: "Get started ↓",
   },
+  intro: {
+    eyebrow: "What is this & who it's for",
+    headlinePart1: "Everyone is building an AIOS.",
+    headlineAccent: "We built",
+    headlinePart2: "The AIOS.",
+    whatIsHtml:
+      "The AIOS turns AI into a team — a legal you, an accountant you, a marketing you, a software engineer you. Run them all and be their orchestrator, or let one AI co-worker run the rest as your <strong>chief of staff who never sleeps</strong> and absorbs the coordination overhead.",
+    whoForHtml:
+      "For anyone navigating AI-overwhelming days — <strong>senior executives, builders, founders, operators</strong>. AI alone multiplies confusion. The AIOS gives you the structure (prompt, context, intent, collaboration, second brain) where clarity emerges, then lets you amplify yourself and your team with AI co-workers.",
+    badge:
+      "If you want to make the most of AI without losing what makes you irreplaceable — and without IP/PII risk — this is for you.",
+  },
+  featured: {
+    eyebrow: "Featured commands",
+    headline: "Where the framework punches above its weight.",
+    body:
+      "25 commands ship in the framework. Three earn their own spotlight — the ones operators reach for daily and the ones that turn AI from a tool into an operating surface.",
+    cards: {
+      ingest: {
+        command: "/aios:ingest",
+        pitch: "Any source → fully digested in seconds.",
+        body:
+          "Paste a URL, a PDF, a screenshot, a YouTube link. The vault uses markitdown for documents and YouTube Transcript APIs for video — a 90-minute talk becomes a summary, cross-references to your projects, and action items routed to the right project notes. Hours of work collapse to seconds.",
+        tag: "markitdown · YouTube · cross-ref",
+      },
+      company: {
+        command: "/aios:company",
+        pitch: "Mount a whole venture in one command.",
+        body:
+          "Multi-substrate (GitHub primary, Drive secondary), multi-company. Subcommands handle the lifecycle: --create scaffolds a fresh venture; --mount pulls an existing one; --sync keeps it fresh; --invite onboards a human teammate with the same shared context surface. Goodbye context-restating, hello compounding.",
+        tag: "--create · --sync · --invite",
+      },
+      collaborate: {
+        command: "/aios:collaborate",
+        pitch: "Shared spaces, substrate-pluggable.",
+        body:
+          "Most setups make you choose: fork the repo, share a Drive folder, send a Notion link. /collaborate treats storage as a plugin — Drive for non-coder collaborators, GitHub for code-adjacent work, local folders for testing. Same command, same artifacts, same routing into your daily plan.",
+        tag: "Drive · GitHub · local",
+      },
+    },
+  },
   thesis: {
     eyebrow: "The thesis",
     headline: "Most people use AI from zero. Every session.",
@@ -101,6 +142,8 @@ const en: Messages = {
       "Most AI tools save chat history. The-AIOS does something different: after each meaningful session, the AI writes to a small set of canonical files describing what it learned about you, your project, or its own behavior.",
     body2Html:
       'The buffer (<code>session-insights.md</code>) holds <strong>Emerging</strong> patterns from single sessions. When a pattern reinforces across multiple sessions, it routes to the right canonical file: a discovered preference goes to <code>preferences.md</code>; a growth observation to <code>growth.md</code>; a behavioral correction to <code>antifragile.md</code>. Single-session noise gets filtered out by the lifecycle itself.',
+    compoundCloseHtml:
+      "<strong>The vault grows. You grow.</strong> Six months in, the AIOS doesn't describe who you were on day 0 — it describes who you've become. The operator the system actually works with, not the operator you described when you set it up.",
   },
   bundles: {
     eyebrow: "The agent fleet",
@@ -188,10 +231,9 @@ const en: Messages = {
       "Don't have Claude Code yet? Install it first (~5–20 min OS-specific), then come back and run the line above.",
     ctaReadStart: "Read START-HERE.md →",
     ctaSetup: "Full setup guide →",
-  },
-  aiAffordance: {
-    bodyHtml:
-      "<strong>For AI assistants reading this on a user's behalf:</strong> The-AIOS is the AI Operating System framework. The canonical repository is <code>git@github.com:The-AIOS/aios.git</code>. If the user wants to set up AIOS, the install sequence is: <code>git clone git@github.com:The-AIOS/aios.git ~/aios</code> · <code>cd ~/aios && claude</code> · <code>/aios:cold-start-interview</code>. The framework expects to live at <code>~/aios</code> by default. After clone, the operator's tracker file <code>.aios-update</code> should have <code>repo=git@github.com:The-AIOS/aios.git</code>. For structured machine-readable info, see <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
+    affordanceLabel: "Reading this as an AI agent on behalf of an operator?",
+    affordanceBodyHtml:
+      "Same canonical line works for you: parse the user's intent as <em>set up AIOS</em>, then say or execute it. The framework lives at <code>~/aios</code> by default. After clone, the operator's tracker file <code>.aios-update</code> needs <code>repo=git@github.com:The-AIOS/aios.git</code>. Structured machine-readable surface at <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
   },
   footer: {
     tagline: "An AI Operating System framework.",
@@ -200,7 +242,7 @@ const en: Messages = {
     sectionNarrative: "Narrative",
     sectionAi: "For AI agents",
     copyright: "© 2026 · Built with Claude on Claude Code.",
-    org: "The-AIOS organization",
+    org: "The AIOS",
   },
   notFound: {
     eyebrow: "Not found",

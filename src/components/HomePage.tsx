@@ -9,14 +9,15 @@ export default function HomePage({ m, locale }: Props) {
     <main>
       <Header m={m} locale={locale} />
       <Hero m={m} />
+      <Intro m={m} />
       <Thesis m={m} />
       <Capabilities m={m} />
+      <Featured m={m} />
       <Architecture m={m} />
       <ObservedLoop m={m} />
       <Bundles m={m} />
       <ThinkingAhead m={m} />
       <GetStarted m={m} />
-      <AiAffordance m={m} />
       <Footer m={m} />
     </main>
   );
@@ -93,6 +94,73 @@ function Hero({ m }: { m: Messages }) {
 }
 
 /* ------------------------------------------------------------------ */
+
+function Intro({ m }: { m: Messages }) {
+  return (
+    <section id="intro" className="section">
+      <div className="container">
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.intro.eyebrow}</p>
+        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "2.5rem", maxWidth: "920px" }}>
+          {m.intro.headlinePart1}{" "}
+          <span style={{ color: "var(--color-accent)" }}>{m.intro.headlineAccent}</span>{" "}
+          {m.intro.headlinePart2}
+        </h2>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2.5rem", marginBottom: "2rem" }}>
+          <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whatIsHtml }} />
+          <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whoForHtml }} />
+        </div>
+
+        <div
+          style={{
+            borderLeft: "2px solid var(--color-accent)",
+            paddingLeft: "1rem",
+            color: "var(--color-ink-muted)",
+            fontStyle: "italic",
+            fontSize: "1rem",
+            maxWidth: "780px",
+          }}
+        >
+          {m.intro.badge}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Featured({ m }: { m: Messages }) {
+  const cards = [m.featured.cards.ingest, m.featured.cards.company, m.featured.cards.collaborate];
+  return (
+    <section id="featured" className="section">
+      <div className="container">
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+          <div>
+            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.featured.eyebrow}</p>
+            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
+            <h2 className="display-lg">{m.featured.headline}</h2>
+          </div>
+          <div>
+            <p className="body-text">{m.featured.body}</p>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
+          {cards.map((c) => (
+            <div key={c.command} className="card">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.75rem", gap: "0.5rem", flexWrap: "wrap" }}>
+                <code className="mono" style={{ fontWeight: 600, fontSize: "0.9375rem" }}>{c.command}</code>
+                <span className="caption" style={{ color: "var(--color-ink-subtle)", fontSize: "0.6875rem" }}>{c.tag}</span>
+              </div>
+              <h3 className="display-md" style={{ marginBottom: "0.625rem" }}>{c.pitch}</h3>
+              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0 }}>{c.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function Thesis({ m }: { m: Messages }) {
   return (
@@ -200,7 +268,7 @@ function ObservedLoop({ m }: { m: Messages }) {
   return (
     <section className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1fr)", gap: "5rem", alignItems: "start", marginBottom: "2.5rem" }}>
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.observedLoop.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
@@ -211,6 +279,23 @@ function ObservedLoop({ m }: { m: Messages }) {
           <div>
             <ContextLoopDiagram />
           </div>
+        </div>
+
+        <div
+          style={{
+            maxWidth: "880px",
+            padding: "1.5rem 1.75rem",
+            background: "var(--color-surface-1)",
+            border: "1px solid var(--color-hairline)",
+            borderLeft: "3px solid var(--color-accent)",
+            borderRadius: "8px",
+          }}
+        >
+          <p
+            className="body-text"
+            style={{ margin: 0, fontSize: "1.0625rem", color: "var(--color-ink)" }}
+            dangerouslySetInnerHTML={{ __html: m.observedLoop.compoundCloseHtml }}
+          />
         </div>
       </div>
     </section>
@@ -341,7 +426,7 @@ function GetStarted({ m }: { m: Messages }) {
           {m.getStarted.prereqNote}
         </p>
 
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
           <a href="https://github.com/The-AIOS/aios/blob/main/START-HERE.md" className="btn-primary" target="_blank" rel="noreferrer">
             {m.getStarted.ctaReadStart}
           </a>
@@ -349,19 +434,12 @@ function GetStarted({ m }: { m: Messages }) {
             {m.getStarted.ctaSetup}
           </a>
         </div>
-      </div>
-    </section>
-  );
-}
 
-/* ------------------------------------------------------------------ */
-
-function AiAffordance({ m }: { m: Messages }) {
-  return (
-    <section className="section-tight">
-      <div className="container">
-        <div className="ai-affordance">
-          <p style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: m.aiAffordance.bodyHtml }} />
+        <div className="ai-affordance" style={{ maxWidth: "780px" }}>
+          <p style={{ margin: "0 0 0.5rem 0" }}>
+            <strong>{m.getStarted.affordanceLabel}</strong>
+          </p>
+          <p style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: m.getStarted.affordanceBodyHtml }} />
         </div>
       </div>
     </section>

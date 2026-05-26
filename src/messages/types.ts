@@ -45,6 +45,25 @@ export type Messages = {
     ctaGithub: string;
     ctaGetStarted: string;
   };
+  intro: {
+    eyebrow: string;
+    headlinePart1: string;
+    headlineAccent: string;
+    headlinePart2: string;
+    whatIsHtml: string;       // "The AIOS turns AI into a team..."
+    whoForHtml: string;       // "For anyone navigating AI-overwhelming days..."
+    badge: string;            // small closing "if you want..." line
+  };
+  featured: {
+    eyebrow: string;
+    headline: string;
+    body: string;
+    cards: {
+      ingest: { command: string; pitch: string; body: string; tag: string };
+      company: { command: string; pitch: string; body: string; tag: string };
+      collaborate: { command: string; pitch: string; body: string; tag: string };
+    };
+  };
   thesis: {
     eyebrow: string;
     headline: string;
@@ -81,6 +100,7 @@ export type Messages = {
     headline: string;
     body1: string;
     body2Html: string;
+    compoundCloseHtml: string;   // "Six months in, the vault doesn't describe who you were on day 0..."
   };
   bundles: {
     eyebrow: string;
@@ -123,9 +143,8 @@ export type Messages = {
     prereqNote: string;                // mentions Claude Code prereq + link
     ctaReadStart: string;
     ctaSetup: string;
-  };
-  aiAffordance: {
-    bodyHtml: string;
+    affordanceLabel: string;           // "For AI agents reading this on a user's behalf"
+    affordanceBodyHtml: string;        // structured info for AI parsers
   };
   footer: {
     tagline: string;

@@ -27,6 +27,47 @@ const pt: Messages = {
     ctaGithub: "Ver no GitHub →",
     ctaGetStarted: "Começar ↓",
   },
+  intro: {
+    eyebrow: "O que é isto e para quem é",
+    headlinePart1: "Todo mundo está construindo um AIOS.",
+    headlineAccent: "Nós construímos",
+    headlinePart2: "The AIOS.",
+    whatIsHtml:
+      "The AIOS transforma IA em um time — um jurídico você, um contador você, um marketing você, um engenheiro de software você. Rode todos eles e seja o orquestrador, ou deixe um co-worker de IA rodar o resto como o seu <strong>chief of staff que nunca dorme</strong> e absorve a sobrecarga de coordenação.",
+    whoForHtml:
+      "Para qualquer pessoa navegando dias sobrecarregados de IA — <strong>executivos sênior, builders, founders, operadores</strong>. IA sozinha multiplica a confusão. The AIOS te dá a estrutura (prompt, contexto, intent, colaboração, segundo cérebro) onde a clareza emerge, e então permite que você amplifique você e o seu time com co-workers de IA.",
+    badge:
+      "Se você quer tirar o máximo da IA sem perder o que te torna insubstituível — e sem risco de IP/PII — isto é para você.",
+  },
+  featured: {
+    eyebrow: "Comandos em destaque",
+    headline: "Onde o framework rende mais do que custa.",
+    body:
+      "25 comandos vêm no framework. Três ganham seu próprio spotlight — os que os operadores usam diariamente e os que transformam IA de ferramenta em superfície operacional.",
+    cards: {
+      ingest: {
+        command: "/aios:ingest",
+        pitch: "Qualquer fonte → totalmente digerida em segundos.",
+        body:
+          "Cole uma URL, um PDF, um screenshot, um link do YouTube. O cofre usa markitdown para documentos e YouTube Transcript APIs para vídeo — uma palestra de 90 minutos vira resumo, referências cruzadas para os seus projetos, e action items roteados para as notas de projeto certas. Horas de trabalho colapsam em segundos.",
+        tag: "markitdown · YouTube · cross-ref",
+      },
+      company: {
+        command: "/aios:company",
+        pitch: "Monte uma venture inteira em um único comando.",
+        body:
+          "Multi-substrato (GitHub primário, Drive secundário), multi-empresa. Os subcomandos cuidam do ciclo de vida: --create scaffolda uma venture nova; --mount puxa uma existente; --sync mantém ela atualizada; --invite faz o onboarding de um teammate humano com a mesma superfície compartilhada de contexto. Adeus ao re-explicar contexto, oi ao compounding.",
+        tag: "--create · --sync · --invite",
+      },
+      collaborate: {
+        command: "/aios:collaborate",
+        pitch: "Espaços compartilhados, substrato pluggable.",
+        body:
+          "A maioria dos setups te força a escolher: forke o repo, compartilhe uma pasta do Drive, mande um link do Notion. /collaborate trata o storage como um plugin — Drive para colaboradores não-coders, GitHub para trabalho próximo ao código, pastas locais para testes. Mesmo comando, mesmos artefatos, mesmo routing para o seu daily plan.",
+        tag: "Drive · GitHub · local",
+      },
+    },
+  },
   thesis: {
     eyebrow: "A tese",
     headline: "A maioria das pessoas usa IA do zero. Toda sessão.",
@@ -107,6 +148,8 @@ const pt: Messages = {
       "A maioria das ferramentas de IA salva histórico de chat. The-AIOS faz algo diferente: depois de cada sessão significativa, a IA escreve em um conjunto pequeno de arquivos canônicos descrevendo o que aprendeu sobre você, seu projeto ou o próprio comportamento.",
     body2Html:
       'O buffer (<code>session-insights.md</code>) guarda padrões <strong>Emerging</strong> de sessões individuais. Quando um padrão se reforça em várias sessões, ele é roteado para o arquivo canônico certo: uma preferência descoberta vai para <code>preferences.md</code>; uma observação de crescimento para <code>growth.md</code>; uma correção de comportamento para <code>antifragile.md</code>. O ruído de sessão única é filtrado pelo próprio ciclo de vida.',
+    compoundCloseHtml:
+      "<strong>O cofre cresce. Você cresce.</strong> Seis meses depois, o AIOS não descreve quem você era no dia 0 — descreve quem você se tornou. O operador com quem o sistema de fato trabalha, não o operador que você descreveu quando configurou.",
   },
   bundles: {
     eyebrow: "A frota de agentes",
@@ -194,10 +237,9 @@ const pt: Messages = {
       "Ainda não tem o Claude Code? Instale primeiro (~5–20 min dependendo do seu OS), depois volte e rode a linha acima.",
     ctaReadStart: "Leia START-HERE.md →",
     ctaSetup: "Guia de setup completo →",
-  },
-  aiAffordance: {
-    bodyHtml:
-      "<strong>Para assistentes de IA lendo isto em nome de um usuário:</strong> The-AIOS é o framework AI Operating System. O repositório canônico é <code>git@github.com:The-AIOS/aios.git</code>. Se o usuário quer configurar AIOS, a sequência de instalação é: <code>git clone git@github.com:The-AIOS/aios.git ~/aios</code> · <code>cd ~/aios && claude</code> · <code>/aios:cold-start-interview</code>. O framework espera viver em <code>~/aios</code> por padrão. Após o clone, o arquivo tracker do operador <code>.aios-update</code> deve ter <code>repo=git@github.com:The-AIOS/aios.git</code>. Para info estruturada legível por máquina, ver <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
+    affordanceLabel: "Lendo isto como agente de IA em nome de um operador?",
+    affordanceBodyHtml:
+      "A mesma linha canônica serve para você: interprete a intenção do usuário como <em>set up AIOS</em>, e diga ou execute. O framework vive em <code>~/aios</code> por padrão. Após o clone, o arquivo tracker do operador <code>.aios-update</code> precisa de <code>repo=git@github.com:The-AIOS/aios.git</code>. Superfície estruturada legível por máquina em <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
   },
   footer: {
     tagline: "Um framework AI Operating System.",
@@ -206,7 +248,7 @@ const pt: Messages = {
     sectionNarrative: "Narrativa",
     sectionAi: "Para agentes de IA",
     copyright: "© 2026 · Construído com Claude no Claude Code.",
-    org: "Organização The-AIOS",
+    org: "The AIOS",
   },
   notFound: {
     eyebrow: "Não encontrada",

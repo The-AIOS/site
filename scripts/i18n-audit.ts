@@ -101,6 +101,16 @@ const allowedIdentical = new Set([
   "bundles.bundleNames.personal.name",
   // Canonical command — literal text that gets pasted into Claude Code; same across all locales by design
   "getStarted.instruction",
+  // Featured commands — slash commands + technical tags don't translate
+  "featured.cards.ingest.command",
+  "featured.cards.company.command",
+  "featured.cards.collaborate.command",
+  "featured.cards.ingest.tag",
+  "featured.cards.company.tag",
+  "featured.cards.collaborate.tag",
+  // Brand names
+  "footer.org",            // "The AIOS"
+  "intro.headlinePart2",   // "The AIOS." (brand)
 ]);
 
 const enMap = new Map(flatEn.map((x) => [x.path, x.value]));
