@@ -1,6 +1,7 @@
 import { ContextLoopDiagram, TrapCurveDiagram, InflectionCurveDiagram, DestinationNetworkDiagram, WhyMostFailDiagram } from "./diagrams";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Logo } from "./Logo";
+import { MobileMenu } from "./MobileMenu";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
 import type { Locale, Messages } from "@/messages";
 
@@ -42,7 +43,7 @@ function Header({ m, locale }: Props) {
     >
       <div
         className="container"
-        style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 1.5rem", gap: "1rem", flexWrap: "wrap" }}
+        style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 1.5rem", gap: "1rem" }}
       >
         <a
           href="#top"
@@ -62,7 +63,7 @@ function Header({ m, locale }: Props) {
           <Logo size={18} />
           The-AIOS
         </a>
-        <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
+        <nav className="nav-desktop" style={{ gap: "1.5rem", alignItems: "center" }}>
           <a href="#thesis" className="caption" style={{ textDecoration: "none" }}>{m.nav.thesis}</a>
           <a href="#capabilities" className="caption" style={{ textDecoration: "none" }}>{m.nav.capabilities}</a>
           <a href="#bundles" className="caption" style={{ textDecoration: "none" }}>{m.nav.agents}</a>
@@ -74,6 +75,7 @@ function Header({ m, locale }: Props) {
           </a>
           <LocaleSwitcher current={locale} />
         </nav>
+        <MobileMenu m={m} locale={locale} />
       </div>
     </header>
   );
@@ -279,7 +281,7 @@ function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution
       </div>
       <h3 className="display-lg" style={{ marginBottom: "1rem", fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>{headline}</h3>
       <p className="lede" style={{ maxWidth: "780px", marginBottom: "1.25rem" }}>{lede}</p>
-      <div style={{ display: "grid", gridTemplateColumns: diagram ? "minmax(0, 1.1fr) minmax(0, 1fr)" : "1fr", gap: diagram ? "3rem" : 0, alignItems: "center" }}>
+      <div className={diagram ? "content-grid" : undefined} style={diagram ? undefined : { display: "block" }}>
         <div>
           <p className="body-text" style={{ marginBottom: signal || pullquote ? "1.25rem" : 0, maxWidth: "560px" }}>{body}</p>
           {pullquote && (
@@ -309,7 +311,7 @@ function Featured({ m }: { m: Messages }) {
   return (
     <section id="featured" className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+        <div className="section-grid" style={{ marginBottom: "3rem" }}>
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.featured.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
@@ -341,14 +343,8 @@ function Featured({ m }: { m: Messages }) {
 function ProgressionRow({ stage, isLast = false }: { stage: { dot: string; name: string; aiRole: string; humanRole: string }; isLast?: boolean }) {
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "minmax(0, 0.5fr) minmax(0, 1fr) minmax(0, 1.5fr)",
-        gap: "1rem",
-        padding: "0.875rem 0",
-        borderBottom: isLast ? "none" : "1px solid var(--color-hairline)",
-        alignItems: "baseline",
-      }}
+      className="progression-row"
+      style={{ borderBottom: isLast ? "none" : "1px solid var(--color-hairline)" }}
     >
       <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
         <span style={{ fontSize: "0.75rem" }} aria-hidden="true">{stage.dot}</span>
@@ -395,7 +391,7 @@ function Thesis({ m }: { m: Messages }) {
   return (
     <section id="thesis" className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start" }}>
+        <div className="section-grid">
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.thesis.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
@@ -439,7 +435,7 @@ function Capabilities({ m }: { m: Messages }) {
   return (
     <section id="capabilities" className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+        <div className="section-grid" style={{ marginBottom: "3rem" }}>
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.capabilities.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
@@ -481,7 +477,7 @@ function Architecture({ m }: { m: Messages }) {
   return (
     <section id="architecture" className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+        <div className="section-grid" style={{ marginBottom: "3rem" }}>
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.architecture.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
@@ -516,7 +512,7 @@ function ObservedLoop({ m }: { m: Messages }) {
   return (
     <section className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1fr)", gap: "5rem", alignItems: "start", marginBottom: "2.5rem" }}>
+        <div className="content-grid-flipped" style={{ marginBottom: "2.5rem" }}>
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.observedLoop.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
@@ -565,7 +561,7 @@ function Bundles({ m }: { m: Messages }) {
   return (
     <section id="bundles" className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+        <div className="section-grid" style={{ marginBottom: "3rem" }}>
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.bundles.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
@@ -624,7 +620,7 @@ function ThinkingAhead({ m }: { m: Messages }) {
   return (
     <section id="thinking-ahead" className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+        <div className="section-grid" style={{ marginBottom: "3rem" }}>
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.thinkingAhead.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
