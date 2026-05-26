@@ -99,6 +99,8 @@ const allowedIdentical = new Set([
   "architecture.cards.intent.eyebrow",
   // "Personal" — same word + meaning in Spanish (es); already translated to "Pessoal" in pt
   "bundles.bundleNames.personal.name",
+  // Canonical command — literal text that gets pasted into Claude Code; same across all locales by design
+  "getStarted.instruction",
 ]);
 
 const enMap = new Map(flatEn.map((x) => [x.path, x.value]));

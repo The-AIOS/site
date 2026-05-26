@@ -179,12 +179,13 @@ const en: Messages = {
   },
   getStarted: {
     eyebrow: "Get started",
-    headline: "Three commands. Then you're inside.",
-    codeStep1Comment: "# 1. Clone the framework",
-    codeStep2Comment: "# 2. Launch Claude Code from the vault",
-    codeStep3Comment: "# 3. Run the cold-start interview",
+    headline: "One line. Claude does the rest.",
+    instructionCommentary: "In any Claude Code session, say:",
+    instruction: "Set up my AI-OS from https://github.com/The-AIOS/aios",
     body:
-      "The interview walks you through declaring who you are, what you do, what ventures you're working on, and what you want Claude to handle without asking. Twenty to thirty minutes. After that, your vault knows you — and every session after starts from your actual context, not from zero.",
+      "Claude reads SETUP.md, clones the framework, installs MCPs, configures your private vault, and walks you through every choice. Roughly ten minutes for the setup, twenty more for the cold-start interview that calibrates the AI to who you are and what you're building.",
+    prereqNote:
+      "Don't have Claude Code yet? Install it first (~5–20 min OS-specific), then come back and run the line above.",
     ctaReadStart: "Read START-HERE.md →",
     ctaSetup: "Full setup guide →",
   },

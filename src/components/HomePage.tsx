@@ -1,4 +1,4 @@
-import { ContextLoopDiagram, FortressDiagram, ThreeLayerDiagram } from "./diagrams";
+import { ContextLoopDiagram } from "./diagrams";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import type { Locale, Messages } from "@/messages";
 
@@ -31,18 +31,17 @@ function Header({ m, locale }: Props) {
         position: "sticky",
         top: 0,
         zIndex: 10,
-        backdropFilter: "blur(8px)",
-        background: "rgba(10, 10, 10, 0.85)",
+        backdropFilter: "blur(12px)",
+        background: "rgba(10, 10, 10, 0.78)",
         borderBottom: "1px solid var(--color-hairline)",
       }}
     >
       <div
         className="container"
-        style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.5rem", gap: "1rem", flexWrap: "wrap" }}
+        style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 1.5rem", gap: "1rem", flexWrap: "wrap" }}
       >
         <span
-          className="byline"
-          style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", letterSpacing: "-0.02em", textTransform: "none", fontWeight: 600, color: "var(--color-ink)" }}
+          style={{ fontFamily: "var(--font-display)", fontSize: "1rem", letterSpacing: "-0.025em", fontWeight: 700, color: "var(--color-ink)" }}
         >
           The-AIOS
         </span>
@@ -67,41 +66,26 @@ function Header({ m, locale }: Props) {
 
 function Hero({ m }: { m: Messages }) {
   return (
-    <section className="section hero-section" style={{ paddingTop: "7rem", paddingBottom: "7rem" }}>
-      <div className="container">
-        <div className="hero-grid">
-          <div className="hero-text">
-            <p className="eyebrow" style={{ marginBottom: "2rem" }}>
-              <span className="accent">{m.hero.eyebrowFramework}</span> · {m.hero.eyebrowSuffix}
-            </p>
-            <h1 className="display-xl" style={{ marginBottom: "2rem" }}>
-              {m.hero.headlinePart1}{" "}
-              <span style={{ color: "var(--color-accent)" }}>{m.hero.headlineAccent}</span>{" "}
-              {m.hero.headlinePart2}
-            </h1>
-            <p className="lede" style={{ marginBottom: "2.5rem" }}>
-              {m.hero.lede}
-            </p>
-            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-              <a href="https://github.com/The-AIOS/aios" className="btn-primary" target="_blank" rel="noreferrer">
-                {m.hero.ctaGithub}
-              </a>
-              <a href="#get-started" className="btn-secondary">
-                {m.hero.ctaGetStarted}
-              </a>
-            </div>
-          </div>
-          <div className="hero-image-wrap" aria-hidden="true">
-            <img
-              src="/hero.jpg"
-              alt=""
-              width={1344}
-              height={768}
-              loading="eager"
-              decoding="async"
-              className="hero-image"
-            />
-          </div>
+    <section className="section section-hero hero-glow">
+      <div className="container" style={{ maxWidth: "880px", textAlign: "center" }}>
+        <p className="eyebrow" style={{ marginBottom: "1.25rem" }}>
+          <span className="accent">{m.hero.eyebrowFramework}</span> · {m.hero.eyebrowSuffix}
+        </p>
+        <h1 className="display-xl" style={{ marginBottom: "1.5rem" }}>
+          {m.hero.headlinePart1}{" "}
+          <span style={{ color: "var(--color-accent)" }}>{m.hero.headlineAccent}</span>{" "}
+          {m.hero.headlinePart2}
+        </h1>
+        <p className="lede" style={{ maxWidth: "640px", marginInline: "auto", marginBottom: "2rem" }}>
+          {m.hero.lede}
+        </p>
+        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <a href="https://github.com/The-AIOS/aios" className="btn-primary" target="_blank" rel="noreferrer">
+            {m.hero.ctaGithub}
+          </a>
+          <a href="#get-started" className="btn-secondary">
+            {m.hero.ctaGetStarted}
+          </a>
         </div>
       </div>
     </section>
@@ -196,16 +180,12 @@ function Architecture({ m }: { m: Messages }) {
           </div>
         </div>
 
-        <div style={{ marginBottom: "3rem" }}>
-          <ThreeLayerDiagram />
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
           {cards.map((c) => (
             <div key={c.eyebrow} className="card">
               <p className="card-eyebrow">{c.eyebrow}</p>
-              <h3 className="display-md" style={{ fontSize: "1.25rem", marginBottom: "0.75rem" }}>{c.title}</h3>
-              <p className="body-text" style={{ fontSize: "1rem", marginBottom: 0 }}>{c.body}</p>
+              <h3 className="display-md" style={{ marginBottom: "0.625rem" }}>{c.title}</h3>
+              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0 }}>{c.body}</p>
             </div>
           ))}
         </div>
@@ -277,17 +257,14 @@ function Bundles({ m }: { m: Messages }) {
           ))}
         </div>
 
-        <hr className="hairline" style={{ margin: "4rem 0 3rem" }} />
+        <hr className="hairline" style={{ margin: "3.5rem 0 2.5rem" }} />
 
         <div>
-          <p className="eyebrow" style={{ marginBottom: "1.5rem", color: "var(--color-accent)" }}>{m.bundles.fortress.eyebrow}</p>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1fr)", gap: "4rem", alignItems: "start" }}>
-            <div>
-              <h3 className="display-md" style={{ marginBottom: "1.25rem" }}>{m.bundles.fortress.headline}</h3>
-              <p className="body-text" style={{ marginBottom: "1rem" }}>{m.bundles.fortress.body1}</p>
-              <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body2}</p>
-            </div>
-            <FortressDiagram />
+          <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.bundles.fortress.eyebrow}</p>
+          <h3 className="display-md" style={{ marginBottom: "1rem" }}>{m.bundles.fortress.headline}</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem" }}>
+            <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body1}</p>
+            <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body2}</p>
           </div>
         </div>
       </div>
@@ -348,21 +325,23 @@ function GetStarted({ m }: { m: Messages }) {
     <section id="get-started" className="section" style={{ background: "var(--color-surface-1)" }}>
       <div className="container">
         <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.getStarted.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "2.5rem", maxWidth: "780px" }}>{m.getStarted.headline}</h2>
+        <hr className="accent-rule" style={{ marginBottom: "1.5rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "2rem", maxWidth: "780px" }}>{m.getStarted.headline}</h2>
 
-        <div className="code-block" style={{ fontSize: "1rem", padding: "1.5rem 2rem", marginBottom: "2rem", maxWidth: "780px" }}>
-          <div><span className="comment">{m.getStarted.codeStep1Comment}</span></div>
-          <div><span className="accent">git clone</span> git@github.com:The-AIOS/aios.git ~/aios</div>
-          <div style={{ marginTop: "1rem" }}><span className="comment">{m.getStarted.codeStep2Comment}</span></div>
-          <div><span className="accent">cd</span> ~/aios && <span className="accent">claude</span></div>
-          <div style={{ marginTop: "1rem" }}><span className="comment">{m.getStarted.codeStep3Comment}</span></div>
-          <div><span className="accent">/aios:cold-start-interview</span></div>
+        <p className="caption" style={{ marginBottom: "0.75rem", color: "var(--color-ink-muted)" }}>
+          {m.getStarted.instructionCommentary}
+        </p>
+        <div className="code-block" style={{ padding: "1.25rem 1.5rem", marginBottom: "1.75rem", maxWidth: "780px" }}>
+          <span className="quote">&quot;</span><span className="accent">{m.getStarted.instruction}</span><span className="quote">&quot;</span>
         </div>
 
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2rem" }}>{m.getStarted.body}</p>
+        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "1.25rem", fontSize: "1rem" }}>{m.getStarted.body}</p>
 
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+        <p className="caption" style={{ maxWidth: "780px", marginBottom: "2rem", color: "var(--color-ink-subtle)" }}>
+          {m.getStarted.prereqNote}
+        </p>
+
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
           <a href="https://github.com/The-AIOS/aios/blob/main/START-HERE.md" className="btn-primary" target="_blank" rel="noreferrer">
             {m.getStarted.ctaReadStart}
           </a>

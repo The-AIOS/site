@@ -184,12 +184,13 @@ const es: Messages = {
   },
   getStarted: {
     eyebrow: "Empezar",
-    headline: "Tres comandos. Y ya estás adentro.",
-    codeStep1Comment: "# 1. Clona el framework",
-    codeStep2Comment: "# 2. Lanza Claude Code desde la bóveda",
-    codeStep3Comment: "# 3. Corre la entrevista de cold-start",
+    headline: "Una línea. Claude hace el resto.",
+    instructionCommentary: "En cualquier sesión de Claude Code, di:",
+    instruction: "Set up my AI-OS from https://github.com/The-AIOS/aios",
     body:
-      "La entrevista te guía declarando quién eres, qué haces, qué ventures estás trabajando, y qué quieres que Claude maneje sin preguntar. Veinte o treinta minutos. Después de eso, tu bóveda te conoce — y cada sesión arranca desde tu contexto real, no desde cero.",
+      "Claude lee SETUP.md, clona el framework, instala los MCPs, configura tu bóveda privada, y te guía por cada elección. Unos diez minutos para el setup, veinte más para la entrevista de cold-start que calibra la IA a quién eres y qué estás construyendo.",
+    prereqNote:
+      "¿No tienes Claude Code todavía? Instálalo primero (~5–20 min según tu OS), luego vuelve y corre la línea de arriba.",
     ctaReadStart: "Lee START-HERE.md →",
     ctaSetup: "Guía de setup completa →",
   },

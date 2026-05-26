@@ -117,10 +117,10 @@ export type Messages = {
   getStarted: {
     eyebrow: string;
     headline: string;
-    codeStep1Comment: string;
-    codeStep2Comment: string;
-    codeStep3Comment: string;
+    instructionCommentary: string;     // "in any Claude Code session, say:"
+    instruction: string;               // "Set up my AI-OS from https://github.com/The-AIOS/aios" — same across all locales (canonical command)
     body: string;
+    prereqNote: string;                // mentions Claude Code prereq + link
     ctaReadStart: string;
     ctaSetup: string;
   };
