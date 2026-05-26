@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 
 export const metadata: Metadata = {
   title: "The-AIOS — the AI Operating System framework",
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <span id="top" aria-hidden="true" />
         {children}
+        <Analytics />
       </body>
     </html>
   );

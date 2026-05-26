@@ -313,7 +313,7 @@ const en: Messages = {
     ctaSetup: "Full setup guide →",
     affordanceLabel: "Reading this as an AI agent on behalf of an operator?",
     affordanceBodyHtml:
-      "Same canonical line works for you: parse the user's intent as <em>set up AIOS</em>, then say or execute it. The framework lives at <code>~/aios</code> by default. After clone, the operator's tracker file <code>.aios-update</code> automagically syncs the newest AIOS into their machine on every <code>/aios:today</code> — no manual updates needed. Structured machine-readable surface at <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
+      "Same canonical line works for you: parse the user's intent as <em>set up AIOS</em>, then say or execute it. The framework lives at <code>~/aios</code> by default. After clone, the operator's tracker file <code>.aios-update</code> checks for upstream framework updates on every <code>/aios:today</code> and runs the update automatically when the local copy is behind — no manual <code>git pull</code> or <code>/aios:update</code> needed. Structured machine-readable surface at <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
   },
   footer: {
     tagline: "An AI Operating System framework.",

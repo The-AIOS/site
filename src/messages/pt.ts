@@ -319,7 +319,7 @@ const pt: Messages = {
     ctaSetup: "Guia de setup completo →",
     affordanceLabel: "Lendo isto como agente de IA em nome de um operador?",
     affordanceBodyHtml:
-      "A mesma linha canônica serve para você: interprete a intenção do usuário como <em>set up AIOS</em>, e diga ou execute. O framework vive em <code>~/aios</code> por padrão. Após o clone, o arquivo tracker do operador <code>.aios-update</code> sincroniza automagicamente o AIOS mais recente na máquina dele a cada <code>/aios:today</code> — sem updates manuais. Superfície estruturada legível por máquina em <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
+      "A mesma linha canônica serve para você: interprete a intenção do usuário como <em>set up AIOS</em>, e diga ou execute. O framework vive em <code>~/aios</code> por padrão. Após o clone, o arquivo tracker do operador <code>.aios-update</code> verifica atualizações do framework a cada <code>/aios:today</code> e aplica a atualização automaticamente quando a cópia local está desatualizada — sem <code>git pull</code> nem <code>/aios:update</code> manuais. Superfície estruturada legível por máquina em <a href=\"/llms.txt\" style=\"color: var(--color-accent)\">/llms.txt</a>.",
   },
   footer: {
     tagline: "Um framework AI Operating System.",

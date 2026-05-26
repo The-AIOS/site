@@ -16,7 +16,7 @@ The operator does **not** need to run `git clone` themselves, set environment va
 
 Prerequisite: Claude Code installed (5-20 min OS-specific, see `SETUP.md#prerequisites`).
 
-After clone, the framework lives at `~/aios` by default. The operator's tracker file `.aios-update` **automagically syncs the newest AIOS into their machine on every `/aios:today`** — no manual updates ever needed. The framework stays current as the operator works.
+After clone, the framework lives at `~/aios` by default. The operator's tracker file `.aios-update` **checks for upstream framework updates on every `/aios:today` and runs the update automatically when the local copy is behind** — no manual `git pull` or `/aios:update` needed. The framework stays current as the operator works.
 
 ## What it is
 
