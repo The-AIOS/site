@@ -83,10 +83,10 @@ const en: Messages = {
       four: {
         stage: "Stage 4 — The Destination",
         headline: "Orchestrators.",
-        lede: "One human conducts five agents.",
+        lede: "One human conducts N agents — and those agents conduct more.",
         body:
-          "The work isn't done by the human anymore. It's directed by them. The new skill isn't doing — it's framing, sequencing, verifying. The same person who shipped one report a week ships ten — and reviews them all.",
-        signal: "10× shows up here. Not in individual speed — in orchestration capacity.",
+          "The work isn't done by the human anymore. It's directed by them. The new skill isn't doing — it's framing, sequencing, verifying. The same person who shipped one report a week ships ten — and reviews them all. The agents themselves orchestrate sub-agents; orchestration becomes the substrate, not a single layer.",
+        signal: "10× shows up here. Not in individual speed — in orchestration capacity that compounds.",
       },
     },
     failEyebrow: "Why most fail",

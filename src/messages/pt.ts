@@ -89,10 +89,10 @@ const pt: Messages = {
       four: {
         stage: "Estágio 4 — O Destino",
         headline: "Orquestradores.",
-        lede: "Um humano conduz cinco agentes.",
+        lede: "Um humano conduz N agentes — e esses agentes conduzem mais.",
         body:
-          "O trabalho não é mais feito pelo humano. É dirigido por ele. A nova skill não é fazer — é enquadrar, sequenciar, verificar. A mesma pessoa que entregava um relatório por semana entrega dez — e revisa todos.",
-        signal: "O 10× aparece aqui. Não em velocidade individual — em capacidade de orquestração.",
+          "O trabalho não é mais feito pelo humano. É dirigido por ele. A nova skill não é fazer — é enquadrar, sequenciar, verificar. A mesma pessoa que entregava um relatório por semana entrega dez — e revisa todos. Os agentes em si orquestram sub-agentes; a orquestração vira o substrato, não uma única camada.",
+        signal: "O 10× aparece aqui. Não em velocidade individual — em capacidade de orquestração que compõe.",
       },
     },
     failEyebrow: "Por que a maioria falha",

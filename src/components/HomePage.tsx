@@ -237,7 +237,7 @@ function OperatorJobAndArc({ m }: { m: Messages }) {
               humanLabel="HUMAN"
               humanSub="orchestrator"
               agentLabels={["RESEARCH", "WRITING", "ANALYSIS", "OUTREACH", "REVIEW"]}
-              caption="One human conducts the work. Five agents do it."
+              caption="One human directs. N agents execute — and orchestrate more."
             />
           }
         />

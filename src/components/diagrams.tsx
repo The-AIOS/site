@@ -134,39 +134,80 @@ export function InflectionCurveDiagram({ inflectionLabel, plateauNote, accelerat
   );
 }
 
-/* ---------- 4. The Destination — one human orchestrates five agents ---------- */
+/* ---------- 4. The Destination — one human orchestrates N agents ---------- */
 
 export function DestinationNetworkDiagram({ humanLabel, humanSub, agentLabels, caption }: {
   humanLabel: string; humanSub: string; agentLabels: [string, string, string, string, string]; caption: string;
 }) {
-  // Wider node spread so larger circles + labels don't crowd the center
+  // Center pushed inward to leave room for sub-agent cascades on each side
+  const cx0 = 440; const cy0 = 240;
+  // 5 agents — re-positioned slightly inward to leave outer-room for sub-agents
   const positions: [number, number][] = [
-    [380, 40], [620, 80], [620, 280], [140, 280], [140, 80],
+    [440, 80], [690, 130], [690, 350], [190, 350], [190, 130],
   ];
   const humanR = 56;
   const agentR = 32;
+  const subR = 7;
+  const subDist = 56;
+  // How many sub-agents per agent (varies for organic feel — some agents
+  // orchestrate more than others; tells the "N agents, not 5" story)
+  const subCounts = [4, 3, 3, 3, 4];
+
   return (
-    <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="The destination: one human orchestrates five agents">
+    <svg viewBox="0 0 880 480" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="The destination: one human orchestrates N agents, which orchestrate more">
       {/* Human (center) */}
-      <circle cx="380" cy="180" r={humanR} fill="rgba(255,93,77,0.18)" stroke="#ff5d4d" strokeWidth={2} />
-      <text x="380" y="175" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={800} fontSize={14} fill="#ff5d4d" letterSpacing={1.6}>{humanLabel}</text>
-      <text x="380" y="195" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={500} fontSize={11} fill="#fafafa">{humanSub}</text>
-      {/* 5 agent nodes */}
+      <circle cx={cx0} cy={cy0} r={humanR} fill="rgba(255,93,77,0.18)" stroke="#ff5d4d" strokeWidth={2} />
+      <text x={cx0} y={cy0 - 5} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={800} fontSize={14} fill="#ff5d4d" letterSpacing={1.6}>{humanLabel}</text>
+      <text x={cx0} y={cy0 + 15} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={500} fontSize={11} fill="#fafafa">{humanSub}</text>
+
+      {/* 5 agent nodes + their sub-agent cascades */}
       {positions.map(([cx, cy], i) => {
-        const dx = cx - 380; const dy = cy - 180;
+        const dx = cx - cx0; const dy = cy - cy0;
         const len = Math.hypot(dx, dy);
         const ux = dx / len; const uy = dy / len;
-        const x1 = 380 + ux * humanR; const y1 = 180 + uy * humanR;
+        // Connector human → agent
+        const x1 = cx0 + ux * humanR; const y1 = cy0 + uy * humanR;
         const x2 = cx - ux * agentR; const y2 = cy - uy * agentR;
+
+        // Sub-agents fan out on the FAR side of the agent (away from human)
+        const n = subCounts[i];
+        const spread = 60 * Math.PI / 180; // ±30° fan
+        const subs: { sx: number; sy: number; lx1: number; ly1: number; lx2: number; ly2: number }[] = [];
+        for (let k = 0; k < n; k++) {
+          const t = n === 1 ? 0 : (k / (n - 1)) - 0.5; // -0.5 .. 0.5
+          const theta = t * spread;
+          // Rotate outward unit vector (ux, uy) by theta
+          const c = Math.cos(theta); const s = Math.sin(theta);
+          const rx = ux * c - uy * s;
+          const ry = ux * s + uy * c;
+          const sx = cx + rx * subDist;
+          const sy = cy + ry * subDist;
+          const lx1 = cx + rx * agentR;
+          const ly1 = cy + ry * agentR;
+          const lx2 = sx - rx * subR;
+          const ly2 = sy - ry * subR;
+          subs.push({ sx, sy, lx1, ly1, lx2, ly2 });
+        }
+
         return (
           <g key={i}>
+            {/* Sub-agent connectors (drawn first so they sit behind nodes) */}
+            {subs.map((s, j) => (
+              <line key={`sl-${j}`} x1={s.lx1} y1={s.ly1} x2={s.lx2} y2={s.ly2} stroke="#262626" strokeWidth={0.75} />
+            ))}
+            {/* Sub-agent bubbles */}
+            {subs.map((s, j) => (
+              <circle key={`sc-${j}`} cx={s.sx} cy={s.sy} r={subR} fill="#181818" stroke="#3a3a3a" strokeWidth={1} />
+            ))}
+            {/* Main agent — connector + circle + label */}
             <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#262626" strokeWidth={1} />
             <circle cx={cx} cy={cy} r={agentR} fill="#111111" stroke="#262626" strokeWidth={1.5} />
             <text x={cx} y={cy + 4} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={600} fontSize={10} fill="#fafafa" letterSpacing={1}>{agentLabels[i]}</text>
           </g>
         );
       })}
-      <text x="380" y="358" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={12} fill="#c4c4c4">{caption}</text>
+
+      <text x={cx0} y={460} textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={12} fill="#c4c4c4">{caption}</text>
     </svg>
   );
 }
