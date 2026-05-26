@@ -74,6 +74,16 @@ For operators with two machines: MacBook as daily driver + Mac mini as 24/7 auto
 - `~/aios/INTENT.md` — autonomy levels per domain
 - `~/aios/TOOLS.md` — menu of all capabilities
 
+## Forward-looking commitment
+
+The framework is built toward an explicit horizon: AI agents acting on people's behalf — at first lightly, then constantly, then at organizational scale. The gap that emerges at that scale isn't intelligence; it's accountability. The-AIOS commits to integrating with the open standards filling that layer as they mature:
+
+- **ERC-8004** — Ethereum standard for verifiable agent identity and reputation
+- **Signed mandates / delegations** — cryptographic authorization from human principal to agent for specific scopes
+- **W3C Verifiable Credentials + DIDs** — portable, cryptographically-signed identity layer for the human operator side
+
+The vault already provides the human-side substrate (declared identity, intent contracts, observed behavior — all file-based and versioned). The agent-side and trust-layer integrations are the natural extension. Operators who build their practice on AIOS today won't have to swap surfaces when accountability infrastructure arrives.
+
 ## Voice + tone
 
 Anti-hype, workflow-first, "orientation + leverage" mindset. The-AIOS does not market AI — it scaffolds the *practice* of working with AI. Reference voice: chuycepeda.substack.com (Amplifier series).

@@ -10,6 +10,7 @@ export default function HomePage() {
       <Architecture />
       <ObservedLoop />
       <Bundles />
+      <ThinkingAhead />
       <GetStarted />
       <AiAffordance />
       <Footer />
@@ -40,6 +41,7 @@ function Header() {
           <a href="#capabilities" className="caption" style={{ textDecoration: "none" }}>Capabilities</a>
           <a href="#architecture" className="caption" style={{ textDecoration: "none" }}>Architecture</a>
           <a href="#bundles" className="caption" style={{ textDecoration: "none" }}>Agents</a>
+          <a href="#thinking-ahead" className="caption" style={{ textDecoration: "none" }}>Ahead</a>
           <a href="#get-started" className="caption" style={{ textDecoration: "none" }}>Get started</a>
           <a href="https://github.com/The-AIOS/aios" className="caption" style={{ textDecoration: "none" }} target="_blank" rel="noreferrer">
             GitHub ↗
@@ -303,6 +305,80 @@ function Bundles() {
             </div>
             <FortressDiagram />
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function ThinkingAhead() {
+  const pillars = [
+    {
+      label: "Agent identity",
+      headline: "Who is this agent, verifiably?",
+      body:
+        "Today, an AI agent acting on your behalf has no portable, cryptographic identity. Tomorrow it will. Emerging standards like ERC-8004 propose verifiable agent identity and reputation that travel with the agent across systems — so trust isn't a property of the platform hosting it, but of the agent itself.",
+      tag: "ERC-8004",
+    },
+    {
+      label: "Signed mandates",
+      headline: "What is this agent authorized to do?",
+      body:
+        "When an agent commits an action — sends an email, executes a transaction, signs a document — the counterparty should be able to verify cryptographically that the human principal authorized exactly that scope. Signed delegations turn 'trust me, the AI said it was fine' into 'here's the proof, verifiable independently.'",
+      tag: "Delegations",
+    },
+    {
+      label: "Verifiable credentials",
+      headline: "How does the AI prove who its operator is?",
+      body:
+        "W3C Verifiable Credentials + Decentralized Identifiers (DIDs) give the human side a portable, cryptographically-signed identity layer. The agent can present credentials on the operator's behalf to other systems — without those systems needing to phone home to a centralized authority.",
+      tag: "W3C VC · DIDs",
+    },
+  ];
+
+  return (
+    <section id="thinking-ahead" className="section">
+      <div className="container">
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.6fr)", gap: "5rem", alignItems: "start", marginBottom: "3rem" }}>
+          <div>
+            <p className="eyebrow" style={{ marginBottom: "1rem" }}>Thinking ahead</p>
+            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
+            <h2 className="display-lg">
+              An AI workflow without accountability is a parlor trick.
+            </h2>
+          </div>
+          <div>
+            <p className="body-text" style={{ marginBottom: "1.5rem" }}>
+              The-AIOS is the substrate for working with AI today. The horizon it&apos;s built toward is shorter than most people think: <strong style={{ color: "var(--color-ink)" }}>agents will act on people&apos;s behalf — at first lightly, then constantly, then at organizational scale.</strong>
+            </p>
+            <p className="body-text" style={{ marginBottom: "1.5rem" }}>
+              When that happens, the gap isn&apos;t intelligence. The gap is <strong style={{ color: "var(--color-ink)" }}>accountability</strong> — verifiable identity for the agent itself, cryptographic mandates from the principal it represents, auditable provenance for every action.
+            </p>
+            <p className="body-text" style={{ marginBottom: "0" }}>
+              The framework is committed to integrating with the open standards filling that layer — so when the trust infrastructure arrives, operators don&apos;t have to swap the workflow surface they&apos;ve built their practice on.
+            </p>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
+          {pillars.map((p, i) => (
+            <div key={i} className="card">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.75rem" }}>
+                <p className="card-eyebrow" style={{ marginBottom: 0 }}>{p.label}</p>
+                <span className="mono" style={{ fontSize: "0.6875rem" }}>{p.tag}</span>
+              </div>
+              <h3 className="display-md" style={{ fontSize: "1.1875rem", marginBottom: "0.875rem" }}>{p.headline}</h3>
+              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0 }}>{p.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="ai-affordance" style={{ borderColor: "var(--color-accent)", borderStyle: "solid", borderWidth: "1px" }}>
+          <p style={{ margin: 0, color: "var(--color-ink-muted)" }}>
+            <strong>Where the framework draws the line.</strong> The-AIOS doesn&apos;t ship the trust layer itself — that&apos;s an open ecosystem build, with standards bodies and identity-infrastructure teams doing the work. What AIOS commits to: <em>the vault is already half of the picture</em>. Declared identity, intent contracts, observed behavior — all file-based, all versioned, all portable. The other half — verifiable agent identity, signed mandates, attestation rails — is the natural extension. We integrate as the standards mature.
+          </p>
         </div>
       </div>
     </section>
