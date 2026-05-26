@@ -179,4 +179,14 @@ export type Messages = {
     title: string;
     description: string;
   };
+  /* Repo-link labels — short verbs in each locale.
+   *  Used by <RepoLink> at the bottom of every linkable card/section. */
+  repoLink: {
+    open: string;          // generic: "Open in repo"
+    readDoc: string;       // for .md files: "Read {file}"
+    browseFolder: string;  // for folders: "Browse {folder}"
+    viewCommand: string;   // for command .md: "View command"
+    viewBundle: string;    // for bundle folder: "View bundle"
+    readFortress: string;  // specific CTA for the Fortress section
+  };
 };

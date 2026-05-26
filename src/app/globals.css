@@ -192,6 +192,48 @@ html, body {
 }
 .link-inline:hover { text-decoration-color: var(--color-accent); }
 
+/* Subtle "→ repo target" link rendered at the bottom of cards and sections.
+   Stays visually quiet by default; surfaces with the accent on hover. */
+.repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-subtle);
+  text-decoration: none;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-hairline);
+  transition: color 0.15s ease;
+}
+.repo-link:hover { color: var(--color-accent); }
+.repo-link::before {
+  content: "→";
+  color: var(--color-accent);
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+}
+
+/* Inline (no top border, no padding-top) — for use inside dense compositions */
+.repo-link-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-subtle);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.repo-link-inline:hover { color: var(--color-accent); }
+.repo-link-inline::before {
+  content: "→";
+  color: var(--color-accent);
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+}
+
 /* ---------- Section primitives ---------- */
 
 .section {

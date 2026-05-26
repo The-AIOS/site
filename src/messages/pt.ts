@@ -273,6 +273,14 @@ const pt: Messages = {
     description:
       "Substrato de contexto pessoal para trabalhar com Claude. Faça cada sessão começar a partir do seu conhecimento real em vez de começar do zero. Workflow-first, anti-hype, compõe ao longo das sessões.",
   },
+  repoLink: {
+    open: "Abrir no repo",
+    readDoc: "Ler no repo",
+    browseFolder: "Explorar no repo",
+    viewCommand: "Ver comando",
+    viewBundle: "Ver bundle",
+    readFortress: "Ler FORTRESS.md →",
+  },
 };
 
 export default pt;

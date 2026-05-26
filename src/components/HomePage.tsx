@@ -1,5 +1,6 @@
 import { ContextLoopDiagram } from "./diagrams";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { RepoLink, RepoFolderLink } from "./RepoLink";
 import type { Locale, Messages } from "@/messages";
 
 type Props = { m: Messages; locale: Locale };
@@ -130,7 +131,11 @@ function Intro({ m }: { m: Messages }) {
 }
 
 function Featured({ m }: { m: Messages }) {
-  const cards = [m.featured.cards.ingest, m.featured.cards.company, m.featured.cards.collaborate];
+  const cards = [
+    { ...m.featured.cards.ingest, file: "plugins/aios/commands/ingest.md" },
+    { ...m.featured.cards.company, file: "plugins/aios/commands/company.md" },
+    { ...m.featured.cards.collaborate, file: "plugins/aios/commands/collaborate.md" },
+  ];
   return (
     <section id="featured" className="section">
       <div className="container">
@@ -147,13 +152,14 @@ function Featured({ m }: { m: Messages }) {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
           {cards.map((c) => (
-            <div key={c.command} className="card">
+            <div key={c.command} className="card" style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.75rem", gap: "0.5rem", flexWrap: "wrap" }}>
                 <code className="mono" style={{ fontWeight: 600, fontSize: "0.9375rem" }}>{c.command}</code>
                 <span className="caption" style={{ color: "var(--color-ink-subtle)", fontSize: "0.6875rem" }}>{c.tag}</span>
               </div>
               <h3 className="display-md" style={{ marginBottom: "0.625rem" }}>{c.pitch}</h3>
-              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0 }}>{c.body}</p>
+              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0, flexGrow: 1 }}>{c.body}</p>
+              <RepoLink to={c.file} label={`${m.repoLink.viewCommand} ↗`} />
             </div>
           ))}
         </div>
@@ -190,10 +196,10 @@ function Thesis({ m }: { m: Messages }) {
 
 function Capabilities({ m }: { m: Messages }) {
   const tiles = [
-    m.capabilities.tiles.commands,
-    m.capabilities.tiles.agents,
-    m.capabilities.tiles.skills,
-    m.capabilities.tiles.mcps,
+    { ...m.capabilities.tiles.commands, folder: "plugins/aios/commands" },
+    { ...m.capabilities.tiles.agents, folder: "agents/aios" },
+    { ...m.capabilities.tiles.skills, folder: "skills" },
+    { ...m.capabilities.tiles.mcps, folder: "mcps" },
   ];
 
   return (
@@ -212,14 +218,15 @@ function Capabilities({ m }: { m: Messages }) {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem" }}>
           {tiles.map((t) => (
-            <div key={t.noun} className="card">
+            <div key={t.noun} className="card" style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.75rem" }}>
                 <span style={{ fontFamily: "var(--font-display)", fontSize: "3rem", fontWeight: 600, color: "var(--color-accent)", lineHeight: 1 }}>
                   {t.count}
                 </span>
                 <span className="byline" style={{ color: "var(--color-ink-muted)" }}>{t.noun}</span>
               </div>
-              <p className="caption" style={{ color: "var(--color-ink-muted)", lineHeight: 1.55 }}>{t.body}</p>
+              <p className="caption" style={{ color: "var(--color-ink-muted)", lineHeight: 1.55, flexGrow: 1 }}>{t.body}</p>
+              <RepoFolderLink to={t.folder} label={`${m.repoLink.browseFolder} ↗`} />
             </div>
           ))}
         </div>
@@ -231,7 +238,11 @@ function Capabilities({ m }: { m: Messages }) {
 /* ------------------------------------------------------------------ */
 
 function Architecture({ m }: { m: Messages }) {
-  const cards = [m.architecture.cards.declared, m.architecture.cards.observed, m.architecture.cards.intent];
+  const cards = [
+    { ...m.architecture.cards.declared, to: "templates", label: m.repoLink.browseFolder, isFolder: true },
+    { ...m.architecture.cards.observed, to: "CLAUDE.md#iii-self-update", label: m.repoLink.readDoc, isFolder: false },
+    { ...m.architecture.cards.intent, to: "INTENT.md", label: m.repoLink.readDoc, isFolder: false },
+  ];
 
   return (
     <section id="architecture" className="section">
@@ -250,10 +261,13 @@ function Architecture({ m }: { m: Messages }) {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
           {cards.map((c) => (
-            <div key={c.eyebrow} className="card">
+            <div key={c.eyebrow} className="card" style={{ display: "flex", flexDirection: "column" }}>
               <p className="card-eyebrow">{c.eyebrow}</p>
               <h3 className="display-md" style={{ marginBottom: "0.625rem" }}>{c.title}</h3>
-              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0 }}>{c.body}</p>
+              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0, flexGrow: 1 }}>{c.body}</p>
+              {c.isFolder
+                ? <RepoFolderLink to={c.to} label={`${c.label} ↗`} />
+                : <RepoLink to={c.to} label={`${c.label} ↗`} />}
             </div>
           ))}
         </div>
@@ -306,12 +320,12 @@ function ObservedLoop({ m }: { m: Messages }) {
 
 function Bundles({ m }: { m: Messages }) {
   const bundles = [
-    { ...m.bundles.bundleNames.sales, count: 5 },
-    { ...m.bundles.bundleNames.strategy, count: 4 },
-    { ...m.bundles.bundleNames.financeLegal, count: 5 },
-    { ...m.bundles.bundleNames.engineering, count: 6 },
-    { ...m.bundles.bundleNames.communication, count: 8 },
-    { ...m.bundles.bundleNames.personal, count: 7 },
+    { ...m.bundles.bundleNames.sales, count: 5, folder: "agents/aios/sales" },
+    { ...m.bundles.bundleNames.strategy, count: 4, folder: "agents/aios/strategy" },
+    { ...m.bundles.bundleNames.financeLegal, count: 5, folder: "agents/aios/finance-legal" },
+    { ...m.bundles.bundleNames.engineering, count: 6, folder: "agents/aios/engineering" },
+    { ...m.bundles.bundleNames.communication, count: 8, folder: "agents/aios/communication" },
+    { ...m.bundles.bundleNames.personal, count: 7, folder: "agents/aios/personal" },
   ];
 
   return (
@@ -330,14 +344,15 @@ function Bundles({ m }: { m: Messages }) {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
           {bundles.map((b) => (
-            <div key={b.name} className="card">
+            <div key={b.name} className="card" style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.75rem" }}>
                 <h3 className="display-md" style={{ fontSize: "1.25rem", marginBottom: 0 }}>{b.name}</h3>
                 <span style={{ color: "var(--color-accent)", fontFamily: "var(--font-label)", fontSize: "0.875rem", fontWeight: 700 }}>
                   {b.count}
                 </span>
               </div>
-              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0 }}>{b.body}</p>
+              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0, flexGrow: 1 }}>{b.body}</p>
+              <RepoFolderLink to={b.folder} label={`${m.repoLink.viewBundle} ↗`} />
             </div>
           ))}
         </div>
@@ -347,10 +362,18 @@ function Bundles({ m }: { m: Messages }) {
         <div>
           <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.bundles.fortress.eyebrow}</p>
           <h3 className="display-md" style={{ marginBottom: "1rem" }}>{m.bundles.fortress.headline}</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem", marginBottom: "1.75rem" }}>
             <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body1}</p>
             <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body2}</p>
           </div>
+          <a
+            href="https://github.com/The-AIOS/aios/blob/main/FORTRESS.md"
+            className="btn-secondary"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {m.repoLink.readFortress}
+          </a>
         </div>
       </div>
     </section>

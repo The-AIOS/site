@@ -267,6 +267,14 @@ const en: Messages = {
     description:
       "Personal context substrate for working with Claude. Make every session start from your actual knowledge instead of from zero. Workflow-first, anti-hype, compounds across sessions.",
   },
+  repoLink: {
+    open: "Open in repo",
+    readDoc: "Read in repo",
+    browseFolder: "Browse in repo",
+    viewCommand: "View command",
+    viewBundle: "View bundle",
+    readFortress: "Read FORTRESS.md →",
+  },
 };
 
 export default en;
