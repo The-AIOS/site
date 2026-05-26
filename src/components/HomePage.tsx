@@ -67,26 +67,41 @@ function Header({ m, locale }: Props) {
 
 function Hero({ m }: { m: Messages }) {
   return (
-    <section className="section" style={{ paddingTop: "8rem", paddingBottom: "8rem" }}>
+    <section className="section hero-section" style={{ paddingTop: "7rem", paddingBottom: "7rem" }}>
       <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "2rem" }}>
-          <span className="accent">{m.hero.eyebrowFramework}</span> · {m.hero.eyebrowSuffix}
-        </p>
-        <h1 className="display-xl" style={{ marginBottom: "2.5rem", maxWidth: "920px" }}>
-          {m.hero.headlinePart1}{" "}
-          <span style={{ color: "var(--color-accent)" }}>{m.hero.headlineAccent}</span>{" "}
-          {m.hero.headlinePart2}
-        </h1>
-        <p className="lede" style={{ maxWidth: "680px", marginBottom: "3rem" }}>
-          {m.hero.lede}
-        </p>
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <a href="https://github.com/The-AIOS/aios" className="btn-primary" target="_blank" rel="noreferrer">
-            {m.hero.ctaGithub}
-          </a>
-          <a href="#get-started" className="btn-secondary">
-            {m.hero.ctaGetStarted}
-          </a>
+        <div className="hero-grid">
+          <div className="hero-text">
+            <p className="eyebrow" style={{ marginBottom: "2rem" }}>
+              <span className="accent">{m.hero.eyebrowFramework}</span> · {m.hero.eyebrowSuffix}
+            </p>
+            <h1 className="display-xl" style={{ marginBottom: "2rem" }}>
+              {m.hero.headlinePart1}{" "}
+              <span style={{ color: "var(--color-accent)" }}>{m.hero.headlineAccent}</span>{" "}
+              {m.hero.headlinePart2}
+            </h1>
+            <p className="lede" style={{ marginBottom: "2.5rem" }}>
+              {m.hero.lede}
+            </p>
+            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+              <a href="https://github.com/The-AIOS/aios" className="btn-primary" target="_blank" rel="noreferrer">
+                {m.hero.ctaGithub}
+              </a>
+              <a href="#get-started" className="btn-secondary">
+                {m.hero.ctaGetStarted}
+              </a>
+            </div>
+          </div>
+          <div className="hero-image-wrap" aria-hidden="true">
+            <img
+              src="/hero.jpg"
+              alt=""
+              width={1344}
+              height={768}
+              loading="eager"
+              decoding="async"
+              className="hero-image"
+            />
+          </div>
         </div>
       </div>
     </section>

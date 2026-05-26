@@ -22,11 +22,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://the-aios.com/pt",
     locale: "pt_BR",
+    images: [{ url: "/og-image.jpg", width: 1344, height: 768, alt: "The-AIOS — o framework AI Operating System" }],
   },
   twitter: {
     card: "summary_large_image",
     title: m.meta.title,
     description: m.meta.description,
+    images: ["/og-image.jpg"],
   },
 };
 
