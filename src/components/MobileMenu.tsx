@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Logo } from "./Logo";
 import type { Locale, Messages } from "@/messages";
@@ -9,6 +10,12 @@ type NavItem = { href: string; label: string };
 
 export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Portal target needs `document` — only available after client mount.
+  // (Static export pre-renders this component as the trigger button
+  // only; the drawer mounts client-side after the user opens it.)
+  useEffect(() => { setMounted(true); }, []);
 
   // Lock body scroll while drawer is open
   useEffect(() => {
@@ -52,7 +59,7 @@ export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
         </svg>
       </button>
 
-      {open && (
+      {open && mounted && createPortal(
         <div className="mobile-menu-overlay" role="dialog" aria-modal="true" aria-label="Navigation">
           <header>
             <a
@@ -98,7 +105,8 @@ export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
               the-aios.com
             </span>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
