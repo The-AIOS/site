@@ -8,6 +8,7 @@ import type { Messages } from "./types";
 const es: Messages = {
   nav: {
     thesis: "Tesis",
+    arc: "El Arco",
     capabilities: "Capacidades",
     architecture: "Arquitectura",
     agents: "Agentes",
@@ -26,6 +27,20 @@ const es: Messages = {
     ctaGithub: "Ver en GitHub →",
     ctaGetStarted: "Empezar ↓",
   },
+  opening: {
+    eyebrow: "La Apertura",
+    headline: "Tu miedo tiene datos detrás.",
+    body:
+      "La mayoría de los líderes percibe que algo anda mal en cómo su organización está absorbiendo la IA. Los números explican por qué — y enmarcan el resto de esta página.",
+    stats: [
+      { value: "73%", label: "de los CEOs reportan estrés o ansiedad por la IA" },
+      { value: "54%", label: "de los ejecutivos C-suite dicen que la IA está “desgarrando su empresa”" },
+      { value: "31%", label: "de los knowledge workers en EE.UU. trabajan activamente en contra de la iniciativa de IA de su empresa" },
+      { value: "41%", label: "para Gen Z" },
+    ],
+    sourceLabel: "Fuentes",
+    sourceText: "Writer.com 2026 · Barry O'Reilly · State of AI Q1 2026",
+  },
   intro: {
     eyebrow: "Qué es esto y para quién es",
     headlinePart1: "Todos están construyendo un AIOS.",
@@ -35,8 +50,70 @@ const es: Messages = {
       "The AIOS convierte la IA en un equipo — un legal tú, un contador tú, un marketing tú, un ingeniero de software tú. Corre todos y sé su orquestador, o deja que un co-worker de IA corra al resto como tu <strong>chief of staff que nunca duerme</strong> y absorbe la sobrecarga de coordinación.",
     whoForHtml:
       "Para cualquiera navegando días saturados de IA — <strong>ejecutivos senior, builders, founders, operadores</strong>. La IA sola multiplica la confusión. The AIOS te da la estructura (prompt, contexto, intent, colaboración, segundo cerebro) donde emerge la claridad, y luego te permite amplificarte a ti y a tu equipo con co-workers de IA.",
+    reframePullquote:
+      "La pregunta equivocada: “¿Cómo meto la IA a mi empresa?” La pregunta correcta: “¿En qué se convierte mi gente cuando la IA se les une?”",
+    reframeAttribution: "— El Reframe",
     badge:
       "Si quieres sacarle el máximo a la IA sin perder lo que te hace irreemplazable — y sin riesgo de IP/PII — esto es para ti.",
+  },
+  arc: {
+    eyebrow: "El Arco",
+    headline: "Cuatro etapas entre tú y la organización que sobrevive a la IA.",
+    lede: "La mayoría de los líderes intenta saltar del 1 al 4. Así es como se rompen las empresas. El arco es una secuencia — no un menú.",
+    stages: {
+      one: {
+        stage: "Etapa 1 — Individuos",
+        headline: "Humanos haciendo el trabajo.",
+        lede: "La organización que construiste.",
+        body:
+          "Expertise real. Relaciones reales. Wins reales. Este no es el problema. Esta es la base. Todo lo que sigue tiene que honrarla — o no sobrevive al contacto con tu equipo.",
+      },
+      two: {
+        stage: "Etapa 2 — La Trampa",
+        headline: "Prompters Individuales.",
+        lede: "Todos reciben una cuenta de ChatGPT. La productividad sube 20%. El liderazgo declara la victoria.",
+        body:
+          "Seis meses después: cero leverage. Cero compounding. El trabajo se hizo un poco más rápido por persona — y de alguna forma la moral está peor. Porque todos siguen haciendo todo su trabajo viejo, más el trabajo nuevo de “usar IA”.",
+        pullquote: "Tenemos IA en todas partes y leverage en ninguna.",
+        pullquoteAttribution: "Composite — patrón a través de entrevistas con operadores",
+      },
+      three: {
+        stage: "Etapa 3 — La Inflexión",
+        headline: "Individuos Asistidos.",
+        lede: "Deja de pedirle a la IA. Empieza a trabajar con ella.",
+        body:
+          "La IA sale de la ventana de chat y entra al workflow. Cursor para ingenieros. Otter para juntas. Mercury para finanzas. La herramienta deja de ser un destino — y se vuelve una capa. El rol se queda. La carga cognitiva baja.",
+        signal: "“Oh… esto hace mi trabajo más ligero.” — la señal de que estás en la Etapa 3.",
+      },
+      four: {
+        stage: "Etapa 4 — El Destino",
+        headline: "Orquestadores.",
+        lede: "Un humano dirige a cinco agentes.",
+        body:
+          "El trabajo ya no lo hace el humano. Lo dirige. La nueva skill no es hacer — es enmarcar, secuenciar, verificar. La misma persona que entregaba un reporte a la semana entrega diez — y los revisa todos.",
+        signal: "El 10× aparece aquí. No en velocidad individual — en capacidad de orquestación.",
+      },
+    },
+    failEyebrow: "Por qué la mayoría falla",
+    failHeadline: "Dos formas en que las empresas se rompen.",
+    failSkipTitle: "El salto — saltar sin secuencia",
+    failSkipBody: "Comprar estrategia Etapa-4 antes de que nadie sepa prompt-ear. Resultado: pilotos fallidos, rebelión de empleados.",
+    failPlateauTitle: "La meseta — frenar en prompters",
+    failPlateauBody: "“Todos tienen cuenta de ChatGPT — listo.” Resultado: cero leverage, cero defensibilidad.",
+    failClose: "El arco es una secuencia — no un menú.",
+  },
+  operatorJob: {
+    eyebrow: "El Nuevo Trabajo del Operador",
+    headline: "Tu trabajo no es usar más IA.",
+    pullquote: "Tu trabajo es liderar la cultura en la que tus agentes van a correr.",
+    body:
+      "Eso significa definir qué trabajo le pertenece a los humanos, qué le pertenece a la IA y qué le pertenece al par. Significa hacer explícita la capa de verificación — cada workflow Etapa-4 necesita una. Y significa liderar desde la claridad, no desde el pánico. La calidad del output depende de tu cultura de liderazgo, no de la calidad del prompt.",
+  },
+  close: {
+    eyebrow: "El Cierre",
+    headline: "La IA no reemplaza a tu equipo. Se les une.",
+    body:
+      "La única pregunta es si eres el operador que les enseñó a trabajar juntos — o el que fue reemplazado porque no lo hizo.",
   },
   featured: {
     eyebrow: "Comandos destacados",
@@ -68,10 +145,10 @@ const es: Messages = {
     },
   },
   thesis: {
-    eyebrow: "La tesis",
-    headline: "La mayoría de la gente usa la IA desde cero. Cada sesión.",
+    eyebrow: "La Tesis",
+    headline: "La IA no reemplaza a tu equipo. Se les une.",
     para1:
-      "El patrón estándar: abres un chat, vuelves a explicar quién eres, pegas algo de contexto, haces la pregunta y lo pierdes todo cuando cierras la pestaña. Mañana la misma danza, con un poco menos de paciencia.",
+      "El patrón estándar de la mayoría de los equipos: abres un chat, vuelves a explicar quién eres, pegas algo de contexto, haces la pregunta y lo pierdes todo cuando cierras la pestaña. Mañana la misma danza, con un poco menos de paciencia. La IA entra sola, rompe cosas, sale.",
     para2Html:
       "The-AIOS reemplaza ese patrón con una <strong>bóveda</strong> — una memoria persistente, basada en archivos, de ti y de tu trabajo, que se carga automáticamente cada vez que hablas con Claude. El <strong>contexto declarado</strong> es lo que le dices explícitamente. El <strong>contexto observado</strong> es lo que aprende trabajando contigo a lo largo del tiempo.",
     para3:

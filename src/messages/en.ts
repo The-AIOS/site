@@ -3,6 +3,7 @@ import type { Messages } from "./types";
 const en: Messages = {
   nav: {
     thesis: "Thesis",
+    arc: "The Arc",
     capabilities: "Capabilities",
     architecture: "Architecture",
     agents: "Agents",
@@ -21,6 +22,20 @@ const en: Messages = {
     ctaGithub: "View on GitHub →",
     ctaGetStarted: "Get started ↓",
   },
+  opening: {
+    eyebrow: "The Opening",
+    headline: "Your fear has data behind it.",
+    body:
+      "Most leaders sense something is off about how their org is absorbing AI. The numbers explain why — and frame the rest of this page.",
+    stats: [
+      { value: "73%", label: "of CEOs report stress or anxiety from AI" },
+      { value: "54%", label: 'of C-suite executives say AI is "tearing their company apart"' },
+      { value: "31%", label: "of US knowledge workers actively work against their company's AI initiative" },
+      { value: "41%", label: "for Gen Z" },
+    ],
+    sourceLabel: "Sources",
+    sourceText: "Writer.com 2026 · Barry O'Reilly · State of AI Q1 2026",
+  },
   intro: {
     eyebrow: "What is this & who it's for",
     headlinePart1: "Everyone is building an AIOS.",
@@ -30,8 +45,70 @@ const en: Messages = {
       "The AIOS turns AI into a team — a legal you, an accountant you, a marketing you, a software engineer you. Run them all and be their orchestrator, or let one AI co-worker run the rest as your <strong>chief of staff who never sleeps</strong> and absorbs the coordination overhead.",
     whoForHtml:
       "For anyone navigating AI-overwhelming days — <strong>senior executives, builders, founders, operators</strong>. AI alone multiplies confusion. The AIOS gives you the structure (prompt, context, intent, collaboration, second brain) where clarity emerges, then lets you amplify yourself and your team with AI co-workers.",
+    reframePullquote:
+      "The wrong question: “How do I bring AI into my company?” The right question: “What becomes of my people when AI joins them?”",
+    reframeAttribution: "— The Reframe",
     badge:
       "If you want to make the most of AI without losing what makes you irreplaceable — and without IP/PII risk — this is for you.",
+  },
+  arc: {
+    eyebrow: "The Arc",
+    headline: "Four stages between you and the org that survives AI.",
+    lede: "Most leaders try to skip from 1 to 4. That's how companies break. The arc is a sequence — not a menu.",
+    stages: {
+      one: {
+        stage: "Stage 1 — Individuals",
+        headline: "Humans doing work.",
+        lede: "The org you built.",
+        body:
+          "Real expertise. Real relationships. Real wins. This isn't the problem. This is the foundation. Everything that comes next has to honor it — or it doesn't survive contact with your team.",
+      },
+      two: {
+        stage: "Stage 2 — The Trap",
+        headline: "Individual Prompters.",
+        lede: "Everyone gets a ChatGPT seat. Productivity goes up 20%. Leadership declares victory.",
+        body:
+          "Six months later: no leverage. No compounding. The work got slightly faster per person — and somehow morale is worse. Because everyone is still doing all their old work, plus the new work of “using AI.”",
+        pullquote: "We have AI everywhere and leverage nowhere.",
+        pullquoteAttribution: "Composite — pattern across operator interviews",
+      },
+      three: {
+        stage: "Stage 3 — The Inflection",
+        headline: "Assisted Individuals.",
+        lede: "Stop asking AI. Start working with it.",
+        body:
+          "AI moves out of the chat window and into the workflow. Cursor for engineers. Otter for meetings. Mercury for finance. The tool stops being a destination — and becomes a layer. The role stays. The cognitive load drops.",
+        signal: "“Oh… this makes my work lighter.” — the signal you're in Stage 3.",
+      },
+      four: {
+        stage: "Stage 4 — The Destination",
+        headline: "Orchestrators.",
+        lede: "One human conducts five agents.",
+        body:
+          "The work isn't done by the human anymore. It's directed by them. The new skill isn't doing — it's framing, sequencing, verifying. The same person who shipped one report a week ships ten — and reviews them all.",
+        signal: "10× shows up here. Not in individual speed — in orchestration capacity.",
+      },
+    },
+    failEyebrow: "Why most fail",
+    failHeadline: "Two ways companies break.",
+    failSkipTitle: "The skip — leap without sequence",
+    failSkipBody: "Buy Stage-4 strategy before anyone can prompt. Result: failed pilots, employee revolt.",
+    failPlateauTitle: "The plateau — stop at prompters",
+    failPlateauBody: "“Everyone has a ChatGPT seat — done.” Result: no leverage, no defensibility.",
+    failClose: "The arc is a sequence — not a menu.",
+  },
+  operatorJob: {
+    eyebrow: "The Operator's New Job",
+    headline: "Your job is not to use AI more.",
+    pullquote: "Your job is to lead the culture your agents will run in.",
+    body:
+      "That means defining what work belongs to humans, what belongs to AI, and what belongs to the pair. It means making the verification layer explicit — every Stage-4 workflow needs one. And it means leading from clarity, not panic. Output quality depends on your leadership culture, not prompt quality.",
+  },
+  close: {
+    eyebrow: "The Close",
+    headline: "AI doesn't replace your team. It joins it.",
+    body:
+      "The only question is whether you're the operator who taught them to work together — or the one who got replaced because you didn't.",
   },
   featured: {
     eyebrow: "Featured commands",
@@ -63,10 +140,10 @@ const en: Messages = {
     },
   },
   thesis: {
-    eyebrow: "The thesis",
-    headline: "Most people use AI from zero. Every session.",
+    eyebrow: "The Thesis",
+    headline: "AI doesn't replace your team. It joins it.",
     para1:
-      "The standard pattern: open a chat, restate who you are, paste in some context, ask the question, lose it all when the tab closes. Tomorrow the same dance, slightly less patience.",
+      "The standard pattern with most teams: open a chat, restate who you are, paste in some context, ask the question, lose it all when the tab closes. Tomorrow the same dance, slightly less patience. AI walks in alone, breaks things, walks out.",
     para2Html:
       "The-AIOS replaces that pattern with a <strong>vault</strong> — a persistent, file-based memory of you and your work that loads automatically every time you talk to Claude. <strong>Declared context</strong> is what you tell it explicitly. <strong>Observed context</strong> is what it learns by working with you over time.",
     para3:

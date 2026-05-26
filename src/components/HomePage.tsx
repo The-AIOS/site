@@ -1,4 +1,4 @@
-import { ContextLoopDiagram } from "./diagrams";
+import { ContextLoopDiagram, TrapCurveDiagram, InflectionCurveDiagram, DestinationNetworkDiagram, WhyMostFailDiagram } from "./diagrams";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Logo } from "./Logo";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
@@ -11,15 +11,19 @@ export default function HomePage({ m, locale }: Props) {
     <main>
       <Header m={m} locale={locale} />
       <Hero m={m} />
+      <Opening m={m} />
       <Intro m={m} />
       <Thesis m={m} />
+      <Arc m={m} />
       <Capabilities m={m} />
       <Featured m={m} />
       <Architecture m={m} />
       <ObservedLoop m={m} />
+      <OperatorJob m={m} />
       <Bundles m={m} />
       <ThinkingAhead m={m} />
       <GetStarted m={m} />
+      <Close m={m} />
       <Footer m={m} />
     </main>
   );
@@ -63,8 +67,8 @@ function Header({ m, locale }: Props) {
         </a>
         <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
           <a href="#thesis" className="caption" style={{ textDecoration: "none" }}>{m.nav.thesis}</a>
+          <a href="#arc" className="caption" style={{ textDecoration: "none" }}>{m.nav.arc}</a>
           <a href="#capabilities" className="caption" style={{ textDecoration: "none" }}>{m.nav.capabilities}</a>
-          <a href="#architecture" className="caption" style={{ textDecoration: "none" }}>{m.nav.architecture}</a>
           <a href="#bundles" className="caption" style={{ textDecoration: "none" }}>{m.nav.agents}</a>
           <a href="#thinking-ahead" className="caption" style={{ textDecoration: "none" }}>{m.nav.ahead}</a>
           <a href="#get-started" className="caption" style={{ textDecoration: "none" }}>{m.nav.getStarted}</a>
@@ -110,6 +114,32 @@ function Hero({ m }: { m: Messages }) {
 
 /* ------------------------------------------------------------------ */
 
+function Opening({ m }: { m: Messages }) {
+  return (
+    <section id="opening" className="section">
+      <div className="container">
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.opening.eyebrow}</p>
+        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "780px" }}>{m.opening.headline}</h2>
+        <p className="lede" style={{ maxWidth: "780px", marginBottom: "2.5rem" }}>{m.opening.body}</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+          {m.opening.stats.map((s) => (
+            <div key={s.value} style={{ borderTop: "1px solid var(--color-hairline)", paddingTop: "1rem" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, color: "var(--color-accent)", lineHeight: 1, letterSpacing: "-0.02em" }}>
+                {s.value}
+              </div>
+              <p className="caption" style={{ marginTop: "0.5rem", color: "var(--color-ink-muted)", lineHeight: 1.5 }}>{s.label}</p>
+            </div>
+          ))}
+        </div>
+        <p className="caption" style={{ color: "var(--color-ink-subtle)" }}>
+          <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>{m.opening.sourceLabel}</span> · {m.opening.sourceText}
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function Intro({ m }: { m: Messages }) {
   return (
     <section id="intro" className="section">
@@ -122,10 +152,17 @@ function Intro({ m }: { m: Messages }) {
           {m.intro.headlinePart2}
         </h2>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2.5rem", marginBottom: "2rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2.5rem", marginBottom: "2.5rem" }}>
           <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whatIsHtml }} />
           <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whoForHtml }} />
         </div>
+
+        <blockquote className="pullquote" style={{ maxWidth: "880px", marginBottom: "0.75rem" }}>
+          {m.intro.reframePullquote}
+        </blockquote>
+        <p className="caption" style={{ color: "var(--color-ink-subtle)", marginLeft: "24px", marginBottom: "2rem" }}>
+          {m.intro.reframeAttribution}
+        </p>
 
         <div
           style={{
@@ -141,6 +178,136 @@ function Intro({ m }: { m: Messages }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function Arc({ m }: { m: Messages }) {
+  return (
+    <section id="arc" className="section">
+      <div className="container">
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.arc.eyebrow}</p>
+        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }}>{m.arc.headline}</h2>
+        <p className="lede" style={{ maxWidth: "780px", marginBottom: "4rem" }}>{m.arc.lede}</p>
+
+        {/* Stage 1 — Individuals (no diagram) */}
+        <ArcStage
+          stage={m.arc.stages.one.stage}
+          headline={m.arc.stages.one.headline}
+          lede={m.arc.stages.one.lede}
+          body={m.arc.stages.one.body}
+        />
+
+        {/* Stage 2 — The Trap */}
+        <ArcStage
+          stage={m.arc.stages.two.stage}
+          headline={m.arc.stages.two.headline}
+          lede={m.arc.stages.two.lede}
+          body={m.arc.stages.two.body}
+          pullquote={m.arc.stages.two.pullquote}
+          pullquoteAttribution={m.arc.stages.two.pullquoteAttribution}
+          diagram={
+            <TrapCurveDiagram
+              plateauLabel="THE PLATEAU"
+              productivityLabel="+20% individual productivity"
+              leverageLabel="0% organizational leverage"
+              dayLabel="DAY 0"
+              monthLabel="MONTH 6"
+            />
+          }
+        />
+
+        {/* Stage 3 — The Inflection */}
+        <ArcStage
+          stage={m.arc.stages.three.stage}
+          headline={m.arc.stages.three.headline}
+          lede={m.arc.stages.three.lede}
+          body={m.arc.stages.three.body}
+          signal={m.arc.stages.three.signal}
+          diagram={
+            <InflectionCurveDiagram
+              inflectionLabel="INFLECTION"
+              plateauNote="Stage 2 plateau"
+              accelerateNote="AI joins the workflow"
+              dayLabel="DAY 0"
+              monthLabel="MONTH 12"
+            />
+          }
+        />
+
+        {/* Stage 4 — The Destination */}
+        <ArcStage
+          stage={m.arc.stages.four.stage}
+          headline={m.arc.stages.four.headline}
+          lede={m.arc.stages.four.lede}
+          body={m.arc.stages.four.body}
+          signal={m.arc.stages.four.signal}
+          diagram={
+            <DestinationNetworkDiagram
+              humanLabel="HUMAN"
+              humanSub="orchestrator"
+              agentLabels={["RESEARCH", "WRITING", "ANALYSIS", "OUTREACH", "REVIEW"]}
+              caption="One human conducts the work. Five agents do it."
+            />
+          }
+        />
+
+        {/* Why Most Fail — closes The Arc */}
+        <div style={{ marginTop: "5rem" }}>
+          <hr className="hairline" style={{ marginBottom: "2.5rem" }} />
+          <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.arc.failEyebrow}</p>
+          <h3 className="display-md" style={{ marginBottom: "2rem", fontSize: "1.5rem" }}>{m.arc.failHeadline}</h3>
+          <WhyMostFailDiagram
+            skipLabel="THE SKIP"
+            skipTitle={m.arc.failSkipTitle}
+            skipBody={m.arc.failSkipBody}
+            plateauLabel="THE PLATEAU"
+            wallLabel="WALL"
+            plateauTitle={m.arc.failPlateauTitle}
+            plateauBody={m.arc.failPlateauBody}
+          />
+          <p className="body-text" style={{ textAlign: "center", fontStyle: "italic", color: "var(--color-ink-subtle)", marginTop: "1.5rem", marginBottom: 0 }}>
+            {m.arc.failClose}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution, signal, diagram }: {
+  stage: string;
+  headline: string;
+  lede: string;
+  body: string;
+  pullquote?: string;
+  pullquoteAttribution?: string;
+  signal?: string;
+  diagram?: React.ReactNode;
+}) {
+  return (
+    <div style={{ paddingBottom: "4rem", marginBottom: "4rem", borderBottom: "1px solid var(--color-hairline)" }}>
+      <p className="eyebrow" style={{ color: "var(--color-accent)", marginBottom: "0.875rem", letterSpacing: "0.12em" }}>{stage}</p>
+      <h3 className="display-lg" style={{ marginBottom: "1rem", fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>{headline}</h3>
+      <p className="lede" style={{ maxWidth: "780px", marginBottom: "1.25rem" }}>{lede}</p>
+      <div style={{ display: "grid", gridTemplateColumns: diagram ? "minmax(0, 1.1fr) minmax(0, 1fr)" : "1fr", gap: diagram ? "3rem" : 0, alignItems: "center" }}>
+        <div>
+          <p className="body-text" style={{ marginBottom: signal || pullquote ? "1.25rem" : 0, maxWidth: "560px" }}>{body}</p>
+          {pullquote && (
+            <>
+              <blockquote className="pullquote" style={{ marginTop: "1.5rem", maxWidth: "560px" }}>{pullquote}</blockquote>
+              {pullquoteAttribution && (
+                <p className="caption" style={{ marginTop: "0.5rem", marginLeft: "24px", color: "var(--color-ink-subtle)" }}>{pullquoteAttribution}</p>
+              )}
+            </>
+          )}
+          {signal && (
+            <p style={{ fontStyle: "italic", color: "var(--color-ink-subtle)", fontSize: "0.9375rem", marginTop: "1rem", maxWidth: "560px" }}>{signal}</p>
+          )}
+        </div>
+        {diagram && <div>{diagram}</div>}
+      </div>
+    </div>
   );
 }
 
@@ -441,6 +608,34 @@ function ThinkingAhead({ m }: { m: Messages }) {
 }
 
 /* ------------------------------------------------------------------ */
+
+function OperatorJob({ m }: { m: Messages }) {
+  return (
+    <section id="operator-job" className="section">
+      <div className="container">
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.operatorJob.eyebrow}</p>
+        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }}>{m.operatorJob.headline}</h2>
+        <blockquote className="pullquote" style={{ fontSize: "1.5rem", maxWidth: "780px", marginBottom: "2rem", paddingLeft: "1.5rem", borderLeftWidth: "3px" }}>
+          {m.operatorJob.pullquote}
+        </blockquote>
+        <p className="body-text" style={{ maxWidth: "780px", marginBottom: 0 }}>{m.operatorJob.body}</p>
+      </div>
+    </section>
+  );
+}
+
+function Close({ m }: { m: Messages }) {
+  return (
+    <section id="close" className="section" style={{ background: "var(--color-surface-1)", textAlign: "center", paddingTop: "6rem", paddingBottom: "6rem" }}>
+      <div className="container" style={{ maxWidth: "880px" }}>
+        <p className="eyebrow" style={{ marginBottom: "1.25rem" }}>{m.close.eyebrow}</p>
+        <h2 className="display-lg" style={{ marginBottom: "1.5rem" }}>{m.close.headline}</h2>
+        <p className="lede" style={{ maxWidth: "640px", marginInline: "auto", marginBottom: 0 }}>{m.close.body}</p>
+      </div>
+    </section>
+  );
+}
 
 function GetStarted({ m }: { m: Messages }) {
   return (

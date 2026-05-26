@@ -28,6 +28,7 @@ export const LOCALE_HTML_LANG: Record<Locale, string> = {
 export type Messages = {
   nav: {
     thesis: string;
+    arc: string;
     capabilities: string;
     architecture: string;
     agents: string;
@@ -45,6 +46,14 @@ export type Messages = {
     ctaGithub: string;
     ctaGetStarted: string;
   };
+  opening: {
+    eyebrow: string;
+    headline: string;
+    body: string;
+    stats: { value: string; label: string }[];
+    sourceLabel: string;
+    sourceText: string;
+  };
   intro: {
     eyebrow: string;
     headlinePart1: string;
@@ -52,7 +61,38 @@ export type Messages = {
     headlinePart2: string;
     whatIsHtml: string;       // "The AIOS turns AI into a team..."
     whoForHtml: string;       // "For anyone navigating AI-overwhelming days..."
+    reframePullquote: string; // "What becomes of my people when AI joins them?"
+    reframeAttribution: string;
     badge: string;            // small closing "if you want..." line
+  };
+  arc: {
+    eyebrow: string;
+    headline: string;
+    lede: string;
+    stages: {
+      one: { stage: string; headline: string; lede: string; body: string };
+      two: { stage: string; headline: string; lede: string; body: string; pullquote: string; pullquoteAttribution: string };
+      three: { stage: string; headline: string; lede: string; body: string; signal: string };
+      four: { stage: string; headline: string; lede: string; body: string; signal: string };
+    };
+    failEyebrow: string;
+    failHeadline: string;
+    failSkipTitle: string;
+    failSkipBody: string;
+    failPlateauTitle: string;
+    failPlateauBody: string;
+    failClose: string;
+  };
+  operatorJob: {
+    eyebrow: string;
+    headline: string;
+    pullquote: string;
+    body: string;
+  };
+  close: {
+    eyebrow: string;
+    headline: string;
+    body: string;
   };
   featured: {
     eyebrow: string;

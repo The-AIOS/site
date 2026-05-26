@@ -118,6 +118,8 @@ const allowedIdentical = new Set([
   "footer.narrativeLinks.amplifier",
   "footer.narrativeLinks.agenticCulture",
   "footer.aiLinks.llmstxt",
+  // Sources list — bibliography-style citation, stays as published
+  "opening.sourceText",
 ]);
 
 const enMap = new Map(flatEn.map((x) => [x.path, x.value]));

@@ -1,6 +1,8 @@
-/* Single SVG diagram — the observed-context lifecycle loop.
-   Three-state cycle around a central session hub. Kept lean: no shadow
-   gradients, no decorative noise; geometry + accent only. */
+/* Five hand-authored SVG diagrams. Coral accent, deep-black canvas.
+   Diagrams 2-5 are recolored adaptations from the EO Boston deck
+   (Calm Editorial reference at vault/02 - assets/refs/). */
+
+/* ---------- 1. Observed-context lifecycle loop ---------- */
 
 export function ContextLoopDiagram() {
   const cx = 200;
@@ -84,6 +86,126 @@ export function ContextLoopDiagram() {
           </text>
         </g>
       ))}
+    </svg>
+  );
+}
+
+/* ---------- 2. The Trap — sharp rise then plateau ---------- */
+
+export function TrapCurveDiagram({ plateauLabel, productivityLabel, leverageLabel, dayLabel, monthLabel }: {
+  plateauLabel: string; productivityLabel: string; leverageLabel: string; dayLabel: string; monthLabel: string;
+}) {
+  return (
+    <svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="The trap: productivity rises sharply then plateaus">
+      <line x1="60" y1="240" x2="660" y2="240" stroke="#262626" strokeWidth={1} />
+      <line x1="60" y1="40" x2="60" y2="240" stroke="#262626" strokeWidth={1} />
+      <text x="60" y="260" fontFamily="Inter, sans-serif" fontSize={9} fill="#707070" letterSpacing={1}>{dayLabel}</text>
+      <text x="650" y="260" textAnchor="end" fontFamily="Inter, sans-serif" fontSize={9} fill="#707070" letterSpacing={1}>{monthLabel}</text>
+      <text x="14" y="50" fontFamily="Inter, sans-serif" fontSize={9} fill="#707070" letterSpacing={1}>PROD.</text>
+      <path d="M 60 220 Q 130 200, 200 150 T 350 110 L 660 105" fill="none" stroke="#fafafa" strokeWidth={2} strokeLinecap="round" />
+      <line x1="400" y1="105" x2="640" y2="105" stroke="#ff5d4d" strokeWidth={1} strokeDasharray="4 4" />
+      <text x="520" y="92" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={10} fontWeight={700} fill="#ff5d4d" letterSpacing={1.2}>{plateauLabel}</text>
+      <text x="380" y="138" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#c4c4c4">{productivityLabel}</text>
+      <text x="380" y="156" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{leverageLabel}</text>
+    </svg>
+  );
+}
+
+/* ---------- 3. The Inflection — plateau then exponential acceleration ---------- */
+
+export function InflectionCurveDiagram({ inflectionLabel, plateauNote, accelerateNote, dayLabel, monthLabel }: {
+  inflectionLabel: string; plateauNote: string; accelerateNote: string; dayLabel: string; monthLabel: string;
+}) {
+  return (
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="The inflection: plateau then exponential acceleration">
+      <line x1="60" y1="270" x2="660" y2="270" stroke="#262626" strokeWidth={1} />
+      <line x1="60" y1="40" x2="60" y2="270" stroke="#262626" strokeWidth={1} />
+      <text x="60" y="290" fontFamily="Inter, sans-serif" fontSize={9} fill="#707070" letterSpacing={1}>{dayLabel}</text>
+      <text x="650" y="290" textAnchor="end" fontFamily="Inter, sans-serif" fontSize={9} fill="#707070" letterSpacing={1}>{monthLabel}</text>
+      <text x="14" y="50" fontFamily="Inter, sans-serif" fontSize={9} fill="#707070" letterSpacing={1}>PROD.</text>
+      {/* Stronger exponential — sharper post-inflection rise */}
+      <path d="M 60 250 Q 130 235, 200 195 T 350 165 L 420 158 C 480 145, 530 100, 580 50 S 640 18, 660 12" fill="none" stroke="#fafafa" strokeWidth={2} strokeLinecap="round" />
+      <circle cx="420" cy="158" r={5} fill="#ff5d4d" />
+      <line x1="420" y1="158" x2="420" y2="300" stroke="#ff5d4d" strokeWidth={1} strokeDasharray="3 4" />
+      <text x="420" y="314" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={9} fontWeight={700} fill="#ff5d4d" letterSpacing={1.4}>{inflectionLabel}</text>
+      <text x="280" y="218" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{plateauNote}</text>
+      <text x="510" y="80" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#fafafa">{accelerateNote}</text>
+    </svg>
+  );
+}
+
+/* ---------- 4. The Destination — one human orchestrates five agents ---------- */
+
+export function DestinationNetworkDiagram({ humanLabel, humanSub, agentLabels, caption }: {
+  humanLabel: string; humanSub: string; agentLabels: [string, string, string, string, string]; caption: string;
+}) {
+  const positions: [number, number][] = [
+    [350, 40], [540, 68], [540, 254], [160, 254], [160, 68],
+  ];
+  return (
+    <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="The destination: one human orchestrates five agents">
+      <circle cx="350" cy="160" r={44} fill="rgba(255,93,77,0.18)" stroke="#ff5d4d" strokeWidth={2} />
+      <text x="350" y="158" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={9} fill="#ff5d4d" letterSpacing={1.6}>{humanLabel}</text>
+      <text x="350" y="176" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={10} fill="#c4c4c4">{humanSub}</text>
+      {positions.map(([cx, cy], i) => {
+        // Connector from human edge toward node — approximation
+        const dx = cx - 350; const dy = cy - 160;
+        const len = Math.hypot(dx, dy);
+        const ux = dx / len; const uy = dy / len;
+        const x1 = 350 + ux * 44; const y1 = 160 + uy * 44;
+        const x2 = cx - ux * 20; const y2 = cy - uy * 20;
+        return (
+          <g key={i}>
+            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#262626" strokeWidth={1} />
+            <circle cx={cx} cy={cy} r={20} fill="#111111" stroke="#262626" strokeWidth={1} />
+            <text x={cx} y={cy + 4} textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={8} fill="#c4c4c4" letterSpacing={1.2}>{agentLabels[i]}</text>
+          </g>
+        );
+      })}
+      <text x="350" y="320" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{caption}</text>
+    </svg>
+  );
+}
+
+/* ---------- 5. Why Most Fail — two-pane diagram (The Skip vs The Plateau) ---------- */
+
+export function WhyMostFailDiagram({ skipLabel, skipTitle, skipBody, plateauLabel, wallLabel, plateauTitle, plateauBody }: {
+  skipLabel: string; skipTitle: string; skipBody: string; plateauLabel: string; wallLabel: string; plateauTitle: string; plateauBody: string;
+}) {
+  const StageBox = ({ x, label, active = false, faded = false }: { x: number; label: string; active?: boolean; faded?: boolean }) => (
+    <g opacity={faded ? 0.25 : 1}>
+      <rect x={x} y={60} width={70} height={50} fill={active ? "rgba(255,93,77,0.18)" : "#111111"} stroke={active ? "#ff5d4d" : "#262626"} />
+      <text x={x + 35} y={89} textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={9} fill={active ? "#ff5d4d" : "#707070"} letterSpacing={1.2}>{label}</text>
+    </g>
+  );
+  return (
+    <svg viewBox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }} aria-label="Why most fail: two ways companies break">
+      {/* LEFT — THE SKIP */}
+      <g>
+        <text x="220" y="22" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={11} letterSpacing={1.8} fill="#ff5d4d">{skipLabel}</text>
+        <StageBox x={40} label="1" />
+        <StageBox x={135} label="2" faded />
+        <StageBox x={230} label="3" faded />
+        <StageBox x={325} label="4" active />
+        <path d="M 75 60 Q 218 0, 360 60" fill="none" stroke="#ff5d4d" strokeWidth={1.5} strokeDasharray="5 4" />
+        <line x1="208" y1="14" x2="228" y2="34" stroke="#ff5d4d" strokeWidth={2.5} />
+        <line x1="228" y1="14" x2="208" y2="34" stroke="#ff5d4d" strokeWidth={2.5} />
+        <text x="220" y="148" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={12} fontWeight={700} fill="#fafafa">{skipTitle}</text>
+        <text x="220" y="172" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{skipBody}</text>
+      </g>
+      <line x1="500" y1="40" x2="500" y2="220" stroke="#262626" strokeWidth={1} />
+      {/* RIGHT — THE PLATEAU */}
+      <g transform="translate(540, 0)">
+        <text x="220" y="22" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={11} letterSpacing={1.8} fill="#ff5d4d">{plateauLabel}</text>
+        <StageBox x={40} label="1" />
+        <StageBox x={135} label="2" />
+        <line x1="218" y1="46" x2="218" y2="124" stroke="#ff5d4d" strokeWidth={3} strokeLinecap="round" />
+        <text x="218" y="40" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={9} fill="#ff5d4d" letterSpacing={1.4}>{wallLabel}</text>
+        <StageBox x={230} label="3" faded />
+        <StageBox x={325} label="4" faded />
+        <text x="220" y="148" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize={12} fontWeight={700} fill="#fafafa">{plateauTitle}</text>
+        <text x="220" y="172" textAnchor="middle" fontFamily="Inter, sans-serif" fontStyle="italic" fontSize={11} fill="#707070">{plateauBody}</text>
+      </g>
     </svg>
   );
 }

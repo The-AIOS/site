@@ -9,6 +9,7 @@ import type { Messages } from "./types";
 const pt: Messages = {
   nav: {
     thesis: "Tese",
+    arc: "O Arco",
     capabilities: "Capacidades",
     architecture: "Arquitetura",
     agents: "Agentes",
@@ -27,6 +28,20 @@ const pt: Messages = {
     ctaGithub: "Ver no GitHub →",
     ctaGetStarted: "Começar ↓",
   },
+  opening: {
+    eyebrow: "A Abertura",
+    headline: "O seu medo tem dados por trás.",
+    body:
+      "A maioria dos líderes percebe que algo está errado em como a organização está absorvendo IA. Os números explicam o porquê — e emolduram o resto desta página.",
+    stats: [
+      { value: "73%", label: "dos CEOs relatam estresse ou ansiedade por causa da IA" },
+      { value: "54%", label: "dos executivos C-suite dizem que a IA está “rasgando a empresa deles”" },
+      { value: "31%", label: "dos knowledge workers nos EUA trabalham ativamente contra a iniciativa de IA da empresa" },
+      { value: "41%", label: "para a Gen Z" },
+    ],
+    sourceLabel: "Fontes",
+    sourceText: "Writer.com 2026 · Barry O'Reilly · State of AI Q1 2026",
+  },
   intro: {
     eyebrow: "O que é isto e para quem é",
     headlinePart1: "Todo mundo está construindo um AIOS.",
@@ -36,8 +51,70 @@ const pt: Messages = {
       "The AIOS transforma IA em um time — um jurídico você, um contador você, um marketing você, um engenheiro de software você. Rode todos eles e seja o orquestrador, ou deixe um co-worker de IA rodar o resto como o seu <strong>chief of staff que nunca dorme</strong> e absorve a sobrecarga de coordenação.",
     whoForHtml:
       "Para qualquer pessoa navegando dias sobrecarregados de IA — <strong>executivos sênior, builders, founders, operadores</strong>. IA sozinha multiplica a confusão. The AIOS te dá a estrutura (prompt, contexto, intent, colaboração, segundo cérebro) onde a clareza emerge, e então permite que você amplifique você e o seu time com co-workers de IA.",
+    reframePullquote:
+      "A pergunta errada: “Como eu trago IA para a minha empresa?” A pergunta certa: “O que acontece com o meu pessoal quando a IA se junta a eles?”",
+    reframeAttribution: "— O Reframe",
     badge:
       "Se você quer tirar o máximo da IA sem perder o que te torna insubstituível — e sem risco de IP/PII — isto é para você.",
+  },
+  arc: {
+    eyebrow: "O Arco",
+    headline: "Quatro estágios entre você e a organização que sobrevive à IA.",
+    lede: "A maioria dos líderes tenta pular do 1 para o 4. É assim que as empresas quebram. O arco é uma sequência — não um cardápio.",
+    stages: {
+      one: {
+        stage: "Estágio 1 — Indivíduos",
+        headline: "Humanos fazendo o trabalho.",
+        lede: "A organização que você construiu.",
+        body:
+          "Expertise real. Relacionamentos reais. Wins reais. Este não é o problema. Esta é a fundação. Tudo o que vem depois precisa honrá-la — ou não sobrevive ao contato com o seu time.",
+      },
+      two: {
+        stage: "Estágio 2 — A Armadilha",
+        headline: "Prompters Individuais.",
+        lede: "Todo mundo ganha um assento no ChatGPT. A produtividade sobe 20%. A liderança declara vitória.",
+        body:
+          "Seis meses depois: zero alavancagem. Zero compounding. O trabalho ficou um pouco mais rápido por pessoa — e de alguma forma a moral está pior. Porque todos continuam fazendo todo o trabalho velho, mais o trabalho novo de “usar IA”.",
+        pullquote: "Temos IA em todo lugar e alavancagem em lugar nenhum.",
+        pullquoteAttribution: "Composite — padrão observado em entrevistas com operadores",
+      },
+      three: {
+        stage: "Estágio 3 — A Inflexão",
+        headline: "Indivíduos Assistidos.",
+        lede: "Pare de pedir à IA. Comece a trabalhar com ela.",
+        body:
+          "A IA sai da janela do chat e entra no workflow. Cursor para engenheiros. Otter para reuniões. Mercury para finanças. A ferramenta deixa de ser um destino — e vira uma camada. O papel fica. A carga cognitiva cai.",
+        signal: "“Ah… isto deixa meu trabalho mais leve.” — o sinal de que você está no Estágio 3.",
+      },
+      four: {
+        stage: "Estágio 4 — O Destino",
+        headline: "Orquestradores.",
+        lede: "Um humano conduz cinco agentes.",
+        body:
+          "O trabalho não é mais feito pelo humano. É dirigido por ele. A nova skill não é fazer — é enquadrar, sequenciar, verificar. A mesma pessoa que entregava um relatório por semana entrega dez — e revisa todos.",
+        signal: "O 10× aparece aqui. Não em velocidade individual — em capacidade de orquestração.",
+      },
+    },
+    failEyebrow: "Por que a maioria falha",
+    failHeadline: "Duas formas das empresas quebrarem.",
+    failSkipTitle: "O salto — pular sem sequência",
+    failSkipBody: "Comprar estratégia Estágio-4 antes de qualquer um saber promptar. Resultado: pilotos falhos, revolta de funcionários.",
+    failPlateauTitle: "O platô — parar nos prompters",
+    failPlateauBody: "“Todo mundo tem um assento no ChatGPT — pronto.” Resultado: zero alavancagem, zero defensibilidade.",
+    failClose: "O arco é uma sequência — não um cardápio.",
+  },
+  operatorJob: {
+    eyebrow: "O Novo Trabalho do Operador",
+    headline: "Seu trabalho não é usar mais IA.",
+    pullquote: "Seu trabalho é liderar a cultura na qual os seus agentes vão rodar.",
+    body:
+      "Isso significa definir qual trabalho pertence aos humanos, qual pertence à IA e qual pertence ao par. Significa tornar explícita a camada de verificação — todo workflow Estágio-4 precisa de uma. E significa liderar a partir da clareza, não do pânico. A qualidade do output depende da sua cultura de liderança, não da qualidade do prompt.",
+  },
+  close: {
+    eyebrow: "O Fechamento",
+    headline: "A IA não substitui o seu time. Ela se junta a ele.",
+    body:
+      "A única pergunta é se você é o operador que ensinou eles a trabalharem juntos — ou aquele que foi substituído porque não ensinou.",
   },
   featured: {
     eyebrow: "Comandos em destaque",
@@ -69,10 +146,10 @@ const pt: Messages = {
     },
   },
   thesis: {
-    eyebrow: "A tese",
-    headline: "A maioria das pessoas usa IA do zero. Toda sessão.",
+    eyebrow: "A Tese",
+    headline: "A IA não substitui o seu time. Ela se junta a ele.",
     para1:
-      "O padrão de sempre: você abre um chat, explica de novo quem é, cola um pouco de contexto, faz a pergunta e perde tudo quando fecha a aba. Amanhã a mesma dança, com um pouco menos de paciência.",
+      "O padrão da maioria dos times: você abre um chat, explica de novo quem é, cola um pouco de contexto, faz a pergunta e perde tudo quando fecha a aba. Amanhã a mesma dança, com um pouco menos de paciência. A IA entra sozinha, quebra coisas, sai.",
     para2Html:
       "The-AIOS substitui esse padrão por um <strong>cofre</strong> — uma memória persistente, baseada em arquivos, sobre você e sobre o seu trabalho, que é carregada automaticamente toda vez que você fala com Claude. O <strong>contexto declarado</strong> é o que você diz explicitamente. O <strong>contexto observado</strong> é o que a IA aprende trabalhando com você ao longo do tempo.",
     para3:
