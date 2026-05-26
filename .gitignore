@@ -1,0 +1,17 @@
+node_modules
+.next
+out
+.DS_Store
+*.log
+.env*
+!.env.example
+.vercel
+next-env.d.ts
+
+# Python bytecode (scripts/gen-image.py is the only Python in repo)
+__pycache__
+*.pyc
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+
