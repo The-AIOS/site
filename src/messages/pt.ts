@@ -9,7 +9,7 @@ import type { Messages } from "./types";
 const pt: Messages = {
   nav: {
     thesis: "Tese",
-    arc: "O Arco",
+    arc: "Trabalho do operador",
     capabilities: "Capacidades",
     architecture: "Arquitetura",
     agents: "Agentes",

@@ -13,16 +13,14 @@ export default function HomePage({ m, locale }: Props) {
       <Hero m={m} />
       <Intro m={m} />
       <Thesis m={m} />
-      <Arc m={m} />
       <Capabilities m={m} />
       <Featured m={m} />
       <Architecture m={m} />
       <ObservedLoop m={m} />
-      <OperatorJob m={m} />
       <Bundles m={m} />
       <ThinkingAhead m={m} />
+      <OperatorJobAndArc m={m} />
       <GetStarted m={m} />
-      <Close m={m} />
       <Footer m={m} />
     </main>
   );
@@ -66,10 +64,10 @@ function Header({ m, locale }: Props) {
         </a>
         <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
           <a href="#thesis" className="caption" style={{ textDecoration: "none" }}>{m.nav.thesis}</a>
-          <a href="#arc" className="caption" style={{ textDecoration: "none" }}>{m.nav.arc}</a>
           <a href="#capabilities" className="caption" style={{ textDecoration: "none" }}>{m.nav.capabilities}</a>
           <a href="#bundles" className="caption" style={{ textDecoration: "none" }}>{m.nav.agents}</a>
           <a href="#thinking-ahead" className="caption" style={{ textDecoration: "none" }}>{m.nav.ahead}</a>
+          <a href="#operator-job" className="caption" style={{ textDecoration: "none" }}>{m.nav.arc}</a>
           <a href="#get-started" className="caption" style={{ textDecoration: "none" }}>{m.nav.getStarted}</a>
           <a href="https://github.com/The-AIOS/aios" className="caption" style={{ textDecoration: "none" }} target="_blank" rel="noreferrer">
             {m.nav.github}
@@ -168,16 +166,20 @@ function Intro({ m }: { m: Messages }) {
   );
 }
 
-function Arc({ m }: { m: Messages }) {
+function OperatorJobAndArc({ m }: { m: Messages }) {
   return (
-    <section id="arc" className="section">
+    <section id="operator-job" className="section">
       <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.arc.eyebrow}</p>
+        {/* Section opener — Operator's New Job framing */}
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.operatorJob.eyebrow}</p>
         <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }}>{m.arc.headline}</h2>
-        <p className="lede" style={{ maxWidth: "780px", marginBottom: "4rem" }}>{m.arc.lede}</p>
+        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }}>{m.operatorJob.headline}</h2>
+        <blockquote className="pullquote" style={{ fontSize: "1.5rem", maxWidth: "780px", marginBottom: "2rem", paddingLeft: "1.5rem", borderLeftWidth: "3px" }}>
+          {m.operatorJob.pullquote}
+        </blockquote>
+        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "5rem" }}>{m.operatorJob.body}</p>
 
-        {/* Stage 1 — Individuals (no diagram) */}
+        {/* The 4 stages — now framed as the operator's culture map */}
         <ArcStage
           stage={m.arc.stages.one.stage}
           headline={m.arc.stages.one.headline}
@@ -594,34 +596,6 @@ function ThinkingAhead({ m }: { m: Messages }) {
 }
 
 /* ------------------------------------------------------------------ */
-
-function OperatorJob({ m }: { m: Messages }) {
-  return (
-    <section id="operator-job" className="section">
-      <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.operatorJob.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }}>{m.operatorJob.headline}</h2>
-        <blockquote className="pullquote" style={{ fontSize: "1.5rem", maxWidth: "780px", marginBottom: "2rem", paddingLeft: "1.5rem", borderLeftWidth: "3px" }}>
-          {m.operatorJob.pullquote}
-        </blockquote>
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: 0 }}>{m.operatorJob.body}</p>
-      </div>
-    </section>
-  );
-}
-
-function Close({ m }: { m: Messages }) {
-  return (
-    <section id="close" className="section" style={{ background: "var(--color-surface-1)", textAlign: "center", paddingTop: "6rem", paddingBottom: "6rem" }}>
-      <div className="container" style={{ maxWidth: "880px" }}>
-        <p className="eyebrow" style={{ marginBottom: "1.25rem" }}>{m.close.eyebrow}</p>
-        <h2 className="display-lg" style={{ marginBottom: "1.5rem" }}>{m.close.headline}</h2>
-        <p className="lede" style={{ maxWidth: "640px", marginInline: "auto", marginBottom: 0 }}>{m.close.body}</p>
-      </div>
-    </section>
-  );
-}
 
 function GetStarted({ m }: { m: Messages }) {
   return (

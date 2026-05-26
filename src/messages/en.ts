@@ -3,7 +3,7 @@ import type { Messages } from "./types";
 const en: Messages = {
   nav: {
     thesis: "Thesis",
-    arc: "The Arc",
+    arc: "Operator's job",
     capabilities: "Capabilities",
     architecture: "Architecture",
     agents: "Agents",
