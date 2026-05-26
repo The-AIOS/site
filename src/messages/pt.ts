@@ -149,11 +149,11 @@ const pt: Messages = {
     eyebrow: "A Tese",
     headline: "A IA não substitui o seu time. Ela se junta a ele.",
     para1:
-      "O padrão da maioria dos times: você abre um chat, explica de novo quem é, cola um pouco de contexto, faz a pergunta e perde tudo quando fecha a aba. Amanhã a mesma dança, com um pouco menos de paciência. A IA entra sozinha, quebra coisas, sai.",
+      "A IA fica tentando se juntar ao seu time e falhando. Toda sessão começa do zero — sem memória de quem você é, do que está construindo, do que já foi decidido. Não é assim que teammates funcionam. É assim que estranhos visitam.",
     para2Html:
-      "The-AIOS substitui esse padrão por um <strong>cofre</strong> — uma memória persistente, baseada em arquivos, sobre você e sobre o seu trabalho, que é carregada automaticamente toda vez que você fala com Claude. O <strong>contexto declarado</strong> é o que você diz explicitamente. O <strong>contexto observado</strong> é o que a IA aprende trabalhando com você ao longo do tempo.",
+      "The AIOS dá à IA o que todo teammate precisa para de fato se juntar: um <strong>cofre</strong> de quem você é (<strong>contexto declarado</strong>), do que ela aprendeu sobre como você trabalha (<strong>contexto observado</strong>), e um contrato sobre o que ela está autorizada a fazer sem perguntar (<strong>intent</strong>). Três camadas, todas baseadas em arquivos, todas persistentes.",
     para3:
-      "Cada sessão se apoia na anterior. Com os meses, o cofre vira um segundo cérebro que conhece você melhor do que qualquer ferramenta que você já usou — porque ele de fato lembra.",
+      "Cada sessão se apoia na anterior. Com os meses, a IA deixa de ser o estranho que você fica re-apresentando — e vira o teammate que já conhece o trabalho, as pessoas, e o jeito como se decide aqui.",
     pullquote:
       "Os princípios que tornam os times humanos extraordinários são os mesmos que tornam os times humano-IA extraordinários — porque são padrões de colaboração inteligente, não padrões especificamente humanos.",
     attribution: "— The Agentic Culture",

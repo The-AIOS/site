@@ -143,11 +143,11 @@ const en: Messages = {
     eyebrow: "The Thesis",
     headline: "AI doesn't replace your team. It joins it.",
     para1:
-      "The standard pattern with most teams: open a chat, restate who you are, paste in some context, ask the question, lose it all when the tab closes. Tomorrow the same dance, slightly less patience. AI walks in alone, breaks things, walks out.",
+      "AI keeps trying to join your team and failing. Every session starts from zero — no memory of who you are, what you're building, what's already been decided. That's not how teammates work. That's how strangers visit.",
     para2Html:
-      "The-AIOS replaces that pattern with a <strong>vault</strong> — a persistent, file-based memory of you and your work that loads automatically every time you talk to Claude. <strong>Declared context</strong> is what you tell it explicitly. <strong>Observed context</strong> is what it learns by working with you over time.",
+      "The AIOS gives AI what every teammate needs to actually join: a <strong>vault</strong> of who you are (<strong>declared context</strong>), what it has learned about how you work (<strong>observed context</strong>), and a contract for what it's authorized to do without asking (<strong>intent</strong>). Three layers, all file-based, all persistent.",
     para3:
-      "Each session builds on the last. Over months, the vault becomes a second brain that knows you better than any tool you've ever used — because it actually remembers.",
+      "Each session builds on the last. Over months, the AI stops being the stranger you keep re-introducing — and becomes the teammate who already knows the work, the people, and the way things are decided here.",
     pullquote:
       "The principles that make human teams extraordinary are the same principles that make human-AI teams extraordinary — because they're patterns of intelligence collaboration, not human-specific patterns.",
     attribution: "— The Agentic Culture",

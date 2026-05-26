@@ -148,11 +148,11 @@ const es: Messages = {
     eyebrow: "La Tesis",
     headline: "La IA no reemplaza a tu equipo. Se les une.",
     para1:
-      "El patrón estándar de la mayoría de los equipos: abres un chat, vuelves a explicar quién eres, pegas algo de contexto, haces la pregunta y lo pierdes todo cuando cierras la pestaña. Mañana la misma danza, con un poco menos de paciencia. La IA entra sola, rompe cosas, sale.",
+      "La IA sigue intentando unirse a tu equipo y fallando. Cada sesión arranca desde cero — sin memoria de quién eres, qué estás construyendo, qué ya se decidió. Así no funcionan los teammates. Así nada más visitan los extraños.",
     para2Html:
-      "The-AIOS reemplaza ese patrón con una <strong>bóveda</strong> — una memoria persistente, basada en archivos, de ti y de tu trabajo, que se carga automáticamente cada vez que hablas con Claude. El <strong>contexto declarado</strong> es lo que le dices explícitamente. El <strong>contexto observado</strong> es lo que aprende trabajando contigo a lo largo del tiempo.",
+      "The AIOS le da a la IA lo que todo teammate necesita para de verdad unirse: una <strong>bóveda</strong> de quién eres (<strong>contexto declarado</strong>), lo que ha aprendido sobre cómo trabajas (<strong>contexto observado</strong>), y un contrato para qué está autorizada a hacer sin preguntar (<strong>intent</strong>). Tres capas, todas basadas en archivos, todas persistentes.",
     para3:
-      "Cada sesión se apoya en la anterior. Con los meses, la bóveda se convierte en un segundo cerebro que te conoce mejor que cualquier herramienta que hayas usado — porque de verdad recuerda.",
+      "Cada sesión se apoya en la anterior. Con los meses, la IA deja de ser el extraño que vuelves a presentar una y otra vez — y se vuelve el teammate que ya conoce el trabajo, a la gente, y la forma en que se decide aquí.",
     pullquote:
       "Los principios que hacen extraordinarios a los equipos humanos son los mismos que hacen extraordinarios a los equipos humano-IA — porque son patrones de colaboración inteligente, no patrones específicamente humanos.",
     attribution: "— The Agentic Culture",
