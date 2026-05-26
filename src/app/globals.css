@@ -342,7 +342,10 @@ img, svg { max-width: 100%; height: auto; }
 }
 
 @media (min-width: 901px) {
-  .nav-mobile-trigger { display: none; }
+  /* !important needed because .icon-btn (specificity equal) is defined
+     later in the file with display: inline-flex — the cascade order
+     would otherwise leave the hamburger button visible on desktop. */
+  .nav-mobile-trigger { display: none !important; }
 }
 
 /* ---------- Cards (used for capabilities, agents) ---------- */
