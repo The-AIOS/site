@@ -28,6 +28,14 @@
 
 * { box-sizing: border-box; }
 
+/* Modern horizontal-overflow clip — applied only at html level to avoid
+   creating a scroll context on body (which was clipping the footer on
+   mobile and causing other layout quirks). `clip` is preferred over
+   `hidden` here: it clips without establishing a scroll container. */
+html {
+  overflow-x: clip;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -39,9 +47,10 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "cv11", "ss01", "ss03";  /* Inter's modern alternates */
-  /* Defensive: clip any accidental horizontal overflow at the root */
-  overflow-x: hidden;
-  width: 100%;
+}
+
+body {
+  min-height: 100vh;
 }
 
 /* Long URLs / commands inside code + ai-affordance wrap on mobile */
@@ -307,6 +316,11 @@ img, svg { max-width: 100%; height: auto; }
   .section { padding: 3.5rem 0; }
   .section-hero { padding-top: 3.5rem; padding-bottom: 3.5rem; }
   .container { padding: 0 1.25rem; }
+  /* Footer rhythm tightens on mobile + ensures hairline + copyright row
+     stay visible beneath the link sections (was getting cropped on
+     phones from prior body overflow rule) */
+  .footer { padding: 3rem 0 1.5rem; }
+  .footer > .container > div:first-child { gap: 1.75rem !important; }
   .section-grid,
   .content-grid,
   .content-grid-flipped {
@@ -417,16 +431,22 @@ img, svg { max-width: 100%; height: auto; }
 .footer a { color: var(--color-ink-muted); text-decoration: none; }
 .footer a:hover { color: var(--color-accent); }
 
-/* ---------- Mobile menu (full-screen drawer) ---------- */
+/* ---------- Mobile menu (full-screen drawer) ----------
+   Solid opaque background — NO backdrop-filter (caused transparency
+   rendering bugs on mobile Chrome + Safari where the menu showed the
+   page through it). The drawer is meant to be a solid overlay. */
 .mobile-menu-overlay {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: var(--color-canvas);
-  backdrop-filter: blur(12px);
+  background: #0a0a0a;          /* hard-coded opaque to bypass var resolution edge cases */
+  min-height: 100vh;
+  min-height: 100dvh;            /* mobile-correct viewport height (dynamic, accounts for browser chrome) */
+  width: 100vw;
   display: flex;
   flex-direction: column;
   padding: 1.5rem 1.5rem 2rem;
+  overflow-y: auto;
   animation: mm-fade 0.18s ease;
 }
 @keyframes mm-fade {
