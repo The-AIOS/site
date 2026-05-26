@@ -120,6 +120,14 @@ const allowedIdentical = new Set([
   "footer.aiLinks.llmstxt",
   // Sources list — bibliography-style citation, stays as published
   "opening.sourceText",
+  // Progression stage names — AIOS framework proper-noun concepts kept English
+  "progression.automate.name",
+  "progression.amplify.name",
+  "progression.agentic.name",
+  // Emoji dots are universal symbols
+  "progression.automate.dot",
+  "progression.amplify.dot",
+  "progression.agentic.dot",
 ]);
 
 const enMap = new Map(flatEn.map((x) => [x.path, x.value]));

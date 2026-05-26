@@ -158,6 +158,12 @@ const pt: Messages = {
       "Os princípios que tornam os times humanos extraordinários são os mesmos que tornam os times humano-IA extraordinários — porque são padrões de colaboração inteligente, não padrões especificamente humanos.",
     attribution: "— The Agentic Culture",
   },
+  progression: {
+    thesisLabel: "Como se parece ela se juntando — em três estágios que compõem:",
+    automate: { dot: "🟢", name: "Automate", aiRole: "IA como Ferramenta", humanRole: "Humano como Prompter" },
+    amplify:  { dot: "🔵", name: "Amplify",  aiRole: "IA como Assistente", humanRole: "Humano como Primeiro-Cérebro" },
+    agentic:  { dot: "🟣", name: "Agentic",  aiRole: "IA como Time",       humanRole: "Humano como Orquestrador" },
+  },
   capabilities: {
     eyebrow: "O que tem dentro",
     headline: "Uma superfície de trabalho, não um chatbot.",

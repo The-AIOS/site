@@ -157,6 +157,12 @@ const es: Messages = {
       "Los principios que hacen extraordinarios a los equipos humanos son los mismos que hacen extraordinarios a los equipos humano-IA — porque son patrones de colaboración inteligente, no patrones específicamente humanos.",
     attribution: "— The Agentic Culture",
   },
+  progression: {
+    thesisLabel: "Cómo se ve unirse — a través de tres etapas que componen:",
+    automate: { dot: "🟢", name: "Automate", aiRole: "IA como Herramienta", humanRole: "Humano como Prompter" },
+    amplify:  { dot: "🔵", name: "Amplify",  aiRole: "IA como Asistente",   humanRole: "Humano como Primer-Cerebro" },
+    agentic:  { dot: "🟣", name: "Agentic",  aiRole: "IA como Equipo",      humanRole: "Humano como Orquestador" },
+  },
   capabilities: {
     eyebrow: "Qué hay dentro",
     headline: "Una superficie de trabajo, no un chatbot.",

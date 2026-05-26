@@ -113,6 +113,15 @@ export type Messages = {
     pullquote: string;
     attribution: string;
   };
+  progression: {
+    /* Label rendered above the 3-row visual preview in Thesis */
+    thesisLabel: string;
+    /* The 3 stages — each rendered as a labeled row (Thesis preview) or
+       as a meta-tag on the stage eyebrow (Arc stages 2-4). */
+    automate: { dot: string; name: string; aiRole: string; humanRole: string };
+    amplify: { dot: string; name: string; aiRole: string; humanRole: string };
+    agentic: { dot: string; name: string; aiRole: string; humanRole: string };
+  };
   capabilities: {
     eyebrow: string;
     headline: string;

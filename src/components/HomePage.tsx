@@ -187,8 +187,9 @@ function OperatorJobAndArc({ m }: { m: Messages }) {
           body={m.arc.stages.one.body}
         />
 
-        {/* Stage 2 — The Trap */}
+        {/* Stage 2 — The Trap (mapped to Automate progression — "AI as Tool, Human as Prompter") */}
         <ArcStage
+          progressionStage={m.progression.automate}
           stage={m.arc.stages.two.stage}
           headline={m.arc.stages.two.headline}
           lede={m.arc.stages.two.lede}
@@ -206,8 +207,9 @@ function OperatorJobAndArc({ m }: { m: Messages }) {
           }
         />
 
-        {/* Stage 3 — The Inflection */}
+        {/* Stage 3 — The Inflection (mapped to Amplify progression — "AI as Assistant, Human as First-Brain") */}
         <ArcStage
+          progressionStage={m.progression.amplify}
           stage={m.arc.stages.three.stage}
           headline={m.arc.stages.three.headline}
           lede={m.arc.stages.three.lede}
@@ -224,9 +226,10 @@ function OperatorJobAndArc({ m }: { m: Messages }) {
           }
         />
 
-        {/* Stage 4 — The Destination */}
+        {/* Stage 4 — The Destination (mapped to Agentic progression — "AI as Team, Human as Orchestrator") */}
         <ArcStage
           isLast
+          progressionStage={m.progression.agentic}
           stage={m.arc.stages.four.stage}
           headline={m.arc.stages.four.headline}
           lede={m.arc.stages.four.lede}
@@ -264,7 +267,7 @@ function OperatorJobAndArc({ m }: { m: Messages }) {
   );
 }
 
-function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution, signal, diagram, isLast = false }: {
+function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution, signal, diagram, isLast = false, progressionStage }: {
   stage: string;
   headline: string;
   lede: string;
@@ -274,10 +277,14 @@ function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution
   signal?: string;
   diagram?: React.ReactNode;
   isLast?: boolean;
+  progressionStage?: { dot: string; name: string; aiRole: string; humanRole: string };
 }) {
   return (
     <div style={{ paddingBottom: isLast ? "0" : "4rem", marginBottom: isLast ? "0" : "4rem", borderBottom: isLast ? "none" : "1px solid var(--color-hairline)" }}>
-      <p className="eyebrow" style={{ color: "var(--color-accent)", marginBottom: "0.875rem", letterSpacing: "0.12em" }}>{stage}</p>
+      <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap", marginBottom: "0.875rem" }}>
+        <p className="eyebrow" style={{ color: "var(--color-accent)", letterSpacing: "0.12em", marginBottom: 0 }}>{stage}</p>
+        {progressionStage && <ProgressionTag stage={progressionStage} />}
+      </div>
       <h3 className="display-lg" style={{ marginBottom: "1rem", fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>{headline}</h3>
       <p className="lede" style={{ maxWidth: "780px", marginBottom: "1.25rem" }}>{lede}</p>
       <div style={{ display: "grid", gridTemplateColumns: diagram ? "minmax(0, 1.1fr) minmax(0, 1fr)" : "1fr", gap: diagram ? "3rem" : 0, alignItems: "center" }}>
@@ -339,6 +346,59 @@ function Featured({ m }: { m: Messages }) {
   );
 }
 
+function ProgressionRow({ stage, isLast = false }: { stage: { dot: string; name: string; aiRole: string; humanRole: string }; isLast?: boolean }) {
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "minmax(0, 0.5fr) minmax(0, 1fr) minmax(0, 1.5fr)",
+        gap: "1rem",
+        padding: "0.875rem 0",
+        borderBottom: isLast ? "none" : "1px solid var(--color-hairline)",
+        alignItems: "baseline",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
+        <span style={{ fontSize: "0.75rem" }} aria-hidden="true">{stage.dot}</span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-accent)" }}>
+          {stage.name}
+        </span>
+      </div>
+      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9375rem", color: "var(--color-ink)" }}>{stage.aiRole}</span>
+      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9375rem", color: "var(--color-ink-muted)" }}>{stage.humanRole}</span>
+    </div>
+  );
+}
+
+function ProgressionTag({ stage }: { stage: { dot: string; name: string; aiRole: string; humanRole: string } }) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "baseline",
+        gap: "0.5rem",
+        padding: "0.25rem 0.625rem",
+        background: "var(--color-surface-1)",
+        border: "1px solid var(--color-hairline)",
+        borderRadius: "4px",
+        fontFamily: "var(--font-mono)",
+        fontSize: "0.6875rem",
+        marginLeft: "0.75rem",
+        verticalAlign: "middle",
+      }}
+    >
+      <span aria-hidden="true" style={{ fontSize: "0.625rem" }}>{stage.dot}</span>
+      <span style={{ fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--color-accent)" }}>
+        {stage.name}
+      </span>
+      <span style={{ color: "var(--color-ink-subtle)" }}>·</span>
+      <span style={{ color: "var(--color-ink-muted)" }}>{stage.aiRole}</span>
+      <span style={{ color: "var(--color-ink-subtle)" }}>·</span>
+      <span style={{ color: "var(--color-ink-muted)" }}>{stage.humanRole}</span>
+    </span>
+  );
+}
+
 function Thesis({ m }: { m: Messages }) {
   return (
     <section id="thesis" className="section">
@@ -353,6 +413,17 @@ function Thesis({ m }: { m: Messages }) {
             <p className="body-text" style={{ marginBottom: "1.5rem" }}>{m.thesis.para1}</p>
             <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thesis.para2Html }} />
             <p className="body-text" style={{ marginBottom: "0" }}>{m.thesis.para3}</p>
+
+            {/* 3-stage compounding preview — labels show the AI/human role per stage */}
+            <div style={{ marginTop: "2.5rem", padding: "1.25rem 1.5rem", background: "var(--color-surface-1)", border: "1px solid var(--color-hairline)", borderRadius: "8px" }}>
+              <p className="caption" style={{ color: "var(--color-ink-subtle)", marginBottom: "0.5rem", textTransform: "none", letterSpacing: "normal" }}>
+                {m.progression.thesisLabel}
+              </p>
+              <ProgressionRow stage={m.progression.automate} />
+              <ProgressionRow stage={m.progression.amplify} />
+              <ProgressionRow stage={m.progression.agentic} isLast />
+            </div>
+
             <hr className="hairline" style={{ margin: "2.5rem 0" }} />
             <blockquote className="pullquote">{m.thesis.pullquote}</blockquote>
             <p className="caption" style={{ marginTop: "1rem", marginLeft: "24px" }}>{m.thesis.attribution}</p>

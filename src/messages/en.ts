@@ -152,6 +152,12 @@ const en: Messages = {
       "The principles that make human teams extraordinary are the same principles that make human-AI teams extraordinary — because they're patterns of intelligence collaboration, not human-specific patterns.",
     attribution: "— The Agentic Culture",
   },
+  progression: {
+    thesisLabel: "What joining looks like — across three compounding stages:",
+    automate: { dot: "🟢", name: "Automate", aiRole: "AI as a Tool", humanRole: "Human as a Prompter" },
+    amplify:  { dot: "🔵", name: "Amplify",  aiRole: "AI as an Assistant", humanRole: "Human as the First-Brain" },
+    agentic:  { dot: "🟣", name: "Agentic",  aiRole: "AI as a Team", humanRole: "Human as the Orchestrator" },
+  },
   capabilities: {
     eyebrow: "What's inside",
     headline: "A workflow surface, not a chatbot.",
