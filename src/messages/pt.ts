@@ -117,7 +117,7 @@ const pt: Messages = {
     eyebrow: "Comandos em destaque",
     headline: "Onde o framework rende mais do que custa.",
     body:
-      "25 comandos vêm no framework. Três ganham seu próprio spotlight — os que os operadores usam diariamente e os que transformam IA de ferramenta em superfície operacional.",
+      "24 comandos vêm no framework. Três ganham seu próprio spotlight — os que os operadores usam diariamente e os que transformam IA de ferramenta em superfície operacional.",
     cards: {
       ingest: {
         command: "/aios:ingest",
@@ -233,7 +233,7 @@ const pt: Messages = {
   },
   bundles: {
     eyebrow: "A frota de agentes",
-    headline: "35 agentes em 6 bundles.",
+    headline: "29 agentes em 6 bundles.",
     body:
       "Cada agente é um especialista com um brief focado e acesso a ferramentas. Faça o spawn de um como worker de longa duração, ou carregue a sua expertise na sessão atual. Operadores adicionam os seus em agents/custom/.",
     bundleNames: {

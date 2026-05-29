@@ -111,7 +111,7 @@ const en: Messages = {
     eyebrow: "Featured commands",
     headline: "Where the framework punches above its weight.",
     body:
-      "25 commands ship in the framework. Three earn their own spotlight — the ones operators reach for daily and the ones that turn AI from a tool into an operating surface.",
+      "24 commands ship in the framework. Three earn their own spotlight — the ones operators reach for daily and the ones that turn AI from a tool into an operating surface.",
     cards: {
       ingest: {
         command: "/aios:ingest",
@@ -227,7 +227,7 @@ const en: Messages = {
   },
   bundles: {
     eyebrow: "The agent fleet",
-    headline: "35 agents across 6 bundles.",
+    headline: "29 agents across 6 bundles.",
     body:
       "Each agent is a specialist persona with a focused brief and tool access. Spawn one as a long-running worker, or load its expertise into your current session. Operators add their own under agents/custom/.",
     bundleNames: {

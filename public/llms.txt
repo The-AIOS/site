@@ -70,9 +70,9 @@ For operators with two machines: MacBook as daily driver + Mac mini as 24/7 auto
 ├── FORTRESS.md               # 591 lines — two-machine architecture
 ├── USER.md                   # operator-owned personalization
 ├── INTENT.md                 # operator-owned trust contract
-├── plugins/aios/             # 25 slash commands
-├── agents/aios/{bundle}/     # 35 agents across 6 bundles
-├── skills/                   # 42 skills (aios + anthropic + superpowers + custom)
+├── plugins/aios/             # 24 slash commands
+├── agents/aios/{bundle}/     # 29 agents across 6 bundles
+├── skills/                   # 42 skills (aios 17 + anthropic 11 + superpowers 14)
 ├── mcps/                     # 10 bundled MCP servers
 └── vault/                    # operator's working notes (auto-managed by commands)
 ```
