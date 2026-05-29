@@ -26,8 +26,8 @@ For senior executives, builders, founders, and operators navigating AI-overwhelm
 
 Ships with:
 
-- **25 slash commands** (`/aios:today`, `/aios:close-day`, `/aios:7plan`, `/aios:ingest`, `/aios:company`, `/aios:collaborate`, `/aios:graduate`, `/aios:emerge`, `/aios:weekly-learnings`, `/aios:housekeeping`, more)
-- **35 specialist agents** across 6 bundles (sales, strategy, finance-legal, engineering, communication, personal)
+- **24 slash commands** (`/aios:today`, `/aios:close-day`, `/aios:7plan`, `/aios:ingest`, `/aios:company`, `/aios:collaborate`, `/aios:graduate`, `/aios:emerge`, `/aios:weekly-learnings`, `/aios:housekeeping`, more)
+- **29 specialist agents** across 6 bundles (sales, strategy, finance-legal, engineering, communication, personal)
 - **42 reusable skills** (auto-loaded; Claude matches intent)
 - **10 bundled MCP servers** (Obsidian, GitHub, Linear, philosopher-oracle, markitdown, more)
 

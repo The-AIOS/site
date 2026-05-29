@@ -167,13 +167,13 @@ const es: Messages = {
       "El framework se entrega como un repo de Git que clonas dentro de Claude Code. Cada capacidad de abajo está disponible de inmediato — sin pasos de instalación más allá del clon y una entrevista.",
     tiles: {
       commands: {
-        count: "25",
+        count: "24",
         noun: "comandos",
         body:
           "Slash commands para cadencias diarias, semanales, bisemanales y mensuales. /aios:today, /aios:close-day, /aios:7plan, /aios:weekly-learnings, /aios:graduate, /aios:emerge…",
       },
       agents: {
-        count: "35",
+        count: "29",
         noun: "agentes",
         body:
           "Personajes especialistas en ventas, estrategia, finanzas/legal, ingeniería, comunicación, personal. Lanza uno como coordinador o carga su expertise inline.",
