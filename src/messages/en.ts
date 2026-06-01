@@ -168,7 +168,7 @@ const en: Messages = {
           "Slash commands across daily, weekly, bi-weekly, monthly cadences. /aios:today, /aios:close-day, /aios:7plan, /aios:weekly-learnings, /aios:graduate, /aios:emerge…",
       },
       agents: {
-        count: "30",
+        count: "31",
         noun: "agents",
         body:
           "Specialist personas across sales, strategy, finance/legal, engineering, communication, personal. Spawn one as a coordinator, or load expertise inline.",
@@ -227,7 +227,7 @@ const en: Messages = {
   },
   bundles: {
     eyebrow: "The agent fleet",
-    headline: "30 agents across 6 bundles.",
+    headline: "31 agents across 6 bundles.",
     body:
       "Each agent is a specialist persona with a focused brief and tool access. Spawn one as a long-running worker, or load its expertise into your current session. Operators add their own under agents/custom/.",
     bundleNames: {

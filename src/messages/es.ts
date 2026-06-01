@@ -173,7 +173,7 @@ const es: Messages = {
           "Slash commands para cadencias diarias, semanales, bisemanales y mensuales. /aios:today, /aios:close-day, /aios:7plan, /aios:weekly-learnings, /aios:graduate, /aios:emerge…",
       },
       agents: {
-        count: "30",
+        count: "31",
         noun: "agentes",
         body:
           "Personajes especialistas en ventas, estrategia, finanzas/legal, ingeniería, comunicación, personal. Lanza uno como coordinador o carga su expertise inline.",
@@ -232,7 +232,7 @@ const es: Messages = {
   },
   bundles: {
     eyebrow: "La flota de agentes",
-    headline: "30 agentes en 6 bundles.",
+    headline: "31 agentes en 6 bundles.",
     body:
       "Cada agente es un especialista con un brief enfocado y acceso a herramientas. Lanza uno como worker de larga duración o carga su expertise en tu sesión actual. Los operadores agregan los suyos en agents/custom/.",
     bundleNames: {
