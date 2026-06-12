@@ -14,6 +14,9 @@ export default function HomePage({ m, locale }: Props) {
     <main>
       <Header m={m} locale={locale} />
       <Hero m={m} />
+      {m.whatIsThis && <WhatIsThis m={m} />}
+      <GetStarted m={m} />
+      {m.trust && <Trust m={m} />}
       <Intro m={m} />
       <Thesis m={m} />
       <Capabilities m={m} />
@@ -23,7 +26,6 @@ export default function HomePage({ m, locale }: Props) {
       <Bundles m={m} />
       <ThinkingAhead m={m} />
       <OperatorJobAndArc m={m} />
-      <GetStarted m={m} />
       <Footer m={m} />
     </main>
   );
@@ -57,12 +59,13 @@ function Header({ m, locale }: Props) {
           The-AIOS
         </a>
         <nav className="nav-desktop" style={{ gap: "1.5rem", alignItems: "center" }}>
+          <a href="#get-started" className="caption" style={{ textDecoration: "none" }}>{m.nav.getStarted}</a>
+          {m.nav.trust && <a href="#trust" className="caption" style={{ textDecoration: "none" }}>{m.nav.trust}</a>}
           <a href="#thesis" className="caption" style={{ textDecoration: "none" }}>{m.nav.thesis}</a>
           <a href="#capabilities" className="caption" style={{ textDecoration: "none" }}>{m.nav.capabilities}</a>
           <a href="#bundles" className="caption" style={{ textDecoration: "none" }}>{m.nav.agents}</a>
           <a href="#thinking-ahead" className="caption" style={{ textDecoration: "none" }}>{m.nav.ahead}</a>
           <a href="#operator-job" className="caption" style={{ textDecoration: "none" }}>{m.nav.arc}</a>
-          <a href="#get-started" className="caption" style={{ textDecoration: "none" }}>{m.nav.getStarted}</a>
           <GitHubLink href="https://github.com/The-AIOS/aios" surface="nav-desktop" className="caption" style={{ textDecoration: "none" }}>
             {m.nav.github}
           </GitHubLink>
@@ -84,13 +87,21 @@ function Hero({ m }: { m: Messages }) {
           <span className="accent">{m.hero.eyebrowFramework}</span> · {m.hero.eyebrowSuffix}
         </p>
         <h1 className="display-xl" style={{ marginBottom: "1.5rem" }}>
-          {m.hero.headlinePart1}{" "}
+          {m.hero.headlinePart1}
+          <br />
           <span style={{ color: "var(--color-accent)" }}>{m.hero.headlineAccent}</span>{" "}
           {m.hero.headlinePart2}
         </h1>
-        <p className="lede" style={{ maxWidth: "640px", marginInline: "auto", marginBottom: "2rem" }}>
-          {m.hero.lede}
-        </p>
+        {m.hero.lede && (
+          <p className="lede" style={{ maxWidth: "640px", marginInline: "auto", marginBottom: "1.25rem" }}>
+            {m.hero.lede}
+          </p>
+        )}
+        {m.hero.taglineKicker && (
+          <p className="eyebrow" style={{ marginBottom: "2rem", color: "var(--color-accent)", letterSpacing: "0.12em" }}>
+            {m.hero.taglineKicker}
+          </p>
+        )}
         <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
           <GitHubLink href="https://github.com/The-AIOS/aios" surface="hero-primary" className="btn-primary">
             {m.hero.ctaGithub}
@@ -99,6 +110,24 @@ function Hero({ m }: { m: Messages }) {
             {m.hero.ctaGetStarted}
           </a>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function WhatIsThis({ m }: { m: Messages }) {
+  if (!m.whatIsThis) return null;
+  const w = m.whatIsThis;
+  return (
+    <section id="what-is-this" className="section" style={{ background: "var(--color-surface-1)" }}>
+      <div className="container">
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{w.eyebrow}</p>
+        <hr className="accent-rule" style={{ marginBottom: "1.5rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "1.25rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: w.headline }} />
+        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2.5rem", fontSize: "1.0625rem" }} dangerouslySetInnerHTML={{ __html: w.bodyHtml }} />
+        <img src="/diagrams/os-anatomy.svg" alt="What an operating system is made of" style={{ width: "100%", display: "block", marginBottom: 0 }} />
       </div>
     </section>
   );
@@ -120,9 +149,15 @@ function Intro({ m }: { m: Messages }) {
         </h2>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2.5rem", marginBottom: "2.5rem" }}>
+          {m.intro.whoForHtml && (
+            <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whoForHtml }} />
+          )}
           <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whatIsHtml }} />
-          <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whoForHtml }} />
         </div>
+
+        {m.intro.jobHtml && (
+          <p className="body-text" style={{ maxWidth: "880px", marginBottom: "2.5rem" }} dangerouslySetInnerHTML={{ __html: m.intro.jobHtml }} />
+        )}
 
         {/* badge → repositioned as the invitation quote that closes beat 1 */}
         <blockquote
@@ -132,22 +167,6 @@ function Intro({ m }: { m: Messages }) {
           {m.intro.badge}
         </blockquote>
 
-        {/* ── Beat 2: your fear has data behind it (separated by spacing, not a line) ── */}
-        <h3 className="display-md" style={{ marginTop: "5rem", marginBottom: "1.5rem", maxWidth: "780px" }}>{m.opening.headline}</h3>
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2.5rem" }}>{m.opening.body}</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
-          {m.opening.stats.map((s) => (
-            <div key={s.value} style={{ borderTop: "1px solid var(--color-hairline)", paddingTop: "1rem" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, color: "var(--color-accent)", lineHeight: 1, letterSpacing: "-0.02em" }}>
-                {s.value}
-              </div>
-              <p className="caption" style={{ marginTop: "0.5rem", color: "var(--color-ink-muted)", lineHeight: 1.5 }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
-        <p className="caption" style={{ color: "var(--color-ink-subtle)" }}>
-          <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>{m.opening.sourceLabel}</span> · {m.opening.sourceText}
-        </p>
       </div>
     </section>
   );
@@ -157,14 +176,11 @@ function OperatorJobAndArc({ m }: { m: Messages }) {
   return (
     <section id="operator-job" className="section">
       <div className="container">
-        {/* Section opener — Operator's New Job framing */}
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.operatorJob.eyebrow}</p>
+        {/* Section opener — The Arc */}
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.arc.eyebrow}</p>
         <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }}>{m.operatorJob.headline}</h2>
-        <blockquote className="pullquote" style={{ fontSize: "1.5rem", maxWidth: "780px", marginBottom: "2rem", paddingLeft: "1.5rem", borderLeftWidth: "3px" }}>
-          {m.operatorJob.pullquote}
-        </blockquote>
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "5rem" }}>{m.operatorJob.body}</p>
+        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }} dangerouslySetInnerHTML={{ __html: m.arc.headline }} />
+        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "5rem" }}>{m.arc.lede}</p>
 
         {/* The 4 stages — now framed as the operator's culture map */}
         <ArcStage
@@ -392,12 +408,12 @@ function Thesis({ m }: { m: Messages }) {
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.thesis.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg" style={{ marginBottom: "0" }}>{m.thesis.headline}</h2>
+            <h2 className="display-lg" style={{ marginBottom: "0" }} dangerouslySetInnerHTML={{ __html: m.thesis.headline }} />
           </div>
           <div>
             <p className="body-text" style={{ marginBottom: "1.5rem" }}>{m.thesis.para1}</p>
-            <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thesis.para2Html }} />
-            <p className="body-text" style={{ marginBottom: "0" }}>{m.thesis.para3}</p>
+            {m.thesis.para2Html && <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thesis.para2Html }} />}
+            {m.thesis.para3 && <p className="body-text" style={{ marginBottom: "0" }}>{m.thesis.para3}</p>}
 
             {/* 3-stage compounding preview — labels show the AI/human role per stage */}
             <div style={{ marginTop: "2.5rem", padding: "1.25rem 1.5rem", background: "var(--color-surface-1)", border: "1px solid var(--color-hairline)", borderRadius: "8px" }}>
@@ -436,7 +452,7 @@ function Capabilities({ m }: { m: Messages }) {
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.capabilities.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg">{m.capabilities.headline}</h2>
+            <h2 className="display-lg" dangerouslySetInnerHTML={{ __html: m.capabilities.headline }} />
           </div>
           <div>
             <p className="body-text">{m.capabilities.body}</p>
@@ -474,17 +490,10 @@ function Architecture({ m }: { m: Messages }) {
   return (
     <section id="architecture" className="section">
       <div className="container">
-        <div className="section-grid" style={{ marginBottom: "3rem" }}>
-          <div>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.architecture.eyebrow}</p>
-            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg">{m.architecture.headline}</h2>
-          </div>
-          <div>
-            <p className="body-text" style={{ marginBottom: "1.25rem" }}>{m.architecture.body1}</p>
-            <p className="body-text" dangerouslySetInnerHTML={{ __html: m.architecture.body2Html }} />
-          </div>
-        </div>
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.architecture.eyebrow}</p>
+        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "2.5rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: m.architecture.headline }} />
+        <img src="/diagrams/three-layers.svg" alt="Three layers of context" style={{ width: "100%", display: "block", marginBottom: "3rem" }} />
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
           {cards.map((c) => (
@@ -513,9 +522,10 @@ function ObservedLoop({ m }: { m: Messages }) {
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.observedLoop.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem" }}>{m.observedLoop.headline}</h2>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.observedLoop.headline }} />
             <p className="body-text" style={{ marginBottom: "1.5rem" }}>{m.observedLoop.body1}</p>
-            <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.observedLoop.body2Html }} />
+            <img src="/diagrams/rituals.svg" alt="The rituals that make it compound" style={{ width: "100%", display: "block", marginBottom: "1.5rem" }} />
+            <img src="/diagrams/compound-arc.svg" alt="Day one it knows what you said — a year in, who you are becoming" style={{ width: "100%", display: "block" }} />
           </div>
           <div>
             <ContextLoopDiagram />
@@ -562,10 +572,11 @@ function Bundles({ m }: { m: Messages }) {
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.bundles.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg">{m.bundles.headline}</h2>
+            <h2 className="display-lg" dangerouslySetInnerHTML={{ __html: m.bundles.headline }} />
           </div>
           <div>
             <p className="body-text">{m.bundles.body}</p>
+            <img src="/diagrams/team-of-specialists.svg" alt="A team of specialists" style={{ width: "100%", display: "block", marginTop: "2rem" }} />
           </div>
         </div>
 
@@ -588,7 +599,8 @@ function Bundles({ m }: { m: Messages }) {
           <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.bundles.fortress.eyebrow}</p>
           <h3 className="display-md" style={{ marginBottom: "1rem" }}>{m.bundles.fortress.headline}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem", marginBottom: "1.75rem" }}>
-            <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body1}</p>
+            <p className="body-text" style={{ marginBottom: "1.5rem" }}>{m.bundles.fortress.body1}</p>
+            <img src="/diagrams/two-machines.svg" alt="Two machines, one wall" style={{ width: "100%", display: "block" }} />
             <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body2}</p>
           </div>
           <GitHubLink
@@ -620,12 +632,12 @@ function ThinkingAhead({ m }: { m: Messages }) {
           <div>
             <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.thinkingAhead.eyebrow}</p>
             <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg">{m.thinkingAhead.headline}</h2>
+            <h2 className="display-lg" dangerouslySetInnerHTML={{ __html: m.thinkingAhead.headline }} />
           </div>
           <div>
-            <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thinkingAhead.para1Html }} />
+            {m.thinkingAhead.para1Html && <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thinkingAhead.para1Html }} />}
             <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thinkingAhead.para2Html }} />
-            <p className="body-text" style={{ marginBottom: "0" }}>{m.thinkingAhead.para3}</p>
+            {m.thinkingAhead.para3 && <p className="body-text" style={{ marginBottom: "0" }}>{m.thinkingAhead.para3}</p>}
           </div>
         </div>
 
@@ -658,7 +670,7 @@ function GetStarted({ m }: { m: Messages }) {
       <div className="container">
         <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.getStarted.eyebrow}</p>
         <hr className="accent-rule" style={{ marginBottom: "1.5rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "2rem", maxWidth: "780px" }}>{m.getStarted.headline}</h2>
+        <h2 className="display-lg" style={{ marginBottom: "2rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: m.getStarted.headline }} />
 
         <p className="caption" style={{ marginBottom: "0.75rem", color: "var(--color-ink-muted)" }}>
           {m.getStarted.instructionCommentary}
@@ -674,7 +686,7 @@ function GetStarted({ m }: { m: Messages }) {
         </p>
 
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
-          <GitHubLink href="https://github.com/The-AIOS/aios/blob/main/START-HERE.md" surface="get-started-primary" className="btn-primary">
+          <GitHubLink href="https://github.com/The-AIOS/aios/blob/main/SETUP.md#prerequisites" surface="get-started-primary" className="btn-primary">
             {m.getStarted.ctaReadStart}
           </GitHubLink>
           <GitHubLink href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" surface="get-started-secondary" className="btn-secondary">
@@ -688,6 +700,32 @@ function GetStarted({ m }: { m: Messages }) {
           </p>
           <p style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: m.getStarted.affordanceBodyHtml }} />
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function Trust({ m }: { m: Messages }) {
+  if (!m.trust) return null;
+  const t = m.trust;
+  return (
+    <section id="trust" className="section">
+      <div className="container">
+        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{t.eyebrow}</p>
+        <hr className="accent-rule" style={{ marginBottom: "1.5rem" }} />
+        <h2 className="display-lg" style={{ marginBottom: "1.25rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: t.headline }} />
+        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2.5rem", fontSize: "1rem" }}>{t.body}</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.25rem", marginBottom: "2.5rem" }}>
+          {t.facts.map((f) => (
+            <div key={f.title} className="card" style={{ padding: "1.5rem" }}>
+              <h3 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "0.5rem" }}>{f.title}</h3>
+              <p className="body-text" style={{ fontSize: "0.9rem", margin: 0, color: "var(--color-ink-muted)" }}>{f.body}</p>
+            </div>
+          ))}
+        </div>
+        <p className="body-text" style={{ maxWidth: "780px", fontSize: "0.95rem" }} dangerouslySetInnerHTML={{ __html: t.receiptsHtml }} />
       </div>
     </section>
   );

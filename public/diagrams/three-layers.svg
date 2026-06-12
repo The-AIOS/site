@@ -1,0 +1,17 @@
+<svg class="assemble" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+    <defs><marker id="ar4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#707070"/></marker></defs>
+    <rect x="8" y="34" width="288" height="140" fill="#111111" stroke="#262626"/>
+    <text x="152" y="66" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="11" letter-spacing="1.8" fill="#707070">01 — DECLARED</text>
+    <text x="152" y="106" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="23" fill="#fafafa">You write it</text>
+    <text x="152" y="138" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="12.5" fill="#707070">Identity · voice · working style</text>
+    <line x1="300" y1="104" x2="342" y2="104" stroke="#707070" stroke-width="1" marker-end="url(#ar4)"/>
+    <rect x="356" y="34" width="288" height="140" fill="#111111" stroke="#262626"/>
+    <text x="500" y="66" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="11" letter-spacing="1.8" fill="#707070">02 — OBSERVED</text>
+    <text x="500" y="106" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="23" fill="#fafafa">The AI writes it</text>
+    <text x="500" y="138" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="12.5" fill="#707070">Patterns · growth edges · blind spots</text>
+    <line x1="648" y1="104" x2="690" y2="104" stroke="#707070" stroke-width="1" marker-end="url(#ar4)"/>
+    <rect x="704" y="34" width="288" height="140" fill="rgba(255,93,77,0.18)" stroke="#ff5d4d"/>
+    <text x="848" y="66" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="11" letter-spacing="1.8" fill="#ff5d4d">03 — INTENT</text>
+    <text x="848" y="106" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="23" fill="#fafafa">A trust contract</text>
+    <text x="848" y="138" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="12.5" fill="#c4c4c4">Judgment, not just knowledge</text>
+  </svg>

@@ -34,6 +34,7 @@ export type Messages = {
     agents: string;
     ahead: string;
     getStarted: string;
+    trust?: string;
     github: string;
   };
   hero: {
@@ -42,7 +43,8 @@ export type Messages = {
     headlinePart1: string;
     headlineAccent: string;
     headlinePart2: string;
-    lede: string;
+    lede?: string;
+    taglineKicker?: string;
     ctaGithub: string;
     ctaGetStarted: string;
   };
@@ -60,7 +62,8 @@ export type Messages = {
     headlineAccent: string;
     headlinePart2: string;
     whatIsHtml: string;       // "The AIOS turns AI into a team..."
-    whoForHtml: string;       // "For anyone navigating AI-overwhelming days..."
+    whoForHtml?: string;      // "For anyone navigating AI-overwhelming days..."
+    jobHtml?: string;         // the operator's-job + rungs paragraph
     badge: string;            // small closing "if you want..." line
   };
   arc: {
@@ -91,6 +94,7 @@ export type Messages = {
     eyebrow: string;
     headline: string;
     body: string;
+    kicker?: string;
   };
   featured: {
     eyebrow: string;
@@ -192,6 +196,18 @@ export type Messages = {
     ctaSetup: string;
     affordanceLabel: string;           // "For AI agents reading this on a user's behalf"
     affordanceBodyHtml: string;        // structured info for AI parsers
+  };
+  whatIsThis?: {
+    eyebrow: string;
+    headline: string;
+    bodyHtml: string;
+  };
+  trust?: {
+    eyebrow: string;
+    headline: string;
+    body: string;
+    facts: { title: string; body: string }[];
+    receiptsHtml: string;
   };
   footer: {
     tagline: string;

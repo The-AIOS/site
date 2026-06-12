@@ -1,0 +1,18 @@
+<svg class="assemble" viewBox="0 0 1000 190" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+    <line x1="80" y1="92" x2="920" y2="92" stroke="#262626" stroke-width="1"/>
+    <circle cx="100" cy="92" r="9" fill="#111111" stroke="#262626"/>
+    <text x="100" y="52" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" letter-spacing="1.4" fill="#707070">DAY 1</text>
+    <text x="100" y="132" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="11.5" fill="#c4c4c4">what you told it</text>
+    <circle cx="300" cy="92" r="9" fill="#111111" stroke="#262626"/>
+    <text x="300" y="52" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" letter-spacing="1.4" fill="#707070">WEEK</text>
+    <text x="300" y="132" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="11.5" fill="#c4c4c4">how you operate</text>
+    <circle cx="500" cy="92" r="9" fill="#111111" stroke="#262626"/>
+    <text x="500" y="52" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" letter-spacing="1.4" fill="#707070">MONTH</text>
+    <text x="500" y="132" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="11.5" fill="#c4c4c4">when you’re drifting</text>
+    <circle cx="700" cy="92" r="9" fill="#111111" stroke="#262626"/>
+    <text x="700" y="52" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" letter-spacing="1.4" fill="#707070">6 MONTHS</text>
+    <text x="700" y="132" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="11.5" fill="#c4c4c4">how your thinking evolved</text>
+    <circle class="glow" cx="900" cy="92" r="11" fill="rgba(255,93,77,0.18)" stroke="#ff5d4d" stroke-width="2"/>
+    <text x="900" y="52" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" letter-spacing="1.4" fill="#ff5d4d">A YEAR</text>
+    <text x="900" y="132" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="11.5" fill="#fafafa">who you were becoming</text>
+  </svg>

@@ -35,12 +35,13 @@ export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
   }, [open]);
 
   const items: NavItem[] = [
+    { href: "#get-started", label: m.nav.getStarted },
+    ...(m.nav.trust ? [{ href: "#trust", label: m.nav.trust }] : []),
     { href: "#thesis", label: m.nav.thesis },
     { href: "#capabilities", label: m.nav.capabilities },
     { href: "#bundles", label: m.nav.agents },
     { href: "#thinking-ahead", label: m.nav.ahead },
     { href: "#operator-job", label: m.nav.arc },
-    { href: "#get-started", label: m.nav.getStarted },
   ];
 
   return (

@@ -1,0 +1,17 @@
+<svg class="assemble" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:420px;">
+      <defs><marker id="lp" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#707070"/></marker></defs>
+      <circle cx="210" cy="150" r="118" fill="none" stroke="#262626" stroke-width="1" stroke-dasharray="3 5"/>
+      <circle cx="210" cy="46" r="34" fill="#111111" stroke="#262626"/>
+      <text x="210" y="50" text-anchor="middle" font-family="Newsreader,serif" font-style="italic" font-size="13" fill="#c4c4c4">work</text>
+      <circle cx="314" cy="150" r="36" fill="#111111" stroke="#262626"/>
+      <text x="314" y="147" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="9" fill="#fafafa">/close-</text>
+      <text x="314" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="9" fill="#fafafa">session</text>
+      <circle class="glow" cx="210" cy="254" r="38" fill="rgba(255,93,77,0.18)" stroke="#ff5d4d" stroke-width="2"/>
+      <text x="210" y="258" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" fill="#ff5d4d">/close-day</text>
+      <circle cx="106" cy="150" r="36" fill="#111111" stroke="#262626"/>
+      <text x="106" y="154" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" fill="#fafafa">/today</text>
+      <path d="M 140 116 A 118 118 0 0 1 184 70" fill="none" stroke="#707070" stroke-width="1" marker-end="url(#lp)"/>
+      <path d="M 240 72 A 118 118 0 0 1 290 118" fill="none" stroke="#707070" stroke-width="1" marker-end="url(#lp)"/>
+      <path d="M 296 188 A 118 118 0 0 1 244 230" fill="none" stroke="#707070" stroke-width="1" marker-end="url(#lp)"/>
+      <path d="M 174 230 A 118 118 0 0 1 124 186" fill="none" stroke="#707070" stroke-width="1" marker-end="url(#lp)"/>
+    </svg>
