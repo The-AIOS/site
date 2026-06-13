@@ -52,7 +52,7 @@ export default function ManualPage() {
             <Logo size={20} />
             The AIOS
           </a>
-          <a href="/" className="repo-link-inline" style={{ marginTop: 0 }}>
+          <a href="/" className="footer-link" style={{ fontSize: "0.875rem" }}>
             ← Back to home
           </a>
         </div>
