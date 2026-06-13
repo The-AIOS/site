@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import HomePage from "@/components/HomePage";
-import { getMessages } from "@/messages";
+import { CONTENT } from "@/content";
 
-const m = getMessages("en");
+const { title: TITLE, description: DESCRIPTION } = CONTENT.en.meta;
 
 export const metadata: Metadata = {
-  title: m.meta.title,
-  description: m.meta.description,
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: "https://the-aios.com/",
     languages: {
@@ -17,21 +17,21 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: m.meta.title,
-    description: m.meta.description,
+    title: TITLE,
+    description: DESCRIPTION,
     type: "website",
     url: "https://the-aios.com/",
     locale: "en_US",
-    images: [{ url: "/og-image.jpg", width: 1344, height: 768, alt: "The-AIOS — the AI Operating System framework" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "The AIOS — the AI Operating System" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: m.meta.title,
-    description: m.meta.description,
+    title: TITLE,
+    description: DESCRIPTION,
     images: ["/og-image.jpg"],
   },
 };
 
 export default function Page() {
-  return <HomePage m={m} locale="en" />;
+  return <HomePage locale="en" />;
 }

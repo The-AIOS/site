@@ -1,784 +1,634 @@
-import { ContextLoopDiagram, TrapCurveDiagram, InflectionCurveDiagram, DestinationNetworkDiagram, SkipDiagram, PlateauDiagram } from "./diagrams";
-import { GitHubLink } from "./GitHubLink";
-import { LocaleSwitcher } from "./LocaleSwitcher";
+/* the-aios.com — the operating manual's web-native sibling.
+ *
+ * Design language: the operating manual. Words: the spine canvas. Why: The Ground.
+ * Graphics: redrawn from the AIOS keynote deck (deckGraphics.tsx) in the product brand.
+ *
+ * Reader-facing prose is trilingual via CONTENT[locale] (src/content.ts) — EN / ES
+ * (LATAM) / PT-BR. Technical surfaces stay English by design: command names, file
+ * names, code blocks, the machine-facing AI-affordance block, SVG diagram internals,
+ * and the ant chatter.
+ *
+ * Hard keeps: GitHubLink / RepoLink tracking, SubstackLink, Analytics, Logo, MobileMenu,
+ * /llms.txt link in footer.
+ */
+
+import type { ReactNode } from "react";
 import { Logo } from "./Logo";
-import { MobileMenu } from "./MobileMenu";
+import { GitHubLink } from "./GitHubLink";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
 import { SubstackLink } from "./SubstackLink";
-import type { Locale, Messages } from "@/messages";
+import { LocaleSwitcher } from "./LocaleSwitcher";
+import { MobileMenu } from "./MobileMenu";
+import { Reveal } from "./Reveal";
+import { ThemeToggle } from "./ThemeToggle";
+import { ManualDownload } from "./ManualEmbed";
+import { LogoFlip } from "./LogoFlip";
+import { AntChatter } from "./AntChatter";
+import {
+  HeroConstellation,
+  CompoundTimeline,
+  RitualLoop,
+  TrustLadder,
+  OrchestratorShift,
+  TwoMachines,
+  OsAnatomy,
+  GlassPanel,
+  TeamMount,
+  SkillsBeam,
+} from "./deckGraphics";
+import type { Locale } from "@/messages";
+import { CONTENT } from "@/content";
 
-type Props = { m: Messages; locale: Locale };
+const REPO = "https://github.com/The-AIOS/aios";
+const ORG = "https://github.com/The-AIOS";
 
-export default function HomePage({ m, locale }: Props) {
+/* ---------- primitives ---------- */
+
+type Triple = [string, string, string];
+
+/** Headline with a single coral accent word: [pre, accent, post]. */
+function HL({ h }: { h: Triple }) {
   return (
-    <main>
-      <Header m={m} locale={locale} />
-      <Hero m={m} />
-      {m.whatIsThis && <WhatIsThis m={m} />}
-      <GetStarted m={m} />
-      {m.trust && <Trust m={m} />}
-      <Intro m={m} />
-      <Thesis m={m} />
-      <Capabilities m={m} />
-      <Featured m={m} />
-      <Architecture m={m} />
-      <ObservedLoop m={m} />
-      <Bundles m={m} />
-      <ThinkingAhead m={m} />
-      <OperatorJobAndArc m={m} />
-      <Footer m={m} />
-    </main>
+    <>
+      {h[0]}
+      <span className="accent">{h[1]}</span>
+      {h[2]}
+    </>
   );
 }
 
-/* ------------------------------------------------------------------ */
-
-function Header({ m, locale }: Props) {
+function SectionLabel({ num, children }: { num: string; children: ReactNode }) {
   return (
-    <header className="site-header">
-      <div
-        className="container"
-        style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 1.5rem", gap: "1rem" }}
-      >
-        <a
-          href="#top"
-          aria-label="The-AIOS — back to top"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontFamily: "var(--font-display)",
-            fontSize: "1rem",
-            letterSpacing: "-0.025em",
-            fontWeight: 700,
-            color: "var(--color-ink)",
-            textDecoration: "none",
-          }}
-        >
-          <Logo size={18} />
-          The-AIOS
-        </a>
-        <nav className="nav-desktop" style={{ gap: "1.5rem", alignItems: "center" }}>
-          <a href="#get-started" className="caption" style={{ textDecoration: "none" }}>{m.nav.getStarted}</a>
-          {m.nav.trust && <a href="#trust" className="caption" style={{ textDecoration: "none" }}>{m.nav.trust}</a>}
-          <a href="#thesis" className="caption" style={{ textDecoration: "none" }}>{m.nav.thesis}</a>
-          <a href="#capabilities" className="caption" style={{ textDecoration: "none" }}>{m.nav.capabilities}</a>
-          <a href="#bundles" className="caption" style={{ textDecoration: "none" }}>{m.nav.agents}</a>
-          <a href="#thinking-ahead" className="caption" style={{ textDecoration: "none" }}>{m.nav.ahead}</a>
-          <a href="#operator-job" className="caption" style={{ textDecoration: "none" }}>{m.nav.arc}</a>
-          <GitHubLink href="https://github.com/The-AIOS/aios" surface="nav-desktop" className="caption" style={{ textDecoration: "none" }}>
-            {m.nav.github}
-          </GitHubLink>
-          <LocaleSwitcher current={locale} />
-        </nav>
-        <MobileMenu m={m} locale={locale} />
-      </div>
-    </header>
+    <div className="section-label">
+      <span className="num">{num}</span>
+      <span className="eyebrow">{children}</span>
+    </div>
   );
 }
 
-/* ------------------------------------------------------------------ */
-
-function Hero({ m }: { m: Messages }) {
+function Card({ eyebrow, title, children, mono }: { eyebrow?: string; title?: string; children?: ReactNode; mono?: string }) {
   return (
-    <section className="section section-hero hero-glow">
-      <div className="container" style={{ maxWidth: "880px", textAlign: "center" }}>
-        <p className="eyebrow" style={{ marginBottom: "1.25rem" }}>
-          <span className="accent">{m.hero.eyebrowFramework}</span> · {m.hero.eyebrowSuffix}
-        </p>
-        <h1 className="display-xl" style={{ marginBottom: "1.5rem" }}>
-          {m.hero.headlinePart1}
-          <br />
-          <span style={{ color: "var(--color-accent)" }}>{m.hero.headlineAccent}</span>{" "}
-          {m.hero.headlinePart2}
-        </h1>
-        {m.hero.lede && (
-          <p className="lede" style={{ maxWidth: "640px", marginInline: "auto", marginBottom: "1.25rem" }}>
-            {m.hero.lede}
-          </p>
-        )}
-        {m.hero.taglineKicker && (
-          <p className="eyebrow" style={{ marginBottom: "2rem", color: "var(--color-accent)", letterSpacing: "0.12em" }}>
-            {m.hero.taglineKicker}
-          </p>
-        )}
-        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <GitHubLink href="https://github.com/The-AIOS/aios" surface="hero-primary" className="btn-primary">
-            {m.hero.ctaGithub}
-          </GitHubLink>
-          <a href="#get-started" className="btn-secondary">
-            {m.hero.ctaGetStarted}
+    <div className="card">
+      {eyebrow && <div className="card-eyebrow">{eyebrow}</div>}
+      {title && <h4>{title}</h4>}
+      {children && <p>{children}</p>}
+      {mono && <div className="card-mono">{mono}</div>}
+    </div>
+  );
+}
+
+function Stat({ n, label }: { n: string; label: string }) {
+  return (
+    <div className="stat">
+      <div className="n">{n}</div>
+      <div className="l">{label}</div>
+    </div>
+  );
+}
+
+const INK = { color: "var(--color-ink)" } as const;
+
+/* ---------- the page ---------- */
+
+export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Locale }) {
+  const c = CONTENT[locale];
+
+  return (
+    <>
+      {/* ============ Header ============ */}
+      <header className="site-header">
+        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
+          <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
+            <Logo size={20} />
+            The AIOS
           </a>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-/* ------------------------------------------------------------------ */
+          <nav className="nav-desktop" style={{ alignItems: "center", gap: "1.375rem" }}>
+            {c.nav.map((item) => (
+              <a key={item.href} href={item.href} className="caption" style={{ color: "var(--color-ink-muted)", textDecoration: "none", letterSpacing: "0.02em", textTransform: "none", fontSize: "0.875rem" }}>
+                {item.label}
+              </a>
+            ))}
+            <GitHubLink href={REPO} surface="nav-desktop" className="caption" style={{ color: "var(--color-ink)", textDecoration: "none", fontSize: "0.875rem", textTransform: "none", letterSpacing: "0.02em" }}>
+              GitHub ↗
+            </GitHubLink>
+            <LocaleSwitcher current={locale} />
+            <ThemeToggle />
+          </nav>
 
-function WhatIsThis({ m }: { m: Messages }) {
-  if (!m.whatIsThis) return null;
-  const w = m.whatIsThis;
-  return (
-    <section id="what-is-this" className="section" style={{ background: "var(--color-surface-1)" }}>
-      <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{w.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "1.5rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "1.25rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: w.headline }} />
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2.5rem", fontSize: "1.0625rem" }} dangerouslySetInnerHTML={{ __html: w.bodyHtml }} />
-        <img src="/diagrams/os-anatomy.svg" alt="What an operating system is made of" style={{ width: "100%", display: "block", marginBottom: 0 }} />
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-function Intro({ m }: { m: Messages }) {
-  return (
-    <section id="intro" className="section">
-      <div className="container">
-        {/* ── Beat 1: what is this & who it's for ── */}
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.intro.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "2.5rem", maxWidth: "920px" }}>
-          {m.intro.headlinePart1}{" "}
-          <span style={{ color: "var(--color-accent)" }}>{m.intro.headlineAccent}</span>{" "}
-          {m.intro.headlinePart2}
-        </h2>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2.5rem", marginBottom: "2.5rem" }}>
-          {m.intro.whoForHtml && (
-            <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whoForHtml }} />
-          )}
-          <p className="body-text" style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: m.intro.whatIsHtml }} />
-        </div>
-
-        {m.intro.jobHtml && (
-          <p className="body-text" style={{ maxWidth: "880px", marginBottom: "2.5rem" }} dangerouslySetInnerHTML={{ __html: m.intro.jobHtml }} />
-        )}
-
-        {/* badge → repositioned as the invitation quote that closes beat 1 */}
-        <blockquote
-          className="pullquote"
-          style={{ maxWidth: "880px", fontStyle: "italic", fontSize: "1.125rem", color: "var(--color-ink-muted)" }}
-        >
-          {m.intro.badge}
-        </blockquote>
-
-      </div>
-    </section>
-  );
-}
-
-function OperatorJobAndArc({ m }: { m: Messages }) {
-  return (
-    <section id="operator-job" className="section">
-      <div className="container">
-        {/* Section opener — The Arc */}
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.arc.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "880px" }} dangerouslySetInnerHTML={{ __html: m.arc.headline }} />
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "5rem" }}>{m.arc.lede}</p>
-
-        {/* The 4 stages — now framed as the operator's culture map */}
-        <ArcStage
-          stage={m.arc.stages.one.stage}
-          headline={m.arc.stages.one.headline}
-          lede={m.arc.stages.one.lede}
-          body={m.arc.stages.one.body}
-        />
-
-        {/* Stage 2 — The Trap (mapped to Automate progression — "AI as Tool, Human as Prompter") */}
-        <ArcStage
-          progressionStage={m.progression.automate}
-          stage={m.arc.stages.two.stage}
-          headline={m.arc.stages.two.headline}
-          lede={m.arc.stages.two.lede}
-          body={m.arc.stages.two.body}
-          pullquote={m.arc.stages.two.pullquote}
-          pullquoteAttribution={m.arc.stages.two.pullquoteAttribution}
-          diagram={
-            <TrapCurveDiagram
-              plateauLabel="THE PLATEAU"
-              productivityLabel="+20% individual productivity"
-              leverageLabel="0% organizational leverage"
-              dayLabel="DAY 0"
-              monthLabel="MONTH 6"
-            />
-          }
-        />
-
-        {/* Stage 3 — The Inflection (mapped to Amplify progression — "AI as Assistant, Human as First-Brain") */}
-        <ArcStage
-          progressionStage={m.progression.amplify}
-          stage={m.arc.stages.three.stage}
-          headline={m.arc.stages.three.headline}
-          lede={m.arc.stages.three.lede}
-          body={m.arc.stages.three.body}
-          signal={m.arc.stages.three.signal}
-          diagram={
-            <InflectionCurveDiagram
-              inflectionLabel="INFLECTION"
-              plateauNote="Stage 2 plateau"
-              accelerateNote="AI joins the workflow"
-              dayLabel="DAY 0"
-              monthLabel="MONTH 12"
-            />
-          }
-        />
-
-        {/* Stage 4 — The Destination (mapped to Agentic progression — "AI as Team, Human as Orchestrator") */}
-        <ArcStage
-          isLast
-          progressionStage={m.progression.agentic}
-          stage={m.arc.stages.four.stage}
-          headline={m.arc.stages.four.headline}
-          lede={m.arc.stages.four.lede}
-          body={m.arc.stages.four.body}
-          signal={m.arc.stages.four.signal}
-          diagram={
-            <DestinationNetworkDiagram
-              humanLabel="HUMAN"
-              humanSub="orchestrator"
-              agentLabels={["RESEARCH", "WRITING", "ANALYSIS", "OUTREACH", "REVIEW"]}
-              caption="One human directs. N agents execute — and orchestrate more."
-            />
-          }
-        />
-
-        {/* Why Most Fail — closes The Arc (separated by spacing, not a line) */}
-        <div style={{ marginTop: "6rem" }}>
-          <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.arc.failEyebrow}</p>
-          <h3 className="display-md" style={{ marginBottom: "2rem", fontSize: "1.5rem" }}>{m.arc.failHeadline}</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "3rem", alignItems: "start" }}>
-            <SkipDiagram
-              label="THE SKIP"
-              title={m.arc.failSkipTitle}
-              body={m.arc.failSkipBody}
-            />
-            <PlateauDiagram
-              label="THE PLATEAU"
-              wallLabel="WALL"
-              title={m.arc.failPlateauTitle}
-              body={m.arc.failPlateauBody}
-            />
-          </div>
-          <p className="body-text" style={{ textAlign: "center", fontStyle: "italic", color: "var(--color-ink-subtle)", marginTop: "2rem", marginBottom: 0 }}>
-            {m.arc.failClose}
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ArcStage({ stage, headline, lede, body, pullquote, pullquoteAttribution, signal, diagram, isLast = false, progressionStage }: {
-  stage: string;
-  headline: string;
-  lede: string;
-  body: string;
-  pullquote?: string;
-  pullquoteAttribution?: string;
-  signal?: string;
-  diagram?: React.ReactNode;
-  isLast?: boolean;
-  progressionStage?: { dot: string; name: string; aiRole: string; humanRole: string };
-}) {
-  return (
-    <div style={{ paddingBottom: isLast ? "0" : "4rem", marginBottom: isLast ? "0" : "4rem", borderBottom: isLast ? "none" : "1px solid var(--color-hairline)" }}>
-      <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap", marginBottom: "0.875rem" }}>
-        <p className="eyebrow" style={{ color: "var(--color-accent)", letterSpacing: "0.12em", marginBottom: 0 }}>{stage}</p>
-        {progressionStage && <ProgressionTag stage={progressionStage} />}
-      </div>
-      <h3 className="display-lg" style={{ marginBottom: "1rem", fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>{headline}</h3>
-      <p className="lede" style={{ maxWidth: "780px", marginBottom: "1.25rem" }}>{lede}</p>
-      <div className={diagram ? "content-grid" : undefined} style={diagram ? undefined : { display: "block" }}>
-        <div>
-          <p className="body-text" style={{ marginBottom: signal || pullquote ? "1.25rem" : 0, maxWidth: "560px" }}>{body}</p>
-          {pullquote && (
-            <>
-              <blockquote className="pullquote" style={{ marginTop: "1.5rem", maxWidth: "560px" }}>{pullquote}</blockquote>
-              {pullquoteAttribution && (
-                <p className="caption" style={{ marginTop: "0.5rem", marginLeft: "24px", color: "var(--color-ink-subtle)" }}>{pullquoteAttribution}</p>
-              )}
-            </>
-          )}
-          {signal && (
-            <p style={{ fontStyle: "italic", color: "var(--color-ink-subtle)", fontSize: "0.9375rem", marginTop: "1rem", maxWidth: "560px" }}>{signal}</p>
-          )}
-        </div>
-        {diagram && <div>{diagram}</div>}
-      </div>
-    </div>
-  );
-}
-
-function Featured({ m }: { m: Messages }) {
-  const cards = [
-    { ...m.featured.cards.ingest, file: "plugins/aios/commands/ingest.md" },
-    { ...m.featured.cards.company, file: "plugins/aios/commands/company.md" },
-    { ...m.featured.cards.collaborate, file: "plugins/aios/commands/collaborate.md" },
-  ];
-  return (
-    <section id="featured" className="section">
-      <div className="container">
-        <div className="section-grid" style={{ marginBottom: "3rem" }}>
-          <div>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.featured.eyebrow}</p>
-            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg">{m.featured.headline}</h2>
-          </div>
-          <div>
-            <p className="body-text">{m.featured.body}</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <MobileMenu items={c.nav} githubLabel="GitHub ↗" locale={locale} />
           </div>
         </div>
+      </header>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
-          {cards.map((c) => (
-            <div key={c.command} className="card" style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.75rem", gap: "0.5rem", flexWrap: "wrap" }}>
-                <code className="mono" style={{ fontWeight: 600, fontSize: "0.9375rem" }}>{c.command}</code>
-                <span className="caption" style={{ color: "var(--color-ink-subtle)", fontSize: "0.6875rem" }}>{c.tag}</span>
-              </div>
-              <h3 className="display-md" style={{ marginBottom: "0.625rem" }}>{c.pitch}</h3>
-              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0, flexGrow: 1 }}>{c.body}</p>
-              <RepoLink to={c.file} label={`${m.repoLink.viewCommand} ↗`} />
+      <main>
+        {/* ============ Hero ============ */}
+        <section className="hero-glow" style={{ borderBottom: "1px solid var(--color-hairline)" }}>
+          <HeroConstellation />
+          <AntChatter />
+          <div className="container" style={{ paddingTop: "6rem", paddingBottom: "6rem", maxWidth: 980 }}>
+            <div className="eyebrow" style={{ marginBottom: "1.75rem" }}>
+              {c.hero.eyebrowPre} <span className="accent">{c.hero.eyebrowAccent}</span> {c.hero.eyebrowPost}
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+            <h1 className="display-xl" style={{ marginBottom: "1.75rem", maxWidth: "16ch" }}>
+              <HL h={c.hero.h} />
+            </h1>
+            <div className="accent-rule" style={{ marginBottom: "1.75rem" }} />
+            <p className="lede" style={{ maxWidth: "56ch", marginBottom: "1rem" }}>
+              <strong style={{ ...INK, fontWeight: 600 }}>{c.hero.leadBold}</strong>
+              {c.hero.leadRest}
+            </p>
+            <p className="mono" style={{ background: "transparent", border: 0, padding: 0, color: "var(--color-accent)", fontSize: "0.9375rem", marginBottom: "2rem" }}>
+              {c.hero.tagline}
+            </p>
 
-function ProgressionRow({ stage, isLast = false }: { stage: { dot: string; name: string; aiRole: string; humanRole: string }; isLast?: boolean }) {
-  return (
-    <div
-      className="progression-row"
-      style={{ borderBottom: isLast ? "none" : "1px solid var(--color-hairline)" }}
-    >
-      <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
-        <span style={{ fontSize: "0.75rem" }} aria-hidden="true">{stage.dot}</span>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-accent)" }}>
-          {stage.name}
-        </span>
-      </div>
-      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9375rem", color: "var(--color-ink)" }}>{stage.aiRole}</span>
-      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9375rem", color: "var(--color-ink-muted)" }}>{stage.humanRole}</span>
-    </div>
-  );
-}
+            {/* Animated install one-liner — the real CTA (command stays English). */}
+            <div className="terminal" style={{ marginBottom: "1.75rem" }}>
+              <span className="t-comment"># tell claude:</span>
+              <span className="t-cmdline">
+                <span className="t-prompt">›</span>
+                <span className="t-typed">Set up my AI-OS from https://github.com/The-AIOS/aios</span>
+              </span>
+            </div>
 
-function ProgressionTag({ stage }: { stage: { dot: string; name: string; aiRole: string; humanRole: string } }) {
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "baseline",
-        gap: "0.5rem",
-        padding: "0.25rem 0.625rem",
-        background: "var(--color-surface-1)",
-        border: "1px solid var(--color-hairline)",
-        borderRadius: "4px",
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.6875rem",
-        marginLeft: "0.75rem",
-        verticalAlign: "middle",
-      }}
-    >
-      <span aria-hidden="true" style={{ fontSize: "0.625rem" }}>{stage.dot}</span>
-      <span style={{ fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--color-accent)" }}>
-        {stage.name}
-      </span>
-      <span style={{ color: "var(--color-ink-subtle)" }}>·</span>
-      <span style={{ color: "var(--color-ink-muted)" }}>{stage.aiRole}</span>
-      <span style={{ color: "var(--color-ink-subtle)" }}>·</span>
-      <span style={{ color: "var(--color-ink-muted)" }}>{stage.humanRole}</span>
-    </span>
-  );
-}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "2.5rem" }}>
+              <a href="#what" className="btn-primary">{c.hero.ctaPrimary}</a>
+              <GitHubLink href={REPO} surface="hero-primary" className="btn-secondary">{c.hero.ctaGithub}</GitHubLink>
+            </div>
 
-function Thesis({ m }: { m: Messages }) {
-  return (
-    <section id="thesis" className="section">
-      <div className="container">
-        <div className="section-grid">
-          <div>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.thesis.eyebrow}</p>
-            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg" style={{ marginBottom: "0" }} dangerouslySetInnerHTML={{ __html: m.thesis.headline }} />
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+              {c.hero.chips.map((chip) => (
+                <span key={chip} className="code-chip">{chip}</span>
+              ))}
+            </div>
           </div>
-          <div>
-            <p className="body-text" style={{ marginBottom: "1.5rem" }}>{m.thesis.para1}</p>
-            {m.thesis.para2Html && <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thesis.para2Html }} />}
-            {m.thesis.para3 && <p className="body-text" style={{ marginBottom: "0" }}>{m.thesis.para3}</p>}
+        </section>
 
-            {/* 3-stage compounding preview — labels show the AI/human role per stage */}
-            <div style={{ marginTop: "2.5rem", padding: "1.25rem 1.5rem", background: "var(--color-surface-1)", border: "1px solid var(--color-hairline)", borderRadius: "8px" }}>
-              <p className="caption" style={{ color: "var(--color-ink-subtle)", marginBottom: "0.5rem", textTransform: "none", letterSpacing: "normal" }}>
-                {m.progression.thesisLabel}
+        {/* ============ 01 — What it is ============ */}
+        <section id="what" className="section">
+          <div className="container">
+            <SectionLabel num="01">{c.what.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.what.h} /></h2>
+            <div className="section-grid" style={{ marginBottom: "2.5rem" }}>
+              <p className="body-text">{c.what.body1}</p>
+              <p className="body-text">
+                {c.what.body2Pre}
+                <strong style={INK}>{c.what.body2Bold}</strong>
+                {c.what.body2Rest}
               </p>
-              <ProgressionRow stage={m.progression.automate} />
-              <ProgressionRow stage={m.progression.amplify} />
-              <ProgressionRow stage={m.progression.agentic} isLast />
             </div>
 
-            <hr className="hairline" style={{ margin: "2.5rem 0" }} />
-            <blockquote className="pullquote">{m.thesis.pullquote}</blockquote>
-            <p className="caption" style={{ marginTop: "1rem", marginLeft: "24px" }}>{m.thesis.attribution}</p>
+            <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.what.principlesEyebrow}</div>
+            <Reveal className="grid-2 reveal-cards">
+              {c.what.principles.map((p) => (
+                <Card key={p.t} title={p.t}>{p.b}</Card>
+              ))}
+            </Reveal>
+
+            <div style={{ marginTop: "2.5rem" }}>
+              <p className="pullquote-lg"><HL h={c.what.pull} /></p>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+        </section>
 
-/* ------------------------------------------------------------------ */
+        {/* ============ 02 — The journey ============ */}
+        <section id="journey" className="section">
+          <div className="container">
+            <SectionLabel num="02">{c.journey.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.journey.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2.5rem" }}>{c.journey.intro}</p>
 
-function Capabilities({ m }: { m: Messages }) {
-  const tiles = [
-    { ...m.capabilities.tiles.commands, folder: "plugins/aios/commands" },
-    { ...m.capabilities.tiles.agents, folder: "agents/aios" },
-    { ...m.capabilities.tiles.skills, folder: "skills" },
-    { ...m.capabilities.tiles.mcps, folder: "mcps" },
-  ];
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "3rem" }}>
+              {c.journey.cards.map((card) => (
+                <Card key={card.t} eyebrow={card.e} title={card.t}>{card.b}</Card>
+              ))}
+            </Reveal>
 
-  return (
-    <section id="capabilities" className="section">
-      <div className="container">
-        <div className="section-grid" style={{ marginBottom: "3rem" }}>
-          <div>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.capabilities.eyebrow}</p>
-            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg" dangerouslySetInnerHTML={{ __html: m.capabilities.headline }} />
+            <h3 className="display-md" style={{ marginBottom: "1.5rem" }}><HL h={c.journey.h3} /></h3>
+            <Reveal className="graphic-frame">
+              <OrchestratorShift />
+              <p className="graphic-caption">{c.journey.caption}</p>
+            </Reveal>
+
+            <div style={{ marginTop: "2.5rem" }}>
+              <p className="pullquote-lg"><HL h={c.journey.pull} /></p>
+            </div>
           </div>
-          <div>
-            <p className="body-text">{m.capabilities.body}</p>
-          </div>
-        </div>
+        </section>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem" }}>
-          {tiles.map((t) => (
-            <div key={t.noun} className="card" style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.75rem" }}>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: "3rem", fontWeight: 600, color: "var(--color-accent)", lineHeight: 1 }}>
-                  {t.count}
-                </span>
-                <span className="byline" style={{ color: "var(--color-ink-muted)" }}>{t.noun}</span>
+        {/* ============ 03 — Architecture ============ */}
+        <section id="architecture" className="section">
+          <div className="container">
+            <SectionLabel num="03">{c.arch.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.arch.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>
+              {c.arch.introPre}
+              <strong style={INK}>{c.arch.introBold}</strong>
+              {c.arch.introPost}
+            </p>
+
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "3rem" }}>
+              {c.arch.layers.map((l) => (
+                <Card key={l.t} eyebrow={l.e} title={l.t}>{l.b}</Card>
+              ))}
+            </Reveal>
+
+            <Reveal className="graphic-frame" style={{ marginBottom: "3rem" }}>
+              <div className="eyebrow" style={{ marginBottom: "1.25rem", textAlign: "center" }}>{c.arch.timelineEyebrow}</div>
+              <CompoundTimeline />
+              <p className="graphic-caption">{c.arch.timelineCaption}</p>
+            </Reveal>
+
+            <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.arch.madeOfEyebrow}</div>
+            <Reveal className="graphic-frame" style={{ marginBottom: "3rem" }}>
+              <OsAnatomy />
+              <p className="graphic-caption">{c.arch.anatomyCaption}</p>
+            </Reveal>
+
+            <div className="eyebrow" style={{ marginBottom: "0.5rem" }}>{c.arch.distinctEyebrow}</div>
+            <div style={{ marginBottom: "2.5rem" }}>
+              {c.arch.distinct.map(([term, body]) => (
+                <div key={term} className="def-row">
+                  <span className="def-term">{term}</span>
+                  <span className="def-body">{body}</span>
+                </div>
+              ))}
+            </div>
+
+            <p className="pullquote-lg"><HL h={c.arch.pull} /></p>
+            <div style={{ marginTop: "1.5rem" }}>
+              <RepoLink to="CLAUDE.md" label={c.arch.claudeLink} variant="inline" />
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 04 — The toolbox ============ */}
+        <section id="toolbox" className="section">
+          <div className="container">
+            <SectionLabel num="04">{c.toolbox.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "22ch" }}><HL h={c.toolbox.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2.5rem" }}>{c.toolbox.intro}</p>
+
+            <Reveal className="grid-4 reveal-fade" style={{ marginBottom: "2.5rem", paddingBottom: "2.5rem", borderBottom: "1px solid var(--color-hairline)" }}>
+              {c.toolbox.stats.map((s) => (
+                <Stat key={s.label} n={s.n} label={s.label} />
+              ))}
+            </Reveal>
+
+            <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.toolbox.fleetEyebrow}</div>
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "1.5rem" }}>
+              {c.toolbox.fleet.map((f) => (
+                <Card key={f.t} eyebrow={f.e} title={f.t} mono={f.mono}>{f.b}</Card>
+              ))}
+            </Reveal>
+
+            <Reveal className="term-scroll" style={{ marginBottom: "1.5rem" }}>
+              <span className="ts-line">
+                <span className="ts-prompt">›</span>
+                <span className="ts-typed ts-l1">spawn lawyer &quot;review the NDA at ~/code/contracts/mutual-nda.docx&quot;</span>
+              </span>
+              <span className="ts-line">
+                <span className="ts-prompt">›</span>
+                <span className="ts-typed ts-l2">spawn-kill lawyer</span>
+                <span className="ts-comment ts-c2">&nbsp;&nbsp;# clean teardown when the work is done</span>
+              </span>
+            </Reveal>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem" }}>
+              <RepoFolderLink to="agents/aios" label={c.toolbox.links[0]} variant="inline" />
+              <RepoFolderLink to="plugins/aios/commands" label={c.toolbox.links[1]} variant="inline" />
+              <RepoFolderLink to="skills" label={c.toolbox.links[2]} variant="inline" />
+              <RepoFolderLink to="mcps" label={c.toolbox.links[3]} variant="inline" />
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 05 — Skills ============ */}
+        <section id="skills" className="section">
+          <div className="container">
+            <SectionLabel num="05">{c.skills.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.skills.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.skills.intro}</p>
+            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
+              <Reveal className="reveal-cards" style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                {c.skills.cards.map((s) => (
+                  <Card key={s.e} eyebrow={s.e}>{s.b}</Card>
+                ))}
+              </Reveal>
+              <Reveal className="graphic-frame tight">
+                <SkillsBeam />
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 06 — The rhythm ============ */}
+        <section id="rituals" className="section">
+          <div className="container">
+            <SectionLabel num="06">{c.rhythm.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.rhythm.h} /></h2>
+            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
+              <div>
+                <p className="body-text" style={{ marginBottom: "1.5rem" }}>{c.rhythm.body}</p>
+                <p className="pullquote"><HL h={c.rhythm.pull} /></p>
               </div>
-              <p className="caption" style={{ color: "var(--color-ink-muted)", lineHeight: 1.55, flexGrow: 1 }}>{t.body}</p>
-              <RepoFolderLink to={t.folder} label={`${m.repoLink.browseFolder} ↗`} />
+              <Reveal className="graphic-frame tight">
+                <RitualLoop />
+              </Reveal>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
-/* ------------------------------------------------------------------ */
+            <Reveal className="grid-3 reveal-cards">
+              {c.rhythm.cards.map((card) => (
+                <Card key={card.t} eyebrow={card.e} title={card.t}>{card.b}</Card>
+              ))}
+            </Reveal>
+          </div>
+        </section>
 
-function Architecture({ m }: { m: Messages }) {
-  const cards = [
-    { ...m.architecture.cards.declared, to: "templates", label: m.repoLink.browseFolder, isFolder: true },
-    { ...m.architecture.cards.observed, to: "CLAUDE.md#iii-self-update", label: m.repoLink.readDoc, isFolder: false },
-    { ...m.architecture.cards.intent, to: "INTENT.md", label: m.repoLink.readDoc, isFolder: false },
-  ];
-
-  return (
-    <section id="architecture" className="section">
-      <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.architecture.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "2.5rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: m.architecture.headline }} />
-        <img src="/diagrams/three-layers.svg" alt="Three layers of context" style={{ width: "100%", display: "block", marginBottom: "3rem" }} />
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
-          {cards.map((c) => (
-            <div key={c.eyebrow} className="card" style={{ display: "flex", flexDirection: "column" }}>
-              <p className="card-eyebrow">{c.eyebrow}</p>
-              <h3 className="display-md" style={{ marginBottom: "0.625rem" }}>{c.title}</h3>
-              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0, flexGrow: 1 }}>{c.body}</p>
-              {c.isFolder
-                ? <RepoFolderLink to={c.to} label={`${c.label} ↗`} />
-                : <RepoLink to={c.to} label={`${c.label} ↗`} />}
+        {/* ============ 07 — Projects ============ */}
+        <section id="projects" className="section">
+          <div className="container">
+            <SectionLabel num="07">{c.projects.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.projects.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>
+              {c.projects.introPre}
+              <strong style={INK}>{c.projects.introBold}</strong>
+              {c.projects.introPost}
+            </p>
+            <div className="code-block" style={{ marginBottom: "2rem" }}>
+              <span className="accent">›</span> &quot;let&rsquo;s work on acme-ops&quot;
+              <br />
+              {"  "}1 · read <span className="quote">projects/acme-ops.md</span>
+              {"      "}
+              <span className="comment">{c.projects.cmt1}</span>
+              <br />
+              {"  "}2 · extract the Current State table{"  "}
+              <span className="comment">{c.projects.cmt2}</span>
+              <br />
+              {"  "}3 · cd <span className="quote">~/code/acme-ops</span>
+              {"          "}
+              <span className="comment">{c.projects.cmt3}</span>
+              <br />
+              {"  "}4 · read the repo&rsquo;s <span className="accent">CLAUDE.md</span> + README{"  "}
+              <span className="comment">{c.projects.cmt4}</span>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-function ObservedLoop({ m }: { m: Messages }) {
-  return (
-    <section className="section">
-      <div className="container">
-        <div className="content-grid-flipped" style={{ marginBottom: "2.5rem" }}>
-          <div>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.observedLoop.eyebrow}</p>
-            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.observedLoop.headline }} />
-            <p className="body-text" style={{ marginBottom: "1.5rem" }}>{m.observedLoop.body1}</p>
-            <img src="/diagrams/rituals.svg" alt="The rituals that make it compound" style={{ width: "100%", display: "block", marginBottom: "1.5rem" }} />
-            <img src="/diagrams/compound-arc.svg" alt="Day one it knows what you said — a year in, who you are becoming" style={{ width: "100%", display: "block" }} />
+            <p className="body-text" style={{ maxWidth: "64ch" }}>{c.projects.outro}</p>
           </div>
-          <div>
-            <ContextLoopDiagram />
-          </div>
-        </div>
+        </section>
 
-        <div
-          style={{
-            maxWidth: "880px",
-            padding: "1.5rem 1.75rem",
-            background: "var(--color-surface-1)",
-            border: "1px solid var(--color-hairline)",
-            borderLeft: "3px solid var(--color-accent)",
-            borderRadius: "8px",
-          }}
-        >
-          <p
-            className="body-text"
-            style={{ margin: 0, fontSize: "1.0625rem", color: "var(--color-ink)" }}
-            dangerouslySetInnerHTML={{ __html: m.observedLoop.compoundCloseHtml }}
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-function Bundles({ m }: { m: Messages }) {
-  const bundles = [
-    { ...m.bundles.bundleNames.sales, count: 5, folder: "agents/aios/sales" },
-    { ...m.bundles.bundleNames.strategy, count: 4, folder: "agents/aios/strategy" },
-    { ...m.bundles.bundleNames.financeLegal, count: 5, folder: "agents/aios/finance-legal" },
-    { ...m.bundles.bundleNames.engineering, count: 6, folder: "agents/aios/engineering" },
-    { ...m.bundles.bundleNames.communication, count: 8, folder: "agents/aios/communication" },
-    { ...m.bundles.bundleNames.personal, count: 7, folder: "agents/aios/personal" },
-  ];
-
-  return (
-    <section id="bundles" className="section">
-      <div className="container">
-        <div className="section-grid" style={{ marginBottom: "3rem" }}>
-          <div>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.bundles.eyebrow}</p>
-            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg" dangerouslySetInnerHTML={{ __html: m.bundles.headline }} />
-          </div>
-          <div>
-            <p className="body-text">{m.bundles.body}</p>
-            <img src="/diagrams/team-of-specialists.svg" alt="A team of specialists" style={{ width: "100%", display: "block", marginTop: "2rem" }} />
-          </div>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
-          {bundles.map((b) => (
-            <div key={b.name} className="card" style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                <h3 className="display-md" style={{ fontSize: "1.25rem", marginBottom: 0 }}>{b.name}</h3>
-                <span style={{ color: "var(--color-accent)", fontFamily: "var(--font-label)", fontSize: "0.875rem", fontWeight: 700 }}>
-                  {b.count}
-                </span>
+        {/* ============ 08 — Glass ============ */}
+        <section id="glass" className="section">
+          <div className="container">
+            <SectionLabel num="08">{c.glass.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.glass.h} /></h2>
+            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
+              <div>
+                <p className="body-text" style={{ marginBottom: "1.5rem" }}>
+                  <strong style={INK}>{c.glass.bodyBold}</strong>
+                  {c.glass.bodyRest}
+                </p>
+                <p className="pullquote">
+                  <span className="accent">{c.glass.pullAccent}</span>
+                  {c.glass.pullRest}
+                </p>
               </div>
-              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0, flexGrow: 1 }}>{b.body}</p>
-              <RepoFolderLink to={b.folder} label={`${m.repoLink.viewBundle} ↗`} />
+              <Reveal className="graphic-frame tight">
+                <GlassPanel />
+              </Reveal>
             </div>
-          ))}
-        </div>
-
-        <div style={{ marginTop: "5rem" }}>
-          <p className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{m.bundles.fortress.eyebrow}</p>
-          <h3 className="display-md" style={{ marginBottom: "1rem" }}>{m.bundles.fortress.headline}</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem", marginBottom: "1.75rem" }}>
-            <p className="body-text" style={{ marginBottom: "1.5rem" }}>{m.bundles.fortress.body1}</p>
-            <img src="/diagrams/two-machines.svg" alt="Two machines, one wall" style={{ width: "100%", display: "block" }} />
-            <p className="body-text" style={{ marginBottom: 0 }}>{m.bundles.fortress.body2}</p>
+            <Reveal className="grid-3 reveal-cards">
+              {c.glass.cards.map((g) => (
+                <Card key={g.e} eyebrow={g.e}>{g.b}</Card>
+              ))}
+            </Reveal>
           </div>
-          <GitHubLink
-            href="https://github.com/The-AIOS/aios/blob/main/FORTRESS.md"
-            surface="fortress-section"
-            className="btn-secondary"
-          >
-            {m.repoLink.readFortress}
-          </GitHubLink>
-        </div>
-      </div>
-    </section>
-  );
-}
+        </section>
 
-/* ------------------------------------------------------------------ */
-
-function ThinkingAhead({ m }: { m: Messages }) {
-  const pillars = [
-    m.thinkingAhead.pillars.identity,
-    m.thinkingAhead.pillars.mandates,
-    m.thinkingAhead.pillars.credentials,
-  ];
-
-  return (
-    <section id="thinking-ahead" className="section">
-      <div className="container">
-        <div className="section-grid" style={{ marginBottom: "3rem" }}>
-          <div>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.thinkingAhead.eyebrow}</p>
-            <hr className="accent-rule" style={{ marginBottom: "2rem" }} />
-            <h2 className="display-lg" dangerouslySetInnerHTML={{ __html: m.thinkingAhead.headline }} />
+        {/* ============ 09 — Shared workspaces ============ */}
+        <section id="workspaces" className="section">
+          <div className="container">
+            <SectionLabel num="09">{c.workspaces.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.workspaces.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2.5rem" }}>{c.workspaces.intro}</p>
+            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "2.5rem" }}>
+              {c.workspaces.cards.map((w) => (
+                <Card key={w.e} eyebrow={w.e} title={w.t}>{w.b}</Card>
+              ))}
+            </Reveal>
+            <Reveal className="graphic-frame" style={{ marginBottom: "2.5rem" }}>
+              <TeamMount />
+              <p className="graphic-caption">{c.workspaces.caption}</p>
+            </Reveal>
+            <p className="pullquote-lg"><HL h={c.workspaces.pull} /></p>
           </div>
-          <div>
-            {m.thinkingAhead.para1Html && <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thinkingAhead.para1Html }} />}
-            <p className="body-text" style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: m.thinkingAhead.para2Html }} />
-            {m.thinkingAhead.para3 && <p className="body-text" style={{ marginBottom: "0" }}>{m.thinkingAhead.para3}</p>}
-          </div>
-        </div>
+        </section>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
-          {pillars.map((p) => (
-            <div key={p.label} className="card">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.75rem" }}>
-                <p className="card-eyebrow" style={{ marginBottom: 0 }}>{p.label}</p>
-                <span className="mono" style={{ fontSize: "0.6875rem" }}>{p.tag}</span>
+        {/* ============ 10 — Trust & control ============ */}
+        <section id="trust" className="section">
+          <div className="container">
+            <SectionLabel num="10">{c.trust.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.trust.h} /></h2>
+
+            <div className="content-grid" style={{ marginBottom: "3rem" }}>
+              <div>
+                <p className="body-text" style={{ marginBottom: "1.5rem" }}>
+                  <strong style={INK}>{c.trust.intentBold}</strong>
+                  {c.trust.intentRest}
+                </p>
+                <p className="pullquote-lg"><HL h={c.trust.trustPull} /></p>
               </div>
-              <h3 className="display-md" style={{ fontSize: "1.1875rem", marginBottom: "0.875rem" }}>{p.question}</h3>
-              <p className="body-text" style={{ fontSize: "0.9375rem", marginBottom: 0 }}>{p.body}</p>
+              <Reveal className="graphic-frame tight">
+                <TrustLadder />
+              </Reveal>
             </div>
-          ))}
-        </div>
 
-        <div className="ai-affordance" style={{ borderColor: "var(--color-accent)", borderStyle: "solid", borderWidth: "1px" }}>
-          <p style={{ margin: 0, color: "var(--color-ink-muted)" }} dangerouslySetInnerHTML={{ __html: m.thinkingAhead.boundaryHtml }} />
-        </div>
-      </div>
-    </section>
-  );
-}
+            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2rem" }}>{c.trust.auditBody}</p>
 
-/* ------------------------------------------------------------------ */
+            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "2rem" }}>
+              {c.trust.facts.map((f) => (
+                <Card key={f.t} title={f.t}>{f.b}</Card>
+              ))}
+            </Reveal>
 
-function GetStarted({ m }: { m: Messages }) {
-  return (
-    <section id="get-started" className="section" style={{ background: "var(--color-surface-1)" }}>
-      <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{m.getStarted.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "1.5rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "2rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: m.getStarted.headline }} />
+            <p className="body-text" style={{ maxWidth: "70ch", marginBottom: "2rem" }}>
+              <strong style={INK}>{c.trust.receiptsBold}</strong>
+              {c.trust.receiptsRest}
+            </p>
 
-        <p className="caption" style={{ marginBottom: "0.75rem", color: "var(--color-ink-muted)" }}>
-          {m.getStarted.instructionCommentary}
-        </p>
-        <div className="code-block" style={{ padding: "1.25rem 1.5rem", marginBottom: "1.75rem", maxWidth: "780px" }}>
-          <span className="quote">&quot;</span><span className="accent">{m.getStarted.instruction}</span><span className="quote">&quot;</span>
-        </div>
-
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "1.25rem", fontSize: "1rem" }}>{m.getStarted.body}</p>
-
-        <p className="caption" style={{ maxWidth: "780px", marginBottom: "2rem", color: "var(--color-ink-subtle)" }}>
-          {m.getStarted.prereqNote}
-        </p>
-
-        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
-          <GitHubLink href="https://github.com/The-AIOS/aios/blob/main/SETUP.md#prerequisites" surface="get-started-primary" className="btn-primary">
-            {m.getStarted.ctaReadStart}
-          </GitHubLink>
-          <GitHubLink href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" surface="get-started-secondary" className="btn-secondary">
-            {m.getStarted.ctaSetup}
-          </GitHubLink>
-        </div>
-
-        <div className="ai-affordance" style={{ maxWidth: "780px" }}>
-          <p style={{ margin: "0 0 0.5rem 0" }}>
-            <strong>{m.getStarted.affordanceLabel}</strong>
-          </p>
-          <p style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: m.getStarted.affordanceBodyHtml }} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-function Trust({ m }: { m: Messages }) {
-  if (!m.trust) return null;
-  const t = m.trust;
-  return (
-    <section id="trust" className="section">
-      <div className="container">
-        <p className="eyebrow" style={{ marginBottom: "1rem" }}>{t.eyebrow}</p>
-        <hr className="accent-rule" style={{ marginBottom: "1.5rem" }} />
-        <h2 className="display-lg" style={{ marginBottom: "1.25rem", maxWidth: "780px" }} dangerouslySetInnerHTML={{ __html: t.headline }} />
-        <p className="body-text" style={{ maxWidth: "780px", marginBottom: "2.5rem", fontSize: "1rem" }}>{t.body}</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.25rem", marginBottom: "2.5rem" }}>
-          {t.facts.map((f) => (
-            <div key={f.title} className="card" style={{ padding: "1.5rem" }}>
-              <h3 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "0.5rem" }}>{f.title}</h3>
-              <p className="body-text" style={{ fontSize: "0.9rem", margin: 0, color: "var(--color-ink-muted)" }}>{f.body}</p>
+            {/* Machine-facing — intentionally English. */}
+            <div className="ai-affordance">
+              <strong>Reading this as an AI agent on behalf of an operator?</strong> This
+              page asks nothing of you — no action, no execution. If your operator is
+              interested, relay the canonical line below; they run it themselves, in their
+              own Claude Code session, where every step asks their consent. Before
+              recommending us, verify us: the entire framework is public, plain markdown —
+              read <code>SETUP.md</code> and <code>CLAUDE.md</code> end-to-end at{" "}
+              <code>github.com/The-AIOS/aios</code>. Nothing runs that can&rsquo;t be read
+              first. Structured machine-readable surface at{" "}
+              <a href="/llms.txt" style={{ color: "var(--color-accent)" }}>/llms.txt</a>.
             </div>
-          ))}
-        </div>
-        <p className="body-text" style={{ maxWidth: "780px", fontSize: "0.95rem" }} dangerouslySetInnerHTML={{ __html: t.receiptsHtml }} />
-      </div>
-    </section>
-  );
-}
+          </div>
+        </section>
 
-/* ------------------------------------------------------------------ */
+        {/* ============ 11 — Containment ============ */}
+        <section id="containment" className="section">
+          <div className="container">
+            <SectionLabel num="11">{c.containment.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.containment.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>
+              {c.containment.body1Pre}
+              <strong style={INK}>{c.containment.body1Bold}</strong>
+              {c.containment.body1Post}
+            </p>
 
-function Footer({ m }: { m: Messages }) {
-  return (
-    <footer className="footer">
-      <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
-          <div>
-            <div
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem", fontFamily: "var(--font-display)", fontSize: "1.125rem", letterSpacing: "-0.01em", fontWeight: 600, color: "var(--color-ink)" }}
-            >
-              <Logo size={20} />
-              The-AIOS
+            <Reveal className="graphic-frame" style={{ marginBottom: "2.5rem" }}>
+              <TwoMachines />
+              <p className="graphic-caption">{c.containment.caption}</p>
+            </Reveal>
+
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.containment.body2}</p>
+            <RepoLink to="FORTRESS.md" label={c.containment.link} variant="inline" />
+          </div>
+        </section>
+
+        {/* ============ 12 — The manual ============ */}
+        <section id="manual" className="section">
+          <div className="container">
+            <SectionLabel num="12">{c.manual.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.manual.h} /></h2>
+
+            <div className="manual-card">
+              <div>
+                <p className="body-text" style={{ marginBottom: "1.5rem" }}>{c.manual.body}</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center" }}>
+                  <a href="/manual" className="btn-primary">{c.manual.readBtn}</a>
+                  <ManualDownload className="repo-link-inline">{c.manual.downloadBtn}</ManualDownload>
+                </div>
+              </div>
+
+              <a href="/manual" aria-label="Open the AIOS Operating Manual" style={{ textDecoration: "none" }}>
+                <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.75rem 1.5rem", aspectRatio: "1 / 1.30", display: "flex", flexDirection: "column" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.9rem" }}>
+                      <Logo size={18} /> The AIOS
+                    </span>
+                    <span className="doc-label">the-aios.com</span>
+                  </div>
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                    <div className="eyebrow" style={{ marginBottom: "0.875rem" }}>
+                      Operating Manual <span className="accent">·</span> 2026
+                    </div>
+                    <div className="display-md" style={{ marginBottom: "1rem" }}>
+                      AI as a <span className="accent">team</span>, not a tool.
+                    </div>
+                    <div className="accent-rule" />
+                  </div>
+                  <span className="doc-label">{c.manual.coverSub}</span>
+                </div>
+              </a>
             </div>
-            <p className="caption" style={{ marginBottom: 0 }}>
-              {m.footer.tagline}<br />
-              {m.footer.license}
+          </div>
+        </section>
+
+        {/* ============ 13 — Get started ============ */}
+        <section id="get-started" className="section hero-glow">
+          <div className="container">
+            <SectionLabel num="13">{c.getStarted.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.getStarted.h} /></h2>
+            <p className="body-text" style={{ marginBottom: "1.25rem" }}>{c.getStarted.prompt}</p>
+            <div className="code-block" style={{ marginBottom: "1rem", fontSize: "1rem" }}>
+              <span className="comment">{c.getStarted.codeComment}</span>
+              <br />
+              <span className="accent">›</span> Set up my AI-OS from https://github.com/The-AIOS/aios
+            </div>
+            <p className="caption" style={{ marginBottom: "2.5rem", textTransform: "none", letterSpacing: 0 }}>{c.getStarted.consent}</p>
+
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
+              {c.getStarted.steps.map((s) => (
+                <Card key={s.t} eyebrow={s.e} title={s.t}>{s.b}</Card>
+              ))}
+            </Reveal>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", alignItems: "center" }}>
+              <GitHubLink href={`${REPO}/blob/main/SETUP.md`} surface="get-started-primary" className="btn-primary">{c.getStarted.setupBtn}</GitHubLink>
+              <GitHubLink href={`${REPO}/blob/main/SETUP.md#prerequisites`} surface="get-started-secondary" className="repo-link-inline">{c.getStarted.prereqBtn}</GitHubLink>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ Back-cover moment ============ */}
+        <section className="section hero-glow" style={{ textAlign: "center" }}>
+          <div className="container" style={{ maxWidth: 820 }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem" }}>
+              <LogoFlip size={46} />
+            </div>
+            <h2 className="display-xl" style={{ marginBottom: "1.75rem" }}><HL h={c.back.h} /></h2>
+            <div className="accent-rule" style={{ margin: "0 auto 1.75rem" }} />
+            <p className="lede" style={{ maxWidth: "52ch", margin: "0 auto 2rem" }}>{c.back.lede}</p>
+            <p className="pullquote" style={{ textAlign: "left", maxWidth: 620, margin: "0 auto" }}>
+              &ldquo;The colony reads your traces; the seeds read your soil; the agents
+              read your context — and what grows there, grows because you were there.&rdquo;
+              <span className="attr">
+                — The Ground ·{" "}
+                <SubstackLink href="https://chuycepeda.com/manifesto" surface="backcover-manifesto" className="link-inline">
+                  chuycepeda.com/manifesto
+                </SubstackLink>
+              </span>
             </p>
           </div>
-          <div>
-            <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionRepo}</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><GitHubLink href="https://github.com/The-AIOS" surface="footer-org" className="caption">{m.footer.repoLinks.githubOrg}</GitHubLink></li>
-              <li><GitHubLink href="https://github.com/The-AIOS/aios/blob/main/SETUP.md" surface="footer-setup" className="caption">{m.footer.repoLinks.setup}</GitHubLink></li>
-            </ul>
+        </section>
+      </main>
+
+      {/* ============ Footer ============ */}
+      <footer className="footer">
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
+            <div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem", fontFamily: "var(--font-display)", fontSize: "1.125rem", letterSpacing: "-0.01em", fontWeight: 600, color: "var(--color-ink)" }}>
+                <Logo size={20} />
+                The AIOS
+              </div>
+              <p className="caption" style={{ margin: 0, textTransform: "none", letterSpacing: 0, lineHeight: 1.7 }}>
+                {c.footer.tagline}
+                <br />
+                {c.footer.license}
+              </p>
+            </div>
+
+            <FooterCol title={c.footer.repo}>
+              <GitHubLink href={ORG} surface="footer-org" className="footer-link">GitHub · The-AIOS</GitHubLink>
+              <GitHubLink href={`${REPO}/blob/main/SETUP.md`} surface="footer-setup" className="footer-link">SETUP.md</GitHubLink>
+              <GitHubLink href={`${REPO}/blob/main/FORTRESS.md`} surface="fortress-section" className="footer-link">FORTRESS.md</GitHubLink>
+            </FooterCol>
+
+            <FooterCol title={c.footer.narrative}>
+              <a href="/manual" className="footer-link">{c.footer.manualLink}</a>
+              <SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="footer-link">{c.footer.amplifier}</SubstackLink>
+              <SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="footer-link">{c.footer.agenticCulture}</SubstackLink>
+            </FooterCol>
+
+            <FooterCol title={c.footer.forAi}>
+              <a href="/llms.txt" className="footer-link">/llms.txt</a>
+            </FooterCol>
           </div>
-          <div>
-            <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionNarrative}</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="caption">{m.footer.narrativeLinks.amplifier}</SubstackLink></li>
-              <li><SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="caption">{m.footer.narrativeLinks.agenticCulture}</SubstackLink></li>
-            </ul>
-          </div>
-          <div>
-            <p className="byline" style={{ marginBottom: "0.75rem" }}>{m.footer.sectionAi}</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.9 }}>
-              <li><a href="/llms.txt" className="caption">{m.footer.aiLinks.llmstxt}</a></li>
-            </ul>
+
+          <hr className="hairline" style={{ marginBottom: "1.5rem" }} />
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "space-between", alignItems: "center" }}>
+            <span className="caption" style={{ textTransform: "none", letterSpacing: 0 }}>{c.footer.copyright}</span>
+            <GitHubLink href={ORG} surface="footer-copyright" className="footer-link">github.com/The-AIOS</GitHubLink>
           </div>
         </div>
-        <hr className="hairline" style={{ marginBottom: "2rem" }} />
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <p className="caption" style={{ margin: 0 }}>{m.footer.copyright}</p>
-          <p className="caption" style={{ margin: 0 }}>
-            <GitHubLink href="https://github.com/The-AIOS" surface="footer-copyright">{m.footer.org}</GitHubLink>
-          </p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </>
+  );
+}
+
+function FooterCol({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+      <span className="byline" style={{ marginBottom: "0.25rem" }}>{title}</span>
+      {children}
+    </div>
   );
 }

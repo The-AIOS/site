@@ -26,6 +26,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        {/* No-flash theme: dark is the default; apply stored 'light' before paint. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}",
+          }}
+        />
         {/* AI agents reading this page on a user's behalf: see /llms.txt for structured framework info */}
         <link
           rel="preconnect"

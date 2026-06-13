@@ -4,12 +4,21 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { GitHubLink } from "./GitHubLink";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { Logo } from "./Logo";
-import type { Locale, Messages } from "@/messages";
+import type { Locale } from "@/messages";
 
-type NavItem = { href: string; label: string };
+export type NavItem = { href: string; label: string };
 
-export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
+export function MobileMenu({
+  items,
+  githubLabel,
+  locale,
+}: {
+  items: NavItem[];
+  githubLabel: string;
+  locale: Locale;
+}) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -33,16 +42,6 @@ export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
-
-  const items: NavItem[] = [
-    { href: "#get-started", label: m.nav.getStarted },
-    ...(m.nav.trust ? [{ href: "#trust", label: m.nav.trust }] : []),
-    { href: "#thesis", label: m.nav.thesis },
-    { href: "#capabilities", label: m.nav.capabilities },
-    { href: "#bundles", label: m.nav.agents },
-    { href: "#thinking-ahead", label: m.nav.ahead },
-    { href: "#operator-job", label: m.nav.arc },
-  ];
 
   return (
     <>
@@ -96,12 +95,15 @@ export function MobileMenu({ m, locale }: { m: Messages; locale: Locale }) {
               surface="nav-mobile"
               onClick={() => setOpen(false)}
             >
-              {m.nav.github}
+              {githubLabel}
             </GitHubLink>
           </nav>
 
           <div className="mm-footer">
-            <LocaleSwitcher current={locale} />
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <LocaleSwitcher current={locale} />
+              <ThemeToggle />
+            </div>
             <span className="caption" style={{ color: "var(--color-ink-subtle)" }}>
               the-aios.com
             </span>
