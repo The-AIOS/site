@@ -64,7 +64,7 @@ export type Content = {
   };
   containment: {
     eyebrow: string; h: H; body1Pre: string; body1Bold: string; body1Post: string;
-    caption: string; body2: string; link: string;
+    caption: string; body2: string; closingPull: H; link: string;
   };
   manual: {
     eyebrow: string; h: H; body: string; readBtn: string; downloadBtn: string;
@@ -90,8 +90,8 @@ const en: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["What it is", "Skills", "Projects", "Glass", "Trust", "Manual", "Get started"][i] })),
   hero: {
     eyebrowPre: "The AI Operating System", eyebrowAccent: "·", eyebrowPost: "Open source",
-    h: ["AI as a ", "team", ", not a tool."],
-    leadBold: "Giving everyone a team of agents.",
+    h: ["Giving everyone a ", "team of agents.", ""],
+    leadBold: "AI as a team, not a tool.",
     leadRest: " The AIOS turns AI into co-workers — a legal you, an accountant you, a marketing you, an engineering you. Orchestrated by you, governed by your intent, compounding every day.",
     tagline: "Gain bandwidth. Go Agentic.",
     ctaPrimary: "What is this & who it’s for ↓", ctaGithub: "View on GitHub ↗",
@@ -229,6 +229,7 @@ const en: Content = {
     body1Post: " is a two-machine architecture: a primary MacBook drives day-to-day, an always-on Mac mini hosts the autonomous fleet — firewalled so agents can act without exposing your credentials, networks, or sensitive systems.",
     caption: "Same Wi-Fi — but the mini is walled off at the OS level. Results push out via git; management flows in via SSH. The mini never reaches into the main.",
     body2: "Six defensive layers — network isolation, ecosystem lockdown, SSH hardening, graduated permission gates, one-way data flow, recovery — keep the worker on the right side of the fence. Total cost of a 24/7 fleet: a ~$600 Mac mini once, ~$25/month running.",
+    closingPull: ["Autonomy is the engine; ", "maximum creative freedom", " is the destination — trusted agents do the work, you do what only you can."],
     link: "Read the full architecture — FORTRESS.md",
   },
   manual: {
@@ -269,8 +270,8 @@ const es: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué es", "Skills", "Proyectos", "Glass", "Confianza", "Manual", "Empezar"][i] })),
   hero: {
     eyebrowPre: "El sistema operativo de IA", eyebrowAccent: "·", eyebrowPost: "Código abierto",
-    h: ["IA como un ", "equipo", ", no una herramienta."],
-    leadBold: "Dale a cada persona un equipo de agentes.",
+    h: ["Dale a cada persona un ", "equipo de agentes.", ""],
+    leadBold: "IA como un equipo, no una herramienta.",
     leadRest: " The AIOS convierte la IA en compañeros de trabajo — un tú legal, un tú contable, un tú de marketing, un tú de ingeniería. Orquestados por ti, gobernados por tu intención, capitalizando cada día.",
     tagline: "Gana ancho de banda. Vuélvete agéntico.",
     ctaPrimary: "Qué es y para quién ↓", ctaGithub: "Ver en GitHub ↗",
@@ -408,6 +409,7 @@ const es: Content = {
     body1Post: " es una arquitectura de dos máquinas: una MacBook principal lleva el día a día, un Mac mini siempre encendido hospeda la flota autónoma — con firewall para que los agentes actúen sin exponer tus credenciales, redes ni sistemas sensibles.",
     caption: "Misma Wi-Fi — pero el mini está amurallado a nivel del SO. Los resultados salen por git; la gestión entra por SSH. El mini nunca alcanza a la principal.",
     body2: "Seis capas defensivas — aislamiento de red, bloqueo del ecosistema, endurecimiento de SSH, permisos graduados, flujo de datos en un solo sentido, recuperación — mantienen al worker del lado correcto de la valla. Costo total de una flota 24/7: un Mac mini de ~$600 una vez, ~$25/mes de operación.",
+    closingPull: ["La autonomía es el motor; ", "la máxima libertad creativa", " es el destino — los agentes de confianza hacen el trabajo, tú haces lo que solo tú puedes."],
     link: "Lee la arquitectura completa — FORTRESS.md",
   },
   manual: {
@@ -448,8 +450,8 @@ const pt: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["O que é", "Skills", "Projetos", "Glass", "Confiança", "Manual", "Começar"][i] })),
   hero: {
     eyebrowPre: "O sistema operacional de IA", eyebrowAccent: "·", eyebrowPost: "Código aberto",
-    h: ["IA como um ", "time", ", não uma ferramenta."],
-    leadBold: "Dando a cada pessoa um time de agentes.",
+    h: ["Dando a cada pessoa um ", "time de agentes.", ""],
+    leadBold: "IA como um time, não uma ferramenta.",
     leadRest: " The AIOS transforma a IA em colegas de trabalho — um você jurídico, um você contador, um você de marketing, um você de engenharia. Orquestrados por você, governados pela sua intenção, capitalizando todos os dias.",
     tagline: "Ganhe banda. Vá agêntico.",
     ctaPrimary: "O que é e para quem ↓", ctaGithub: "Ver no GitHub ↗",
@@ -587,6 +589,7 @@ const pt: Content = {
     body1Post: " é uma arquitetura de duas máquinas: um MacBook principal toca o dia a dia, um Mac mini sempre ligado hospeda a frota autônoma — com firewall para os agentes agirem sem expor suas credenciais, redes ou sistemas sensíveis.",
     caption: "Mesmo Wi-Fi — mas o mini está isolado no nível do SO. Os resultados saem por git; a gestão entra por SSH. O mini nunca alcança o principal.",
     body2: "Seis camadas defensivas — isolamento de rede, bloqueio do ecossistema, hardening de SSH, permissões graduais, fluxo de dados num só sentido, recuperação — mantêm o worker do lado certo da cerca. Custo total de uma frota 24/7: um Mac mini de ~US$600 uma vez, ~US$25/mês de operação.",
+    closingPull: ["A autonomia é o motor; ", "a máxima liberdade criativa", " é o destino — os agentes confiáveis fazem o trabalho, você faz o que só você pode."],
     link: "Leia a arquitetura completa — FORTRESS.md",
   },
   manual: {

@@ -487,7 +487,8 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <p className="graphic-caption">{c.containment.caption}</p>
             </Reveal>
 
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.containment.body2}</p>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.containment.body2}</p>
+            <p className="pullquote-lg" style={{ marginBottom: "1.5rem" }}><HL h={c.containment.closingPull} /></p>
             <RepoLink to="FORTRESS.md" label={c.containment.link} variant="inline" />
           </div>
         </section>
