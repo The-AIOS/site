@@ -172,7 +172,7 @@ const en: Content = {
     note: "Direction, not dated promises — and never a feature we can’t already point at in the work.",
   },
   setup: {
-    eyebrow: "Set it up",
+    eyebrow: "Manual",
     h: ["Everything you need, ", "then one line", "."],
     intro: "The whole setup is a guided conversation — but here’s the honest list of what to have ready, and the single line that starts it.",
     soonLabel: "coming soon",
@@ -420,7 +420,7 @@ const es: Content = {
     note: "Dirección, no promesas con fecha — y nunca una función que no podamos ya señalar en el trabajo.",
   },
   setup: {
-    eyebrow: "Configúralo",
+    eyebrow: "Manual",
     h: ["Todo lo que necesitas, ", "y luego una línea", "."],
     intro: "Todo el setup es una conversación guiada — pero aquí está la lista honesta de lo que conviene tener listo, y la única línea que lo arranca.",
     soonLabel: "próximamente",
@@ -668,7 +668,7 @@ const pt: Content = {
     note: "Direção, não promessas com data — e nunca uma função que não possamos já apontar no trabalho.",
   },
   setup: {
-    eyebrow: "Configure",
+    eyebrow: "Manual",
     h: ["Tudo o que você precisa, ", "e então uma linha", "."],
     intro: "Todo o setup é uma conversa guiada — mas aqui está a lista honesta do que ter à mão, e a única linha que o inicia.",
     soonLabel: "em breve",
