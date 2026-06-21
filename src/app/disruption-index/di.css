@@ -1,0 +1,326 @@
+/* The Disruption Index — route-scoped styles.
+ *
+ * Everything is scoped under `.di-root` and prefixed `di-` so nothing leaks
+ * into the rest of the-aios.com. Colors/fonts reuse the site's shared @theme
+ * tokens (defined in globals.css), so this page adapts to the light/dark
+ * theme toggle for free. The one addition is a four-step *functional* palette
+ * for the speed axis — data encoding, not brand decoration. */
+
+.di-root {
+  /* Speed axis — functional, hot → cool */
+  --color-gone: #ff5d4d;
+  --color-clock: #ffae47;
+  --color-reinvent: #6ea8ff;
+  --color-insulated: #6fa389;
+}
+
+/* ---------- Hero extras ---------- */
+.di-root .di-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+.di-root .di-stat .n {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-ink);
+}
+.di-root .di-stat .l {
+  font-family: var(--font-label, var(--font-display));
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-subtle);
+  margin-top: 0.4rem;
+}
+.di-root .di-legend {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+.di-root .di-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-ink-muted);
+}
+.di-root .di-legend-item .name { color: var(--color-ink); font-weight: 600; }
+.di-root .di-legend-item .c { color: var(--color-ink-subtle); font-family: var(--font-mono); font-size: 0.75rem; }
+.di-root .di-swatch-dot { width: 10px; height: 10px; border-radius: 999px; flex: none; }
+
+/* ---------- Controls (sticky under the site header) ---------- */
+.di-root .di-controls {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 60px;
+  z-index: 40;
+  background: color-mix(in srgb, var(--color-canvas) 90%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-hairline);
+  padding: 1rem 0;
+}
+.di-root .di-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.875rem 1.25rem;
+}
+.di-root .di-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.di-root .di-control-label {
+  font-family: var(--font-label, var(--font-display));
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-subtle);
+  margin-right: 0.25rem;
+}
+
+.di-root .di-chip {
+  font-family: var(--font-label, var(--font-display));
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-hairline);
+  border-radius: 999px;
+  padding: 0.3125rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.di-root .di-chip:hover { border-color: var(--color-ink-subtle); color: var(--color-ink); }
+.di-root .di-chip[data-active="true"] {
+  color: var(--color-ink);
+  background: var(--color-surface-3, var(--color-surface-2));
+  border-color: var(--color-ink-subtle);
+}
+.di-root .di-chip .di-swatch { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.di-root .di-chip .di-count { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-subtle); }
+
+.di-root .di-select {
+  font-family: var(--font-label, var(--font-display));
+  font-size: 0.8125rem;
+  color: var(--color-ink);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-hairline);
+  border-radius: 6px;
+  padding: 0.375rem 0.625rem;
+  cursor: pointer;
+}
+.di-root .di-select:focus { outline: none; border-color: var(--color-accent); }
+
+.di-root .di-reset {
+  font-family: var(--font-label, var(--font-display));
+  font-size: 0.8125rem;
+  color: var(--color-ink-subtle);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-hairline);
+}
+.di-root .di-reset:hover { color: var(--color-accent); }
+
+/* ---------- Results ---------- */
+.di-root .di-results { padding: 2.5rem 0 4rem; }
+.di-root .di-result-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-subtle);
+  margin-bottom: 1.5rem;
+}
+.di-root .di-result-meta b { color: var(--color-ink); font-weight: 600; }
+
+.di-root .di-group-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  margin: 2.5rem 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-hairline);
+}
+.di-root .di-group-head:first-child { margin-top: 0; }
+.di-root .di-group-head .bar { width: 4px; height: 1.4rem; border-radius: 2px; flex: none; align-self: center; }
+.di-root .di-group-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--color-ink);
+}
+.di-root .di-group-head .blurb { font-size: 0.875rem; color: var(--color-ink-subtle); margin: 0; }
+.di-root .di-group-head .gcount {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-subtle);
+  margin-left: auto;
+  flex: none;
+}
+
+.di-root .di-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1rem;
+}
+
+.di-root .di-card {
+  position: relative;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-hairline);
+  border-radius: 10px;
+  padding: 1.25rem 1.25rem 1.125rem;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.di-root .di-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--speed-color, var(--color-hairline));
+}
+.di-root .di-card:hover {
+  border-color: var(--color-ink-subtle);
+  background: var(--color-surface-2);
+  transform: translateY(-2px);
+}
+
+.di-root .di-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.625rem;
+}
+.di-root .di-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--color-ink);
+}
+.di-root .di-card .di-industry {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-family: var(--font-label, var(--font-display));
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-subtle);
+}
+
+.di-root .di-badge {
+  flex: none;
+  font-family: var(--font-label, var(--font-display));
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--speed-color);
+  background: color-mix(in srgb, var(--speed-color) 13%, transparent);
+  border: 1px solid color-mix(in srgb, var(--speed-color) 35%, transparent);
+}
+.di-root .di-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--speed-color); }
+
+.di-root .di-card .di-story {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+  margin: 0 0 0.75rem;
+}
+.di-root .di-card .di-changed {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin: 0 0 0.875rem;
+}
+.di-root .di-card .di-changed b {
+  color: var(--color-ink-subtle);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.di-root .di-card-foot {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.di-root .di-date { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-subtle); }
+.di-root .di-confidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-subtle);
+  cursor: help;
+}
+.di-root .di-confidence .bars { display: inline-flex; gap: 2px; }
+.di-root .di-confidence .bars i {
+  width: 3px; height: 9px; border-radius: 1px;
+  background: var(--color-hairline);
+  display: inline-block;
+}
+.di-root .di-confidence[data-level="high"] .bars i:nth-child(-n+3),
+.di-root .di-confidence[data-level="medium"] .bars i:nth-child(-n+2),
+.di-root .di-confidence[data-level="low"] .bars i:nth-child(-n+1) {
+  background: var(--color-ink-subtle);
+}
+
+.di-root .di-note {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--color-ink-subtle);
+  border-top: 1px dashed var(--color-hairline);
+  padding-top: 0.625rem;
+}
+.di-root .di-note b { color: var(--color-accent-soft); font-weight: 600; }
+
+.di-root .di-empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--color-ink-subtle);
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 720px) {
+  .di-root .di-hero-stats { gap: 1.75rem; }
+  .di-root .di-grid { grid-template-columns: 1fr; }
+}
