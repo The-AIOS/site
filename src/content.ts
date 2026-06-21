@@ -118,10 +118,10 @@ export type Content = {
   meta: { title: string; description: string };
 };
 
-const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#manual"];
+const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#setup", "#manual"];
 
 const en: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Manual"][i] })),
   why: {
     eyebrow: "Why now",
     h: ["AI is getting better than us at ", "almost everything", "."],
@@ -172,7 +172,7 @@ const en: Content = {
     note: "Direction, not dated promises — and never a feature we can’t already point at in the work.",
   },
   setup: {
-    eyebrow: "Manual",
+    eyebrow: "Set it up",
     h: ["Everything you need, ", "then one line", "."],
     intro: "The whole setup is a guided conversation — but here’s the honest list of what to have ready, and the single line that starts it.",
     soonLabel: "coming soon",
@@ -369,7 +369,7 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Manual"][i] })),
   why: {
     eyebrow: "Por qué ahora",
     h: ["La IA se está volviendo mejor que nosotros en ", "casi todo", "."],
@@ -420,7 +420,7 @@ const es: Content = {
     note: "Dirección, no promesas con fecha — y nunca una función que no podamos ya señalar en el trabajo.",
   },
   setup: {
-    eyebrow: "Manual",
+    eyebrow: "Configúralo",
     h: ["Todo lo que necesitas, ", "y luego una línea", "."],
     intro: "Todo el setup es una conversación guiada — pero aquí está la lista honesta de lo que conviene tener listo, y la única línea que lo arranca.",
     soonLabel: "próximamente",
@@ -617,7 +617,7 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Manual"][i] })),
   why: {
     eyebrow: "Por que agora",
     h: ["A IA está ficando melhor que nós em ", "quase tudo", "."],
@@ -668,7 +668,7 @@ const pt: Content = {
     note: "Direção, não promessas com data — e nunca uma função que não possamos já apontar no trabalho.",
   },
   setup: {
-    eyebrow: "Manual",
+    eyebrow: "Configure",
     h: ["Tudo o que você precisa, ", "e então uma linha", "."],
     intro: "Todo o setup é uma conversa guiada — mas aqui está a lista honesta do que ter à mão, e a única linha que o inicia.",
     soonLabel: "em breve",

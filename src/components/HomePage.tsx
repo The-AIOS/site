@@ -616,7 +616,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         </section>
 
         {/* ============ 05 — MANUAL (setup story + the artifact) ============ */}
-        <section id="manual" className="section">
+        <section id="setup" className="section">
           <div className="container">
             <SectionLabel num="05">{c.setup.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.setup.h} /></h2>
@@ -674,7 +674,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <p className="pullquote-lg" style={{ marginBottom: "3.5rem" }}>{c.setup.learnable}</p>
 
             {/* The Operating Manual — embedded PDF + download */}
-            <div style={{ paddingTop: "2.5rem", borderTop: "1px solid var(--color-hairline)" }}>
+            <div id="manual" style={{ paddingTop: "2.5rem", borderTop: "1px solid var(--color-hairline)", scrollMarginTop: "76px" }}>
               <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.manual.eyebrow}</div>
               <h3 className="display-md" style={{ marginBottom: "1rem", maxWidth: "22ch" }}><HL h={c.manual.h} /></h3>
               <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.manual.body}</p>
