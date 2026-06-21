@@ -17,6 +17,39 @@ type Row = [string, string];
 
 export type Content = {
   nav: { href: string; label: string }[];
+  /* Act 2 — Why (urgency). Reuses journey.cards + OrchestratorShift + journey.caption. */
+  why: {
+    eyebrow: string; h: H; lead: string; pull: H;
+    diLabel: string; diTitle: string; diSub: string;
+  };
+  /* Act 3 — How (wrapper + subsection labels for the integrated mechanical section). */
+  how: {
+    eyebrow: string; h: H; intro: string;
+    subModel: string; subContext: string; subFleet: string; subRhythm: string;
+    subProjects: string; subTeams: string; subTrust: string; subGlass: string;
+  };
+  /* The session / agent / skill mental model (folded from the how-it-works infographic). */
+  mentalModel: {
+    h: H;
+    session: { tag: string; t: string; b: string };
+    agent: { tag: string; t: string; b: string };
+    skill: { tag: string; t: string; b: string };
+    spawnCmd: string; spawnBody: string; hatCmd: string; hatBody: string;
+    chain: string[]; // [session, →, agents, →, skills, =, super-team]
+  };
+  /* automation → amplification → autonomy ladder. */
+  ladder: { eyebrow: string; rungs: { e: string; t: string }[] };
+  /* Act 4 — Where it's going (the roadmap). Direction, not dated commitments. */
+  roadmap: {
+    eyebrow: string; h: H; intro: string; items: CardT[]; note: string;
+  };
+  /* Act 5 — Manual: the Step 0 / Step 1 setup story. */
+  setup: {
+    eyebrow: string; h: H; intro: string;
+    step0Label: string; step0: { t: string; b: string }[];
+    step1Label: string; step1Title: string; step1Body: string; step1Comment: string;
+    learnable: string;
+  };
   hero: {
     eyebrowPre: string; eyebrowAccent: string; eyebrowPost: string;
     h: H; leadBold: string; leadRest: string; tagline: string;
@@ -84,10 +117,75 @@ export type Content = {
   meta: { title: string; description: string };
 };
 
-const NAV_HREFS = ["#what", "#skills", "#projects", "#glass", "#trust", "#manual", "#get-started"];
+const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#manual"];
 
 const en: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What it is", "Skills", "Projects", "Glass", "Trust", "Manual", "Get started"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where it’s going", "Manual"][i] })),
+  why: {
+    eyebrow: "Why now",
+    h: ["AI is getting better than us at ", "almost everything", "."],
+    lead: "This is the moment to rise from doer to orchestrator — to stop racing the machines and start conducting them. The people who thrive won’t be the ones who resist AI; they’ll be the ones who learned to run a team of it.",
+    pull: ["Verticality is dying. ", "Horizontality", " is born — one human conducts many agents."],
+    diLabel: "The evidence",
+    diTitle: "The Disruption Index",
+    diSub: "Industries ranked by how fast AI is reshaping them — with the real companies that died, reinvented, or rode the wave. Browse it →",
+  },
+  how: {
+    eyebrow: "How it works",
+    h: ["The whole machine, ", "one read", "."],
+    intro: "Five moving parts, one idea: you orchestrate sessions, sessions load agents, agents call skills — and all of it reads the ground underneath. Here’s each piece, then how it compounds.",
+    subModel: "The three words", subContext: "Context that compounds", subFleet: "The fleet",
+    subRhythm: "The rhythm", subProjects: "Projects", subTeams: "Teams",
+    subTrust: "Trust, control & containment", subGlass: "Glass — the interface",
+  },
+  mentalModel: {
+    h: ["A ", "session", " is where. An agent is who. A skill is how."],
+    session: { tag: "◧ Session = a terminal", t: "Where work happens", b: "One live thread — the deal, the deck, the build. It reads your context the moment it opens, runs the rituals, remembers. You can run many at once." },
+    agent: { tag: "◆ Agent = a .md file", t: "Who does it", b: "A named specialist you load into a session — lawyer, accountant, researcher. A role plus its instructions and the tools it can touch. 31 ship in the box." },
+    skill: { tag: "✦ Skill = a .md file, no tools", t: "How it’s done", b: "Drop-in expertise an agent loads the instant it’s needed — like Neo plugging in and knowing kung fu. Pure know-how, no tools. 42 ship in the box; you never name one — describe the work and the right one wakes." },
+    spawnCmd: "spawn {agent}", spawnBody: "Opens a new session with that co-worker’s identity pre-loaded — a fresh tab working in parallel.",
+    hatCmd: "/aios:agent {agent}", hatBody: "Wears that co-worker’s hat in your current session — same thread, new specialist lens.",
+    chain: ["A session", "runs ›", "1+ agents", "each calls ›", "1+ skills", "=", "a super-intelligent team"],
+  },
+  ladder: {
+    eyebrow: "And it climbs",
+    rungs: [
+      { e: "Automation", t: "do it faster" },
+      { e: "→ Amplification", t: "do far more" },
+      { e: "→ Autonomy", t: "it acts for you, within trust" },
+    ],
+  },
+  roadmap: {
+    eyebrow: "Where it’s going",
+    h: ["The next ", "layers", "."],
+    intro: "The AIOS already runs every day. Here’s the direction of travel — each item traces to live work in the framework, not a press release.",
+    items: [
+      { e: "Model-agnostic", t: "The layer, not the model", b: "The AIOS is the substrate; the LLM is swappable. Run Claude (the best engine today) or any frontier model — the same context, agents, and rituals run on top, unchanged." },
+      { e: "Sovereign engine", t: "An engine no one can switch off", b: "Open-weights models like GLM-5.2 now reach near-frontier quality you can download and run yourself — offline, air-gapped, on your own metal. The sovereign fallback stops being a downgrade." },
+      { e: "The desktop app", t: "AIOS, for people who never open an editor", b: "A free, installable app — the panel, real terminals, vault explorer, one-click rituals — with native viewers for markdown, HTML, and PDFs. Next: watching video, not just reading markdown." },
+      { e: "Corporate controls", t: "Governed agents at company scale", b: "Encrypted-at-rest context, per-agent scoped read-grants, audit trails, and verifiable agent identity — INTENT as policy, cryptographically enforced. The admin layer for running a fleet inside an org." },
+      { e: "Marketplace", t: "Install a bundle in one command", b: "Agent bundles, vertical workflows, a company’s whole brain — installed through a trust-gated marketplace: registry → injection scan → license check → QA → install with an audit log." },
+      { e: "Agentic contact book", t: "Identity for agents and the people they work with", b: "A directory where your agents carry verifiable credentials, so a co-worker inherits the right access automatically and a counterpart can prove who’s acting on your behalf." },
+    ],
+    note: "Direction, not dated promises — and never a feature we can’t already point at in the work.",
+  },
+  setup: {
+    eyebrow: "Set it up",
+    h: ["Everything you need, ", "then one line", "."],
+    intro: "The whole setup is a guided conversation — but here’s the honest list of what to have ready, and the single line that starts it.",
+    step0Label: "Step 0 — what you need",
+    step0: [
+      { t: "Obsidian", b: "The vault lives here — plain Markdown, your second brain. Free." },
+      { t: "An IDE", b: "VS Code or Google Antigravity — where the AIOS Glass extension turns commands into buttons." },
+      { t: "AIOS Glass", b: "The graphical front door, installed from the marketplace — optional but makes it click-not-type." },
+      { t: "Claude Code", b: "The engine. Install Claude / Claude Code — this is what actually runs." },
+    ],
+    step1Label: "Step 1 — run the AIOS",
+    step1Title: "Tell Claude, in any terminal:",
+    step1Body: "Claude reads SETUP.md, clones the framework, installs the MCPs, configures your private vault, and walks every choice — each step asks your consent.",
+    step1Comment: "# the entire setup, in one line",
+    learnable: "Everything else is learnable from inside — ask your AIOS what it can do, and it shows you.",
+  },
   hero: {
     eyebrowPre: "The AI Operating System", eyebrowAccent: "·", eyebrowPost: "Open source",
     h: ["Giving everyone a ", "team of agents.", ""],
@@ -110,7 +208,7 @@ const en: Content = {
       { t: "Trust earned over time", b: "Autonomy compounds with judgment — like a good A-player on a real team." },
       { t: "Portable, not proprietary", b: "The AIOS is the layer; the LLM is interchangeable. Plug Claude (recommended), Gemini, or your best model." },
     ],
-    pull: ["Everyone is building an AIOS. ", "We built The AIOS.", ""],
+    pull: ["Everyone is building an AIOS now. ", "So we built The AIOS.", ""],
   },
   journey: {
     eyebrow: "The journey", h: ["Three progressive stages, each returns ", "~10× the leverage", "."],
@@ -267,7 +365,72 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué es", "Skills", "Proyectos", "Glass", "Confianza", "Manual", "Empezar"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Hacia dónde va", "Manual"][i] })),
+  why: {
+    eyebrow: "Por qué ahora",
+    h: ["La IA se está volviendo mejor que nosotros en ", "casi todo", "."],
+    lead: "Este es el momento de pasar de hacedor a orquestador — de dejar de competir con las máquinas y empezar a dirigirlas. Quienes prosperen no serán los que se resistan a la IA; serán los que aprendieron a dirigir un equipo de ella.",
+    pull: ["La verticalidad muere. ", "La horizontalidad", " nace — un humano dirige muchos agentes."],
+    diLabel: "La evidencia",
+    diTitle: "The Disruption Index",
+    diSub: "Industrias ordenadas por qué tan rápido las está transformando la IA — con las empresas reales que murieron, se reinventaron o surfearon la ola. Explóralo →",
+  },
+  how: {
+    eyebrow: "Cómo funciona",
+    h: ["Toda la máquina, ", "en una lectura", "."],
+    intro: "Cinco piezas, una idea: tú orquestas sesiones, las sesiones cargan agentes, los agentes invocan skills — y todo lee el suelo que tienen debajo. Aquí está cada pieza, y cómo capitaliza.",
+    subModel: "Las tres palabras", subContext: "Contexto que capitaliza", subFleet: "La flota",
+    subRhythm: "El ritmo", subProjects: "Proyectos", subTeams: "Equipos",
+    subTrust: "Confianza, control y contención", subGlass: "Glass — la interfaz",
+  },
+  mentalModel: {
+    h: ["Una ", "sesión", " es el dónde. Un agente es el quién. Un skill es el cómo."],
+    session: { tag: "◧ Sesión = una terminal", t: "Dónde pasa el trabajo", b: "Un hilo vivo — el deal, el deck, el build. Lee tu contexto apenas se abre, corre los rituales, recuerda. Puedes correr muchas a la vez." },
+    agent: { tag: "◆ Agente = un archivo .md", t: "Quién lo hace", b: "Un especialista con nombre que cargas en una sesión — abogado, contador, investigador. Un rol con sus instrucciones y las herramientas que puede tocar. 31 vienen incluidos." },
+    skill: { tag: "✦ Skill = un .md, sin herramientas", t: "Cómo se hace", b: "Experiencia lista para usar que un agente carga apenas la necesita — como Neo conectándose y sabiendo kung fu. Puro saber-hacer, sin herramientas. 42 vienen incluidos; nunca invocas uno — describe el trabajo y el correcto despierta." },
+    spawnCmd: "spawn {agente}", spawnBody: "Abre una nueva sesión con la identidad de ese compañero precargada — una pestaña fresca trabajando en paralelo.",
+    hatCmd: "/aios:agent {agente}", hatBody: "Se pone el sombrero de ese compañero en tu sesión actual — mismo hilo, nueva mirada especialista.",
+    chain: ["Una sesión", "corre ›", "1+ agentes", "cada uno invoca ›", "1+ skills", "=", "un equipo súper-inteligente"],
+  },
+  ladder: {
+    eyebrow: "Y va subiendo",
+    rungs: [
+      { e: "Automatización", t: "hazlo más rápido" },
+      { e: "→ Amplificación", t: "haz mucho más" },
+      { e: "→ Autonomía", t: "actúa por ti, dentro de la confianza" },
+    ],
+  },
+  roadmap: {
+    eyebrow: "Hacia dónde va",
+    h: ["Las siguientes ", "capas", "."],
+    intro: "The AIOS ya corre cada día. Esta es la dirección de avance — cada punto remite a trabajo vivo en el framework, no a un comunicado de prensa.",
+    items: [
+      { e: "Agnóstico al modelo", t: "La capa, no el modelo", b: "The AIOS es el sustrato; el LLM es intercambiable. Corre Claude (el mejor motor hoy) o cualquier modelo frontera — el mismo contexto, agentes y rituales corren encima, sin cambios." },
+      { e: "Motor soberano", t: "Un motor que nadie puede apagar", b: "Modelos de pesos abiertos como GLM-5.2 ya alcanzan calidad casi-frontera que puedes descargar y correr tú mismo — offline, aislado, en tu propio hardware. El respaldo soberano deja de ser un downgrade." },
+      { e: "La app de escritorio", t: "AIOS, para quien nunca abre un editor", b: "Una app gratis e instalable — el panel, terminales reales, explorador del vault, rituales a un clic — con visores nativos para Markdown, HTML y PDFs. Lo que sigue: ver video, no solo leer Markdown." },
+      { e: "Controles corporativos", t: "Agentes gobernados a escala de empresa", b: "Contexto cifrado en reposo, permisos de lectura por agente, trazas de auditoría e identidad de agente verificable — INTENT como política, aplicada criptográficamente. La capa de administración para correr una flota dentro de una organización." },
+      { e: "Marketplace", t: "Instala un bundle en un comando", b: "Bundles de agentes, flujos verticales, el cerebro entero de una empresa — instalados por un marketplace con barrera de confianza: registro → escaneo de inyección → revisión de licencia → QA → instalación con registro de auditoría." },
+      { e: "Agenda agéntica", t: "Identidad para agentes y para quienes trabajan con ellos", b: "Un directorio donde tus agentes portan credenciales verificables, así un compañero hereda el acceso correcto automáticamente y una contraparte puede comprobar quién actúa en tu nombre." },
+    ],
+    note: "Dirección, no promesas con fecha — y nunca una función que no podamos ya señalar en el trabajo.",
+  },
+  setup: {
+    eyebrow: "Configúralo",
+    h: ["Todo lo que necesitas, ", "y luego una línea", "."],
+    intro: "Todo el setup es una conversación guiada — pero aquí está la lista honesta de lo que conviene tener listo, y la única línea que lo arranca.",
+    step0Label: "Paso 0 — qué necesitas",
+    step0: [
+      { t: "Obsidian", b: "Aquí vive el vault — Markdown plano, tu segundo cerebro. Gratis." },
+      { t: "Un IDE", b: "VS Code o Google Antigravity — donde la extensión AIOS Glass convierte comandos en botones." },
+      { t: "AIOS Glass", b: "La puerta de entrada gráfica, instalada desde el marketplace — opcional, pero hace que sea clic, no teclear." },
+      { t: "Claude Code", b: "El motor. Instala Claude / Claude Code — esto es lo que realmente corre." },
+    ],
+    step1Label: "Paso 1 — corre el AIOS",
+    step1Title: "Dile a Claude, en cualquier terminal:",
+    step1Body: "Claude lee SETUP.md, clona el framework, instala los MCPs, configura tu vault privado y guía cada decisión — cada paso pide tu consentimiento.",
+    step1Comment: "# todo el setup, en una línea",
+    learnable: "Todo lo demás se aprende desde adentro — pregúntale a tu AIOS qué puede hacer, y te lo muestra.",
+  },
   hero: {
     eyebrowPre: "El sistema operativo de IA", eyebrowAccent: "·", eyebrowPost: "Código abierto",
     h: ["Dale a cada persona un ", "equipo de agentes.", ""],
@@ -290,7 +453,7 @@ const es: Content = {
       { t: "Confianza ganada con el tiempo", b: "La autonomía capitaliza con criterio — como un buen A-player en un equipo real." },
       { t: "Portable, no propietario", b: "The AIOS es la capa; el LLM es intercambiable. Conecta Claude (recomendado), Gemini o tu mejor modelo." },
     ],
-    pull: ["Todos están construyendo un AIOS. ", "Nosotros construimos The AIOS.", ""],
+    pull: ["Todos están construyendo un AIOS ahora. ", "Por eso construimos The AIOS.", ""],
   },
   journey: {
     eyebrow: "El recorrido", h: ["Tres etapas progresivas, cada una devuelve ", "~10× de apalancamiento", "."],
@@ -447,7 +610,72 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O que é", "Skills", "Projetos", "Glass", "Confiança", "Manual", "Começar"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Para onde vai", "Manual"][i] })),
+  why: {
+    eyebrow: "Por que agora",
+    h: ["A IA está ficando melhor que nós em ", "quase tudo", "."],
+    lead: "Este é o momento de passar de executor a orquestrador — de parar de competir com as máquinas e começar a regê-las. Quem prosperar não serão os que resistirem à IA; serão os que aprenderam a conduzir um time dela.",
+    pull: ["A verticalidade morre. ", "A horizontalidade", " nasce — um humano rege muitos agentes."],
+    diLabel: "A evidência",
+    diTitle: "The Disruption Index",
+    diSub: "Indústrias ordenadas por quão rápido a IA as está transformando — com as empresas reais que morreram, se reinventaram ou surfaram a onda. Explore →",
+  },
+  how: {
+    eyebrow: "Como funciona",
+    h: ["A máquina inteira, ", "em uma leitura", "."],
+    intro: "Cinco peças, uma ideia: você orquestra sessões, as sessões carregam agentes, os agentes chamam skills — e tudo lê o solo embaixo. Aqui está cada peça, e como ela capitaliza.",
+    subModel: "As três palavras", subContext: "Contexto que capitaliza", subFleet: "A frota",
+    subRhythm: "O ritmo", subProjects: "Projetos", subTeams: "Times",
+    subTrust: "Confiança, controle e contenção", subGlass: "Glass — a interface",
+  },
+  mentalModel: {
+    h: ["Uma ", "sessão", " é o onde. Um agente é o quem. Um skill é o como."],
+    session: { tag: "◧ Sessão = um terminal", t: "Onde o trabalho acontece", b: "Um fio vivo — o deal, o deck, o build. Lê seu contexto assim que abre, roda os rituais, lembra. Você pode rodar várias ao mesmo tempo." },
+    agent: { tag: "◆ Agente = um arquivo .md", t: "Quem faz", b: "Um especialista com nome que você carrega numa sessão — advogado, contador, pesquisador. Um papel com suas instruções e as ferramentas que pode tocar. 31 vêm inclusos." },
+    skill: { tag: "✦ Skill = um .md, sem ferramentas", t: "Como se faz", b: "Expertise pronta que um agente carrega no instante em que precisa — como Neo plugando e já sabendo kung fu. Puro saber-fazer, sem ferramentas. 42 vêm inclusos; você nunca invoca um — descreva o trabalho e o certo desperta." },
+    spawnCmd: "spawn {agente}", spawnBody: "Abre uma nova sessão com a identidade desse colega pré-carregada — uma aba nova trabalhando em paralelo.",
+    hatCmd: "/aios:agent {agente}", hatBody: "Veste o chapéu desse colega na sua sessão atual — mesmo fio, nova lente especialista.",
+    chain: ["Uma sessão", "roda ›", "1+ agentes", "cada um chama ›", "1+ skills", "=", "um time super-inteligente"],
+  },
+  ladder: {
+    eyebrow: "E ela sobe",
+    rungs: [
+      { e: "Automação", t: "faça mais rápido" },
+      { e: "→ Amplificação", t: "faça muito mais" },
+      { e: "→ Autonomia", t: "age por você, dentro da confiança" },
+    ],
+  },
+  roadmap: {
+    eyebrow: "Para onde vai",
+    h: ["As próximas ", "camadas", "."],
+    intro: "The AIOS já roda todos os dias. Esta é a direção de avanço — cada item remete a trabalho vivo no framework, não a um press release.",
+    items: [
+      { e: "Agnóstico ao modelo", t: "A camada, não o modelo", b: "The AIOS é o substrato; o LLM é intercambiável. Rode Claude (o melhor motor hoje) ou qualquer modelo de fronteira — o mesmo contexto, agentes e rituais rodam por cima, sem mudança." },
+      { e: "Motor soberano", t: "Um motor que ninguém pode desligar", b: "Modelos de pesos abertos como o GLM-5.2 já alcançam qualidade quase-fronteira que você pode baixar e rodar sozinho — offline, isolado, no seu próprio hardware. O fallback soberano deixa de ser um downgrade." },
+      { e: "O app de desktop", t: "AIOS, para quem nunca abre um editor", b: "Um app grátis e instalável — o painel, terminais reais, explorador do vault, rituais a um clique — com visualizadores nativos para Markdown, HTML e PDFs. O próximo passo: assistir vídeo, não só ler Markdown." },
+      { e: "Controles corporativos", t: "Agentes governados em escala de empresa", b: "Contexto criptografado em repouso, permissões de leitura por agente, trilhas de auditoria e identidade de agente verificável — INTENT como política, aplicada criptograficamente. A camada de administração para rodar uma frota dentro de uma organização." },
+      { e: "Marketplace", t: "Instale um bundle em um comando", b: "Bundles de agentes, fluxos verticais, o cérebro inteiro de uma empresa — instalados por um marketplace com barreira de confiança: registro → varredura de injeção → checagem de licença → QA → instalação com log de auditoria." },
+      { e: "Agenda agêntica", t: "Identidade para agentes e para quem trabalha com eles", b: "Um diretório onde seus agentes carregam credenciais verificáveis, então um colega herda o acesso certo automaticamente e uma contraparte pode comprovar quem age em seu nome." },
+    ],
+    note: "Direção, não promessas com data — e nunca uma função que não possamos já apontar no trabalho.",
+  },
+  setup: {
+    eyebrow: "Configure",
+    h: ["Tudo o que você precisa, ", "e então uma linha", "."],
+    intro: "Todo o setup é uma conversa guiada — mas aqui está a lista honesta do que ter à mão, e a única linha que o inicia.",
+    step0Label: "Passo 0 — o que você precisa",
+    step0: [
+      { t: "Obsidian", b: "Aqui mora o vault — Markdown puro, seu segundo cérebro. Grátis." },
+      { t: "Um IDE", b: "VS Code ou Google Antigravity — onde a extensão AIOS Glass transforma comandos em botões." },
+      { t: "AIOS Glass", b: "A porta de entrada gráfica, instalada pelo marketplace — opcional, mas torna tudo clique, não digitação." },
+      { t: "Claude Code", b: "O motor. Instale Claude / Claude Code — é isto que de fato roda." },
+    ],
+    step1Label: "Passo 1 — rode o AIOS",
+    step1Title: "Diga ao Claude, em qualquer terminal:",
+    step1Body: "O Claude lê o SETUP.md, clona o framework, instala os MCPs, configura seu vault privado e guia cada decisão — cada passo pede seu consentimento.",
+    step1Comment: "# o setup inteiro, em uma linha",
+    learnable: "Todo o resto se aprende por dentro — pergunte ao seu AIOS o que ele pode fazer, e ele te mostra.",
+  },
   hero: {
     eyebrowPre: "O sistema operacional de IA", eyebrowAccent: "·", eyebrowPost: "Código aberto",
     h: ["Dando a cada pessoa um ", "time de agentes.", ""],
@@ -470,7 +698,7 @@ const pt: Content = {
       { t: "Confiança conquistada com o tempo", b: "A autonomia capitaliza com critério — como um bom A-player num time de verdade." },
       { t: "Portável, não proprietário", b: "The AIOS é a camada; o LLM é intercambiável. Conecte Claude (recomendado), Gemini ou seu melhor modelo." },
     ],
-    pull: ["Todo mundo está construindo um AIOS. ", "Nós construímos The AIOS.", ""],
+    pull: ["Todo mundo está construindo um AIOS agora. ", "Por isso construímos The AIOS.", ""],
   },
   journey: {
     eyebrow: "A jornada", h: ["Três estágios progressivos, cada um devolve ", "~10× de alavancagem", "."],

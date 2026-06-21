@@ -3,13 +3,18 @@
  * Design language: the operating manual. Words: the spine canvas. Why: The Ground.
  * Graphics: redrawn from the AIOS keynote deck (deckGraphics.tsx) in the product brand.
  *
+ * Structure: a 5-act storytelling arc a CEO can skim in ~2 minutes, with depth one
+ * layer down — What · Why · How · Where it's going · Manual. "How" is the deep act:
+ * an integrated, subsection-divided tour of everything mechanical (the session/agent/
+ * skill model, context, the fleet, the rhythm, projects, teams, trust, Glass).
+ *
  * Reader-facing prose is trilingual via CONTENT[locale] (src/content.ts) — EN / ES
  * (LATAM) / PT-BR. Technical surfaces stay English by design: command names, file
  * names, code blocks, the machine-facing AI-affordance block, SVG diagram internals,
  * and the ant chatter.
  *
  * Hard keeps: GitHubLink / RepoLink tracking, SubstackLink, Analytics, Logo, MobileMenu,
- * /llms.txt link in footer.
+ * /llms.txt link in footer, the AI-affordance block, the back-cover moment.
  */
 
 import type { ReactNode } from "react";
@@ -21,7 +26,7 @@ import { LocaleSwitcher } from "./LocaleSwitcher";
 import { MobileMenu } from "./MobileMenu";
 import { Reveal } from "./Reveal";
 import { ThemeToggle } from "./ThemeToggle";
-import { ManualDownload } from "./ManualEmbed";
+import { ManualEmbed, ManualDownload } from "./ManualEmbed";
 import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
 import {
@@ -62,6 +67,15 @@ function SectionLabel({ num, children }: { num: string; children: ReactNode }) {
     <div className="section-label">
       <span className="num">{num}</span>
       <span className="eyebrow">{children}</span>
+    </div>
+  );
+}
+
+/** Subsection divider + label inside the long "How" act. */
+function SubLabel({ children }: { children: ReactNode }) {
+  return (
+    <div style={{ marginTop: "3.5rem", paddingTop: "2.5rem", borderTop: "1px solid var(--color-hairline)", marginBottom: "1.5rem" }}>
+      <div className="eyebrow"><span className="accent">/</span> {children}</div>
     </div>
   );
 }
@@ -123,6 +137,8 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
       </header>
 
       <main>
+        <span id="top" aria-hidden="true" />
+
         {/* ============ Hero ============ */}
         <section className="hero-glow" style={{ borderBottom: "1px solid var(--color-hairline)" }}>
           <HeroConstellation />
@@ -165,11 +181,14 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
           </div>
         </section>
 
-        {/* ============ 01 — What it is ============ */}
+        {/* ============ 01 — WHAT ============ */}
         <section id="what" className="section">
           <div className="container">
             <SectionLabel num="01">{c.what.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.what.h} /></h2>
+
+            <p className="pullquote-lg" style={{ marginBottom: "2.5rem" }}><HL h={c.what.pull} /></p>
+
             <div className="section-grid" style={{ marginBottom: "2.5rem" }}>
               <p className="body-text">{c.what.body1}</p>
               <p className="body-text">
@@ -180,64 +199,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             </div>
 
             <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.what.principlesEyebrow}</div>
-            <Reveal className="grid-2 reveal-cards">
+            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "3rem" }}>
               {c.what.principles.map((p) => (
                 <Card key={p.t} title={p.t}>{p.b}</Card>
               ))}
-            </Reveal>
-
-            <div style={{ marginTop: "2.5rem" }}>
-              <p className="pullquote-lg"><HL h={c.what.pull} /></p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 02 — The journey ============ */}
-        <section id="journey" className="section">
-          <div className="container">
-            <SectionLabel num="02">{c.journey.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.journey.h} /></h2>
-            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2.5rem" }}>{c.journey.intro}</p>
-
-            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "3rem" }}>
-              {c.journey.cards.map((card) => (
-                <Card key={card.t} eyebrow={card.e} title={card.t}>{card.b}</Card>
-              ))}
-            </Reveal>
-
-            <h3 className="display-md" style={{ marginBottom: "1.5rem" }}><HL h={c.journey.h3} /></h3>
-            <Reveal className="graphic-frame">
-              <OrchestratorShift />
-              <p className="graphic-caption">{c.journey.caption}</p>
-            </Reveal>
-
-            <div style={{ marginTop: "2.5rem" }}>
-              <p className="pullquote-lg"><HL h={c.journey.pull} /></p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 03 — Architecture ============ */}
-        <section id="architecture" className="section">
-          <div className="container">
-            <SectionLabel num="03">{c.arch.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.arch.h} /></h2>
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>
-              {c.arch.introPre}
-              <strong style={INK}>{c.arch.introBold}</strong>
-              {c.arch.introPost}
-            </p>
-
-            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "3rem" }}>
-              {c.arch.layers.map((l) => (
-                <Card key={l.t} eyebrow={l.e} title={l.t}>{l.b}</Card>
-              ))}
-            </Reveal>
-
-            <Reveal className="graphic-frame" style={{ marginBottom: "3rem" }}>
-              <div className="eyebrow" style={{ marginBottom: "1.25rem", textAlign: "center" }}>{c.arch.timelineEyebrow}</div>
-              <CompoundTimeline />
-              <p className="graphic-caption">{c.arch.timelineCaption}</p>
             </Reveal>
 
             <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.arch.madeOfEyebrow}</div>
@@ -247,7 +212,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             </Reveal>
 
             <div className="eyebrow" style={{ marginBottom: "0.5rem" }}>{c.arch.distinctEyebrow}</div>
-            <div style={{ marginBottom: "2.5rem" }}>
+            <div>
               {c.arch.distinct.map(([term, body]) => (
                 <div key={term} className="def-row">
                   <span className="def-term">{term}</span>
@@ -255,34 +220,137 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
+        {/* ============ 02 — WHY ============ */}
+        <section id="why" className="section hero-glow">
+          <div className="container">
+            <SectionLabel num="02">{c.why.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.why.h} /></h2>
+            <p className="lede" style={{ maxWidth: "60ch", marginBottom: "2.5rem" }}>{c.why.lead}</p>
+
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "3rem" }}>
+              {c.journey.cards.map((card) => (
+                <Card key={card.t} eyebrow={card.e} title={card.t}>{card.b}</Card>
+              ))}
+            </Reveal>
+
+            <Reveal className="graphic-frame" style={{ marginBottom: "2.5rem" }}>
+              <OrchestratorShift />
+              <p className="graphic-caption">{c.journey.caption}</p>
+            </Reveal>
+
+            <p className="pullquote-lg" style={{ marginBottom: "2.5rem" }}><HL h={c.why.pull} /></p>
+
+            {/* The Disruption Index — evidence of the urgency. Its own route. */}
+            <a href="/disruption-index" className="manual-card" style={{ textDecoration: "none", alignItems: "center" }}>
+              <div>
+                <div className="card-eyebrow" style={{ marginBottom: "0.75rem" }}>{c.why.diLabel}</div>
+                <h3 className="display-md" style={{ marginBottom: "0.75rem" }}>
+                  The <span className="accent">Disruption</span> Index
+                </h3>
+                <p className="body-text" style={{ margin: 0 }}>{c.why.diSub}</p>
+              </div>
+              <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                {[
+                  ["already gone", "var(--color-accent)"],
+                  ["on the clock", "var(--color-ink-muted)"],
+                  ["reinventing", "var(--color-ink-muted)"],
+                  ["insulated", "var(--color-ink-subtle)"],
+                ].map(([label, color]) => (
+                  <div key={label} style={{ display: "flex", alignItems: "center", gap: "0.625rem", fontFamily: "var(--font-mono)", fontSize: "0.8125rem", color }}>
+                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, flex: "0 0 auto" }} />
+                    {label}
+                  </div>
+                ))}
+                <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>/disruption-index</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        {/* ============ 03 — HOW (the deep act) ============ */}
+        <section id="how" className="section">
+          <div className="container">
+            <SectionLabel num="03">{c.how.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.how.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch" }}>{c.how.intro}</p>
+
+            {/* — The three words: session / agent / skill — */}
+            <SubLabel>{c.how.subModel}</SubLabel>
+            <h3 className="display-md" style={{ marginBottom: "1.5rem", maxWidth: "24ch" }}><HL h={c.mentalModel.h} /></h3>
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "1.5rem" }}>
+              <Card eyebrow={c.mentalModel.session.tag} title={c.mentalModel.session.t}>{c.mentalModel.session.b}</Card>
+              <Card eyebrow={c.mentalModel.agent.tag} title={c.mentalModel.agent.t}>{c.mentalModel.agent.b}</Card>
+              <Card eyebrow={c.mentalModel.skill.tag} title={c.mentalModel.skill.t}>{c.mentalModel.skill.b}</Card>
+            </Reveal>
+
+            <div className="content-grid" style={{ marginBottom: "1.5rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                <div className="card">
+                  <div className="card-mono" style={{ marginTop: 0, color: "var(--color-accent)", marginBottom: "0.375rem" }}>{c.mentalModel.spawnCmd}</div>
+                  <p style={{ fontSize: "0.9375rem", lineHeight: 1.55, color: "var(--color-ink-muted)", margin: 0 }}>{c.mentalModel.spawnBody}</p>
+                </div>
+                <div className="card">
+                  <div className="card-mono" style={{ marginTop: 0, color: "var(--color-accent)", marginBottom: "0.375rem" }}>{c.mentalModel.hatCmd}</div>
+                  <p style={{ fontSize: "0.9375rem", lineHeight: 1.55, color: "var(--color-ink-muted)", margin: 0 }}>{c.mentalModel.hatBody}</p>
+                </div>
+              </div>
+              <Reveal className="graphic-frame tight">
+                <SkillsBeam />
+              </Reveal>
+            </div>
+
+            {/* the chain */}
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.625rem" }}>
+              {c.mentalModel.chain.map((node, i) =>
+                i % 2 === 0 ? (
+                  <span key={i} className="code-chip" style={i === 0 || i === c.mentalModel.chain.length - 1 ? { borderColor: "var(--color-accent)", color: "var(--color-ink)" } : { color: "var(--color-ink-muted)" }}>
+                    {node}
+                  </span>
+                ) : (
+                  <span key={i} className="accent" style={{ fontFamily: "var(--font-mono)", fontSize: "0.8125rem" }}>{node}</span>
+                )
+              )}
+            </div>
+
+            {/* — Context that compounds — */}
+            <SubLabel>{c.how.subContext}</SubLabel>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>
+              {c.arch.introPre}
+              <strong style={INK}>{c.arch.introBold}</strong>
+              {c.arch.introPost}
+            </p>
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2.5rem" }}>
+              {c.arch.layers.map((l) => (
+                <Card key={l.t} eyebrow={l.e} title={l.t}>{l.b}</Card>
+              ))}
+            </Reveal>
+            <Reveal className="graphic-frame" style={{ marginBottom: "2rem" }}>
+              <div className="eyebrow" style={{ marginBottom: "1.25rem", textAlign: "center" }}>{c.arch.timelineEyebrow}</div>
+              <CompoundTimeline />
+              <p className="graphic-caption">{c.arch.timelineCaption}</p>
+            </Reveal>
             <p className="pullquote-lg"><HL h={c.arch.pull} /></p>
             <div style={{ marginTop: "1.5rem" }}>
               <RepoLink to="CLAUDE.md" label={c.arch.claudeLink} variant="inline" />
             </div>
-          </div>
-        </section>
 
-        {/* ============ 04 — The toolbox ============ */}
-        <section id="toolbox" className="section">
-          <div className="container">
-            <SectionLabel num="04">{c.toolbox.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "22ch" }}><HL h={c.toolbox.h} /></h2>
-            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2.5rem" }}>{c.toolbox.intro}</p>
-
+            {/* — The fleet — */}
+            <SubLabel>{c.how.subFleet}</SubLabel>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{c.toolbox.intro}</p>
             <Reveal className="grid-4 reveal-fade" style={{ marginBottom: "2.5rem", paddingBottom: "2.5rem", borderBottom: "1px solid var(--color-hairline)" }}>
               {c.toolbox.stats.map((s) => (
                 <Stat key={s.label} n={s.n} label={s.label} />
               ))}
             </Reveal>
-
             <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.toolbox.fleetEyebrow}</div>
             <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "1.5rem" }}>
               {c.toolbox.fleet.map((f) => (
                 <Card key={f.t} eyebrow={f.e} title={f.t} mono={f.mono}>{f.b}</Card>
               ))}
             </Reveal>
-
             <Reveal className="term-scroll" style={{ marginBottom: "1.5rem" }}>
               <span className="ts-line">
                 <span className="ts-prompt">›</span>
@@ -294,40 +362,20 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 <span className="ts-comment ts-c2">&nbsp;&nbsp;# clean teardown when the work is done</span>
               </span>
             </Reveal>
-
+            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "1.5rem" }}>
+              {c.skills.cards.map((s) => (
+                <Card key={s.e} eyebrow={s.e}>{s.b}</Card>
+              ))}
+            </Reveal>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem" }}>
               <RepoFolderLink to="agents/aios" label={c.toolbox.links[0]} variant="inline" />
               <RepoFolderLink to="plugins/aios/commands" label={c.toolbox.links[1]} variant="inline" />
               <RepoFolderLink to="skills" label={c.toolbox.links[2]} variant="inline" />
               <RepoFolderLink to="mcps" label={c.toolbox.links[3]} variant="inline" />
             </div>
-          </div>
-        </section>
 
-        {/* ============ 05 — Skills ============ */}
-        <section id="skills" className="section">
-          <div className="container">
-            <SectionLabel num="05">{c.skills.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.skills.h} /></h2>
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.skills.intro}</p>
-            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
-              <Reveal className="reveal-cards" style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
-                {c.skills.cards.map((s) => (
-                  <Card key={s.e} eyebrow={s.e}>{s.b}</Card>
-                ))}
-              </Reveal>
-              <Reveal className="graphic-frame tight">
-                <SkillsBeam />
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 06 — The rhythm ============ */}
-        <section id="rituals" className="section">
-          <div className="container">
-            <SectionLabel num="06">{c.rhythm.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.rhythm.h} /></h2>
+            {/* — The rhythm — */}
+            <SubLabel>{c.how.subRhythm}</SubLabel>
             <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
               <div>
                 <p className="body-text" style={{ marginBottom: "1.5rem" }}>{c.rhythm.body}</p>
@@ -337,20 +385,24 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 <RitualLoop />
               </Reveal>
             </div>
-
-            <Reveal className="grid-3 reveal-cards">
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
               {c.rhythm.cards.map((card) => (
                 <Card key={card.t} eyebrow={card.e} title={card.t}>{card.b}</Card>
               ))}
             </Reveal>
-          </div>
-        </section>
+            {/* automation → amplification → autonomy ladder */}
+            <div className="eyebrow" style={{ marginBottom: "0.875rem" }}>{c.ladder.eyebrow}</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem" }}>
+              {c.ladder.rungs.map((r, i) => (
+                <div key={r.e} className="card" style={{ flex: "1 1 180px", ...(i === c.ladder.rungs.length - 1 ? { borderColor: "var(--color-accent)" } : {}) }}>
+                  <div className="card-eyebrow" style={{ marginBottom: "0.25rem" }}>{r.e}</div>
+                  <h4 style={{ margin: 0 }}>{r.t}</h4>
+                </div>
+              ))}
+            </div>
 
-        {/* ============ 07 — Projects ============ */}
-        <section id="projects" className="section">
-          <div className="container">
-            <SectionLabel num="07">{c.projects.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.projects.h} /></h2>
+            {/* — Projects — */}
+            <SubLabel>{c.how.subProjects}</SubLabel>
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>
               {c.projects.introPre}
               <strong style={INK}>{c.projects.introBold}</strong>
@@ -374,14 +426,71 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <span className="comment">{c.projects.cmt4}</span>
             </div>
             <p className="body-text" style={{ maxWidth: "64ch" }}>{c.projects.outro}</p>
-          </div>
-        </section>
 
-        {/* ============ 08 — Glass ============ */}
-        <section id="glass" className="section">
-          <div className="container">
-            <SectionLabel num="08">{c.glass.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.glass.h} /></h2>
+            {/* — Teams — */}
+            <SubLabel>{c.how.subTeams}</SubLabel>
+            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2rem" }}>{c.workspaces.intro}</p>
+            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "2.5rem" }}>
+              {c.workspaces.cards.map((w) => (
+                <Card key={w.e} eyebrow={w.e} title={w.t}>{w.b}</Card>
+              ))}
+            </Reveal>
+            <Reveal className="graphic-frame" style={{ marginBottom: "2rem" }}>
+              <TeamMount />
+              <p className="graphic-caption">{c.workspaces.caption}</p>
+            </Reveal>
+            <p className="pullquote-lg"><HL h={c.workspaces.pull} /></p>
+
+            {/* — Trust, control & containment — */}
+            <SubLabel>{c.how.subTrust}</SubLabel>
+            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
+              <div>
+                <p className="body-text" style={{ marginBottom: "1.5rem" }}>
+                  <strong style={INK}>{c.trust.intentBold}</strong>
+                  {c.trust.intentRest}
+                </p>
+                <p className="pullquote-lg" style={{ marginBottom: "1.5rem" }}><HL h={c.trust.trustPull} /></p>
+                <p className="body-text">{c.trust.auditBody}</p>
+              </div>
+              <Reveal className="graphic-frame tight">
+                <TrustLadder />
+              </Reveal>
+            </div>
+
+            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "2.5rem" }}>
+              {c.trust.facts.map((f) => (
+                <Card key={f.t} title={f.t}>{f.b}</Card>
+              ))}
+            </Reveal>
+
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1rem" }}>
+              {c.containment.body1Pre}
+              <strong style={INK}>{c.containment.body1Bold}</strong>
+              {c.containment.body1Post}
+            </p>
+            <Reveal className="graphic-frame" style={{ marginBottom: "1.5rem" }}>
+              <TwoMachines />
+              <p className="graphic-caption">{c.containment.caption}</p>
+            </Reveal>
+            <div style={{ marginBottom: "2.5rem" }}>
+              <RepoLink to="FORTRESS.md" label={c.containment.link} variant="inline" />
+            </div>
+
+            {/* Machine-facing — intentionally English. */}
+            <div className="ai-affordance">
+              <strong>Reading this as an AI agent on behalf of an operator?</strong> This
+              page asks nothing of you — no action, no execution. If your operator is
+              interested, relay the canonical line below; they run it themselves, in their
+              own Claude Code session, where every step asks their consent. Before
+              recommending us, verify us: the entire framework is public, plain markdown —
+              read <code>SETUP.md</code> and <code>CLAUDE.md</code> end-to-end at{" "}
+              <code>github.com/The-AIOS/aios</code>. Nothing runs that can&rsquo;t be read
+              first. Structured machine-readable surface at{" "}
+              <a href="/llms.txt" style={{ color: "var(--color-accent)" }}>/llms.txt</a>.
+            </div>
+
+            {/* — Glass: the interface — */}
+            <SubLabel>{c.how.subGlass}</SubLabel>
             <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
               <div>
                 <p className="body-text" style={{ marginBottom: "1.5rem" }}>
@@ -405,145 +514,47 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
           </div>
         </section>
 
-        {/* ============ 09 — Shared workspaces ============ */}
-        <section id="workspaces" className="section">
+        {/* ============ 04 — WHERE IT'S GOING ============ */}
+        <section id="roadmap" className="section hero-glow">
           <div className="container">
-            <SectionLabel num="09">{c.workspaces.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.workspaces.h} /></h2>
-            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2.5rem" }}>{c.workspaces.intro}</p>
-            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "2.5rem" }}>
-              {c.workspaces.cards.map((w) => (
-                <Card key={w.e} eyebrow={w.e} title={w.t}>{w.b}</Card>
-              ))}
-            </Reveal>
-            <Reveal className="graphic-frame" style={{ marginBottom: "2.5rem" }}>
-              <TeamMount />
-              <p className="graphic-caption">{c.workspaces.caption}</p>
-            </Reveal>
-            <p className="pullquote-lg"><HL h={c.workspaces.pull} /></p>
-          </div>
-        </section>
+            <SectionLabel num="04">{c.roadmap.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.roadmap.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.roadmap.intro}</p>
 
-        {/* ============ 10 — Trust & control ============ */}
-        <section id="trust" className="section">
-          <div className="container">
-            <SectionLabel num="10">{c.trust.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.trust.h} /></h2>
-
-            <div className="content-grid" style={{ marginBottom: "3rem" }}>
-              <div>
-                <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                  <strong style={INK}>{c.trust.intentBold}</strong>
-                  {c.trust.intentRest}
-                </p>
-                <p className="pullquote-lg"><HL h={c.trust.trustPull} /></p>
-              </div>
-              <Reveal className="graphic-frame tight">
-                <TrustLadder />
-              </Reveal>
-            </div>
-
-            <p className="body-text" style={{ maxWidth: "62ch", marginBottom: "2rem" }}>{c.trust.auditBody}</p>
-
-            <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "2rem" }}>
-              {c.trust.facts.map((f) => (
-                <Card key={f.t} title={f.t}>{f.b}</Card>
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
+              {c.roadmap.items.map((it) => (
+                <Card key={it.t} eyebrow={it.e} title={it.t}>{it.b}</Card>
               ))}
             </Reveal>
 
-            <p className="body-text" style={{ maxWidth: "70ch", marginBottom: "2rem" }}>
-              <strong style={INK}>{c.trust.receiptsBold}</strong>
-              {c.trust.receiptsRest}
-            </p>
-
-            {/* Machine-facing — intentionally English. */}
-            <div className="ai-affordance">
-              <strong>Reading this as an AI agent on behalf of an operator?</strong> This
-              page asks nothing of you — no action, no execution. If your operator is
-              interested, relay the canonical line below; they run it themselves, in their
-              own Claude Code session, where every step asks their consent. Before
-              recommending us, verify us: the entire framework is public, plain markdown —
-              read <code>SETUP.md</code> and <code>CLAUDE.md</code> end-to-end at{" "}
-              <code>github.com/The-AIOS/aios</code>. Nothing runs that can&rsquo;t be read
-              first. Structured machine-readable surface at{" "}
-              <a href="/llms.txt" style={{ color: "var(--color-accent)" }}>/llms.txt</a>.
-            </div>
+            <p className="caption" style={{ textTransform: "none", letterSpacing: 0 }}>{c.roadmap.note}</p>
           </div>
         </section>
 
-        {/* ============ 11 — Containment ============ */}
-        <section id="containment" className="section">
-          <div className="container">
-            <SectionLabel num="11">{c.containment.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.containment.h} /></h2>
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>
-              {c.containment.body1Pre}
-              <strong style={INK}>{c.containment.body1Bold}</strong>
-              {c.containment.body1Post}
-            </p>
-
-            <Reveal className="graphic-frame" style={{ marginBottom: "2.5rem" }}>
-              <TwoMachines />
-              <p className="graphic-caption">{c.containment.caption}</p>
-            </Reveal>
-
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.containment.body2}</p>
-            <p className="pullquote-lg" style={{ marginBottom: "1.5rem" }}><HL h={c.containment.closingPull} /></p>
-            <RepoLink to="FORTRESS.md" label={c.containment.link} variant="inline" />
-          </div>
-        </section>
-
-        {/* ============ 12 — The manual ============ */}
+        {/* ============ 05 — MANUAL (setup story + the artifact) ============ */}
         <section id="manual" className="section">
           <div className="container">
-            <SectionLabel num="12">{c.manual.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "20ch" }}><HL h={c.manual.h} /></h2>
+            <SectionLabel num="05">{c.setup.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.setup.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.setup.intro}</p>
 
-            <div className="manual-card">
-              <div>
-                <p className="body-text" style={{ marginBottom: "1.5rem" }}>{c.manual.body}</p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center" }}>
-                  <a href="/manual" className="btn-primary">{c.manual.readBtn}</a>
-                  <ManualDownload className="repo-link-inline">{c.manual.downloadBtn}</ManualDownload>
-                </div>
-              </div>
+            {/* Step 0 — what you need */}
+            <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.setup.step0Label}</div>
+            <Reveal className="grid-4 reveal-cards" style={{ marginBottom: "3rem" }}>
+              {c.setup.step0.map((s) => (
+                <Card key={s.t} title={s.t}>{s.b}</Card>
+              ))}
+            </Reveal>
 
-              <a href="/manual" aria-label="Open the AIOS Operating Manual" style={{ textDecoration: "none" }}>
-                <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.75rem 1.5rem", aspectRatio: "1 / 1.30", display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.9rem" }}>
-                      <Logo size={18} /> The AIOS
-                    </span>
-                    <span className="doc-label">the-aios.com</span>
-                  </div>
-                  <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                    <div className="eyebrow" style={{ marginBottom: "0.875rem" }}>
-                      Operating Manual <span className="accent">·</span> 2026
-                    </div>
-                    <div className="display-md" style={{ marginBottom: "1rem" }}>
-                      AI as a <span className="accent">team</span>, not a tool.
-                    </div>
-                    <div className="accent-rule" />
-                  </div>
-                  <span className="doc-label">{c.manual.coverSub}</span>
-                </div>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 13 — Get started ============ */}
-        <section id="get-started" className="section hero-glow">
-          <div className="container">
-            <SectionLabel num="13">{c.getStarted.eyebrow}</SectionLabel>
-            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.getStarted.h} /></h2>
-            <p className="body-text" style={{ marginBottom: "1.25rem" }}>{c.getStarted.prompt}</p>
+            {/* Step 1 — run the AIOS */}
+            <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.setup.step1Label}</div>
+            <p className="body-text" style={{ marginBottom: "1rem" }}>{c.setup.step1Title}</p>
             <div className="code-block" style={{ marginBottom: "1rem", fontSize: "1rem" }}>
-              <span className="comment">{c.getStarted.codeComment}</span>
+              <span className="comment">{c.setup.step1Comment}</span>
               <br />
               <span className="accent">›</span> Set up my AI-OS from https://github.com/The-AIOS/aios
             </div>
-            <p className="caption" style={{ marginBottom: "2.5rem", textTransform: "none", letterSpacing: 0 }}>{c.getStarted.consent}</p>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{c.setup.step1Body}</p>
 
             <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
               {c.getStarted.steps.map((s) => (
@@ -551,9 +562,23 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               ))}
             </Reveal>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", alignItems: "center" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", alignItems: "center", marginBottom: "3.5rem" }}>
               <GitHubLink href={`${REPO}/blob/main/SETUP.md`} surface="get-started-primary" className="btn-primary">{c.getStarted.setupBtn}</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/SETUP.md#prerequisites`} surface="get-started-secondary" className="repo-link-inline">{c.getStarted.prereqBtn}</GitHubLink>
+            </div>
+
+            <p className="pullquote-lg" style={{ marginBottom: "3.5rem" }}>{c.setup.learnable}</p>
+
+            {/* The Operating Manual — embedded PDF + download */}
+            <div style={{ paddingTop: "2.5rem", borderTop: "1px solid var(--color-hairline)" }}>
+              <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.manual.eyebrow}</div>
+              <h3 className="display-md" style={{ marginBottom: "1rem", maxWidth: "22ch" }}><HL h={c.manual.h} /></h3>
+              <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.manual.body}</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", marginBottom: "2rem" }}>
+                <ManualDownload className="btn-primary">{c.manual.downloadBtn}</ManualDownload>
+                <GitHubLink href={REPO} surface="manual-source" className="btn-secondary">{c.getStarted.setupBtn}</GitHubLink>
+              </div>
+              <ManualEmbed />
             </div>
           </div>
         </section>
@@ -604,7 +629,8 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             </FooterCol>
 
             <FooterCol title={c.footer.narrative}>
-              <a href="/manual" className="footer-link">{c.footer.manualLink}</a>
+              <a href="#manual" className="footer-link">{c.footer.manualLink}</a>
+              <a href="/disruption-index" className="footer-link">The Disruption Index</a>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="footer-link">{c.footer.amplifier}</SubstackLink>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="footer-link">{c.footer.agenticCulture}</SubstackLink>
             </FooterCol>
