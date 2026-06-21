@@ -102,6 +102,94 @@ function Stat({ n, label }: { n: string; label: string }) {
 
 const INK = { color: "var(--color-ink)" } as const;
 
+/* ---------- mental-model mocks (session / agent / skill) ----------
+   Technical surfaces → English by design, like the code blocks + ant chatter. */
+
+function MacDots() {
+  return (
+    <>
+      <span className="am-dot" style={{ background: "#ff5f57" }} />
+      <span className="am-dot" style={{ background: "#febc2e" }} />
+      <span className="am-dot" style={{ background: "#28c840" }} />
+    </>
+  );
+}
+
+function DocIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-subtle)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6" />
+    </svg>
+  );
+}
+
+/** Session = a terminal. */
+function SessionMock() {
+  return (
+    <div className="aios-mock">
+      <div className="am-bar"><MacDots /><span className="am-fn">session — keynote-prep</span></div>
+      <div className="am-body">
+        <span className="am-o">› reads context · declared · observed · intent</span><br />
+        <span className="am-pr">you ›</span> draft the keynote, in my voice<br />
+        <span className="am-ag">⚖️ lawyer ›</span> reviewing the NDA clause…<br />
+        <span className="am-pr">you ›</span> <span className="am-o">/close-session → routed to memory</span><br />
+        <span className="am-pr">you ›</span> <span className="am-cursor" />
+      </div>
+    </div>
+  );
+}
+
+/** Agent = a .md file (has tools). */
+function AgentMock() {
+  return (
+    <div className="aios-mock">
+      <div className="am-bar"><DocIcon /><span className="am-fn">agents/lawyer.md</span></div>
+      <div className="am-body">
+        <span className="am-c">---</span><br />
+        <span className="am-k">name:</span> <span className="am-v">lawyer</span><br />
+        <span className="am-k">description:</span> <span className="am-v">in-house counsel — redline &amp; protect</span><br />
+        <span className="am-k">tools:</span> <span className="am-v">read · write · search</span><br />
+        <span className="am-c">---</span><br />
+        <span className="am-v"># You are the in-house counsel.</span><br />
+        <span className="am-c">Redline contracts, flag IP risk,</span><br />
+        <span className="am-c">protect the deal. Think like…</span>
+      </div>
+    </div>
+  );
+}
+
+/** Skill = a .md file too — but no tools. */
+function SkillMock() {
+  return (
+    <div className="aios-mock">
+      <div className="am-bar"><DocIcon /><span className="am-fn">skills/frontend-design/SKILL.md</span></div>
+      <div className="am-body">
+        <span className="am-c">---</span><br />
+        <span className="am-k">name:</span> <span className="am-v">frontend-design</span><br />
+        <span className="am-k">description:</span> <span className="am-v">build beautiful UIs</span><br />
+        <span className="am-strike">tools: —</span> <span className="am-c">(skills carry no tools)</span><br />
+        <span className="am-c">---</span><br />
+        <span className="am-v"># When building any interface…</span><br />
+        <span className="am-c">the taste, the rules, the patterns.</span>
+      </div>
+    </div>
+  );
+}
+
+/** A "three words" card: big highlighted word + kind line + its mock + role + body. */
+function MMCard({ word, kind, title, mock, children }: { word: string; kind: string; title: string; mock: ReactNode; children: ReactNode }) {
+  return (
+    <div className="card">
+      <div className="mm-word">{word}</div>
+      <div className="mm-kind">{kind}</div>
+      {mock}
+      <h4>{title}</h4>
+      <p>{children}</p>
+    </div>
+  );
+}
+
 /* ---------- the page ---------- */
 
 export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Locale }) {
@@ -211,7 +299,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <p className="graphic-caption">{c.arch.anatomyCaption}</p>
             </Reveal>
 
-            <div className="eyebrow" style={{ marginBottom: "0.5rem" }}>{c.arch.distinctEyebrow}</div>
+            <div className="eyebrow" style={{ marginBottom: "0.5rem" }}>{c.arch.distinctEyebrow}: <span className="accent">{c.arch.distinctTail}</span></div>
             <div>
               {c.arch.distinct.map(([term, body]) => (
                 <div key={term} className="def-row">
@@ -279,11 +367,13 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
             {/* — The three words: session / agent / skill — */}
             <SubLabel>{c.how.subModel}</SubLabel>
-            <h3 className="display-md" style={{ marginBottom: "1.5rem", maxWidth: "24ch" }}><HL h={c.mentalModel.h} /></h3>
-            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "1.5rem" }}>
-              <Card eyebrow={c.mentalModel.session.tag} title={c.mentalModel.session.t}>{c.mentalModel.session.b}</Card>
-              <Card eyebrow={c.mentalModel.agent.tag} title={c.mentalModel.agent.t}>{c.mentalModel.agent.b}</Card>
-              <Card eyebrow={c.mentalModel.skill.tag} title={c.mentalModel.skill.t}>{c.mentalModel.skill.b}</Card>
+            <h3 className="display-md" style={{ marginBottom: "1.5rem", maxWidth: "28ch" }}>
+              {c.mentalModel.headline.map((tok, i) => (tok.a ? <span key={i} className="accent">{tok.t}</span> : <span key={i}>{tok.t}</span>))}
+            </h3>
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "1.5rem", alignItems: "start" }}>
+              <MMCard word={c.mentalModel.session.word} kind={c.mentalModel.session.tag} title={c.mentalModel.session.t} mock={<SessionMock />}>{c.mentalModel.session.b}</MMCard>
+              <MMCard word={c.mentalModel.agent.word} kind={c.mentalModel.agent.tag} title={c.mentalModel.agent.t} mock={<AgentMock />}>{c.mentalModel.agent.b}</MMCard>
+              <MMCard word={c.mentalModel.skill.word} kind={c.mentalModel.skill.tag} title={c.mentalModel.skill.t} mock={<SkillMock />}>{c.mentalModel.skill.b}</MMCard>
             </Reveal>
 
             <div className="content-grid" style={{ marginBottom: "1.5rem" }}>
@@ -302,18 +392,17 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               </Reveal>
             </div>
 
-            {/* the chain */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.625rem" }}>
+            {/* the chain — full-width, the climax of the mental model */}
+            <Reveal className="mm-chain reveal-fade" style={{ marginTop: "2rem" }}>
               {c.mentalModel.chain.map((node, i) =>
                 i % 2 === 0 ? (
-                  <span key={i} className="code-chip" style={i === 0 || i === c.mentalModel.chain.length - 1 ? { borderColor: "var(--color-accent)", color: "var(--color-ink)" } : { color: "var(--color-ink-muted)" }}>
-                    {node}
-                  </span>
+                  <span key={i} className={i === 0 || i === c.mentalModel.chain.length - 1 ? "mc-node hot" : "mc-node"}>{node}</span>
                 ) : (
-                  <span key={i} className="accent" style={{ fontFamily: "var(--font-mono)", fontSize: "0.8125rem" }}>{node}</span>
+                  <span key={i} className="mc-arrow">{node}</span>
                 )
               )}
-            </div>
+            </Reveal>
+            <p className="graphic-caption" style={{ marginTop: "1rem" }}>{c.mentalModel.chainCaption}</p>
 
             {/* — Context that compounds — */}
             <SubLabel>{c.how.subContext}</SubLabel>
@@ -355,11 +444,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <span className="ts-line">
                 <span className="ts-prompt">›</span>
                 <span className="ts-typed ts-l1">spawn lawyer &quot;review the NDA at ~/code/contracts/mutual-nda.docx&quot;</span>
-              </span>
-              <span className="ts-line">
-                <span className="ts-prompt">›</span>
-                <span className="ts-typed ts-l2">spawn-kill lawyer</span>
-                <span className="ts-comment ts-c2">&nbsp;&nbsp;# clean teardown when the work is done</span>
               </span>
             </Reveal>
             <Reveal className="grid-2 reveal-cards" style={{ marginBottom: "1.5rem" }}>
@@ -540,10 +624,30 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
             {/* Step 0 — what you need */}
             <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.setup.step0Label}</div>
-            <Reveal className="grid-4 reveal-cards" style={{ marginBottom: "3rem" }}>
-              {c.setup.step0.map((s) => (
-                <Card key={s.t} title={s.t}>{s.b}</Card>
-              ))}
+            <Reveal className="reveal-cards" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(168px, 1fr))", gap: "0.875rem", marginBottom: "3rem" }}>
+              {c.setup.step0.map((s) => {
+                const titleRow = (
+                  <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.375rem" }}>
+                    <h4 style={{ margin: 0 }}>{s.t}</h4>
+                    {s.pill && <span className="tag-pill">{s.pill}</span>}
+                  </div>
+                );
+                return s.soon ? (
+                  <div key={s.t} className="card" style={{ borderStyle: "dashed", display: "flex", flexDirection: "column" }}>
+                    {titleRow}
+                    <p style={{ flex: 1 }}>{s.b}</p>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--color-ink-subtle)", marginTop: "0.875rem" }}>{c.setup.soonLabel}</span>
+                  </div>
+                ) : (
+                  <a key={s.t} className="card" href={s.href} target="_blank" rel="noreferrer" style={{ display: "flex", flexDirection: "column", textDecoration: "none" }}>
+                    {titleRow}
+                    <p style={{ flex: 1 }}>{s.b}</p>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--color-accent)", marginTop: "0.875rem" }}>
+                      {s.href?.replace(/^https?:\/\//, "").replace(/\/.*$/, "")} ↗
+                    </span>
+                  </a>
+                );
+              })}
             </Reveal>
 
             {/* Step 1 — run the AIOS */}

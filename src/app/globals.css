@@ -1029,3 +1029,123 @@ html[data-theme="light"] .hero-constellation { opacity: 0.7; }
 }
 .manual-cover iframe { width: 100%; height: 100%; border: 0; background: #fff; }
 
+/* ============================================================
+   Mental-model mocks — the session (terminal) / agent (.md) / skill (.md)
+   mini-mocks inside the "three words" cards. Mirrors the how-it-works
+   infographic, re-themed with the site tokens (light/dark for free).
+   Internals are technical surfaces → English by design, like code blocks.
+   ============================================================ */
+.aios-mock {
+  border: 1px solid var(--color-hairline);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: var(--color-canvas);
+  margin-bottom: 1.125rem;
+}
+.aios-mock .am-bar {
+  background: var(--color-surface-2);
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid var(--color-hairline);
+}
+.aios-mock .am-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
+.aios-mock .am-fn { margin-left: 6px; color: var(--color-ink-subtle); font-size: 0.66rem; letter-spacing: 0.01em; }
+.aios-mock .am-body { padding: 11px 13px; line-height: 1.9; color: var(--color-ink-muted); }
+.aios-mock .am-pr { color: var(--color-accent); }          /* you › prompt */
+.aios-mock .am-ag { color: var(--color-accent-soft); }     /* ⚖️ agent › */
+.aios-mock .am-o  { color: var(--color-ink-subtle); }      /* output / dim */
+.aios-mock .am-k  { color: var(--color-accent); }          /* frontmatter key */
+.aios-mock .am-v  { color: var(--color-ink); }             /* value / heading */
+.aios-mock .am-c  { color: var(--color-ink-subtle); }      /* comment / --- */
+.aios-mock .am-strike { color: var(--color-ink-subtle); text-decoration: line-through; opacity: 0.6; }
+
+/* Blinking terminal cursor on the session mock's input line */
+.aios-mock .am-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1.05em;
+  background: var(--color-accent);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: am-blink 1.05s step-end infinite;
+}
+@keyframes am-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .aios-mock .am-cursor { animation: none; } }
+
+/* ---------- free / paid pill next to a card title ---------- */
+.tag-pill {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.0625rem 0.375rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-glow);
+  white-space: nowrap;
+}
+
+/* ---------- The chain band — session → agents → skills = a team ----------
+   Full-width, prominent: bordered nodes, accent connectors, a hot first/last. */
+.mm-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 0.875rem;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-hairline);
+  border-radius: 12px;
+  padding: 2rem 1.75rem;
+}
+.mm-chain .mc-node {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-hairline);
+  border-radius: 10px;
+  padding: 0.75rem 1.125rem;
+}
+.mm-chain .mc-node.hot {
+  border-color: var(--color-accent);
+  background: var(--color-accent-glow);
+  color: var(--color-ink);
+}
+.mm-chain .mc-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+@media (max-width: 640px) {
+  .mm-chain { flex-direction: column; padding: 1.5rem 1.25rem; }
+  .mm-chain .mc-node { width: 100%; text-align: center; }
+}
+
+/* The big highlighted word atop each card (Session · Agent · Skill) */
+.mm-word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+  line-height: 1.1;
+}
+.mm-kind {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-subtle);
+  margin: 0.25rem 0 1rem;
+}
+

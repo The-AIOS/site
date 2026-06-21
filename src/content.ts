@@ -30,12 +30,13 @@ export type Content = {
   };
   /* The session / agent / skill mental model (folded from the how-it-works infographic). */
   mentalModel: {
-    h: H;
-    session: { tag: string; t: string; b: string };
-    agent: { tag: string; t: string; b: string };
-    skill: { tag: string; t: string; b: string };
+    headline: { t: string; a?: boolean }[]; // tokens; a=true → coral accent
+    session: { word: string; tag: string; t: string; b: string };
+    agent: { word: string; tag: string; t: string; b: string };
+    skill: { word: string; tag: string; t: string; b: string };
     spawnCmd: string; spawnBody: string; hatCmd: string; hatBody: string;
     chain: string[]; // [session, →, agents, →, skills, =, super-team]
+    chainCaption: string;
   };
   /* automation → amplification → autonomy ladder. */
   ladder: { eyebrow: string; rungs: { e: string; t: string }[] };
@@ -45,8 +46,8 @@ export type Content = {
   };
   /* Act 5 — Manual: the Step 0 / Step 1 setup story. */
   setup: {
-    eyebrow: string; h: H; intro: string;
-    step0Label: string; step0: { t: string; b: string }[];
+    eyebrow: string; h: H; intro: string; soonLabel: string;
+    step0Label: string; step0: { t: string; b: string; href?: string; soon?: boolean; pill: string }[];
     step1Label: string; step1Title: string; step1Body: string; step1Comment: string;
     learnable: string;
   };
@@ -66,7 +67,7 @@ export type Content = {
   arch: {
     eyebrow: string; h: H; introPre: string; introBold: string; introPost: string;
     layers: CardT[]; timelineEyebrow: string; timelineCaption: string;
-    madeOfEyebrow: string; anatomyCaption: string; distinctEyebrow: string;
+    madeOfEyebrow: string; anatomyCaption: string; distinctEyebrow: string; distinctTail: string;
     distinct: Row[]; pull: H; claudeLink: string;
   };
   toolbox: {
@@ -139,13 +140,14 @@ const en: Content = {
     subTrust: "Trust, control & containment", subGlass: "Glass — the interface",
   },
   mentalModel: {
-    h: ["A ", "session", " is where. An agent is who. A skill is how."],
-    session: { tag: "◧ Session = a terminal", t: "Where work happens", b: "One live thread — the deal, the deck, the build. It reads your context the moment it opens, runs the rituals, remembers. You can run many at once." },
-    agent: { tag: "◆ Agent = a .md file", t: "Who does it", b: "A named specialist you load into a session — lawyer, accountant, researcher. A role plus its instructions and the tools it can touch. 31 ship in the box." },
-    skill: { tag: "✦ Skill = a .md file, no tools", t: "How it’s done", b: "Drop-in expertise an agent loads the instant it’s needed — like Neo plugging in and knowing kung fu. Pure know-how, no tools. 42 ship in the box; you never name one — describe the work and the right one wakes." },
+    headline: [{ t: "A " }, { t: "session", a: true }, { t: " is where. An " }, { t: "agent", a: true }, { t: " is who. A " }, { t: "skill", a: true }, { t: " is how." }],
+    session: { word: "Session", tag: "◧ a terminal — the where", t: "Where work happens", b: "One live thread — the deal, the deck, the build. It reads your context the moment it opens, runs the rituals, remembers. You can run many at once." },
+    agent: { word: "Agent", tag: "◆ a .md file — the who", t: "Who does it", b: "A named specialist you load into a session — lawyer, accountant, researcher. A role plus its instructions and the tools it can touch. 31 ship in the box; you summon one by name or matched semantically given your task." },
+    skill: { word: "Skill", tag: "✦ a .md file, no tools — the how", t: "How it’s done", b: "Drop-in expertise an agent loads the instant it’s needed — like Neo plugging in and knowing kung fu. Pure know-how, no tools. 42 ship in the box; you never name one — describe the work and the right one wakes." },
     spawnCmd: "spawn {agent}", spawnBody: "Opens a new session with that co-worker’s identity pre-loaded — a fresh tab working in parallel.",
     hatCmd: "/aios:agent {agent}", hatBody: "Wears that co-worker’s hat in your current session — same thread, new specialist lens.",
     chain: ["A session", "runs ›", "1+ agents", "each calls ›", "1+ skills", "=", "a super-intelligent team"],
+    chainCaption: "Everything’s already bundled in your AIOS — the best, compliant, frontier practices, ready out of the box.",
   },
   ladder: {
     eyebrow: "And it climbs",
@@ -165,7 +167,7 @@ const en: Content = {
       { e: "The desktop app", t: "AIOS, for people who never open an editor", b: "A free, installable app — the panel, real terminals, vault explorer, one-click rituals — with native viewers for markdown, HTML, and PDFs. Next: watching video, not just reading markdown." },
       { e: "Corporate controls", t: "Governed agents at company scale", b: "Encrypted-at-rest context, per-agent scoped read-grants, audit trails, and verifiable agent identity — INTENT as policy, cryptographically enforced. The admin layer for running a fleet inside an org." },
       { e: "Marketplace", t: "Install a bundle in one command", b: "Agent bundles, vertical workflows, a company’s whole brain — installed through a trust-gated marketplace: registry → injection scan → license check → QA → install with an audit log." },
-      { e: "Agentic contact book", t: "Identity for agents and the people they work with", b: "A directory where your agents carry verifiable credentials, so a co-worker inherits the right access automatically and a counterpart can prove who’s acting on your behalf." },
+      { e: "Agentic contact book", t: "Identity for agents and the people they work with", b: "A directory where your agents carry verifiable credentials, so it inherits the right access and can interact securely with other people’s agents on your behalf." },
     ],
     note: "Direction, not dated promises — and never a feature we can’t already point at in the work.",
   },
@@ -173,12 +175,14 @@ const en: Content = {
     eyebrow: "Set it up",
     h: ["Everything you need, ", "then one line", "."],
     intro: "The whole setup is a guided conversation — but here’s the honest list of what to have ready, and the single line that starts it.",
+    soonLabel: "coming soon",
     step0Label: "Step 0 — what you need",
     step0: [
-      { t: "Obsidian", b: "The vault lives here — plain Markdown, your second brain. Free." },
-      { t: "An IDE", b: "VS Code or Google Antigravity — where the AIOS Glass extension turns commands into buttons." },
-      { t: "AIOS Glass", b: "The graphical front door, installed from the marketplace — optional but makes it click-not-type." },
-      { t: "Claude Code", b: "The engine. Install Claude / Claude Code — this is what actually runs." },
+      { t: "Obsidian", b: "The vault lives here — plain Markdown, your second brain.", href: "https://obsidian.md", pill: "free" },
+      { t: "An IDE", b: "Google Antigravity (or VS Code) — where the AIOS Glass extension turns commands into buttons.", href: "https://antigravity.google", pill: "free" },
+      { t: "AIOS Glass", b: "The graphical front door, installed from Open VSX — optional, but makes it click-not-type.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "free" },
+      { t: "Claude Code", b: "The engine. Install Claude / Claude Code — this is what actually runs.", href: "https://claude.com/claude-code", pill: "" },
+      { t: "AIOS App", b: "The standalone app — panel, terminals, vault explorer, one-click rituals — for operators who never open an editor.", soon: true, pill: "free" },
     ],
     step1Label: "Step 1 — run the AIOS",
     step1Title: "Tell Claude, in any terminal:",
@@ -235,7 +239,7 @@ const en: Content = {
     timelineCaption: "Not a productivity hack. Compounding self-awareness.",
     madeOfEyebrow: "What it’s made of",
     anatomyCaption: "Six building blocks every operator shares — plus a three-tier extension model that never collides: framework, yours, your company’s.",
-    distinctEyebrow: "What makes it operationally distinct",
+    distinctEyebrow: "What makes it operationally distinct", distinctTail: "it builds people and agents up",
     distinct: [
       ["Governed", "The INTENT.md trust contract controls what AI handles autonomously vs. what needs your review."],
       ["Multiplayer", "Personal × team × company topologies. Mount a company’s context in one prompt; collaborate over Drive, GitHub, or local folders."],
@@ -272,7 +276,7 @@ const en: Content = {
   rhythm: {
     eyebrow: "The rhythm", h: ["The rituals are ", "load-bearing", "."],
     body: "The daily commands aren’t quick-start sugar — they’re the system’s nervous system. They route session insights into observed context (so the AI actually gets smarter), close the carry-loop (so nothing falls through), and surface drift before it becomes invisible.",
-    pull: ["Logging is not routing. ", "The framework is built on the routing.", ""],
+    pull: ["This is what raises the bar between those who only use AI — and those who let their AI ", "learn and compound", "."],
     cards: [
       { e: "Morning", t: "/aios:today", b: "A grounded daily plan from your full vault context — calendar, tasks, open threads, priorities." },
       { e: "Per session", t: "/aios:close-session", b: "Lightweight capture when a focused work session ends — bridges the work back to the vault." },
@@ -332,9 +336,9 @@ const en: Content = {
   },
   manual: {
     eyebrow: "The manual", h: ["The whole system, ", "one document", "."],
-    body: "Seventeen sections — from first principles to 24/7 containment. The design language, the architecture, the fleet, the rituals and the trust contract, in one branded artifact. This very site is its web-native sibling. Read it online, or take the PDF into your next meeting.",
+    body: "Eighteen sections — from first principles to 24/7 containment. The design language, the architecture, the fleet, the rituals and the trust contract, in one branded artifact. This very site is its web-native sibling. Read it online, or take the PDF into your next meeting.",
     readBtn: "Read the manual →", downloadBtn: "Download PDF",
-    coverSub: "17 sections — first principles to 24/7 containment",
+    coverSub: "18 sections — first principles to the one-page map",
   },
   getStarted: {
     eyebrow: "Get started", h: ["Running in ", "30 seconds", "."],
@@ -384,13 +388,14 @@ const es: Content = {
     subTrust: "Confianza, control y contención", subGlass: "Glass — la interfaz",
   },
   mentalModel: {
-    h: ["Una ", "sesión", " es el dónde. Un agente es el quién. Un skill es el cómo."],
-    session: { tag: "◧ Sesión = una terminal", t: "Dónde pasa el trabajo", b: "Un hilo vivo — el deal, el deck, el build. Lee tu contexto apenas se abre, corre los rituales, recuerda. Puedes correr muchas a la vez." },
-    agent: { tag: "◆ Agente = un archivo .md", t: "Quién lo hace", b: "Un especialista con nombre que cargas en una sesión — abogado, contador, investigador. Un rol con sus instrucciones y las herramientas que puede tocar. 31 vienen incluidos." },
-    skill: { tag: "✦ Skill = un .md, sin herramientas", t: "Cómo se hace", b: "Experiencia lista para usar que un agente carga apenas la necesita — como Neo conectándose y sabiendo kung fu. Puro saber-hacer, sin herramientas. 42 vienen incluidos; nunca invocas uno — describe el trabajo y el correcto despierta." },
+    headline: [{ t: "Una " }, { t: "sesión", a: true }, { t: " es el dónde. Un " }, { t: "agente", a: true }, { t: " es el quién. Un " }, { t: "skill", a: true }, { t: " es el cómo." }],
+    session: { word: "Sesión", tag: "◧ una terminal — el dónde", t: "Dónde pasa el trabajo", b: "Un hilo vivo — el deal, el deck, el build. Lee tu contexto apenas se abre, corre los rituales, recuerda. Puedes correr muchas a la vez." },
+    agent: { word: "Agente", tag: "◆ un archivo .md — el quién", t: "Quién lo hace", b: "Un especialista con nombre que cargas en una sesión — abogado, contador, investigador. Un rol con sus instrucciones y las herramientas que puede tocar. 31 vienen incluidos; lo invocas por su nombre o se elige por afinidad semántica con tu tarea." },
+    skill: { word: "Skill", tag: "✦ un .md, sin herramientas — el cómo", t: "Cómo se hace", b: "Experiencia lista para usar que un agente carga apenas la necesita — como Neo conectándose y sabiendo kung fu. Puro saber-hacer, sin herramientas. 42 vienen incluidos; nunca invocas uno — describe el trabajo y el correcto despierta." },
     spawnCmd: "spawn {agente}", spawnBody: "Abre una nueva sesión con la identidad de ese compañero precargada — una pestaña fresca trabajando en paralelo.",
     hatCmd: "/aios:agent {agente}", hatBody: "Se pone el sombrero de ese compañero en tu sesión actual — mismo hilo, nueva mirada especialista.",
     chain: ["Una sesión", "corre ›", "1+ agentes", "cada uno invoca ›", "1+ skills", "=", "un equipo súper-inteligente"],
+    chainCaption: "Todo ya viene incluido en tu AIOS — las mejores prácticas frontera y conformes, listas de fábrica.",
   },
   ladder: {
     eyebrow: "Y va subiendo",
@@ -410,7 +415,7 @@ const es: Content = {
       { e: "La app de escritorio", t: "AIOS, para quien nunca abre un editor", b: "Una app gratis e instalable — el panel, terminales reales, explorador del vault, rituales a un clic — con visores nativos para Markdown, HTML y PDFs. Lo que sigue: ver video, no solo leer Markdown." },
       { e: "Controles corporativos", t: "Agentes gobernados a escala de empresa", b: "Contexto cifrado en reposo, permisos de lectura por agente, trazas de auditoría e identidad de agente verificable — INTENT como política, aplicada criptográficamente. La capa de administración para correr una flota dentro de una organización." },
       { e: "Marketplace", t: "Instala un bundle en un comando", b: "Bundles de agentes, flujos verticales, el cerebro entero de una empresa — instalados por un marketplace con barrera de confianza: registro → escaneo de inyección → revisión de licencia → QA → instalación con registro de auditoría." },
-      { e: "Agenda agéntica", t: "Identidad para agentes y para quienes trabajan con ellos", b: "Un directorio donde tus agentes portan credenciales verificables, así un compañero hereda el acceso correcto automáticamente y una contraparte puede comprobar quién actúa en tu nombre." },
+      { e: "Agenda agéntica", t: "Identidad para agentes y para quienes trabajan con ellos", b: "Un directorio donde tus agentes portan credenciales verificables, así hereda el acceso correcto y puede interactuar de forma segura con los agentes de otras personas en tu nombre." },
     ],
     note: "Dirección, no promesas con fecha — y nunca una función que no podamos ya señalar en el trabajo.",
   },
@@ -418,12 +423,14 @@ const es: Content = {
     eyebrow: "Configúralo",
     h: ["Todo lo que necesitas, ", "y luego una línea", "."],
     intro: "Todo el setup es una conversación guiada — pero aquí está la lista honesta de lo que conviene tener listo, y la única línea que lo arranca.",
+    soonLabel: "próximamente",
     step0Label: "Paso 0 — qué necesitas",
     step0: [
-      { t: "Obsidian", b: "Aquí vive el vault — Markdown plano, tu segundo cerebro. Gratis." },
-      { t: "Un IDE", b: "VS Code o Google Antigravity — donde la extensión AIOS Glass convierte comandos en botones." },
-      { t: "AIOS Glass", b: "La puerta de entrada gráfica, instalada desde el marketplace — opcional, pero hace que sea clic, no teclear." },
-      { t: "Claude Code", b: "El motor. Instala Claude / Claude Code — esto es lo que realmente corre." },
+      { t: "Obsidian", b: "Aquí vive el vault — Markdown plano, tu segundo cerebro.", href: "https://obsidian.md", pill: "gratis" },
+      { t: "Un IDE", b: "Google Antigravity (o VS Code) — donde la extensión AIOS Glass convierte comandos en botones.", href: "https://antigravity.google", pill: "gratis" },
+      { t: "AIOS Glass", b: "La puerta de entrada gráfica, instalada desde Open VSX — opcional, pero hace que sea clic, no teclear.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "gratis" },
+      { t: "Claude Code", b: "El motor. Instala Claude / Claude Code — esto es lo que realmente corre.", href: "https://claude.com/claude-code", pill: "" },
+      { t: "AIOS App", b: "La app independiente — panel, terminales, explorador del vault, rituales a un clic — para quien nunca abre un editor.", soon: true, pill: "gratis" },
     ],
     step1Label: "Paso 1 — corre el AIOS",
     step1Title: "Dile a Claude, en cualquier terminal:",
@@ -480,7 +487,7 @@ const es: Content = {
     timelineCaption: "No es un truco de productividad. Es autoconciencia que capitaliza.",
     madeOfEyebrow: "De qué está hecho",
     anatomyCaption: "Seis bloques que todo operador comparte — más un modelo de extensión de tres niveles que nunca colisiona: framework, lo tuyo, lo de tu empresa.",
-    distinctEyebrow: "Qué lo hace operativamente distinto",
+    distinctEyebrow: "Qué lo hace operativamente distinto", distinctTail: "construye personas y agentes",
     distinct: [
       ["Gobernado", "El contrato de confianza INTENT.md controla qué maneja la IA de forma autónoma vs. qué necesita tu revisión."],
       ["Multijugador", "Topologías personal × equipo × empresa. Monta el contexto de una empresa en un prompt; colabora por Drive, GitHub o carpetas locales."],
@@ -517,7 +524,7 @@ const es: Content = {
   rhythm: {
     eyebrow: "El ritmo", h: ["Los rituales son ", "estructurales", "."],
     body: "Los comandos diarios no son azúcar de quick-start — son el sistema nervioso del sistema. Enrutan los aprendizajes de cada sesión al contexto observado (para que la IA de verdad se vuelva más lista), cierran el carry-loop (para que nada se caiga) y revelan la deriva antes de que se vuelva invisible.",
-    pull: ["Registrar no es enrutar. ", "El framework se construye sobre el enrutamiento.", ""],
+    pull: ["Esto es lo que sube la vara entre quienes solo usan IA — y quienes dejan que su IA ", "aprenda y capitalice", "."],
     cards: [
       { e: "Mañana", t: "/aios:today", b: "Un plan diario aterrizado desde todo el contexto de tu vault — calendario, tareas, hilos abiertos, prioridades." },
       { e: "Por sesión", t: "/aios:close-session", b: "Captura ligera cuando termina una sesión de trabajo enfocada — devuelve el trabajo al vault." },
@@ -577,9 +584,9 @@ const es: Content = {
   },
   manual: {
     eyebrow: "El manual", h: ["Todo el sistema, ", "un solo documento", "."],
-    body: "Diecisiete secciones — de los primeros principios a la contención 24/7. El lenguaje de diseño, la arquitectura, la flota, los rituales y el contrato de confianza, en un solo artefacto de marca. Este mismo sitio es su hermano web. Léelo en línea, o llévate el PDF a tu próxima reunión.",
+    body: "Dieciocho secciones — de los primeros principios a la contención 24/7. El lenguaje de diseño, la arquitectura, la flota, los rituales y el contrato de confianza, en un solo artefacto de marca. Este mismo sitio es su hermano web. Léelo en línea, o llévate el PDF a tu próxima reunión.",
     readBtn: "Lee el manual →", downloadBtn: "Descargar PDF",
-    coverSub: "17 secciones — de los primeros principios a la contención 24/7",
+    coverSub: "18 secciones — de los primeros principios al mapa de una página",
   },
   getStarted: {
     eyebrow: "Empezar", h: ["Funcionando en ", "30 segundos", "."],
@@ -629,13 +636,14 @@ const pt: Content = {
     subTrust: "Confiança, controle e contenção", subGlass: "Glass — a interface",
   },
   mentalModel: {
-    h: ["Uma ", "sessão", " é o onde. Um agente é o quem. Um skill é o como."],
-    session: { tag: "◧ Sessão = um terminal", t: "Onde o trabalho acontece", b: "Um fio vivo — o deal, o deck, o build. Lê seu contexto assim que abre, roda os rituais, lembra. Você pode rodar várias ao mesmo tempo." },
-    agent: { tag: "◆ Agente = um arquivo .md", t: "Quem faz", b: "Um especialista com nome que você carrega numa sessão — advogado, contador, pesquisador. Um papel com suas instruções e as ferramentas que pode tocar. 31 vêm inclusos." },
-    skill: { tag: "✦ Skill = um .md, sem ferramentas", t: "Como se faz", b: "Expertise pronta que um agente carrega no instante em que precisa — como Neo plugando e já sabendo kung fu. Puro saber-fazer, sem ferramentas. 42 vêm inclusos; você nunca invoca um — descreva o trabalho e o certo desperta." },
+    headline: [{ t: "Uma " }, { t: "sessão", a: true }, { t: " é o onde. Um " }, { t: "agente", a: true }, { t: " é o quem. Um " }, { t: "skill", a: true }, { t: " é o como." }],
+    session: { word: "Sessão", tag: "◧ um terminal — o onde", t: "Onde o trabalho acontece", b: "Um fio vivo — o deal, o deck, o build. Lê seu contexto assim que abre, roda os rituais, lembra. Você pode rodar várias ao mesmo tempo." },
+    agent: { word: "Agente", tag: "◆ um arquivo .md — o quem", t: "Quem faz", b: "Um especialista com nome que você carrega numa sessão — advogado, contador, pesquisador. Um papel com suas instruções e as ferramentas que pode tocar. 31 vêm inclusos; você o invoca pelo nome ou ele é escolhido por afinidade semântica com sua tarefa." },
+    skill: { word: "Skill", tag: "✦ um .md, sem ferramentas — o como", t: "Como se faz", b: "Expertise pronta que um agente carrega no instante em que precisa — como Neo plugando e já sabendo kung fu. Puro saber-fazer, sem ferramentas. 42 vêm inclusos; você nunca invoca um — descreva o trabalho e o certo desperta." },
     spawnCmd: "spawn {agente}", spawnBody: "Abre uma nova sessão com a identidade desse colega pré-carregada — uma aba nova trabalhando em paralelo.",
     hatCmd: "/aios:agent {agente}", hatBody: "Veste o chapéu desse colega na sua sessão atual — mesmo fio, nova lente especialista.",
     chain: ["Uma sessão", "roda ›", "1+ agentes", "cada um chama ›", "1+ skills", "=", "um time super-inteligente"],
+    chainCaption: "Tudo já vem embutido no seu AIOS — as melhores práticas de fronteira e em conformidade, prontas de fábrica.",
   },
   ladder: {
     eyebrow: "E ela sobe",
@@ -655,7 +663,7 @@ const pt: Content = {
       { e: "O app de desktop", t: "AIOS, para quem nunca abre um editor", b: "Um app grátis e instalável — o painel, terminais reais, explorador do vault, rituais a um clique — com visualizadores nativos para Markdown, HTML e PDFs. O próximo passo: assistir vídeo, não só ler Markdown." },
       { e: "Controles corporativos", t: "Agentes governados em escala de empresa", b: "Contexto criptografado em repouso, permissões de leitura por agente, trilhas de auditoria e identidade de agente verificável — INTENT como política, aplicada criptograficamente. A camada de administração para rodar uma frota dentro de uma organização." },
       { e: "Marketplace", t: "Instale um bundle em um comando", b: "Bundles de agentes, fluxos verticais, o cérebro inteiro de uma empresa — instalados por um marketplace com barreira de confiança: registro → varredura de injeção → checagem de licença → QA → instalação com log de auditoria." },
-      { e: "Agenda agêntica", t: "Identidade para agentes e para quem trabalha com eles", b: "Um diretório onde seus agentes carregam credenciais verificáveis, então um colega herda o acesso certo automaticamente e uma contraparte pode comprovar quem age em seu nome." },
+      { e: "Agenda agêntica", t: "Identidade para agentes e para quem trabalha com eles", b: "Um diretório onde seus agentes carregam credenciais verificáveis, então ele herda o acesso certo e pode interagir com segurança com os agentes de outras pessoas em seu nome." },
     ],
     note: "Direção, não promessas com data — e nunca uma função que não possamos já apontar no trabalho.",
   },
@@ -663,12 +671,14 @@ const pt: Content = {
     eyebrow: "Configure",
     h: ["Tudo o que você precisa, ", "e então uma linha", "."],
     intro: "Todo o setup é uma conversa guiada — mas aqui está a lista honesta do que ter à mão, e a única linha que o inicia.",
+    soonLabel: "em breve",
     step0Label: "Passo 0 — o que você precisa",
     step0: [
-      { t: "Obsidian", b: "Aqui mora o vault — Markdown puro, seu segundo cérebro. Grátis." },
-      { t: "Um IDE", b: "VS Code ou Google Antigravity — onde a extensão AIOS Glass transforma comandos em botões." },
-      { t: "AIOS Glass", b: "A porta de entrada gráfica, instalada pelo marketplace — opcional, mas torna tudo clique, não digitação." },
-      { t: "Claude Code", b: "O motor. Instale Claude / Claude Code — é isto que de fato roda." },
+      { t: "Obsidian", b: "Aqui mora o vault — Markdown puro, seu segundo cérebro.", href: "https://obsidian.md", pill: "grátis" },
+      { t: "Um IDE", b: "Google Antigravity (ou VS Code) — onde a extensão AIOS Glass transforma comandos em botões.", href: "https://antigravity.google", pill: "grátis" },
+      { t: "AIOS Glass", b: "A porta de entrada gráfica, instalada pelo Open VSX — opcional, mas torna tudo clique, não digitação.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "grátis" },
+      { t: "Claude Code", b: "O motor. Instale Claude / Claude Code — é isto que de fato roda.", href: "https://claude.com/claude-code", pill: "" },
+      { t: "AIOS App", b: "O app independente — painel, terminais, explorador do vault, rituais a um clique — para quem nunca abre um editor.", soon: true, pill: "grátis" },
     ],
     step1Label: "Passo 1 — rode o AIOS",
     step1Title: "Diga ao Claude, em qualquer terminal:",
@@ -725,7 +735,7 @@ const pt: Content = {
     timelineCaption: "Não é um truque de produtividade. É autoconsciência que capitaliza.",
     madeOfEyebrow: "Do que é feito",
     anatomyCaption: "Seis blocos que todo operador compartilha — mais um modelo de extensão de três níveis que nunca colide: framework, o seu, o da sua empresa.",
-    distinctEyebrow: "O que o torna operacionalmente distinto",
+    distinctEyebrow: "O que o torna operacionalmente distinto", distinctTail: "ele eleva pessoas e agentes",
     distinct: [
       ["Governado", "O contrato de confiança INTENT.md controla o que a IA cuida de forma autônoma vs. o que precisa da sua revisão."],
       ["Multijogador", "Topologias pessoal × time × empresa. Monte o contexto de uma empresa em um prompt; colabore por Drive, GitHub ou pastas locais."],
@@ -762,7 +772,7 @@ const pt: Content = {
   rhythm: {
     eyebrow: "O ritmo", h: ["Os rituais são ", "estruturais", "."],
     body: "Os comandos diários não são açúcar de quick-start — são o sistema nervoso do sistema. Eles roteiam os aprendizados de cada sessão para o contexto observado (para a IA realmente ficar mais esperta), fecham o carry-loop (para nada se perder) e revelam o desvio antes que ele fique invisível.",
-    pull: ["Registrar não é rotear. ", "O framework é construído sobre o roteamento.", ""],
+    pull: ["É isto que eleva o nível entre quem só usa IA — e quem deixa sua IA ", "aprender e capitalizar", "."],
     cards: [
       { e: "Manhã", t: "/aios:today", b: "Um plano diário aterrado a partir de todo o contexto do seu vault — agenda, tarefas, threads abertas, prioridades." },
       { e: "Por sessão", t: "/aios:close-session", b: "Captura leve quando uma sessão de trabalho focada termina — devolve o trabalho ao vault." },
@@ -822,9 +832,9 @@ const pt: Content = {
   },
   manual: {
     eyebrow: "O manual", h: ["O sistema inteiro, ", "um só documento", "."],
-    body: "Dezessete seções — dos primeiros princípios à contenção 24/7. A linguagem de design, a arquitetura, a frota, os rituais e o contrato de confiança, em um só artefato de marca. Este próprio site é o irmão web dele. Leia online, ou leve o PDF para a sua próxima reunião.",
+    body: "Dezoito seções — dos primeiros princípios à contenção 24/7. A linguagem de design, a arquitetura, a frota, os rituais e o contrato de confiança, em um só artefato de marca. Este próprio site é o irmão web dele. Leia online, ou leve o PDF para a sua próxima reunião.",
     readBtn: "Leia o manual →", downloadBtn: "Baixar PDF",
-    coverSub: "17 seções — dos primeiros princípios à contenção 24/7",
+    coverSub: "18 seções — dos primeiros princípios ao mapa de uma página",
   },
   getStarted: {
     eyebrow: "Começar", h: ["Rodando em ", "30 segundos", "."],
