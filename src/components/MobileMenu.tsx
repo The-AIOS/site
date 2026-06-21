@@ -69,7 +69,7 @@ export function MobileMenu({
               style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 700, letterSpacing: "-0.025em" }}
             >
               <Logo size={20} />
-              The-AIOS
+              The AIOS
             </a>
             <button
               type="button"
@@ -93,6 +93,7 @@ export function MobileMenu({
             <GitHubLink
               href="https://github.com/The-AIOS/aios"
               surface="nav-mobile"
+              className="nav-cta"
               onClick={() => setOpen(false)}
             >
               {githubLabel}

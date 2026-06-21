@@ -121,7 +121,7 @@ export type Content = {
 const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#manual"];
 
 const en: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where it’s going", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Manual"][i] })),
   why: {
     eyebrow: "Why now",
     h: ["AI is getting better than us at ", "almost everything", "."],
@@ -196,7 +196,7 @@ const en: Content = {
     leadBold: "AI as a team, not a tool.",
     leadRest: " The AIOS turns AI into co-workers — a legal you, an accountant you, a marketing you, an engineering you. Orchestrated by you, governed by your intent, compounding every day.",
     tagline: "Gain bandwidth. Go Agentic.",
-    ctaPrimary: "What is this & who it’s for ↓", ctaGithub: "View on GitHub ↗",
+    ctaPrimary: "Take the tour ↓", ctaGithub: "View on GitHub ↗",
     chips: ["declared context", "observed context", "intent", "agents", "skills", "rituals"],
   },
   what: {
@@ -369,7 +369,7 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Hacia dónde va", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Manual"][i] })),
   why: {
     eyebrow: "Por qué ahora",
     h: ["La IA se está volviendo mejor que nosotros en ", "casi todo", "."],
@@ -444,7 +444,7 @@ const es: Content = {
     leadBold: "IA como un equipo, no una herramienta.",
     leadRest: " The AIOS convierte la IA en compañeros de trabajo — un tú legal, un tú contable, un tú de marketing, un tú de ingeniería. Orquestados por ti, gobernados por tu intención, capitalizando cada día.",
     tagline: "Gana ancho de banda. Vuélvete agéntico.",
-    ctaPrimary: "Qué es y para quién ↓", ctaGithub: "Ver en GitHub ↗",
+    ctaPrimary: "Haz el recorrido ↓", ctaGithub: "Ver en GitHub ↗",
     chips: ["contexto declarado", "contexto observado", "intención", "agentes", "skills", "rituales"],
   },
   what: {
@@ -617,7 +617,7 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Para onde vai", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Manual"][i] })),
   why: {
     eyebrow: "Por que agora",
     h: ["A IA está ficando melhor que nós em ", "quase tudo", "."],
@@ -692,7 +692,7 @@ const pt: Content = {
     leadBold: "IA como um time, não uma ferramenta.",
     leadRest: " The AIOS transforma a IA em colegas de trabalho — um você jurídico, um você contador, um você de marketing, um você de engenharia. Orquestrados por você, governados pela sua intenção, capitalizando todos os dias.",
     tagline: "Ganhe banda. Vá agêntico.",
-    ctaPrimary: "O que é e para quem ↓", ctaGithub: "Ver no GitHub ↗",
+    ctaPrimary: "Faça o tour ↓", ctaGithub: "Ver no GitHub ↗",
     chips: ["contexto declarado", "contexto observado", "intenção", "agentes", "skills", "rituais"],
   },
   what: {

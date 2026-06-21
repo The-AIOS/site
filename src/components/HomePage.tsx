@@ -211,7 +211,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 {item.label}
               </a>
             ))}
-            <GitHubLink href={REPO} surface="nav-desktop" className="caption" style={{ color: "var(--color-ink)", textDecoration: "none", fontSize: "0.875rem", textTransform: "none", letterSpacing: "0.02em" }}>
+            <GitHubLink href={REPO} surface="nav-desktop" className="nav-cta">
               GitHub ↗
             </GitHubLink>
             <LocaleSwitcher current={locale} />
@@ -249,7 +249,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
             {/* Animated install one-liner — the real CTA (command stays English). */}
             <div className="terminal" style={{ marginBottom: "1.75rem" }}>
-              <span className="t-comment"># tell claude:</span>
+              <span className="t-comment"># get started, tell claude:</span>
               <span className="t-cmdline">
                 <span className="t-prompt">›</span>
                 <span className="t-typed">Set up my AI-OS from https://github.com/The-AIOS/aios</span>
