@@ -143,7 +143,7 @@ const en: Content = {
     headline: [{ t: "A " }, { t: "session", a: true }, { t: " is where. An " }, { t: "agent", a: true }, { t: " is who. A " }, { t: "skill", a: true }, { t: " is how." }],
     session: { word: "Session", tag: "◧ a terminal — the where", t: "Where work happens", b: "One live thread — the deal, the deck, the build. It reads your context the moment it opens, runs the rituals, remembers. You can run many at once." },
     agent: { word: "Agent", tag: "◆ a .md file — the who", t: "Who does it", b: "A named specialist you load into a session — lawyer, accountant, researcher. A role plus its instructions and the tools it can touch. 31 ship in the box; you summon one by name or matched semantically given your task." },
-    skill: { word: "Skill", tag: "✦ a .md file, no tools — the how", t: "How it’s done", b: "Drop-in expertise an agent loads the instant it’s needed — like Neo plugging in and knowing kung fu. Pure know-how, no tools. 42 ship in the box; you never name one — describe the work and the right one wakes." },
+    skill: { word: "Skill", tag: "✦ a .md file, no tools — the how", t: "How it’s done", b: "Drop-in expertise an agent loads the instant it’s needed — like Neo plugging in and knowing kung fu. Pure know-how, no tools. 45 ship in the box; you never name one — describe the work and the right one wakes." },
     spawnCmd: "spawn {agent}", spawnBody: "Opens a new session with that co-worker’s identity pre-loaded — a fresh tab working in parallel.",
     hatCmd: "/aios:agent {agent}", hatBody: "Wears that co-worker’s hat in your current session — same thread, new specialist lens.",
     chain: ["A session", "runs ›", "1+ agents", "each calls ›", "1+ skills", "=", "a super-intelligent team"],
@@ -255,7 +255,7 @@ const en: Content = {
     intro: "You don’t memorize commands or file paths. Everything below is available the moment setup finishes — say what you want and your session picks the right tool.",
     stats: [
       { n: "24", label: "Commands" }, { n: "31", label: "Agents · 6 bundles" },
-      { n: "42", label: "Bundled skills" }, { n: "10", label: "Bundled MCPs" },
+      { n: "45", label: "Bundled skills" }, { n: "10", label: "Bundled MCPs" },
     ],
     fleetEyebrow: "The fleet — spawn a co-worker in a named tab",
     fleet: [
@@ -263,11 +263,11 @@ const en: Content = {
       { e: "Finance · Legal · Eng", t: "The back office that never queues", b: "Bookkeeping to contract review; discovery to shipping — plus the builder that extends the AIOS itself.", mono: "accountant · lawyer · compliance-checker · technical-cofounder · code-reviewer · security-engineer" },
       { e: "Communication · Personal", t: "Your voice, multiplied", b: "Across every channel and deck — and the bundle that works on you, not just for you.", mono: "content-writer · deck-builder · email-drafter · growth-companion · study-buddy · onboarding-aios" },
     ],
-    links: ["Browse the 6 bundles", "See all 24 commands", "42 skills", "10 MCPs"],
+    links: ["Browse the 6 bundles", "See all 24 commands", "45 skills", "10 MCPs"],
   },
   skills: {
     eyebrow: "Skills", h: ["Capabilities that ", "load themselves", "."],
-    intro: "42 skills auto-load — describe the work and the right one wakes. 10 MCP servers ship vendored in the vault: local over remote, they authenticate independently of your AI account and survive every switch.",
+    intro: "45 skills auto-load — describe the work and the right one wakes. 10 MCP servers ship vendored in the vault: local over remote, they authenticate independently of your AI account and survive every switch.",
     cards: [
       { e: "Skills — four source folders", b: "AIOS-built (17) · Anthropic vendored (11) · Superpowers vendored (14) · yours under custom/. Coding patterns, design, documents, Obsidian-native, planning, compliance — plus skill-creator: the system extends itself." },
       { e: "Connectors — your real stack", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Plus the hooks: real clock in every prompt, ritual pre-loaders, any-file-to-markdown, multi-account autopilot." },
@@ -391,7 +391,7 @@ const es: Content = {
     headline: [{ t: "Una " }, { t: "sesión", a: true }, { t: " es el dónde. Un " }, { t: "agente", a: true }, { t: " es el quién. Un " }, { t: "skill", a: true }, { t: " es el cómo." }],
     session: { word: "Sesión", tag: "◧ una terminal — el dónde", t: "Dónde pasa el trabajo", b: "Un hilo vivo — el deal, el deck, el build. Lee tu contexto apenas se abre, corre los rituales, recuerda. Puedes correr muchas a la vez." },
     agent: { word: "Agente", tag: "◆ un archivo .md — el quién", t: "Quién lo hace", b: "Un especialista con nombre que cargas en una sesión — abogado, contador, investigador. Un rol con sus instrucciones y las herramientas que puede tocar. 31 vienen incluidos; lo invocas por su nombre o se elige por afinidad semántica con tu tarea." },
-    skill: { word: "Skill", tag: "✦ un .md, sin herramientas — el cómo", t: "Cómo se hace", b: "Experiencia lista para usar que un agente carga apenas la necesita — como Neo conectándose y sabiendo kung fu. Puro saber-hacer, sin herramientas. 42 vienen incluidos; nunca invocas uno — describe el trabajo y el correcto despierta." },
+    skill: { word: "Skill", tag: "✦ un .md, sin herramientas — el cómo", t: "Cómo se hace", b: "Experiencia lista para usar que un agente carga apenas la necesita — como Neo conectándose y sabiendo kung fu. Puro saber-hacer, sin herramientas. 45 vienen incluidos; nunca invocas uno — describe el trabajo y el correcto despierta." },
     spawnCmd: "spawn {agente}", spawnBody: "Abre una nueva sesión con la identidad de ese compañero precargada — una pestaña fresca trabajando en paralelo.",
     hatCmd: "/aios:agent {agente}", hatBody: "Se pone el sombrero de ese compañero en tu sesión actual — mismo hilo, nueva mirada especialista.",
     chain: ["Una sesión", "corre ›", "1+ agentes", "cada uno invoca ›", "1+ skills", "=", "un equipo súper-inteligente"],
@@ -503,7 +503,7 @@ const es: Content = {
     intro: "No memorizas comandos ni rutas de archivos. Todo lo de abajo está disponible apenas termina el setup — di lo que quieres y tu sesión elige la herramienta correcta.",
     stats: [
       { n: "24", label: "Comandos" }, { n: "31", label: "Agentes · 6 bundles" },
-      { n: "42", label: "Skills incluidos" }, { n: "10", label: "MCPs incluidos" },
+      { n: "45", label: "Skills incluidos" }, { n: "10", label: "MCPs incluidos" },
     ],
     fleetEyebrow: "La flota — invoca a un compañero en una pestaña con nombre",
     fleet: [
@@ -511,11 +511,11 @@ const es: Content = {
       { e: "Finanzas · Legal · Ing", t: "El back office que nunca hace fila", b: "De la contabilidad a la revisión de contratos; del discovery al envío — más el builder que extiende el propio AIOS.", mono: "accountant · lawyer · compliance-checker · technical-cofounder · code-reviewer · security-engineer" },
       { e: "Comunicación · Personal", t: "Tu voz, multiplicada", b: "En cada canal y cada deck — y el bundle que trabaja en ti, no solo para ti.", mono: "content-writer · deck-builder · email-drafter · growth-companion · study-buddy · onboarding-aios" },
     ],
-    links: ["Explora los 6 bundles", "Ver los 24 comandos", "42 skills", "10 MCPs"],
+    links: ["Explora los 6 bundles", "Ver los 24 comandos", "45 skills", "10 MCPs"],
   },
   skills: {
     eyebrow: "Skills", h: ["Capacidades que ", "se cargan solas", "."],
-    intro: "42 skills se autocargan — describe el trabajo y el correcto despierta. 10 servidores MCP vienen incluidos en el vault: local sobre remoto, se autentican independientes de tu cuenta de IA y sobreviven cada cambio.",
+    intro: "45 skills se autocargan — describe el trabajo y el correcto despierta. 10 servidores MCP vienen incluidos en el vault: local sobre remoto, se autentican independientes de tu cuenta de IA y sobreviven cada cambio.",
     cards: [
       { e: "Skills — cuatro carpetas fuente", b: "Hechos por AIOS (17) · vendored de Anthropic (11) · vendored de Superpowers (14) · los tuyos en custom/. Patrones de código, diseño, documentos, Obsidian-native, planeación, compliance — más skill-creator: el sistema se extiende a sí mismo." },
       { e: "Conectores — tu stack real", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Más los hooks: reloj real en cada prompt, precargadores de rituales, cualquier-archivo-a-markdown, autopilot multicuenta." },
@@ -639,7 +639,7 @@ const pt: Content = {
     headline: [{ t: "Uma " }, { t: "sessão", a: true }, { t: " é o onde. Um " }, { t: "agente", a: true }, { t: " é o quem. Um " }, { t: "skill", a: true }, { t: " é o como." }],
     session: { word: "Sessão", tag: "◧ um terminal — o onde", t: "Onde o trabalho acontece", b: "Um fio vivo — o deal, o deck, o build. Lê seu contexto assim que abre, roda os rituais, lembra. Você pode rodar várias ao mesmo tempo." },
     agent: { word: "Agente", tag: "◆ um arquivo .md — o quem", t: "Quem faz", b: "Um especialista com nome que você carrega numa sessão — advogado, contador, pesquisador. Um papel com suas instruções e as ferramentas que pode tocar. 31 vêm inclusos; você o invoca pelo nome ou ele é escolhido por afinidade semântica com sua tarefa." },
-    skill: { word: "Skill", tag: "✦ um .md, sem ferramentas — o como", t: "Como se faz", b: "Expertise pronta que um agente carrega no instante em que precisa — como Neo plugando e já sabendo kung fu. Puro saber-fazer, sem ferramentas. 42 vêm inclusos; você nunca invoca um — descreva o trabalho e o certo desperta." },
+    skill: { word: "Skill", tag: "✦ um .md, sem ferramentas — o como", t: "Como se faz", b: "Expertise pronta que um agente carrega no instante em que precisa — como Neo plugando e já sabendo kung fu. Puro saber-fazer, sem ferramentas. 45 vêm inclusos; você nunca invoca um — descreva o trabalho e o certo desperta." },
     spawnCmd: "spawn {agente}", spawnBody: "Abre uma nova sessão com a identidade desse colega pré-carregada — uma aba nova trabalhando em paralelo.",
     hatCmd: "/aios:agent {agente}", hatBody: "Veste o chapéu desse colega na sua sessão atual — mesmo fio, nova lente especialista.",
     chain: ["Uma sessão", "roda ›", "1+ agentes", "cada um chama ›", "1+ skills", "=", "um time super-inteligente"],
@@ -751,7 +751,7 @@ const pt: Content = {
     intro: "Você não decora comandos nem caminhos de arquivos. Tudo abaixo está disponível assim que o setup termina — diga o que quer e sua sessão escolhe a ferramenta certa.",
     stats: [
       { n: "24", label: "Comandos" }, { n: "31", label: "Agentes · 6 bundles" },
-      { n: "42", label: "Skills inclusos" }, { n: "10", label: "MCPs inclusos" },
+      { n: "45", label: "Skills inclusos" }, { n: "10", label: "MCPs inclusos" },
     ],
     fleetEyebrow: "A frota — invoque um colega numa aba com nome",
     fleet: [
@@ -759,11 +759,11 @@ const pt: Content = {
       { e: "Finanças · Jurídico · Eng", t: "O back office que nunca faz fila", b: "Da contabilidade à revisão de contratos; do discovery ao envio — mais o builder que estende o próprio AIOS.", mono: "accountant · lawyer · compliance-checker · technical-cofounder · code-reviewer · security-engineer" },
       { e: "Comunicação · Pessoal", t: "Sua voz, multiplicada", b: "Em cada canal e cada deck — e o bundle que trabalha em você, não só para você.", mono: "content-writer · deck-builder · email-drafter · growth-companion · study-buddy · onboarding-aios" },
     ],
-    links: ["Explore os 6 bundles", "Ver os 24 comandos", "42 skills", "10 MCPs"],
+    links: ["Explore os 6 bundles", "Ver os 24 comandos", "45 skills", "10 MCPs"],
   },
   skills: {
     eyebrow: "Skills", h: ["Capacidades que ", "se carregam sozinhas", "."],
-    intro: "42 skills se autocarregam — descreva o trabalho e a certa desperta. 10 servidores MCP vêm inclusos no vault: local sobre remoto, autenticam-se independentes da sua conta de IA e sobrevivem a cada troca.",
+    intro: "45 skills se autocarregam — descreva o trabalho e a certa desperta. 10 servidores MCP vêm inclusos no vault: local sobre remoto, autenticam-se independentes da sua conta de IA e sobrevivem a cada troca.",
     cards: [
       { e: "Skills — quatro pastas de origem", b: "Feitas pelo AIOS (17) · vendored da Anthropic (11) · vendored do Superpowers (14) · as suas em custom/. Padrões de código, design, documentos, Obsidian-native, planejamento, compliance — mais skill-creator: o sistema se estende sozinho." },
       { e: "Conectores — seu stack de verdade", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Mais os hooks: relógio real em cada prompt, pré-carregadores de rituais, qualquer-arquivo-para-markdown, autopilot multiconta." },
