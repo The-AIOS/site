@@ -195,7 +195,7 @@ const en: Content = {
     h: ["Giving everyone a ", "team of agents.", ""],
     leadBold: "AI as a team, not a tool.",
     leadRest: " The AIOS turns AI into co-workers — a legal you, an accountant you, a marketing you, an engineering you. Orchestrated by you, governed by your intent, compounding every day.",
-    tagline: "Gain bandwidth. Go Agentic.",
+    tagline: "9 out of 10 builders still prompt by hand. Stop prompting. Start orchestrating.",
     ctaPrimary: "Take the tour ↓", ctaGithub: "View on GitHub ↗",
     chips: ["declared context", "observed context", "intent", "agents", "skills", "rituals"],
   },
