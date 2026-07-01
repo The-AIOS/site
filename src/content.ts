@@ -269,7 +269,7 @@ const en: Content = {
     eyebrow: "Skills", h: ["Capabilities that ", "load themselves", "."],
     intro: "47 skills auto-load — describe the work and the right one wakes. 10 MCP servers ship vendored in the vault: local over remote, they authenticate independently of your AI account and survive every switch.",
     cards: [
-      { e: "Skills — four source folders", b: "AIOS-built (17) · Anthropic vendored (11) · Superpowers vendored (14) · yours under custom/. Coding patterns, design, documents, Obsidian-native, planning, compliance — plus skill-creator: the system extends itself." },
+      { e: "Skills — four source folders", b: "AIOS-built (22) · Anthropic vendored (11) · Superpowers vendored (14) · yours under custom/. Coding patterns, design, documents, Obsidian-native, planning, compliance, systems &amp; teams — plus skill-creator: the system extends itself." },
       { e: "Connectors — your real stack", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Plus the hooks: real clock in every prompt, ritual pre-loaders, any-file-to-markdown, multi-account autopilot." },
     ],
   },
@@ -517,7 +517,7 @@ const es: Content = {
     eyebrow: "Skills", h: ["Capacidades que ", "se cargan solas", "."],
     intro: "47 skills se autocargan — describe el trabajo y el correcto despierta. 10 servidores MCP vienen incluidos en el vault: local sobre remoto, se autentican independientes de tu cuenta de IA y sobreviven cada cambio.",
     cards: [
-      { e: "Skills — cuatro carpetas fuente", b: "Hechos por AIOS (17) · vendored de Anthropic (11) · vendored de Superpowers (14) · los tuyos en custom/. Patrones de código, diseño, documentos, Obsidian-native, planeación, compliance — más skill-creator: el sistema se extiende a sí mismo." },
+      { e: "Skills — cuatro carpetas fuente", b: "Hechos por AIOS (22) · vendored de Anthropic (11) · vendored de Superpowers (14) · los tuyos en custom/. Patrones de código, diseño, documentos, Obsidian-native, planeación, compliance, sistemas y equipos — más skill-creator: el sistema se extiende a sí mismo." },
       { e: "Conectores — tu stack real", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Más los hooks: reloj real en cada prompt, precargadores de rituales, cualquier-archivo-a-markdown, autopilot multicuenta." },
     ],
   },
@@ -765,7 +765,7 @@ const pt: Content = {
     eyebrow: "Skills", h: ["Capacidades que ", "se carregam sozinhas", "."],
     intro: "47 skills se autocarregam — descreva o trabalho e a certa desperta. 10 servidores MCP vêm inclusos no vault: local sobre remoto, autenticam-se independentes da sua conta de IA e sobrevivem a cada troca.",
     cards: [
-      { e: "Skills — quatro pastas de origem", b: "Feitas pelo AIOS (17) · vendored da Anthropic (11) · vendored do Superpowers (14) · as suas em custom/. Padrões de código, design, documentos, Obsidian-native, planejamento, compliance — mais skill-creator: o sistema se estende sozinho." },
+      { e: "Skills — quatro pastas de origem", b: "Feitas pelo AIOS (22) · vendored da Anthropic (11) · vendored do Superpowers (14) · as suas em custom/. Padrões de código, design, documentos, Obsidian-native, planejamento, compliance, sistemas e times — mais skill-creator: o sistema se estende sozinho." },
       { e: "Conectores — seu stack de verdade", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Mais os hooks: relógio real em cada prompt, pré-carregadores de rituais, qualquer-arquivo-para-markdown, autopilot multiconta." },
     ],
   },
