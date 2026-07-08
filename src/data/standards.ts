@@ -169,7 +169,7 @@ export const PULSE_INDEX: PulseEntry[] = [
     stage: "production", // it moves real (if tiny) volume
     confidence: "high",
     source:
-      "Sell Trust (book) Ch.19 — SELL-TRUST-FULL-DRAFT.md L1498/L1546/L1571; endnote L1684. Protocol deliberately unnamed in the source; do NOT attribute it to AP2 or any named rail.",
+      "Forthcoming — Sell Trust (2026). Protocol deliberately unnamed in the source.",
   },
   {
     id: "mcp-auth-scan",
@@ -182,11 +182,11 @@ export const PULSE_INDEX: PulseEntry[] = [
     stage: "production",
     confidence: "high",
     source:
-      "arXiv:2605.22333, “A First Measurement Study on Authentication Security in Real-World Remote MCP Servers” (2026), via Sell Trust Ch.10 L838; endnote L1666.",
+      "arXiv:2605.22333 — “A First Measurement Study on Authentication Security in Real-World Remote MCP Servers” (2026).",
   },
   {
     id: "aauth",
-    subject: "AAuth",
+    subject: "AAuth (Dick Hardt)",
     category: "Agent identity / authorization",
     narrative: "IETF draft-track; positioned as the agent-auth standard.",
     measured: "0 production deployments (as of 2026-07-06); IETF draft rev-09.",
@@ -194,7 +194,7 @@ export const PULSE_INDEX: PulseEntry[] = [
     stage: "draft-spec",
     confidence: "high",
     source:
-      "Competitive analysis, sovra-master §4 (2026-07-06). AAuth draft revision (rev-09) is as-of that read — restamp if it advances before publish.",
+      "Public IETF draft — AAuth (Dick Hardt); draft rev-09 as of 2026-07-06, restamp if it advances before publish.",
   },
   {
     id: "lyrie-atp",
@@ -204,9 +204,9 @@ export const PULSE_INDEX: PulseEntry[] = [
     measured: "Whitepaper-stage; no shown production — “raised on a whitepaper.”",
     authPosture: "[TBD-verify]",
     stage: "whitepaper",
-    confidence: "medium", // characterization from vault audits, not a hard metric
+    confidence: "medium", // observatory characterization, not a hard metric
     source:
-      "Vault audits: sovra-coherence-audit 2026-06-11 L36; sovra-product-family-audit 2026-07-02 L71.",
+      "AIOS Observatory assessment — whitepaper-stage; no shown production as of mid-2026.",
   },
   // ---- Real cash, for contrast (the honest floor — NOT washing) ----
   {
@@ -219,7 +219,7 @@ export const PULSE_INDEX: PulseEntry[] = [
     stage: "production",
     confidence: "medium", // company-reported
     isFloor: true,
-    source: "Sell Trust Ch.1 L134; endnote L1648 (company public pricing/press).",
+    source: "Company public pricing / press.",
   },
   {
     id: "cognition-devin",
@@ -231,7 +231,7 @@ export const PULSE_INDEX: PulseEntry[] = [
     stage: "production",
     confidence: "medium",
     isFloor: true,
-    source: "Sell Trust Ch.1 L134; endnote L1648.",
+    source: "Public pricing (Cognition / Devin).",
   },
 ];
 
@@ -244,13 +244,13 @@ export const PULSE_HEADLINE = {
     transactional: "~20%",
     label:
       "of execs trust agents for routine analysis — but it falls to ~20% the moment the agent touches a transaction.",
-    source: "Sell Trust Ch.19 L1498; endnote L1684.",
+    source: "Forthcoming — Sell Trust (2026).",
   },
   narrativeCeiling: {
     figure: "$4.6T",
     label:
       "the canonical agentic-economy sizing — a Foundation Capital top-down projection of addressable knowledge-work wages, explicitly NOT measured revenue. “A map to gold, sold at the trailhead.”",
-    source: "Sell Trust Ch.1 L134; endnote L1648.",
+    source: "Foundation Capital — top-down projection.",
   },
 } as const;
 

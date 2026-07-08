@@ -48,6 +48,7 @@ export const MARKET_MAP: MarketSolution[] = [
   {
     id: "aauth",
     name: "AAuth",
+    qualifier: "Dick Hardt · IETF draft",
     relationship: "rival",
     what: "Delegated authorization for agents. The most direct attempt at the same problem: letting a principal grant scoped authority to an agent. Includes a genuinely good asynchronous-consent pattern (pending / deferred approval).",
     stops:
