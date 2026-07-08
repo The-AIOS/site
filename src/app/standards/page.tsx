@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { PulseLine } from "@/components/standards/PulseLine";
+import ReceiptChain from "@/components/standards/ReceiptChain";
+import EmptyLane from "@/components/standards/EmptyLane";
 import {
   STANDARDS,
   STATUS_META,
@@ -14,6 +17,7 @@ import {
   RELATIONSHIP_META,
   LANE_CRITERIA,
 } from "@/data/marketMap";
+import "./standards.css";
 
 const TITLE = "Agentic Standards — the scene, mapped";
 const DESCRIPTION =
@@ -161,7 +165,7 @@ function PulseCard({ p }: { p: PulseEntry }) {
 
 export default function StandardsPage() {
   return (
-    <div>
+    <div className="std-root">
       {/* ---------- Header (site chrome) ---------- */}
       <header className="site-header">
         <div
@@ -224,6 +228,48 @@ export default function StandardsPage() {
               whose authority</strong> after. These are the standards making that
               real, what each one covers, and how they fit together.
             </p>
+
+            {/* The through-line — one argument, read top to bottom */}
+            <p
+              className="eyebrow"
+              style={{ margin: "2.5rem 0 0", display: "flex", alignItems: "center", gap: "0.6rem" }}
+            >
+              <PulseLine label="Live pulse" /> One page, one argument — read it top to bottom
+            </p>
+            <div className="std-arc">
+              <div className="std-arc-step">
+                <p className="std-arc-k">First</p>
+                <p className="std-arc-t">What we run</p>
+                <p className="std-arc-d">
+                  The Proof Pair — the open spec we operate: mandate in, receipt
+                  out.
+                </p>
+              </div>
+              <div className="std-arc-step">
+                <p className="std-arc-k">Then</p>
+                <p className="std-arc-t">How we read the field</p>
+                <p className="std-arc-d">
+                  The Agentic Pulse — narrative measured against reality, every
+                  figure sourced.
+                </p>
+              </div>
+              <div className="std-arc-step">
+                <p className="std-arc-k">Which surfaces</p>
+                <p className="std-arc-t">A lane we&apos;re opening</p>
+                <p className="std-arc-d">
+                  Claim Provenance — an unoccupied question we think matters, put
+                  in the open as an invitation.
+                </p>
+              </div>
+              <div className="std-arc-step">
+                <p className="std-arc-k">Set in</p>
+                <p className="std-arc-t">The whole map</p>
+                <p className="std-arc-d">
+                  The scene and the market — every rail, and where the lane still
+                  sits empty.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -264,6 +310,12 @@ export default function StandardsPage() {
                 mandate that authorized it. One spec, because every receipt references its
                 mandate. This is what we run, specified so you can run it too.
               </p>
+
+              {/* the pair, alive: mandate → action → receipt, on a growing chain */}
+              <div style={{ margin: "0.5rem auto 0.25rem", width: "100%" }}>
+                <ReceiptChain />
+              </div>
+
               <p style={{ margin: "0.25rem 0 0", fontSize: "0.875rem" }}>
                 <a
                   href="https://the-aios.org/proof-pair/"
@@ -278,6 +330,14 @@ export default function StandardsPage() {
                 </span>
               </p>
             </div>
+
+            {/* bridge → Agentic Pulse */}
+            <p className="std-bridge">
+              <span className="std-next">Then — how we read the field</span>
+              That&apos;s what we run. To place it honestly, we start by reading the
+              agent economy as it actually is —{" "}
+              <strong>the story it tells, measured against what it can show.</strong>
+            </p>
           </div>
         </section>
 
@@ -289,9 +349,17 @@ export default function StandardsPage() {
           }}
         >
           <div className="container">
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>
-              <span className="accent">●</span> Agentic Pulse · narrative vs
-              measured reality
+            <p
+              className="eyebrow"
+              style={{
+                marginBottom: "1rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.6rem",
+              }}
+            >
+              <PulseLine label="Agentic Pulse — live index" /> Agentic Pulse ·
+              narrative vs measured reality
             </p>
             <h2
               style={{
@@ -433,10 +501,18 @@ export default function StandardsPage() {
                 <PulseCard key={p.id} p={p} />
               ))}
             </div>
+
+            {/* bridge → Claim Provenance */}
+            <p className="std-bridge">
+              <span className="std-next">Which surfaces — an open lane</span>
+              Reading the field this way surfaces where the gaps are. One gap has
+              no one standing in it yet — and{" "}
+              <strong>it isn&apos;t a lane to seize, it&apos;s a question to open.</strong>
+            </p>
           </div>
         </section>
 
-        {/* ---------- Claim Provenance — the unoccupied lane ---------- */}
+        {/* ---------- Claim Provenance — the open lane ---------- */}
         <section
           style={{
             borderBottom: "1px solid var(--color-hairline)",
@@ -447,15 +523,16 @@ export default function StandardsPage() {
             <div
               style={{
                 ...card,
-                // dashed hairline border = "named, not yet built" (vs the Proof
-                // Pair's solid accent border = "live"). Deliberate contrast.
+                // dashed hairline border = "an open invitation, not yet built"
+                // (vs the Proof Pair's solid accent border = "live"). Deliberate
+                // contrast: this lane is offered, not occupied.
                 border: "1px dashed var(--color-hairline)",
                 gap: "0.8rem",
               }}
             >
               <p className="eyebrow" style={{ margin: 0 }}>
-                <span className="accent">●</span> The unoccupied lane · named in
-                the open, not yet built
+                <span className="accent">●</span> An open lane · a question we
+                think matters, offered not claimed
               </p>
               <h2
                 style={{
@@ -492,16 +569,27 @@ export default function StandardsPage() {
               </p>
               <p style={{ margin: "0.25rem 0 0", fontSize: "0.875rem" }}>
                 <span className="accent" style={{ fontWeight: 600 }}>
-                  We&apos;re naming the lane here, in the open, before it&apos;s
-                  occupied.&nbsp;
+                  We&apos;re putting this open question on the record — as an
+                  invitation, not a claim.&nbsp;
                 </span>
                 <span style={{ color: "var(--color-ink-subtle)" }}>
-                  A citable, public prior-art stake — the same posture as the
-                  Proof Pair. The spec isn&apos;t written yet. Neither is anyone
-                  else&apos;s. That&apos;s the invitation.
+                  An unoccupied lane we think matters, named in public so the
+                  people who should build it can find it — the same host posture
+                  as the Proof Pair. The spec isn&apos;t written yet. Neither is
+                  anyone else&apos;s, and we&apos;d rather help open the lane than
+                  fence it off. Consider this an open door.
                 </span>
               </p>
             </div>
+
+            {/* bridge → the scene + market map */}
+            <p className="std-bridge">
+              <span className="std-next">Set in — the whole map</span>
+              That&apos;s the lane we&apos;re opening. Here is the whole field it
+              sits in —{" "}
+              <strong>every rail pulling the same direction, and where the lane
+              still reads empty.</strong>
+            </p>
           </div>
         </section>
 
@@ -641,6 +729,11 @@ export default function StandardsPage() {
                 implemented, not proposed.
               </strong>
             </p>
+
+            {/* the map, alive: eight boxes fill, the center lane stays open */}
+            <div style={{ margin: "1.75rem auto 0.5rem" }}>
+              <EmptyLane />
+            </div>
 
             {/* The lane, stated first */}
             <div style={{ ...card, margin: "1.5rem 0 2rem", gap: "0.9rem" }}>
@@ -864,8 +957,9 @@ export default function StandardsPage() {
                 maxWidth: "72ch",
               }}
             >
-              The strongest position is to be the authority layer everyone else
-              needs — adopting the best ideas without adopting whole protocols:{" "}
+              The position we&apos;re aiming for is to be the authority layer
+              everyone else can build on — adopting the best ideas without
+              adopting whole protocols:{" "}
               <strong style={{ color: "var(--color-ink)" }}>
                 attenuation per hop
               </strong>{" "}
