@@ -87,6 +87,7 @@ export type Content = {
   glass: {
     eyebrow: string; h: H; bodyBold: string; bodyRest: string;
     pullAccent: string; pullRest: string; cards: CardT[];
+    busEyebrow: string; busH: H; busLead: string; busCards: CardT[];
   };
   workspaces: {
     eyebrow: string; h: H; intro: string; cards: CardT[]; caption: string; pull: H;
@@ -118,10 +119,10 @@ export type Content = {
   meta: { title: string; description: string };
 };
 
-const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#setup", "#manual"];
+const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#setup", "#glass", "#manual"];
 
 const en: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Glass", "Manual"][i] })),
   why: {
     eyebrow: "Why now",
     h: ["AI is getting better than us at ", "almost everything", "."],
@@ -254,8 +255,8 @@ const en: Content = {
     eyebrow: "The toolbox", h: ["Describe what you need. ", "The system matches.", ""],
     intro: "You don’t memorize commands or file paths. Everything below is available the moment setup finishes — say what you want and your session picks the right tool.",
     stats: [
-      { n: "24", label: "Commands" }, { n: "33", label: "Agents · 6 bundles" },
-      { n: "47", label: "Bundled skills" }, { n: "10", label: "Bundled MCPs" },
+      { n: "20+", label: "Commands" }, { n: "30+", label: "Agents · 6 bundles" },
+      { n: "40+", label: "Bundled skills" }, { n: "10+", label: "Bundled MCPs" },
     ],
     fleetEyebrow: "The fleet — spawn a co-worker in a named tab",
     fleet: [
@@ -263,11 +264,11 @@ const en: Content = {
       { e: "Finance · Legal · Eng", t: "The back office that never queues", b: "Bookkeeping to contract review; discovery to shipping — plus the builder that extends the AIOS itself.", mono: "accountant · lawyer · compliance-checker · technical-cofounder · code-reviewer · security-engineer" },
       { e: "Communication · Personal", t: "Your voice, multiplied", b: "Across every channel and deck — and the bundle that works on you, not just for you.", mono: "content-writer · deck-builder · email-drafter · growth-companion · study-buddy · onboarding-aios" },
     ],
-    links: ["Browse the 6 bundles", "See all 24 commands", "47 skills", "10 MCPs"],
+    links: ["Browse the 6 bundles", "20+ commands", "40+ skills", "10+ MCPs"],
   },
   skills: {
     eyebrow: "Skills", h: ["Capabilities that ", "load themselves", "."],
-    intro: "47 skills auto-load — describe the work and the right one wakes. 10 MCP servers ship vendored in the vault: local over remote, they authenticate independently of your AI account and survive every switch.",
+    intro: "40+ skills auto-load — describe the work and the right one wakes. 10+ MCP servers ship vendored in the vault: local over remote, they authenticate independently of your AI account and survive every switch.",
     cards: [
       { e: "Skills — four source folders", b: "AIOS-built (22) · Anthropic vendored (11) · Superpowers vendored (14) · yours under custom/. Coding patterns, design, documents, Obsidian-native, planning, compliance, systems &amp; teams — plus skill-creator: the system extends itself." },
       { e: "Connectors — your real stack", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Plus the hooks: real clock in every prompt, ritual pre-loaders, any-file-to-markdown, multi-account autopilot." },
@@ -299,6 +300,14 @@ const en: Content = {
       { e: "Home + calendar", b: "Live dashboard, month grid, rituals one click away." },
       { e: "Agents + capabilities", b: "Fleet browser with a spawn flow; skills, MCPs, and plugins discovered live." },
       { e: "Spaces + onboarding", b: "Company & collaborate as forms; an eight-step guided walkthrough on first run." },
+    ],
+    busEyebrow: "The command bus",
+    busH: ["Agents orchestrate agents — ", "through a surface you trust", "."],
+    busLead: "A coordinator session can’t be handed the keys to launch and drive other agents on its own — the model’s own guardrails stop it, and rightly so. So it doesn’t force the door. It drops a request in Glass’s inbox, and Glass — the extension you already trust — fulfils it natively: spawn a worker, message it, retire it. Request, don’t spawn.",
+    busCards: [
+      { e: "Three verbs, one channel", b: "spawn · send · kill — a small JSON file dropped in ~/.aios/spawn-inbox/, fulfilled by Glass with no synthetic keystrokes and no gate." },
+      { e: "Right model for the job", b: "Route each worker by cognitive load — mechanical work to a faster model, judgment to the frontier. Calibrate, don’t choose." },
+      { e: "The loop closes", b: "A worker’s reply routes the same rail back into the coordinator — even a long-lived one — so agents hold real, multi-turn conversations." },
     ],
   },
   workspaces: {
@@ -369,7 +378,7 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Glass", "Manual"][i] })),
   why: {
     eyebrow: "Por qué ahora",
     h: ["La IA se está volviendo mejor que nosotros en ", "casi todo", "."],
@@ -502,8 +511,8 @@ const es: Content = {
     eyebrow: "La caja de herramientas", h: ["Describe lo que necesitas. ", "El sistema lo encuentra.", ""],
     intro: "No memorizas comandos ni rutas de archivos. Todo lo de abajo está disponible apenas termina el setup — di lo que quieres y tu sesión elige la herramienta correcta.",
     stats: [
-      { n: "24", label: "Comandos" }, { n: "33", label: "Agentes · 6 bundles" },
-      { n: "47", label: "Skills incluidos" }, { n: "10", label: "MCPs incluidos" },
+      { n: "20+", label: "Comandos" }, { n: "30+", label: "Agentes · 6 bundles" },
+      { n: "40+", label: "Skills incluidos" }, { n: "10+", label: "MCPs incluidos" },
     ],
     fleetEyebrow: "La flota — invoca a un compañero en una pestaña con nombre",
     fleet: [
@@ -511,11 +520,11 @@ const es: Content = {
       { e: "Finanzas · Legal · Ing", t: "El back office que nunca hace fila", b: "De la contabilidad a la revisión de contratos; del discovery al envío — más el builder que extiende el propio AIOS.", mono: "accountant · lawyer · compliance-checker · technical-cofounder · code-reviewer · security-engineer" },
       { e: "Comunicación · Personal", t: "Tu voz, multiplicada", b: "En cada canal y cada deck — y el bundle que trabaja en ti, no solo para ti.", mono: "content-writer · deck-builder · email-drafter · growth-companion · study-buddy · onboarding-aios" },
     ],
-    links: ["Explora los 6 bundles", "Ver los 24 comandos", "47 skills", "10 MCPs"],
+    links: ["Explora los 6 bundles", "20+ comandos", "40+ skills", "10+ MCPs"],
   },
   skills: {
     eyebrow: "Skills", h: ["Capacidades que ", "se cargan solas", "."],
-    intro: "47 skills se autocargan — describe el trabajo y el correcto despierta. 10 servidores MCP vienen incluidos en el vault: local sobre remoto, se autentican independientes de tu cuenta de IA y sobreviven cada cambio.",
+    intro: "40+ skills se autocargan — describe el trabajo y el correcto despierta. 10+ servidores MCP vienen incluidos en el vault: local sobre remoto, se autentican independientes de tu cuenta de IA y sobreviven cada cambio.",
     cards: [
       { e: "Skills — cuatro carpetas fuente", b: "Hechos por AIOS (22) · vendored de Anthropic (11) · vendored de Superpowers (14) · los tuyos en custom/. Patrones de código, diseño, documentos, Obsidian-native, planeación, compliance, sistemas y equipos — más skill-creator: el sistema se extiende a sí mismo." },
       { e: "Conectores — tu stack real", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Más los hooks: reloj real en cada prompt, precargadores de rituales, cualquier-archivo-a-markdown, autopilot multicuenta." },
@@ -547,6 +556,14 @@ const es: Content = {
       { e: "Home + calendario", b: "Dashboard vivo, grilla mensual, rituales a un clic." },
       { e: "Agentes + capacidades", b: "Navegador de la flota con flujo de spawn; skills, MCPs y plugins descubiertos en vivo." },
       { e: "Espacios + onboarding", b: "Company y collaborate como formularios; un recorrido guiado de ocho pasos en el primer arranque." },
+    ],
+    busEyebrow: "El bus de comandos",
+    busH: ["Agentes que orquestan agentes — ", "a través de una superficie confiable", "."],
+    busLead: "Una sesión coordinadora no puede recibir las llaves para lanzar y dirigir a otros agentes por su cuenta — las barreras del propio modelo se lo impiden, y con razón. Así que no fuerza la puerta: deja una solicitud en el inbox de Glass, y Glass — la extensión en la que ya confías — la cumple de forma nativa: crear un worker, enviarle un mensaje, retirarlo. Solicita, no lances.",
+    busCards: [
+      { e: "Tres verbos, un canal", b: "spawn · send · kill — un pequeño archivo JSON en ~/.aios/spawn-inbox/, ejecutado por Glass sin pulsaciones sintéticas y sin bloqueos." },
+      { e: "El modelo justo para la tarea", b: "Enruta cada worker por carga cognitiva — trabajo mecánico a un modelo más rápido, criterio a la frontera. Calibra, no elijas." },
+      { e: "El ciclo se cierra", b: "La respuesta de un worker regresa por el mismo riel a la sesión coordinadora — incluso una de larga duración — para que los agentes sostengan conversaciones reales de varios turnos." },
     ],
   },
   workspaces: {
@@ -617,7 +634,7 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Glass", "Manual"][i] })),
   why: {
     eyebrow: "Por que agora",
     h: ["A IA está ficando melhor que nós em ", "quase tudo", "."],
@@ -750,8 +767,8 @@ const pt: Content = {
     eyebrow: "A caixa de ferramentas", h: ["Descreva o que precisa. ", "O sistema encontra.", ""],
     intro: "Você não decora comandos nem caminhos de arquivos. Tudo abaixo está disponível assim que o setup termina — diga o que quer e sua sessão escolhe a ferramenta certa.",
     stats: [
-      { n: "24", label: "Comandos" }, { n: "33", label: "Agentes · 6 bundles" },
-      { n: "47", label: "Skills inclusos" }, { n: "10", label: "MCPs inclusos" },
+      { n: "20+", label: "Comandos" }, { n: "30+", label: "Agentes · 6 bundles" },
+      { n: "40+", label: "Skills inclusos" }, { n: "10+", label: "MCPs inclusos" },
     ],
     fleetEyebrow: "A frota — invoque um colega numa aba com nome",
     fleet: [
@@ -759,11 +776,11 @@ const pt: Content = {
       { e: "Finanças · Jurídico · Eng", t: "O back office que nunca faz fila", b: "Da contabilidade à revisão de contratos; do discovery ao envio — mais o builder que estende o próprio AIOS.", mono: "accountant · lawyer · compliance-checker · technical-cofounder · code-reviewer · security-engineer" },
       { e: "Comunicação · Pessoal", t: "Sua voz, multiplicada", b: "Em cada canal e cada deck — e o bundle que trabalha em você, não só para você.", mono: "content-writer · deck-builder · email-drafter · growth-companion · study-buddy · onboarding-aios" },
     ],
-    links: ["Explore os 6 bundles", "Ver os 24 comandos", "47 skills", "10 MCPs"],
+    links: ["Explore os 6 bundles", "20+ comandos", "40+ skills", "10+ MCPs"],
   },
   skills: {
     eyebrow: "Skills", h: ["Capacidades que ", "se carregam sozinhas", "."],
-    intro: "47 skills se autocarregam — descreva o trabalho e a certa desperta. 10 servidores MCP vêm inclusos no vault: local sobre remoto, autenticam-se independentes da sua conta de IA e sobrevivem a cada troca.",
+    intro: "40+ skills se autocarregam — descreva o trabalho e a certa desperta. 10+ servidores MCP vêm inclusos no vault: local sobre remoto, autenticam-se independentes da sua conta de IA e sobrevivem a cada troca.",
     cards: [
       { e: "Skills — quatro pastas de origem", b: "Feitas pelo AIOS (22) · vendored da Anthropic (11) · vendored do Superpowers (14) · as suas em custom/. Padrões de código, design, documentos, Obsidian-native, planejamento, compliance, sistemas e times — mais skill-creator: o sistema se estende sozinho." },
       { e: "Conectores — seu stack de verdade", b: "Google Workspace · Slack · GitHub · Atlassian · NotebookLM · Stitch · Playwright · Nano Banana · PDF Generator · Spotify DJ. Mais os hooks: relógio real em cada prompt, pré-carregadores de rituais, qualquer-arquivo-para-markdown, autopilot multiconta." },
@@ -795,6 +812,14 @@ const pt: Content = {
       { e: "Home + calendário", b: "Dashboard vivo, grade mensal, rituais a um clique." },
       { e: "Agentes + capacidades", b: "Navegador da frota com fluxo de spawn; skills, MCPs e plugins descobertos ao vivo." },
       { e: "Espaços + onboarding", b: "Company e collaborate como formulários; um passo a passo guiado de oito etapas na primeira execução." },
+    ],
+    busEyebrow: "O barramento de comandos",
+    busH: ["Agentes orquestrando agentes — ", "através de uma superfície confiável", "."],
+    busLead: "Uma sessão coordenadora não pode receber as chaves para lançar e dirigir outros agentes por conta própria — as proteções do próprio modelo impedem isso, e com razão. Então ela não força a porta: deixa uma solicitação no inbox do Glass, e o Glass — a extensão em que você já confia — a cumpre de forma nativa: criar um worker, enviar uma mensagem, encerrá-lo. Solicite, não lance.",
+    busCards: [
+      { e: "Três verbos, um canal", b: "spawn · send · kill — um pequeno arquivo JSON em ~/.aios/spawn-inbox/, executado pelo Glass sem teclas sintéticas e sem bloqueios." },
+      { e: "O modelo certo para a tarefa", b: "Direcione cada worker pela carga cognitiva — trabalho mecânico para um modelo mais rápido, julgamento para a fronteira. Calibre, não escolha." },
+      { e: "O ciclo se fecha", b: "A resposta de um worker volta pelo mesmo trilho até a sessão coordenadora — mesmo uma de longa duração — para que os agentes tenham conversas reais de vários turnos." },
     ],
   },
   workspaces: {

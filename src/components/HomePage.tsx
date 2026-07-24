@@ -37,7 +37,8 @@ import {
   OrchestratorShift,
   TwoMachines,
   OsAnatomy,
-  GlassPanel,
+  GlassWorkspace,
+  CommandBusFlow,
   TeamMount,
   SkillsBeam,
 } from "./deckGraphics";
@@ -573,28 +574,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <a href="/llms.txt" style={{ color: "var(--color-accent)" }}>/llms.txt</a>.
             </div>
 
-            {/* — Glass: the interface — */}
-            <SubLabel>{c.how.subGlass}</SubLabel>
-            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
-              <div>
-                <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                  <strong style={INK}>{c.glass.bodyBold}</strong>
-                  {c.glass.bodyRest}
-                </p>
-                <p className="pullquote">
-                  <span className="accent">{c.glass.pullAccent}</span>
-                  {c.glass.pullRest}
-                </p>
-              </div>
-              <Reveal className="graphic-frame tight">
-                <GlassPanel />
-              </Reveal>
-            </div>
-            <Reveal className="grid-3 reveal-cards">
-              {c.glass.cards.map((g) => (
-                <Card key={g.e} eyebrow={g.e}>{g.b}</Card>
-              ))}
-            </Reveal>
           </div>
         </section>
 
@@ -672,18 +651,63 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             </div>
 
             <p className="pullquote-lg" style={{ marginBottom: "3.5rem" }}>{c.setup.learnable}</p>
+          </div>
+        </section>
 
-            {/* The Operating Manual — embedded PDF + download */}
-            <div id="manual" style={{ paddingTop: "2.5rem", borderTop: "1px solid var(--color-hairline)", scrollMarginTop: "76px" }}>
-              <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.manual.eyebrow}</div>
-              <h3 className="display-md" style={{ marginBottom: "1rem", maxWidth: "22ch" }}><HL h={c.manual.h} /></h3>
-              <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.manual.body}</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", marginBottom: "2rem" }}>
-                <ManualDownload className="btn-primary">{c.manual.downloadBtn}</ManualDownload>
-                <GitHubLink href={REPO} surface="manual-source" className="btn-secondary">{c.getStarted.setupBtn}</GitHubLink>
+        {/* ============ 06 — GLASS: THE INTERFACE ============ */}
+        <section id="glass" className="section hero-glow">
+          <div className="container">
+            <SectionLabel num="06">{c.how.subGlass}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.glass.h} /></h2>
+
+            {/* Movement 1 — what Glass is + the workspace mockup */}
+            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
+              <div>
+                <p className="body-text" style={{ marginBottom: "1.5rem" }}>
+                  <strong style={INK}>{c.glass.bodyBold}</strong>
+                  {c.glass.bodyRest}
+                </p>
+                <p className="pullquote">
+                  <span className="accent">{c.glass.pullAccent}</span>
+                  {c.glass.pullRest}
+                </p>
               </div>
-              <ManualEmbed />
+              <Reveal className="graphic-frame tight">
+                <GlassWorkspace />
+              </Reveal>
             </div>
+            <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "4rem" }}>
+              {c.glass.cards.map((g) => (
+                <Card key={g.e} eyebrow={g.e}>{g.b}</Card>
+              ))}
+            </Reveal>
+
+            {/* Movement 2 — the command bus */}
+            <div className="eyebrow" style={{ marginBottom: "1rem", color: "var(--color-accent)" }}>{c.glass.busEyebrow}</div>
+            <h3 className="display-md" style={{ marginBottom: "1.25rem", maxWidth: "22ch" }}><HL h={c.glass.busH} /></h3>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.glass.busLead}</p>
+            <Reveal className="graphic-frame" style={{ marginBottom: "2.5rem" }}>
+              <CommandBusFlow />
+            </Reveal>
+            <Reveal className="grid-3 reveal-cards">
+              {c.glass.busCards.map((g) => (
+                <Card key={g.e} eyebrow={g.e}>{g.b}</Card>
+              ))}
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ============ 07 — THE MANUAL (the artifact) ============ */}
+        <section id="manual" className="section">
+          <div className="container">
+            <SectionLabel num="07">{c.manual.eyebrow}</SectionLabel>
+            <h2 className="display-lg" style={{ marginBottom: "1rem", maxWidth: "22ch" }}><HL h={c.manual.h} /></h2>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.manual.body}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", marginBottom: "2rem" }}>
+              <ManualDownload className="btn-primary">{c.manual.downloadBtn}</ManualDownload>
+              <GitHubLink href={REPO} surface="manual-source" className="btn-secondary">{c.getStarted.setupBtn}</GitHubLink>
+            </div>
+            <ManualEmbed />
           </div>
         </section>
 

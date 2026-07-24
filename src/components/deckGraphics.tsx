@@ -428,3 +428,215 @@ export function TeamMount() {
     </svg>
   );
 }
+
+/* GlassWorkspace — AIOS Glass living inside the editor: the vault EXPLORER on
+ * the left, the Glass panel (rituals + a live running-sessions card) on the
+ * right. On-brand: one accent — a working session's dot is coral (breathing),
+ * idle dots are subtle grey; no rainbow status palette. */
+export function GlassWorkspace() {
+  const tree: [string, number, boolean][] = [
+    ["▾ 00 - notes", 0, false],
+    ["projects", 1, false],
+    ["context", 1, false],
+    ["infra-aios-glass.md", 1, true],
+    ["▾ 01 - calendar", 0, false],
+    ["▸ 03 - export", 0, false],
+  ];
+  const rituals = [
+    { x: 172, w: 74, label: "Plan day" },
+    { x: 254, w: 66, label: "Spawn" },
+    { x: 328, w: 60, label: "Sync" },
+  ];
+  const sessions: [string, string, boolean][] = [
+    ["coordinator", "idle", false],
+    ["designer", "working", true],
+    ["accountant", "idle", false],
+  ];
+  return (
+    <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" style={svgStyle(440)} aria-label="AIOS Glass inside the editor: the vault explorer on the left, the Glass panel with rituals and a live running-sessions card on the right.">
+      {/* window chrome */}
+      <g className="anim-fade" style={delay(0.1)}>
+        <rect x="8" y="8" width="464" height="284" rx="10" fill={SURF} stroke={HAIR} />
+        <circle cx="26" cy="26" r="3.5" fill={HAIR} />
+        <circle cx="38" cy="26" r="3.5" fill={HAIR} />
+        <circle cx="50" cy="26" r="3.5" fill={HAIR} />
+        <text x="66" y="29" fontFamily={MONO} fontSize="8.5" fill={SUBTLE}>antigravity — the-aios</text>
+        <line x1="8" y1="42" x2="472" y2="42" stroke={HAIR} />
+        <line x1="152" y1="42" x2="152" y2="292" stroke={HAIR} />
+      </g>
+      {/* explorer */}
+      <g className="anim-fade" style={delay(0.25)}>
+        <text x="22" y="60" fontFamily={MONO} fontSize="8" letterSpacing="1.2" fill={SUBTLE}>EXPLORER</text>
+        {tree.map(([t, d, on], i) => (
+          <text key={t} x={22 + d * 12} y={80 + i * 20} fontFamily={MONO} fontSize="9.5" fill={on ? ACCENT : MUTED}>{t}</text>
+        ))}
+      </g>
+      {/* glass header */}
+      <text className="anim-fade" x="172" y="60" fontFamily={MONO} fontSize="9" letterSpacing="1.6" fill={ACCENT} style={delay(0.35)}>AIOS GLASS</text>
+      {/* rituals */}
+      {rituals.map((b, i) => (
+        <g key={b.label} className="anim-pop" style={delay(0.5 + i * 0.1)}>
+          <rect x={b.x} y="72" width={b.w} height="26" rx="13" fill="var(--color-surface-2)" stroke={HAIR} />
+          <text x={b.x + b.w / 2} y="89" textAnchor="middle" fontFamily={SANS} fontWeight="600" fontSize="10" fill={INK}>{b.label}</text>
+        </g>
+      ))}
+      {/* running-sessions card */}
+      <g className="anim-rise" style={delay(0.7)}>
+        <rect x="166" y="116" width="298" height="150" rx="8" fill="var(--color-surface-2)" stroke={HAIR} />
+        <text x="180" y="138" fontFamily={MONO} fontSize="8.5" letterSpacing="1.2" fill={SUBTLE}>RUNNING · 3</text>
+        {sessions.map(([n, s, working], i) => (
+          <g key={n}>
+            <circle cx="186" cy={160 + i * 28} r="4" fill={working ? ACCENT : SUBTLE} className={working ? "svg-pulse" : undefined} />
+            <text x="200" y={164 + i * 28} fontFamily={MONO} fontSize="11" fill={INK}>{n}</text>
+            <text x="448" y={164 + i * 28} textAnchor="end" fontFamily={SANS} fontSize="9.5" fill={SUBTLE}>{s}</text>
+          </g>
+        ))}
+        <line x1="166" y1="244" x2="464" y2="244" stroke={HAIR} />
+        <text x="180" y="259" fontFamily={SANS} fontSize="9.5" fill={MUTED}>Spawn · Resume · Message · Close all</text>
+      </g>
+    </svg>
+  );
+}
+
+/* CommandBusFlow — the spawn-inbox command bus as a 20-second conversation loop
+ * (inline SVG + SMIL, all synced to one 20s clock; every color a CSS var so it
+ * re-themes). A coordinator spawns a designer and an accountant THROUGH Glass,
+ * briefs the designer to build a hero, then asks the accountant to invoice the
+ * work — every message routes through the trusted surface, and each reply rides
+ * the rail back into the coordinator. Self-contained → lifts straight into a
+ * deck slide (mirror lives at export/decks/_components/command-bus.html). */
+export function CommandBusFlow() {
+  return (
+    <svg viewBox="0 0 760 440" xmlns="http://www.w3.org/2000/svg" style={svgStyle(820)} aria-label="A coordinator session spawns a designer and an accountant through AIOS Glass, briefs the designer to build a hero, then asks the accountant to invoice the work — every message routes through Glass, and replies route back.">
+      <defs>
+        <path id="cbToDesigner" d="M 152 220 L 380 220 L 664 130" fill="none" />
+        <path id="cbToAccountant" d="M 152 220 L 380 220 L 664 320" fill="none" />
+        <path id="cbFromDesigner" d="M 664 130 L 380 220 L 152 220" fill="none" />
+        <path id="cbFromAccountant" d="M 664 320 L 380 220 L 152 220" fill="none" />
+      </defs>
+
+      {/* rails */}
+      <g strokeWidth="1.25">
+        <path d="M 152 220 L 286 220" stroke={HAIR} />
+        <path d="M 474 196 L 604 132" stroke={HAIR} />
+        <path d="M 474 244 L 604 316" stroke={HAIR} />
+        <g stroke={ACCENT} strokeDasharray="2 7" opacity="0.45">
+          <path d="M 152 220 L 286 220"><animate attributeName="stroke-dashoffset" values="18;0" dur="1.3s" repeatCount="indefinite" /></path>
+          <path d="M 474 196 L 604 132"><animate attributeName="stroke-dashoffset" values="18;0" dur="1.3s" repeatCount="indefinite" /></path>
+          <path d="M 474 244 L 604 316"><animate attributeName="stroke-dashoffset" values="18;0" dur="1.3s" repeatCount="indefinite" /></path>
+        </g>
+      </g>
+
+      {/* coordinator */}
+      <g>
+        <circle cx="92" cy="220" r="30" fill="none" stroke={ACCENT} strokeWidth="2" opacity="0">
+          <animate attributeName="r" values="30;30;52;52" keyTimes="0;0.63;0.70;1" dur="20s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.63;0.645;0.70;1" dur="20s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="92" cy="220" r="30" fill="none" stroke={ACCENT} strokeWidth="2" opacity="0">
+          <animate attributeName="r" values="30;30;52;52" keyTimes="0;0.95;1;1" dur="20s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;0;0.8;0" keyTimes="0;0.95;0.985;1" dur="20s" repeatCount="indefinite" />
+        </circle>
+        <rect x="32" y="192" width="120" height="56" rx="11" fill="var(--color-surface-2)" stroke={HAIR} />
+        <text x="92" y="217" textAnchor="middle" fontFamily={MONO} fontWeight="600" fontSize="13" fill={INK}>coordinator</text>
+        <text x="92" y="233" textAnchor="middle" fontFamily={SANS} fontSize="9.5" fill={SUBTLE}>your session</text>
+      </g>
+
+      {/* designer */}
+      <g opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.13;0.17;0.97;1" dur="20s" repeatCount="indefinite" />
+        <circle cx="664" cy="130" r="30" fill="none" stroke={ACCENT} strokeWidth="2" opacity="0">
+          <animate attributeName="r" values="30;30;52;52" keyTimes="0;0.13;0.21;1" dur="20s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;0.8;0;0" keyTimes="0;0.14;0.21;1" dur="20s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="664" cy="130" r="30" fill="none" stroke={ACCENT} strokeWidth="2" opacity="0">
+          <animate attributeName="r" values="30;30;52;52" keyTimes="0;0.46;0.54;1" dur="20s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.46;0.475;0.54;1" dur="20s" repeatCount="indefinite" />
+        </circle>
+        <rect x="604" y="102" width="120" height="56" rx="11" fill="var(--color-surface-2)" stroke={ACCENT} strokeWidth="1.3" />
+        <text x="664" y="127" textAnchor="middle" fontFamily={MONO} fontWeight="600" fontSize="13" fill={INK}>designer</text>
+        <text x="664" y="143" textAnchor="middle" fontFamily={SANS} fontSize="9.5" fill={SUBTLE}>spawned worker</text>
+      </g>
+
+      {/* accountant */}
+      <g opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.28;0.32;0.97;1" dur="20s" repeatCount="indefinite" />
+        <circle cx="664" cy="320" r="30" fill="none" stroke={ACCENT} strokeWidth="2" opacity="0">
+          <animate attributeName="r" values="30;30;52;52" keyTimes="0;0.28;0.36;1" dur="20s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;0.8;0;0" keyTimes="0;0.29;0.36;1" dur="20s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="664" cy="320" r="30" fill="none" stroke={ACCENT} strokeWidth="2" opacity="0">
+          <animate attributeName="r" values="30;30;52;52" keyTimes="0;0.78;0.86;1" dur="20s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.78;0.795;0.86;1" dur="20s" repeatCount="indefinite" />
+        </circle>
+        <rect x="604" y="292" width="120" height="56" rx="11" fill="var(--color-surface-2)" stroke={ACCENT} strokeWidth="1.3" />
+        <text x="664" y="317" textAnchor="middle" fontFamily={MONO} fontWeight="600" fontSize="13" fill={INK}>accountant</text>
+        <text x="664" y="333" textAnchor="middle" fontFamily={SANS} fontSize="9.5" fill={SUBTLE}>spawned worker</text>
+      </g>
+
+      {/* card 1 · spawn designer */}
+      <g opacity="0">
+        <animateMotion dur="20s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.02;0.13;1" keyPoints="0;0;1;1"><mpath href="#cbToDesigner" /></animateMotion>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.02;0.045;0.13;0.16;1" dur="20s" repeatCount="indefinite" />
+        <rect x="-68" y="-14" width="136" height="28" rx="14" fill="var(--color-surface-3)" stroke={ACCENT} strokeWidth="1.2" />
+        <circle cx="-52" cy="0" r="3.5" fill={ACCENT} />
+        <text x="8" y="4" textAnchor="middle" fontFamily={MONO} fontSize="11" fill={INK}>spawn designer</text>
+      </g>
+      {/* card 2 · spawn accountant */}
+      <g opacity="0">
+        <animateMotion dur="20s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.17;0.28;1" keyPoints="0;0;1;1"><mpath href="#cbToAccountant" /></animateMotion>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.17;0.195;0.28;0.31;1" dur="20s" repeatCount="indefinite" />
+        <rect x="-74" y="-14" width="148" height="28" rx="14" fill="var(--color-surface-3)" stroke={ACCENT} strokeWidth="1.2" />
+        <circle cx="-58" cy="0" r="3.5" fill={ACCENT} />
+        <text x="8" y="4" textAnchor="middle" fontFamily={MONO} fontSize="11" fill={INK}>spawn accountant</text>
+      </g>
+      {/* card 3 · brief the designer */}
+      <g opacity="0">
+        <animateMotion dur="20s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.35;0.46;1" keyPoints="0;0;1;1"><mpath href="#cbToDesigner" /></animateMotion>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.35;0.375;0.46;0.49;1" dur="20s" repeatCount="indefinite" />
+        <rect x="-72" y="-14" width="144" height="28" rx="14" fill="var(--color-surface-3)" stroke={SUBTLE} strokeWidth="1.2" />
+        <circle cx="-56" cy="0" r="3.5" fill={MUTED} />
+        <text x="8" y="4" textAnchor="middle" fontFamily={MONO} fontSize="11" fill={INK}>design the hero</text>
+      </g>
+      {/* card 4 · designer reply (rides back) */}
+      <g opacity="0">
+        <animateMotion dur="20s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.52;0.63;1" keyPoints="0;0;1;1"><mpath href="#cbFromDesigner" /></animateMotion>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.545;0.63;0.66;1" dur="20s" repeatCount="indefinite" />
+        <rect x="-60" y="-14" width="120" height="28" rx="14" fill={GLOW} stroke={ACCENT} strokeWidth="1.4" />
+        <circle cx="-46" cy="0" r="3.5" fill={ACCENT} />
+        <text x="6" y="4" textAnchor="middle" fontFamily={MONO} fontSize="11" fill={ACCENT}>hero.svg ✓</text>
+      </g>
+      {/* card 5 · ask the accountant to invoice */}
+      <g opacity="0">
+        <animateMotion dur="20s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.67;0.78;1" keyPoints="0;0;1;1"><mpath href="#cbToAccountant" /></animateMotion>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.67;0.695;0.78;0.81;1" dur="20s" repeatCount="indefinite" />
+        <rect x="-74" y="-14" width="148" height="28" rx="14" fill="var(--color-surface-3)" stroke={SUBTLE} strokeWidth="1.2" />
+        <circle cx="-58" cy="0" r="3.5" fill={MUTED} />
+        <text x="8" y="4" textAnchor="middle" fontFamily={MONO} fontSize="11" fill={INK}>invoice the work</text>
+      </g>
+      {/* card 6 · accountant reply (rides back) */}
+      <g opacity="0">
+        <animateMotion dur="20s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.84;0.95;1" keyPoints="0;0;1;1"><mpath href="#cbFromAccountant" /></animateMotion>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.84;0.865;0.95;0.98;1" dur="20s" repeatCount="indefinite" />
+        <rect x="-66" y="-14" width="132" height="28" rx="14" fill={GLOW} stroke={ACCENT} strokeWidth="1.4" />
+        <circle cx="-52" cy="0" r="3.5" fill={ACCENT} />
+        <text x="6" y="4" textAnchor="middle" fontFamily={MONO} fontSize="11" fill={ACCENT}>invoice.pdf ✓</text>
+      </g>
+
+      {/* Glass (centre, trusted surface) — inbox as a pill inside · drawn last */}
+      <g>
+        <ellipse cx="380" cy="220" rx="118" ry="92" fill={GLOW} opacity="0.45">
+          <animate attributeName="opacity" values="0.3;0.55;0.3" dur="3.4s" repeatCount="indefinite" />
+        </ellipse>
+        <rect x="286" y="150" width="188" height="140" rx="14" fill={GLOW} stroke={ACCENT} strokeWidth="1.5" />
+        <path d="M 286 196 L 474 168" stroke={ACCENT} strokeWidth="0.75" opacity="0.35" />
+        <text x="380" y="182" textAnchor="middle" fontFamily={MONO} fontSize="11" letterSpacing="1.8" fill={ACCENT}>AIOS GLASS</text>
+        <text x="380" y="200" textAnchor="middle" fontFamily={SANS} fontSize="10.5" fill={MUTED}>the trusted surface</text>
+        <rect x="336" y="214" width="88" height="26" rx="13" fill="var(--color-surface-2)" stroke={HAIR} />
+        <circle cx="356" cy="227" r="3" fill={ACCENT} />
+        <text x="386" y="231" textAnchor="middle" fontFamily={MONO} fontSize="10.5" fill={INK}>inbox</text>
+        <text x="380" y="262" textAnchor="middle" fontFamily={SANS} fontSize="9.5" fill={SUBTLE}>watches · fulfils natively</text>
+      </g>
+    </svg>
+  );
+}
