@@ -215,7 +215,7 @@ const en: Content = {
         href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
       },
     ],
-    step1Body: "Claude reads SETUP.md, clones the framework, installs the MCPs, configures your private vault, and walks every choice — each step asks your consent.",
+    step1Body: "Claude reads SETUP.md and walks every choice — each step asks your consent.",
     learnable: "Everything else is learnable from inside — ask your AIOS what it can do, and it shows you.",
   },
   hero: {
@@ -486,7 +486,7 @@ const es: Content = {
         href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
       },
     ],
-    step1Body: "Claude lee SETUP.md, clona el framework, instala los MCPs, configura tu vault privado y guía cada decisión — cada paso pide tu consentimiento.",
+    step1Body: "Claude lee SETUP.md y guía cada decisión — cada paso pide tu consentimiento.",
     learnable: "Todo lo demás se aprende desde adentro — pregúntale a tu AIOS qué puede hacer, y te lo muestra.",
   },
   hero: {
@@ -757,7 +757,7 @@ const pt: Content = {
         href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
       },
     ],
-    step1Body: "O Claude lê o SETUP.md, clona o framework, instala os MCPs, configura seu vault privado e guia cada decisão — cada passo pede seu consentimento.",
+    step1Body: "O Claude lê o SETUP.md e guia cada decisão — cada passo pede seu consentimento.",
     learnable: "Todo o resto se aprende por dentro — pergunte ao seu AIOS o que ele pode fazer, e ele te mostra.",
   },
   hero: {
