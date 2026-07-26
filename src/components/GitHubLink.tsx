@@ -29,6 +29,9 @@ type Props = {
   /** Optional caller-side click handler. Runs AFTER the tracking event fires,
    *  so caller-state updates (close-mobile-menu, etc.) compose with tracking. */
   onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+  /* Required in practice whenever `children` is an icon rather than text —
+     an icon-only link has no accessible name without it. */
+  ariaLabel?: string;
   children: ReactNode;
 };
 
@@ -50,11 +53,13 @@ export function GitHubLink({
   rel = "noreferrer",
   style,
   onClick,
+  ariaLabel,
   children,
 }: Props) {
   return (
     <a
       href={href}
+      aria-label={ariaLabel}
       className={className}
       target={target}
       rel={rel}

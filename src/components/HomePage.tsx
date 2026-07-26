@@ -20,6 +20,8 @@
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 import { GitHubLink } from "./GitHubLink";
+import { GitHubMark } from "./GitHubMark";
+import { CopyPanel } from "./CopyPanel";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
 import { SubstackLink } from "./SubstackLink";
 import { LocaleSwitcher } from "./LocaleSwitcher";
@@ -46,6 +48,14 @@ import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
 
 const REPO = "https://github.com/The-AIOS/aios";
+/* The version-less release URL: GitHub redirects it to the current asset, so this
+   link never rots when we cut a new version. */
+const APP_DMG = "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg";
+/* The one-line install, verbatim. Shown in the hero and in the setup card, and it is
+   exactly what the copy button writes — no `›` prompt character, which would break the
+   paste. One constant, so the shown text and the copied text cannot drift apart. */
+const SETUP_LINE = "Set up my AI-OS from https://github.com/The-AIOS/aios";
+
 const ORG = "https://github.com/The-AIOS";
 
 /* ---------- primitives ---------- */
@@ -200,6 +210,17 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
     <>
       {/* ============ Header ============ */}
       <header className="site-header">
+        {/* The launch strip rides with the sticky header rather than sitting in the
+            hero: an announcement shouldn't shove the headline down the page, and
+            it stays visible as you scroll. `.launch-rest` drops on narrow screens
+            so the strip is always exactly one line. */}
+        <a href={c.hero.banner.href} className="launch-strip">
+          <span className="launch-badge">{c.hero.banner.badge}</span>
+          <span className="launch-text">
+            {c.hero.banner.text}<span className="launch-rest"> — {c.hero.banner.rest}</span>
+          </span>
+          <span className="launch-cta">{c.hero.banner.cta} <span aria-hidden="true">→</span></span>
+        </a>
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
           <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
             <Logo size={20} />
@@ -212,15 +233,21 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 {item.label}
               </a>
             ))}
-            <GitHubLink href={REPO} surface="nav-desktop" className="nav-cta">
-              GitHub ↗
-            </GitHubLink>
+            {/* Source and binary, in that order: the icon is for people who came
+                to read the code, the pill for people who came to use it. Wrapped
+                so the pair sits closer to each other than to the nav links. */}
+            <span className="nav-actions">
+              <GitHubLink href={REPO} surface="nav-desktop" className="nav-icon-btn" ariaLabel="GitHub">
+                <GitHubMark size={18} />
+              </GitHubLink>
+              <a href={APP_DMG} className="nav-cta">{c.getApp}</a>
+            </span>
             <LocaleSwitcher current={locale} />
             <ThemeToggle />
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <MobileMenu items={c.nav} githubLabel="GitHub ↗" locale={locale} />
+            <MobileMenu items={c.nav} githubLabel="GitHub ↗" appLabel={c.getApp} appHref={APP_DMG} locale={locale} />
           </div>
         </div>
       </header>
@@ -232,7 +259,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         <section className="hero-glow" style={{ borderBottom: "1px solid var(--color-hairline)" }}>
           <HeroConstellation />
           <AntChatter />
-          <div className="container" style={{ paddingTop: "6rem", paddingBottom: "6rem", maxWidth: 980 }}>
+          {/* 3rem, not 6: the launch strip took the header from 60px to 99px, so the
+              original padding was measuring from a bar that no longer exists and the
+              headline sat 96px below the chrome. Half of that reads as intended. */}
+          <div className="container" style={{ paddingTop: "3rem", paddingBottom: "6rem", maxWidth: 980 }}>
             <div className="eyebrow" style={{ marginBottom: "1.75rem" }}>
               {c.hero.eyebrowPre} <span className="accent">{c.hero.eyebrowAccent}</span> {c.hero.eyebrowPost}
             </div>
@@ -253,7 +283,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <span className="t-comment"># get started, tell claude:</span>
               <span className="t-cmdline">
                 <span className="t-prompt">›</span>
-                <span className="t-typed">Set up my AI-OS from https://github.com/The-AIOS/aios</span>
+                <span className="t-typed">{SETUP_LINE}</span>
               </span>
             </div>
 
@@ -584,10 +614,26 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.roadmap.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.roadmap.intro}</p>
 
+            {/* Roadmap cards can carry a status ribbon and a link — the two that have
+                actually landed lead the section, so "where it's going" opens with
+                evidence rather than with intentions. */}
             <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
-              {c.roadmap.items.map((it) => (
-                <Card key={it.t} eyebrow={it.e} title={it.t}>{it.b}</Card>
-              ))}
+              {c.roadmap.items.map((it) => {
+                const body = (
+                  <>
+                    {it.ribbon && <span className={`rm-ribbon rm-ribbon-${it.tone ?? "soon"}`}>{it.ribbon}</span>}
+                    {it.e && <div className="card-eyebrow">{it.e}</div>}
+                    {it.t && <h4>{it.t}</h4>}
+                    <p>{it.b}</p>
+                    {it.cta && <span className="rm-link">{it.cta}</span>}
+                  </>
+                );
+                return it.href ? (
+                  <a key={it.t} className="card rm-card" href={it.href} target="_blank" rel="noreferrer">{body}</a>
+                ) : (
+                  <div key={it.t} className="card rm-card">{body}</div>
+                );
+              })}
             </Reveal>
 
             <p className="caption" style={{ textTransform: "none", letterSpacing: 0 }}>{c.roadmap.note}</p>
@@ -601,45 +647,41 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.setup.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.setup.intro}</p>
 
-            {/* Step 0 — what you need */}
-            <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.setup.step0Label}</div>
-            <Reveal className="reveal-cards" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(168px, 1fr))", gap: "0.875rem", marginBottom: "3rem" }}>
-              {c.setup.step0.map((s) => {
-                const titleRow = (
-                  <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.375rem" }}>
-                    <h4 style={{ margin: 0 }}>{s.t}</h4>
-                    {s.pill && <span className="tag-pill">{s.pill}</span>}
-                  </div>
-                );
-                return s.soon ? (
-                  <div key={s.t} className="card" style={{ borderStyle: "dashed", display: "flex", flexDirection: "column" }}>
-                    {titleRow}
-                    <p style={{ flex: 1 }}>{s.b}</p>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--color-ink-subtle)", marginTop: "0.875rem" }}>{c.setup.soonLabel}</span>
-                  </div>
-                ) : (
-                  <a key={s.t} className="card" href={s.href} target="_blank" rel="noreferrer" style={{ display: "flex", flexDirection: "column", textDecoration: "none" }}>
-                    {titleRow}
-                    <p style={{ flex: 1 }}>{s.b}</p>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--color-accent)", marginTop: "0.875rem" }}>
-                      {/* an explicit CTA when the card DOES something (download), the bare
-                          domain when it merely points somewhere. "github.com ↗" on a download
-                          card tells the reader where the bytes live, not that they can have them. */}
-                      {s.cta ?? `${s.href?.replace(/^https?:\/\//, "").replace(/\/.*$/, "")} ↗`}
-                    </span>
-                  </a>
-                );
-              })}
+            {/* Setup is a fork, not a checklist. The one-line install lives inside
+                the developer card because it IS the developer path — telling
+                everyone to "tell Claude in a terminal" contradicts the app,
+                whose whole point is that you never open one. */}
+            <div className="path-fork" aria-hidden="true"><span /><span className="path-fork-label">{c.setup.pathsLabel}</span><span /></div>
+
+            <Reveal className="reveal-cards" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
+              {/* Both cards render the identical three beats — question, install,
+                  outcome — so the two doors read as equals. The only difference is
+                  what fills the third slot: a command, or the absence of one. */}
+              {c.setup.paths.map((p) => (
+                <div key={p.pill} className="card path-card">
+                  <span className="tag-pill" style={{ alignSelf: "flex-start", marginBottom: "0.875rem" }}>{p.pill}</span>
+                  <h4 className="path-q">{p.q}</h4>
+                  <p className="path-b">{p.b}</p>
+                  {/* The panel content is wrapped so the panel itself can be a centring
+                      flex box — it stretches to absorb the height difference between the
+                      two cards, which is what keeps the gap above it equal to the gap
+                      below it in both. */}
+                  {/* The panel IS the action — no separate CTA below it. */}
+                  {p.cmd ? (
+                    <CopyPanel text={SETUP_LINE} label={p.cmd.copy} done={p.cmd.copied}>
+                      › {SETUP_LINE}
+                    </CopyPanel>
+                  ) : (
+                    <a className="path-action" href={p.href} target="_blank" rel="noreferrer">
+                      <span className="path-action-label">{p.dl}</span>
+                      <span className="path-action-body">{p.note}</span>
+                    </a>
+                  )}
+                </div>
+              ))}
             </Reveal>
 
-            {/* Step 1 — run the AIOS */}
-            <div className="eyebrow" style={{ marginBottom: "1rem" }}>{c.setup.step1Label}</div>
-            <p className="body-text" style={{ marginBottom: "1rem" }}>{c.setup.step1Title}</p>
-            <div className="code-block" style={{ marginBottom: "1rem", fontSize: "1rem" }}>
-              <span className="comment">{c.setup.step1Comment}</span>
-              <br />
-              <span className="accent">›</span> Set up my AI-OS from https://github.com/The-AIOS/aios
-            </div>
+            {/* What happens next — true of both doors, so it sits below both. */}
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{c.setup.step1Body}</p>
 
             <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
@@ -666,11 +708,16 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             {/* Movement 1 — what Glass is + the workspace mockup */}
             <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
               <div>
+                {/* Two surfaces, App first: it is the one most readers can use today. */}
+                <p className="body-text" style={{ marginBottom: "1rem" }}>
+                  <strong style={INK}>{c.glass.appBold}</strong>
+                  {c.glass.appRest}
+                </p>
                 <p className="body-text" style={{ marginBottom: "1.5rem" }}>
                   <strong style={INK}>{c.glass.bodyBold}</strong>
                   {c.glass.bodyRest}
                 </p>
-                <p className="pullquote">
+                <p className="pullquote pullquote-sm">
                   <span className="accent">{c.glass.pullAccent}</span>
                   {c.glass.pullRest}
                 </p>

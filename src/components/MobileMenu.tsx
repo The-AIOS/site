@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { GitHubLink } from "./GitHubLink";
+import { GitHubMark } from "./GitHubMark";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { Logo } from "./Logo";
@@ -13,10 +14,14 @@ export type NavItem = { href: string; label: string };
 export function MobileMenu({
   items,
   githubLabel,
+  appLabel,
+  appHref,
   locale,
 }: {
   items: NavItem[];
   githubLabel: string;
+  appLabel: string;
+  appHref: string;
   locale: Locale;
 }) {
   const [open, setOpen] = useState(false);
@@ -90,14 +95,26 @@ export function MobileMenu({
                 {item.label}
               </a>
             ))}
-            <GitHubLink
-              href="https://github.com/The-AIOS/aios"
-              surface="nav-mobile"
-              className="nav-cta"
-              onClick={() => setOpen(false)}
-            >
-              {githubLabel}
-            </GitHubLink>
+            {/* Identical pair to the desktop header — coral GitHub square, then the
+                app pill — so the drawer isn't a different set of controls. */}
+            <span className="nav-actions">
+              <GitHubLink
+                href="https://github.com/The-AIOS/aios"
+                surface="nav-mobile"
+                className="nav-icon-btn"
+                ariaLabel={githubLabel}
+                onClick={() => setOpen(false)}
+              >
+                <GitHubMark size={18} />
+              </GitHubLink>
+              <a
+                href={appHref}
+                className="nav-cta"
+                onClick={() => setOpen(false)}
+              >
+                {appLabel}
+              </a>
+            </span>
           </nav>
 
           <div className="mm-footer">

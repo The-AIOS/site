@@ -70,7 +70,8 @@ html {
   overflow-x: clip;
   scroll-behavior: smooth;
   /* sticky header is 60px — keep section titles from hiding under it on anchor jumps */
-  scroll-padding-top: 76px;
+  /* nav row + launch strip; anchors must clear the whole sticky header. */
+  scroll-padding-top: 112px;
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1109,11 +1110,14 @@ html[data-theme="light"] .hero-constellation { opacity: 0.7; }
 .tag-pill {
   flex: 0 0 auto;
   font-family: var(--font-mono);
-  font-size: 0.5rem;
+  /* Matched to .rm-ribbon in the roadmap section: one status-badge size across the
+     page. The padding grows with it — at the larger size the old box looked
+     squeezed around the text. */
+  font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0.0625rem 0.375rem;
+  padding: 0.1875rem 0.5rem;
   border-radius: 999px;
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
@@ -1178,3 +1182,241 @@ html[data-theme="light"] .hero-constellation { opacity: 0.7; }
   margin: 0.25rem 0 1rem;
 }
 
+
+/* ============================================================================
+   LAUNCH BAR — the hero announcement (funding-announcement register: one line,
+   coral, unmissable, gone from the page after you've read it once).
+   ========================================================================== */
+.launch-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+  min-height: 38px;
+  padding: 0.375rem 1rem;
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  transition: filter 0.18s ease;
+}
+.launch-strip:hover { filter: brightness(1.06); }
+.launch-badge {
+  flex: none;
+  padding: 0.125rem 0.4375rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.launch-text { color: #fff; font-weight: 500; }
+.launch-cta {
+  flex: none;
+  color: #fff;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+.launch-strip:hover .launch-cta { text-decoration-color: #fff; }
+/* One line, always. Below this width the qualifying clause is the first thing
+   that can go without losing the announcement itself. */
+@media (max-width: 680px) {
+  .launch-rest { display: none; }
+  .launch-strip { gap: 0.5rem; font-size: 0.75rem; padding-left: 0.75rem; padding-right: 0.75rem; }
+}
+
+/* Nav GitHub mark — a white logo in a coral square, paired with the "Get the app"
+   pill. Square and tight to the glyph, so the two read as one control group
+   rather than as a button plus a stray icon. */
+.nav-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 34px, not 32: measured against the "Get the app" pill, whose padding renders
+     34px tall. Two coral controls side by side must be the same height or the
+     smaller one reads as misaligned. */
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: #fff;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.nav-icon-btn:hover { opacity: 0.92; transform: translateY(-1px); color: #fff; }
+/* line-height:0 — an inline SVG otherwise inherits the nav's line box and sits
+   a pixel or two high inside the square. */
+.nav-icon-btn { line-height: 0; }
+/* The nav's own rhythm is 1.375rem; the GitHub square and the app pill are one
+   control group, so they sit at half that from each other. */
+.nav-actions { display: inline-flex; align-items: center; gap: 0.6875rem; }
+.mobile-menu-overlay .nav-actions { align-self: flex-start; margin-top: 0.5rem; }
+.mobile-menu-overlay nav a.nav-icon-btn { border-bottom: 0; }
+
+/* ============================================================================
+   STEP 0 — one requirements card, then two audience paths.
+   ========================================================================== */
+/* The fork: a labelled rule, so the two cards below read as a choice
+   between paths rather than as two more requirements. */
+.path-fork {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.25rem;
+}
+.path-fork > span:first-child,
+.path-fork > span:last-child { flex: 1; height: 1px; background: var(--color-hairline); }
+.path-fork-label {
+  flex: none;
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-subtle);
+}
+
+.path-card { display: flex; flex-direction: column; }
+.path-q {
+  margin: 0 0 0.75rem;
+  font-size: 1.0625rem;
+  letter-spacing: -0.015em;
+}
+/* Two class selectors, not one: `.card p { margin: 0 }` is more specific than a
+   bare `.path-b` and silently zeroed this gap. */
+.path-card .path-b { margin: 0 0 1.25rem; }
+/* The action panel. Coral and white in BOTH themes, like the buttons it replaced —
+   the whole surface is clickable, so it has to read as a control, not as a quote box.
+   `flex: 1` lets it absorb the height difference between the two cards. */
+.path-action {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 84px;
+  width: 100%;
+  padding: 0.625rem 0.875rem 0.875rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--color-accent);
+  color: #fff;
+  font-family: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.18s ease, transform 0.18s ease;
+}
+.path-action:hover { filter: brightness(1.06); transform: translateY(-1px); }
+/* Its own row, right-aligned, ABOVE the content — inline it was clipping the
+   command onto a second line. */
+.path-action-label {
+  align-self: flex-end;
+  margin-bottom: 0.4375rem;
+  padding: 0.125rem 0.4375rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* Absolute line-height, shared with .path-action-cmd below: the two panels use
+   different families and sizes (13px sans vs 12px mono), so a unitless multiplier
+   gives them different line boxes and their first lines land at different heights.
+   A fixed box makes the two texts sit on the same line across both cards. */
+/* margin-top:auto anchors the text to the BOTTOM of the panel. The two paragraphs
+   above are different lengths, so at some widths they wrap to different heights and
+   the panels start at different y — but both cards stretch to the same height, so
+   their panel bottoms always coincide. Anchoring to the bottom is the only way these
+   two lines stay on the same baseline at every width. */
+/* margin-bottom is a FIXED 0.6625rem (half the measured 21.2px label→text gap), not
+   `auto`: a second auto margin would centre the text in each panel's own leftover
+   space, and since the panels differ in height at some widths that would pull the two
+   lines out of alignment again. An identical fixed offset lifts both by the same
+   amount and keeps them on one baseline. */
+.path-action-body { margin-top: auto; margin-bottom: 0.6625rem; font-size: 0.8125rem; line-height: 1.3rem; color: #fff; }
+/* Centred horizontally only. `margin: auto 0` would centre it in the leftover
+   vertical space and push it below the command in the neighbouring card. */
+.path-action-body:not(.path-action-cmd) { text-align: center; }
+.path-action-cmd { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.3rem; overflow-wrap: anywhere; }
+
+.path-panel-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+}
+.path-panel-code .comment { color: var(--color-ink-subtle); }
+.path-cta { align-self: flex-start; }
+
+/* ============================================================================
+   ROADMAP STATUS RIBBONS — two of these cards have shipped, so they say so.
+   "live" = public and downloadable; "soon" = built, not yet open.
+   ========================================================================== */
+.rm-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Room for the ribbon in the top-right corner. 3rem, not 2.5: at 2.5 the
+     measured clearance to the eyebrow was only 2px, which one longer status word
+     or a different font metric would close. */
+  padding-top: 3rem;
+  text-decoration: none;
+}
+a.rm-card { transition: border-color 0.18s ease, transform 0.18s ease; }
+a.rm-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+.rm-card p { flex: 1; }
+.rm-ribbon {
+  position: absolute;
+  top: 0.875rem;
+  right: 0.875rem;
+  padding: 0.1875rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* Filled: it exists, you can have it today. */
+.rm-ribbon-live { background: var(--color-accent); color: #fff; }
+/* Outlined: built, but not yet yours — the difference is deliberately visible
+   at a glance, so no one downloads a promise. */
+.rm-ribbon-soon {
+  border: 1px dashed var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-glow);
+}
+/* Greyed: being built in the open. Not coral at all — coral on this page means
+   "there is something here for you", and there isn't one yet. */
+.rm-ribbon-wip {
+  /* It still has to read as a ribbon: at hairline-on-transparent it rendered as
+     floating grey text while its two neighbours read as badges. Muted fill and a
+     visible dashed edge give it the same physical presence, minus the coral. */
+  border: 1px dashed var(--color-ink-subtle);
+  color: var(--color-ink-muted);
+  background: rgba(127, 127, 127, 0.12);
+}
+.rm-link {
+  margin-top: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-accent);
+}
+a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2px; }
+
+/* The audience pills now carry a sentence, not a word — nowrap would overflow. */
+.path-card .tag-pill { white-space: normal; }
+
+/* A smaller pullquote: with two surface paragraphs above it, this line is the rule
+   they share rather than the section's headline claim. */
+.pullquote-sm { font-size: 0.9375rem; line-height: 1.55; padding-left: 18px; }

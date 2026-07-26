@@ -17,6 +17,9 @@ type Row = [string, string];
 
 export type Content = {
   nav: { href: string; label: string }[];
+  /* The header's app CTA. Sits beside the GitHub icon — the two doors,
+     source and binary, in the order people actually want them. */
+  getApp: string;
   /* Act 2 — Why (urgency). Reuses journey.cards + OrchestratorShift + journey.caption. */
   why: {
     eyebrow: string; h: H; lead: string; pull: H;
@@ -42,16 +45,31 @@ export type Content = {
   ladder: { eyebrow: string; rungs: { e: string; t: string }[] };
   /* Act 4 — Where it's going (the roadmap). Direction, not dated commitments. */
   roadmap: {
-    eyebrow: string; h: H; intro: string; items: CardT[]; note: string;
+    eyebrow: string; h: H; intro: string;
+    /* A roadmap card can carry a status ribbon and a link. `tone` is the honesty
+       dial: "live" has shipped and is public · "soon" is built but not yet open ·
+       "wip" is being built in the open and you can watch. */
+    items: (CardT & { ribbon?: string; tone?: "live" | "soon" | "wip"; href?: string; cta?: string })[];
+    note: string;
   };
   /* Act 5 — Manual: the Step 0 / Step 1 setup story. */
   setup: {
-    eyebrow: string; h: H; intro: string; soonLabel: string;
-    step0Label: string; step0: { t: string; b: string; href?: string; cta?: string; soon?: boolean; pill: string }[];
-    step1Label: string; step1Title: string; step1Body: string; step1Comment: string;
+    eyebrow: string; h: H; intro: string;
+    /* Setup is a fork, not a checklist: two doors onto the same system. The
+       prerequisites list is gone — it duplicated what each door already states,
+       and the guided conversation asks for what it needs anyway. */
+    pathsLabel: string;
+    /* Both doors take the same three beats — who it's for, how it works, and the
+       action itself — a coral panel that copies the line, or one that downloads the
+       app. There is no separate CTA button: the panel IS the call to action. */
+    paths: { pill: string; q: string; b: string; cmd?: { copy: string; copied: string }; note?: string; dl?: string; href: string }[];
+    step1Body: string;
     learnable: string;
   };
   hero: {
+    /* The announcement strip, attached to the header. `rest` is the qualifying
+       clause, hidden on narrow screens so the strip stays one line. */
+    banner: { badge: string; text: string; rest: string; cta: string; href: string };
     eyebrowPre: string; eyebrowAccent: string; eyebrowPost: string;
     h: H; leadBold: string; leadRest: string; tagline: string;
     ctaPrimary: string; ctaGithub: string; chips: string[];
@@ -85,7 +103,9 @@ export type Content = {
     cmt1: string; cmt2: string; cmt3: string; cmt4: string; outro: string;
   };
   glass: {
-    eyebrow: string; h: H; bodyBold: string; bodyRest: string;
+    eyebrow: string; h: H;
+    /* Two surfaces now, not one: the App paragraph sits above the Glass one. */
+    appBold: string; appRest: string; bodyBold: string; bodyRest: string;
     pullAccent: string; pullRest: string; cards: CardT[];
     busEyebrow: string; busH: H; busLead: string; busCards: CardT[];
   };
@@ -122,7 +142,8 @@ export type Content = {
 const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#setup", "#glass", "#manual"];
 
 const en: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Glass", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Interface", "Manual"][i] })),
+  getApp: "Get the app",
   why: {
     eyebrow: "Why now",
     h: ["AI is getting better than us at ", "almost everything", "."],
@@ -138,7 +159,7 @@ const en: Content = {
     intro: "Five moving parts, one idea: you orchestrate sessions, sessions load agents, agents call skills — and all of it reads the ground underneath. Here’s each piece, then how it compounds.",
     subModel: "The three words", subContext: "Context that compounds", subFleet: "The fleet",
     subRhythm: "The rhythm", subProjects: "Projects", subTeams: "Teams",
-    subTrust: "Trust, control & containment", subGlass: "Glass — the interface",
+    subTrust: "Trust, control & containment", subGlass: "The interface",
   },
   mentalModel: {
     headline: [{ t: "A " }, { t: "session", a: true }, { t: " is where. An " }, { t: "agent", a: true }, { t: " is who. A " }, { t: "skill", a: true }, { t: " is how." }],
@@ -163,35 +184,48 @@ const en: Content = {
     h: ["The next ", "layers", "."],
     intro: "The AIOS already runs every day. Here’s the direction of travel — each item traces to live work in the framework, not a press release.",
     items: [
+      { e: "The desktop app", t: "AIOS, for everyone", b: "A free, installable app — the panel, real terminals, vault explorer, one-click rituals — with native viewers for markdown, HTML, and PDFs.", ribbon: "public", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Get the app ↗" },
+      { e: "Agentic contact book", t: "ID and mandates for agents", b: "A directory where your agents carry verifiable credentials, so it inherits the right access and can interact securely with other people’s agents on your behalf.", ribbon: "releasing", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
+      { e: "Marketplace", t: "Install a bundle in one command", b: "Agent bundles, vertical workflows, a company’s whole brain — installed through a trust-gated marketplace: registry → injection scan → license check → QA → install with an audit log.", ribbon: "building", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Model-agnostic", t: "The layer, not the model", b: "The AIOS is the substrate; the LLM is swappable. Run Claude (the best engine today) or any frontier model — the same context, agents, and rituals run on top, unchanged." },
       { e: "Sovereign engine", t: "An engine no one can switch off", b: "Open-weights models like GLM-5.2 now reach near-frontier quality you can download and run yourself — offline, air-gapped, on your own metal. The sovereign fallback stops being a downgrade." },
-      { e: "The desktop app", t: "AIOS, for people who never open an editor", b: "A free, installable app — the panel, real terminals, vault explorer, one-click rituals — with native viewers for markdown, HTML, and PDFs. Next: watching video, not just reading markdown." },
       { e: "Corporate controls", t: "Governed agents at company scale", b: "Encrypted-at-rest context, per-agent scoped read-grants, audit trails, and verifiable agent identity — INTENT as policy, cryptographically enforced. The admin layer for running a fleet inside an org." },
-      { e: "Marketplace", t: "Install a bundle in one command", b: "Agent bundles, vertical workflows, a company’s whole brain — installed through a trust-gated marketplace: registry → injection scan → license check → QA → install with an audit log." },
-      { e: "Agentic contact book", t: "Identity for agents and the people they work with", b: "A directory where your agents carry verifiable credentials, so it inherits the right access and can interact securely with other people’s agents on your behalf." },
     ],
     note: "Direction, not dated promises — and never a feature we can’t already point at in the work.",
   },
   setup: {
     eyebrow: "Set it up",
-    h: ["Everything you need, ", "then one line", "."],
-    intro: "The whole setup is a guided conversation — but here’s the honest list of what to have ready, and the single line that starts it.",
-    soonLabel: "coming soon",
-    step0Label: "Step 0 — what you need",
-    step0: [
-      { t: "Obsidian", b: "The vault lives here — plain Markdown, your second brain.", href: "https://obsidian.md", pill: "free" },
-      { t: "An IDE", b: "Google Antigravity (or VS Code) — where the AIOS Glass extension turns commands into buttons.", href: "https://antigravity.google", pill: "free" },
-      { t: "AIOS Glass", b: "The graphical front door, installed from Open VSX — optional, but makes it click-not-type.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "free" },
-      { t: "Claude Code", b: "The engine. Install Claude / Claude Code — this is what actually runs.", href: "https://claude.com/claude-code", pill: "" },
-      { t: "AIOS App", b: "The standalone app — panel, real terminals, vault explorer, one-click rituals — for people who never open an editor. Signed and notarized; four steps from nothing installed to a working AIOS, no terminal needed.", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Download for Mac ↗", pill: "free" },
+    h: ["Two ways in, ", "one AIOS", "."],
+    intro: "The whole setup is a guided conversation. Pick the door that matches how you work — the system on the other side is the same.",
+    pathsLabel: "Pick your door",
+    paths: [
+      {
+        pill: "for the tech-savvy",
+        q: "Already familiar with an IDE like VSCode?",
+        b: "Copy this into any Claude Code session. It clones the framework, installs everything you need including the AIOS Glass extension, and asks your consent at every step.",
+        cmd: { copy: "Copy", copied: "Copied ✓" },
+        href: "https://open-vsx.org/extension/the-aios/aios-glass",
+      },
+      {
+        pill: "Everyone, including the tech-savvy",
+        q: "Already familiar with AI apps like Claude.app?",
+        b: "Download the app and follow its four guided steps, including the “Set up my AI-OS from https://github.com/The-AIOS/aios” done for you. Same powerful terminals, less intimidating.",
+        note: "AIOS-arm64.dmg — signed and notarized. macOS on Apple silicon.",
+        dl: "Download",
+        href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+      },
     ],
-    step1Label: "Step 1 — run the AIOS",
-    step1Title: "Tell Claude, in any terminal:",
     step1Body: "Claude reads SETUP.md, clones the framework, installs the MCPs, configures your private vault, and walks every choice — each step asks your consent.",
-    step1Comment: "# the entire setup, in one line",
     learnable: "Everything else is learnable from inside — ask your AIOS what it can do, and it shows you.",
   },
   hero: {
+    banner: {
+      badge: "New",
+      text: "The AIOS App is here",
+      rest: "signed, notarized, and free",
+      cta: "Get the app",
+      href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+    },
     eyebrowPre: "The AI Operating System", eyebrowAccent: "·", eyebrowPost: "Open source",
     h: ["Giving everyone a ", "team of agents.", ""],
     leadBold: "AI as a team, not a tool.",
@@ -294,8 +328,9 @@ const en: Content = {
   },
   glass: {
     eyebrow: "Glass", h: ["The graphical ", "front door", "."],
+    appBold: "The AIOS App", appRest: " is the standalone surface: the panel, real terminals, a vault explorer and one-click rituals in a signed, notarized Mac app — four guided steps from nothing installed to a working AIOS.",
     bodyBold: "AIOS Glass", bodyRest: " runs inside VS Code and Google Antigravity: slash commands become buttons, arguments become forms, spawn becomes a click. Non-developers operate their full AIOS without ever typing a command.",
-    pullAccent: "Glass, not engine.", pullRest: " It surfaces and triggers what the framework already does — never reimplements. It reads the framework’s own files at runtime, so every /aios:update shows up automatically.",
+    pullAccent: "Surfaces, not engines.", pullRest: " Both surface and trigger what the framework already does — neither reimplements it. Both read the framework’s own files at runtime, so every /aios:update shows up on its own.",
     cards: [
       { e: "Home + calendar", b: "Live dashboard, month grid, rituals one click away." },
       { e: "Agents + capabilities", b: "Fleet browser with a spawn flow; skills, MCPs, and plugins discovered live." },
@@ -303,7 +338,7 @@ const en: Content = {
     ],
     busEyebrow: "The command bus",
     busH: ["Agents orchestrate agents — ", "through a surface you trust", "."],
-    busLead: "A coordinator session can’t be handed the keys to launch and drive other agents on its own — the model’s own guardrails stop it, and rightly so. So it doesn’t force the door. It drops a request in Glass’s inbox, and Glass — the extension you already trust — fulfils it natively: spawn a worker, message it, retire it. Request, don’t spawn.",
+    busLead: "A coordinator session can’t be handed the keys to launch and drive other agents on its own — the model’s own guardrails stop it, and rightly so. So it doesn’t force the door. It drops a request in a shared inbox, and whichever surface you trust is running — the App or the extension — fulfils it natively: spawn a worker, message it, retire it. Request, don’t spawn.",
     busCards: [
       { e: "Three verbs, one channel", b: "spawn · send · kill — a small JSON file dropped in ~/.aios/spawn-inbox/, fulfilled by Glass with no synthetic keystrokes and no gate." },
       { e: "Right model for the job", b: "Route each worker by cognitive load — mechanical work to a faster model, judgment to the frontier. Calibrate, don’t choose." },
@@ -378,7 +413,8 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Glass", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Interfaz", "Manual"][i] })),
+  getApp: "Descargar la app",
   why: {
     eyebrow: "Por qué ahora",
     h: ["La IA se está volviendo mejor que nosotros en ", "casi todo", "."],
@@ -394,7 +430,7 @@ const es: Content = {
     intro: "Cinco piezas, una idea: tú orquestas sesiones, las sesiones cargan agentes, los agentes invocan skills — y todo lee el suelo que tienen debajo. Aquí está cada pieza, y cómo capitaliza.",
     subModel: "Las tres palabras", subContext: "Contexto que capitaliza", subFleet: "La flota",
     subRhythm: "El ritmo", subProjects: "Proyectos", subTeams: "Equipos",
-    subTrust: "Confianza, control y contención", subGlass: "Glass — la interfaz",
+    subTrust: "Confianza, control y contención", subGlass: "La interfaz",
   },
   mentalModel: {
     headline: [{ t: "Una " }, { t: "sesión", a: true }, { t: " es el dónde. Un " }, { t: "agente", a: true }, { t: " es el quién. Un " }, { t: "skill", a: true }, { t: " es el cómo." }],
@@ -419,35 +455,48 @@ const es: Content = {
     h: ["Las siguientes ", "capas", "."],
     intro: "The AIOS ya corre cada día. Esta es la dirección de avance — cada punto remite a trabajo vivo en el framework, no a un comunicado de prensa.",
     items: [
+      { e: "La app de escritorio", t: "AIOS, para todos", b: "Una app gratis e instalable — el panel, terminales reales, explorador del vault, rituales a un clic — con visores nativos para Markdown, HTML y PDFs.", ribbon: "público", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Descargar la app ↗" },
+      { e: "Agenda agéntica", t: "ID y mandatos para agentes", b: "Un directorio donde tus agentes portan credenciales verificables, así hereda el acceso correcto y puede interactuar de forma segura con los agentes de otras personas en tu nombre.", ribbon: "por liberarse", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
+      { e: "Marketplace", t: "Instala un bundle en un comando", b: "Bundles de agentes, flujos verticales, el cerebro entero de una empresa — instalados por un marketplace con barrera de confianza: registro → escaneo de inyección → revisión de licencia → QA → instalación con registro de auditoría.", ribbon: "en construcción", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Agnóstico al modelo", t: "La capa, no el modelo", b: "The AIOS es el sustrato; el LLM es intercambiable. Corre Claude (el mejor motor hoy) o cualquier modelo frontera — el mismo contexto, agentes y rituales corren encima, sin cambios." },
       { e: "Motor soberano", t: "Un motor que nadie puede apagar", b: "Modelos de pesos abiertos como GLM-5.2 ya alcanzan calidad casi-frontera que puedes descargar y correr tú mismo — offline, aislado, en tu propio hardware. El respaldo soberano deja de ser un downgrade." },
-      { e: "La app de escritorio", t: "AIOS, para quien nunca abre un editor", b: "Una app gratis e instalable — el panel, terminales reales, explorador del vault, rituales a un clic — con visores nativos para Markdown, HTML y PDFs. Lo que sigue: ver video, no solo leer Markdown." },
       { e: "Controles corporativos", t: "Agentes gobernados a escala de empresa", b: "Contexto cifrado en reposo, permisos de lectura por agente, trazas de auditoría e identidad de agente verificable — INTENT como política, aplicada criptográficamente. La capa de administración para correr una flota dentro de una organización." },
-      { e: "Marketplace", t: "Instala un bundle en un comando", b: "Bundles de agentes, flujos verticales, el cerebro entero de una empresa — instalados por un marketplace con barrera de confianza: registro → escaneo de inyección → revisión de licencia → QA → instalación con registro de auditoría." },
-      { e: "Agenda agéntica", t: "Identidad para agentes y para quienes trabajan con ellos", b: "Un directorio donde tus agentes portan credenciales verificables, así hereda el acceso correcto y puede interactuar de forma segura con los agentes de otras personas en tu nombre." },
     ],
     note: "Dirección, no promesas con fecha — y nunca una función que no podamos ya señalar en el trabajo.",
   },
   setup: {
     eyebrow: "Configúralo",
-    h: ["Todo lo que necesitas, ", "y luego una línea", "."],
-    intro: "Todo el setup es una conversación guiada — pero aquí está la lista honesta de lo que conviene tener listo, y la única línea que lo arranca.",
-    soonLabel: "próximamente",
-    step0Label: "Paso 0 — qué necesitas",
-    step0: [
-      { t: "Obsidian", b: "Aquí vive el vault — Markdown plano, tu segundo cerebro.", href: "https://obsidian.md", pill: "gratis" },
-      { t: "Un IDE", b: "Google Antigravity (o VS Code) — donde la extensión AIOS Glass convierte comandos en botones.", href: "https://antigravity.google", pill: "gratis" },
-      { t: "AIOS Glass", b: "La puerta de entrada gráfica, instalada desde Open VSX — opcional, pero hace que sea clic, no teclear.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "gratis" },
-      { t: "Claude Code", b: "El motor. Instala Claude / Claude Code — esto es lo que realmente corre.", href: "https://claude.com/claude-code", pill: "" },
-      { t: "AIOS App", b: "La app independiente — panel, terminales reales, explorador del vault, rituales a un clic — para quien nunca abre un editor. Firmada y notarizada; cuatro pasos desde cero hasta un AIOS funcionando, sin terminal.", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Descargar para Mac ↗", pill: "gratis" },
+    h: ["Dos puertas, ", "un mismo AIOS", "."],
+    intro: "Toda la configuración es una conversación guiada. Elige la puerta que va con tu forma de trabajar — el sistema del otro lado es el mismo.",
+    pathsLabel: "Elige tu puerta",
+    paths: [
+      {
+        pill: "para perfiles técnicos",
+        q: "¿Ya conoces un IDE como VSCode?",
+        b: "Copia esto en cualquier sesión de Claude Code. Clona el framework, instala todo lo que necesitas incluyendo la extensión AIOS Glass, y pide tu consentimiento en cada paso.",
+        cmd: { copy: "Copiar", copied: "Copiado ✓" },
+        href: "https://open-vsx.org/extension/the-aios/aios-glass",
+      },
+      {
+        pill: "Todos, incluidos los perfiles técnicos",
+        q: "¿Ya conoces apps de IA como Claude.app?",
+        b: "Descarga la app y sigue sus cuatro pasos guiados, incluyendo el “Set up my AI-OS from https://github.com/The-AIOS/aios” que hace por ti. Las mismas terminales potentes, menos intimidantes.",
+        note: "AIOS-arm64.dmg — firmada y notarizada. macOS con Apple silicon.",
+        dl: "Descargar",
+        href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+      },
     ],
-    step1Label: "Paso 1 — corre el AIOS",
-    step1Title: "Dile a Claude, en cualquier terminal:",
     step1Body: "Claude lee SETUP.md, clona el framework, instala los MCPs, configura tu vault privado y guía cada decisión — cada paso pide tu consentimiento.",
-    step1Comment: "# todo el setup, en una línea",
     learnable: "Todo lo demás se aprende desde adentro — pregúntale a tu AIOS qué puede hacer, y te lo muestra.",
   },
   hero: {
+    banner: {
+      badge: "Nuevo",
+      text: "La AIOS App ya está aquí",
+      rest: "firmada, notarizada y gratis",
+      cta: "Descargar la app",
+      href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+    },
     eyebrowPre: "El sistema operativo de IA", eyebrowAccent: "·", eyebrowPost: "Código abierto",
     h: ["Dale a cada persona un ", "equipo de agentes.", ""],
     leadBold: "IA como un equipo, no una herramienta.",
@@ -550,8 +599,9 @@ const es: Content = {
   },
   glass: {
     eyebrow: "Glass", h: ["La puerta de entrada ", "gráfica", "."],
+    appBold: "La AIOS App", appRest: " es la superficie independiente: el panel, terminales reales, explorador del vault y rituales a un clic en una app de Mac firmada y notarizada — cuatro pasos guiados desde cero hasta un AIOS funcionando.",
     bodyBold: "AIOS Glass", bodyRest: " corre dentro de VS Code y Google Antigravity: los slash commands se vuelven botones, los argumentos se vuelven formularios, spawn se vuelve un clic. Los no-desarrolladores operan todo su AIOS sin escribir un solo comando.",
-    pullAccent: "Glass, no el motor.", pullRest: " Muestra y dispara lo que el framework ya hace — nunca lo reimplementa. Lee los propios archivos del framework en tiempo de ejecución, así cada /aios:update aparece automáticamente.",
+    pullAccent: "Superficies, no motores.", pullRest: " Ambas exponen y disparan lo que el framework ya hace — ninguna lo reimplementa. Ambas leen los propios archivos del framework en tiempo de ejecución, así cada /aios:update aparece automáticamente.",
     cards: [
       { e: "Home + calendario", b: "Dashboard vivo, grilla mensual, rituales a un clic." },
       { e: "Agentes + capacidades", b: "Navegador de la flota con flujo de spawn; skills, MCPs y plugins descubiertos en vivo." },
@@ -559,7 +609,7 @@ const es: Content = {
     ],
     busEyebrow: "El bus de comandos",
     busH: ["Agentes que orquestan agentes — ", "a través de una superficie confiable", "."],
-    busLead: "Una sesión coordinadora no puede recibir las llaves para lanzar y dirigir a otros agentes por su cuenta — las barreras del propio modelo se lo impiden, y con razón. Así que no fuerza la puerta: deja una solicitud en el inbox de Glass, y Glass — la extensión en la que ya confías — la cumple de forma nativa: crear un worker, enviarle un mensaje, retirarlo. Solicita, no lances.",
+    busLead: "Una sesión coordinadora no puede recibir las llaves para lanzar y dirigir a otros agentes por su cuenta — las barreras del propio modelo se lo impiden, y con razón. Así que no fuerza la puerta: deja una solicitud en un inbox compartido, y la superficie en la que confías — la app o la extensión — la cumple de forma nativa: crear un worker, enviarle un mensaje, retirarlo. Solicita, no lances.",
     busCards: [
       { e: "Tres verbos, un canal", b: "spawn · send · kill — un pequeño archivo JSON en ~/.aios/spawn-inbox/, ejecutado por Glass sin pulsaciones sintéticas y sin bloqueos." },
       { e: "El modelo justo para la tarea", b: "Enruta cada worker por carga cognitiva — trabajo mecánico a un modelo más rápido, criterio a la frontera. Calibra, no elijas." },
@@ -634,7 +684,8 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Glass", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Interface", "Manual"][i] })),
+  getApp: "Baixar o app",
   why: {
     eyebrow: "Por que agora",
     h: ["A IA está ficando melhor que nós em ", "quase tudo", "."],
@@ -650,7 +701,7 @@ const pt: Content = {
     intro: "Cinco peças, uma ideia: você orquestra sessões, as sessões carregam agentes, os agentes chamam skills — e tudo lê o solo embaixo. Aqui está cada peça, e como ela capitaliza.",
     subModel: "As três palavras", subContext: "Contexto que capitaliza", subFleet: "A frota",
     subRhythm: "O ritmo", subProjects: "Projetos", subTeams: "Times",
-    subTrust: "Confiança, controle e contenção", subGlass: "Glass — a interface",
+    subTrust: "Confiança, controle e contenção", subGlass: "A interface",
   },
   mentalModel: {
     headline: [{ t: "Uma " }, { t: "sessão", a: true }, { t: " é o onde. Um " }, { t: "agente", a: true }, { t: " é o quem. Um " }, { t: "skill", a: true }, { t: " é o como." }],
@@ -675,35 +726,48 @@ const pt: Content = {
     h: ["As próximas ", "camadas", "."],
     intro: "The AIOS já roda todos os dias. Esta é a direção de avanço — cada item remete a trabalho vivo no framework, não a um press release.",
     items: [
+      { e: "O app de desktop", t: "AIOS, para todos", b: "Um app grátis e instalável — o painel, terminais reais, explorador do vault, rituais a um clique — com visualizadores nativos para Markdown, HTML e PDFs.", ribbon: "público", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Baixar o app ↗" },
+      { e: "Agenda agêntica", t: "ID e mandatos para agentes", b: "Um diretório onde seus agentes carregam credenciais verificáveis, então ele herda o acesso certo e pode interagir com segurança com os agentes de outras pessoas em seu nome.", ribbon: "em liberação", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
+      { e: "Marketplace", t: "Instale um bundle em um comando", b: "Bundles de agentes, fluxos verticais, o cérebro inteiro de uma empresa — instalados por um marketplace com barreira de confiança: registro → varredura de injeção → checagem de licença → QA → instalação com log de auditoria.", ribbon: "em construção", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Agnóstico ao modelo", t: "A camada, não o modelo", b: "The AIOS é o substrato; o LLM é intercambiável. Rode Claude (o melhor motor hoje) ou qualquer modelo de fronteira — o mesmo contexto, agentes e rituais rodam por cima, sem mudança." },
       { e: "Motor soberano", t: "Um motor que ninguém pode desligar", b: "Modelos de pesos abertos como o GLM-5.2 já alcançam qualidade quase-fronteira que você pode baixar e rodar sozinho — offline, isolado, no seu próprio hardware. O fallback soberano deixa de ser um downgrade." },
-      { e: "O app de desktop", t: "AIOS, para quem nunca abre um editor", b: "Um app grátis e instalável — o painel, terminais reais, explorador do vault, rituais a um clique — com visualizadores nativos para Markdown, HTML e PDFs. O próximo passo: assistir vídeo, não só ler Markdown." },
       { e: "Controles corporativos", t: "Agentes governados em escala de empresa", b: "Contexto criptografado em repouso, permissões de leitura por agente, trilhas de auditoria e identidade de agente verificável — INTENT como política, aplicada criptograficamente. A camada de administração para rodar uma frota dentro de uma organização." },
-      { e: "Marketplace", t: "Instale um bundle em um comando", b: "Bundles de agentes, fluxos verticais, o cérebro inteiro de uma empresa — instalados por um marketplace com barreira de confiança: registro → varredura de injeção → checagem de licença → QA → instalação com log de auditoria." },
-      { e: "Agenda agêntica", t: "Identidade para agentes e para quem trabalha com eles", b: "Um diretório onde seus agentes carregam credenciais verificáveis, então ele herda o acesso certo e pode interagir com segurança com os agentes de outras pessoas em seu nome." },
     ],
     note: "Direção, não promessas com data — e nunca uma função que não possamos já apontar no trabalho.",
   },
   setup: {
     eyebrow: "Configure",
-    h: ["Tudo o que você precisa, ", "e então uma linha", "."],
-    intro: "Todo o setup é uma conversa guiada — mas aqui está a lista honesta do que ter à mão, e a única linha que o inicia.",
-    soonLabel: "em breve",
-    step0Label: "Passo 0 — o que você precisa",
-    step0: [
-      { t: "Obsidian", b: "Aqui mora o vault — Markdown puro, seu segundo cérebro.", href: "https://obsidian.md", pill: "grátis" },
-      { t: "Um IDE", b: "Google Antigravity (ou VS Code) — onde a extensão AIOS Glass transforma comandos em botões.", href: "https://antigravity.google", pill: "grátis" },
-      { t: "AIOS Glass", b: "A porta de entrada gráfica, instalada pelo Open VSX — opcional, mas torna tudo clique, não digitação.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "grátis" },
-      { t: "Claude Code", b: "O motor. Instale Claude / Claude Code — é isto que de fato roda.", href: "https://claude.com/claude-code", pill: "" },
-      { t: "AIOS App", b: "O app independente — painel, terminais reais, explorador do cofre, rituais a um clique — para quem nunca abre um editor. Assinado e notarizado; quatro passos do zero até um AIOS funcionando, sem terminal.", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Baixar para Mac ↗", pill: "grátis" },
+    h: ["Duas portas, ", "um mesmo AIOS", "."],
+    intro: "Toda a configuração é uma conversa guiada. Escolha a porta que combina com o seu jeito de trabalhar — o sistema do outro lado é o mesmo.",
+    pathsLabel: "Escolha sua porta",
+    paths: [
+      {
+        pill: "para perfis técnicos",
+        q: "Já conhece um IDE como o VSCode?",
+        b: "Copie isto em qualquer sessão do Claude Code. Ele clona o framework, instala tudo o que você precisa incluindo a extensão AIOS Glass, e pede seu consentimento em cada passo.",
+        cmd: { copy: "Copiar", copied: "Copiado ✓" },
+        href: "https://open-vsx.org/extension/the-aios/aios-glass",
+      },
+      {
+        pill: "Todos, incluindo os perfis técnicos",
+        q: "Já conhece apps de IA como o Claude.app?",
+        b: "Baixe o app e siga seus quatro passos guiados, incluindo o “Set up my AI-OS from https://github.com/The-AIOS/aios” que ele faz por você. Os mesmos terminais poderosos, menos intimidadores.",
+        note: "AIOS-arm64.dmg — assinado e notarizado. macOS com Apple silicon.",
+        dl: "Baixar",
+        href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+      },
     ],
-    step1Label: "Passo 1 — rode o AIOS",
-    step1Title: "Diga ao Claude, em qualquer terminal:",
     step1Body: "O Claude lê o SETUP.md, clona o framework, instala os MCPs, configura seu vault privado e guia cada decisão — cada passo pede seu consentimento.",
-    step1Comment: "# o setup inteiro, em uma linha",
     learnable: "Todo o resto se aprende por dentro — pergunte ao seu AIOS o que ele pode fazer, e ele te mostra.",
   },
   hero: {
+    banner: {
+      badge: "Novo",
+      text: "O AIOS App chegou",
+      rest: "assinado, notarizado e grátis",
+      cta: "Baixar o app",
+      href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+    },
     eyebrowPre: "O sistema operacional de IA", eyebrowAccent: "·", eyebrowPost: "Código aberto",
     h: ["Dando a cada pessoa um ", "time de agentes.", ""],
     leadBold: "IA como um time, não uma ferramenta.",
@@ -806,8 +870,9 @@ const pt: Content = {
   },
   glass: {
     eyebrow: "Glass", h: ["A porta de entrada ", "gráfica", "."],
+    appBold: "O AIOS App", appRest: " é a superfície independente: o painel, terminais reais, explorador do vault e rituais a um clique num app de Mac assinado e notarizado — quatro passos guiados do zero até um AIOS funcionando.",
     bodyBold: "AIOS Glass", bodyRest: " roda dentro do VS Code e do Google Antigravity: os slash commands viram botões, os argumentos viram formulários, spawn vira um clique. Não-desenvolvedores operam todo o seu AIOS sem digitar um único comando.",
-    pullAccent: "Glass, não o motor.", pullRest: " Ele expõe e dispara o que o framework já faz — nunca reimplementa. Lê os próprios arquivos do framework em tempo de execução, então cada /aios:update aparece automaticamente.",
+    pullAccent: "Superfícies, não motores.", pullRest: " Ambos expõem e disparam o que o framework já faz — nenhum reimplementa. Ambos leem os próprios arquivos do framework em tempo de execução, então cada /aios:update aparece automaticamente.",
     cards: [
       { e: "Home + calendário", b: "Dashboard vivo, grade mensal, rituais a um clique." },
       { e: "Agentes + capacidades", b: "Navegador da frota com fluxo de spawn; skills, MCPs e plugins descobertos ao vivo." },
@@ -815,7 +880,7 @@ const pt: Content = {
     ],
     busEyebrow: "O barramento de comandos",
     busH: ["Agentes orquestrando agentes — ", "através de uma superfície confiável", "."],
-    busLead: "Uma sessão coordenadora não pode receber as chaves para lançar e dirigir outros agentes por conta própria — as proteções do próprio modelo impedem isso, e com razão. Então ela não força a porta: deixa uma solicitação no inbox do Glass, e o Glass — a extensão em que você já confia — a cumpre de forma nativa: criar um worker, enviar uma mensagem, encerrá-lo. Solicite, não lance.",
+    busLead: "Uma sessão coordenadora não pode receber as chaves para lançar e dirigir outros agentes por conta própria — as proteções do próprio modelo impedem isso, e com razão. Então ela não força a porta: deixa uma solicitação num inbox compartilhado, e a superfície em que você confia — o app ou a extensão — a cumpre de forma nativa: criar um worker, enviar uma mensagem, encerrá-lo. Solicite, não lance.",
     busCards: [
       { e: "Três verbos, um canal", b: "spawn · send · kill — um pequeno arquivo JSON em ~/.aios/spawn-inbox/, executado pelo Glass sem teclas sintéticas e sem bloqueios." },
       { e: "O modelo certo para a tarefa", b: "Direcione cada worker pela carga cognitiva — trabalho mecânico para um modelo mais rápido, julgamento para a fronteira. Calibre, não escolha." },
