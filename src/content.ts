@@ -47,7 +47,7 @@ export type Content = {
   /* Act 5 — Manual: the Step 0 / Step 1 setup story. */
   setup: {
     eyebrow: string; h: H; intro: string; soonLabel: string;
-    step0Label: string; step0: { t: string; b: string; href?: string; soon?: boolean; pill: string }[];
+    step0Label: string; step0: { t: string; b: string; href?: string; cta?: string; soon?: boolean; pill: string }[];
     step1Label: string; step1Title: string; step1Body: string; step1Comment: string;
     learnable: string;
   };
@@ -183,7 +183,7 @@ const en: Content = {
       { t: "An IDE", b: "Google Antigravity (or VS Code) — where the AIOS Glass extension turns commands into buttons.", href: "https://antigravity.google", pill: "free" },
       { t: "AIOS Glass", b: "The graphical front door, installed from Open VSX — optional, but makes it click-not-type.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "free" },
       { t: "Claude Code", b: "The engine. Install Claude / Claude Code — this is what actually runs.", href: "https://claude.com/claude-code", pill: "" },
-      { t: "AIOS App", b: "The standalone app — panel, terminals, vault explorer, one-click rituals — for operators who never open an editor.", soon: true, pill: "free" },
+      { t: "AIOS App", b: "The standalone app — panel, real terminals, vault explorer, one-click rituals — for people who never open an editor. Signed and notarized; four steps from nothing installed to a working AIOS, no terminal needed.", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Download for Mac ↗", pill: "free" },
     ],
     step1Label: "Step 1 — run the AIOS",
     step1Title: "Tell Claude, in any terminal:",
@@ -439,7 +439,7 @@ const es: Content = {
       { t: "Un IDE", b: "Google Antigravity (o VS Code) — donde la extensión AIOS Glass convierte comandos en botones.", href: "https://antigravity.google", pill: "gratis" },
       { t: "AIOS Glass", b: "La puerta de entrada gráfica, instalada desde Open VSX — opcional, pero hace que sea clic, no teclear.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "gratis" },
       { t: "Claude Code", b: "El motor. Instala Claude / Claude Code — esto es lo que realmente corre.", href: "https://claude.com/claude-code", pill: "" },
-      { t: "AIOS App", b: "La app independiente — panel, terminales, explorador del vault, rituales a un clic — para quien nunca abre un editor.", soon: true, pill: "gratis" },
+      { t: "AIOS App", b: "La app independiente — panel, terminales reales, explorador del vault, rituales a un clic — para quien nunca abre un editor. Firmada y notarizada; cuatro pasos desde cero hasta un AIOS funcionando, sin terminal.", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Descargar para Mac ↗", pill: "gratis" },
     ],
     step1Label: "Paso 1 — corre el AIOS",
     step1Title: "Dile a Claude, en cualquier terminal:",
@@ -695,7 +695,7 @@ const pt: Content = {
       { t: "Um IDE", b: "Google Antigravity (ou VS Code) — onde a extensão AIOS Glass transforma comandos em botões.", href: "https://antigravity.google", pill: "grátis" },
       { t: "AIOS Glass", b: "A porta de entrada gráfica, instalada pelo Open VSX — opcional, mas torna tudo clique, não digitação.", href: "https://open-vsx.org/extension/the-aios/aios-glass", pill: "grátis" },
       { t: "Claude Code", b: "O motor. Instale Claude / Claude Code — é isto que de fato roda.", href: "https://claude.com/claude-code", pill: "" },
-      { t: "AIOS App", b: "O app independente — painel, terminais, explorador do vault, rituais a um clique — para quem nunca abre um editor.", soon: true, pill: "grátis" },
+      { t: "AIOS App", b: "O app independente — painel, terminais reais, explorador do cofre, rituais a um clique — para quem nunca abre um editor. Assinado e notarizado; quatro passos do zero até um AIOS funcionando, sem terminal.", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Baixar para Mac ↗", pill: "grátis" },
     ],
     step1Label: "Passo 1 — rode o AIOS",
     step1Title: "Diga ao Claude, em qualquer terminal:",

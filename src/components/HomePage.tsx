@@ -622,7 +622,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                     {titleRow}
                     <p style={{ flex: 1 }}>{s.b}</p>
                     <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--color-accent)", marginTop: "0.875rem" }}>
-                      {s.href?.replace(/^https?:\/\//, "").replace(/\/.*$/, "")} ↗
+                      {/* an explicit CTA when the card DOES something (download), the bare
+                          domain when it merely points somewhere. "github.com ↗" on a download
+                          card tells the reader where the bytes live, not that they can have them. */}
+                      {s.cta ?? `${s.href?.replace(/^https?:\/\//, "").replace(/\/.*$/, "")} ↗`}
                     </span>
                   </a>
                 );
