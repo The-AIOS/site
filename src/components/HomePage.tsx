@@ -39,6 +39,7 @@ import {
   OrchestratorShift,
   TwoMachines,
   OsAnatomy,
+  AppWindow,
   GlassWorkspace,
   CommandBusFlow,
   TeamMount,
@@ -705,27 +706,37 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <SectionLabel num="06">{c.how.subGlass}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.glass.h} /></h2>
 
-            {/* Movement 1 — what Glass is + the workspace mockup */}
-            <div className="content-grid" style={{ marginBottom: "2.5rem" }}>
-              <div>
-                {/* Two surfaces, App first: it is the one most readers can use today. */}
-                <p className="body-text" style={{ marginBottom: "1rem" }}>
-                  <strong style={INK}>{c.glass.appBold}</strong>
-                  {c.glass.appRest}
-                </p>
-                <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                  <strong style={INK}>{c.glass.bodyBold}</strong>
-                  {c.glass.bodyRest}
-                </p>
-                <p className="pullquote pullquote-sm">
-                  <span className="accent">{c.glass.pullAccent}</span>
-                  {c.glass.pullRest}
-                </p>
-              </div>
-              <Reveal className="graphic-frame tight">
-                <GlassWorkspace />
-              </Reveal>
+            {/* Movement 1 — the two surfaces, each with its own mockup.
+                Two surfaces, App first: it is the one most readers can use today.
+                A single Glass-only mockup used to sit beside both paragraphs,
+                which made the App paragraph promise a surface the page never
+                showed — so the graphic is a matched pair now, in paragraph order. */}
+            <div style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>
+              <p className="body-text" style={{ marginBottom: "1rem" }}>
+                <strong style={INK}>{c.glass.appBold}</strong>
+                {c.glass.appRest}
+              </p>
+              <p className="body-text" style={{ marginBottom: "1.5rem" }}>
+                <strong style={INK}>{c.glass.bodyBold}</strong>
+                {c.glass.bodyRest}
+              </p>
+              <p className="pullquote pullquote-sm">
+                <span className="accent">{c.glass.pullAccent}</span>
+                {c.glass.pullRest}
+              </p>
             </div>
+            {/* auto-fit rather than a fixed 2-up: the mockups carry 8–10px mono
+                labels, so they stack instead of shrinking below ~400px each. */}
+            <Reveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
+              <div className="graphic-frame tight">
+                <AppWindow />
+                <p className="graphic-caption">{c.glass.appCaption}</p>
+              </div>
+              <div className="graphic-frame tight">
+                <GlassWorkspace />
+                <p className="graphic-caption">{c.glass.glassCaption}</p>
+              </div>
+            </Reveal>
             <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "4rem" }}>
               {c.glass.cards.map((g) => (
                 <Card key={g.e} eyebrow={g.e}>{g.b}</Card>

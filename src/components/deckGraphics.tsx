@@ -429,6 +429,71 @@ export function TeamMount() {
   );
 }
 
+/* AppWindow — the standalone AIOS App, the surface the section's first paragraph
+ * describes. Draws the four things that paragraph promises and nothing else: a
+ * vault explorer, one-click rituals, a real terminal, and the panel's own nav.
+ * Deliberately built on the same 480×300 window frame as GlassWorkspace so the
+ * two read as a matched pair — same house, two doors. One accent: the live
+ * prompt + caret. */
+export function AppWindow() {
+  const tree: [string, number, boolean][] = [
+    ["▾ 00 - notes", 0, false],
+    ["projects", 1, false],
+    ["context", 1, false],
+    ["▾ 01 - calendar", 0, false],
+    ["2026-07-27.md", 1, true],
+    ["▸ 03 - export", 0, false],
+  ];
+  const rituals = [
+    { x: 152, w: 74, label: "Plan day" },
+    { x: 234, w: 78, label: "Close day" },
+    { x: 320, w: 66, label: "Spawn" },
+  ];
+  return (
+    <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" style={svgStyle(440)} aria-label="The standalone AIOS App: the vault explorer on the left, one-click rituals and a real terminal running a ritual on the right.">
+      {/* window chrome — a plain Mac window, no editor around it */}
+      <g className="anim-fade" style={delay(0.1)}>
+        <rect x="8" y="8" width="464" height="284" rx="10" fill={SURF} stroke={HAIR} />
+        <circle cx="26" cy="26" r="3.5" fill={HAIR} />
+        <circle cx="38" cy="26" r="3.5" fill={HAIR} />
+        <circle cx="50" cy="26" r="3.5" fill={HAIR} />
+        <text x="66" y="29" fontFamily={MONO} fontSize="8.5" fill={SUBTLE}>The AIOS</text>
+        <line x1="8" y1="42" x2="472" y2="42" stroke={HAIR} />
+        <line x1="138" y1="42" x2="138" y2="292" stroke={HAIR} />
+      </g>
+      {/* vault explorer */}
+      <g className="anim-fade" style={delay(0.25)}>
+        <text x="20" y="60" fontFamily={MONO} fontSize="8" letterSpacing="1.2" fill={SUBTLE}>VAULT</text>
+        {tree.map(([t, d, on], i) => (
+          <text key={t} x={20 + d * 11} y={80 + i * 20} fontFamily={MONO} fontSize="9.5" fill={on ? ACCENT : MUTED}>{t}</text>
+        ))}
+      </g>
+      {/* one-click rituals */}
+      <text className="anim-fade" x="152" y="60" fontFamily={MONO} fontSize="9" letterSpacing="1.6" fill={ACCENT} style={delay(0.35)}>ONE-CLICK RITUALS</text>
+      {rituals.map((b, i) => (
+        <g key={b.label} className="anim-pop" style={delay(0.5 + i * 0.1)}>
+          <rect x={b.x} y="72" width={b.w} height="26" rx="13" fill="var(--color-surface-2)" stroke={HAIR} />
+          <text x={b.x + b.w / 2} y="89" textAnchor="middle" fontFamily={SANS} fontWeight="600" fontSize="10" fill={INK}>{b.label}</text>
+        </g>
+      ))}
+      {/* a real terminal — the App's differentiator: the ritual runs here, in view */}
+      <g className="anim-rise" style={delay(0.7)}>
+        <rect x="146" y="112" width="318" height="118" rx="8" fill="var(--color-surface-2)" stroke={HAIR} />
+        <text x="160" y="132" fontFamily={MONO} fontSize="8.5" letterSpacing="1.2" fill={SUBTLE}>TERMINAL</text>
+        <text x="160" y="153" fontFamily={MONO} fontSize="10.5">
+          <tspan fill={ACCENT}>&#8250; </tspan><tspan fill={INK}>/aios:today</tspan>
+        </text>
+        <text x="160" y="172" fontFamily={MONO} fontSize="9.5" fill={MUTED}>reading 12 context files…</text>
+        <text x="160" y="189" fontFamily={MONO} fontSize="9.5" fill={MUTED}>plan written · 3 agents queued</text>
+        <text x="160" y="211" fontFamily={MONO} fontSize="10.5" fill={ACCENT}>&#8250;</text>
+        <rect className="svg-pulse" x="170" y="201" width="6" height="12" fill={ACCENT} />
+        <line x1="146" y1="246" x2="464" y2="246" stroke={HAIR} />
+        <text x="160" y="262" fontFamily={SANS} fontSize="9.5" fill={MUTED}>Home · Calendar · Agents · Spaces</text>
+      </g>
+    </svg>
+  );
+}
+
 /* GlassWorkspace — AIOS Glass living inside the editor: the vault EXPLORER on
  * the left, the Glass panel (rituals + a live running-sessions card) on the
  * right. On-brand: one accent — a working session's dot is coral (breathing),

@@ -104,8 +104,10 @@ export type Content = {
   };
   glass: {
     eyebrow: string; h: H;
-    /* Two surfaces now, not one: the App paragraph sits above the Glass one. */
+    /* Two surfaces now, not one: the App paragraph sits above the Glass one,
+       and each paragraph has its own mockup (appCaption / glassCaption). */
     appBold: string; appRest: string; bodyBold: string; bodyRest: string;
+    appCaption: string; glassCaption: string;
     pullAccent: string; pullRest: string; cards: CardT[];
     busEyebrow: string; busH: H; busLead: string; busCards: CardT[];
   };
@@ -185,7 +187,7 @@ const en: Content = {
     intro: "The AIOS already runs every day. Here’s the direction of travel — each item traces to live work in the framework, not a press release.",
     items: [
       { e: "The desktop app", t: "AIOS, for everyone", b: "A free, installable app — the panel, real terminals, vault explorer, one-click rituals — with native viewers for markdown, HTML, and PDFs.", ribbon: "public", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Get the app ↗" },
-      { e: "Agentic contact book", t: "ID and mandates for agents", b: "A directory where your agents carry verifiable credentials, so it inherits the right access and can interact securely with other people’s agents on your behalf.", ribbon: "releasing", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
+      { e: "Agentic contact book", t: "ID and mandates for agents", b: "A directory where your agents carry a verifiable identity and the mandates that scope it — what each one may do, and which slice of your vault it may speak from — so they inherit the right access and can interact securely with other people’s agents on your behalf.", ribbon: "releasing", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
       { e: "Marketplace", t: "Install a bundle in one command", b: "Agent bundles, vertical workflows, a company’s whole brain — installed through a trust-gated marketplace: registry → injection scan → license check → QA → install with an audit log.", ribbon: "building", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Model-agnostic", t: "The layer, not the model", b: "The AIOS is the substrate; the LLM is swappable. Run Claude (the best engine today) or any frontier model — the same context, agents, and rituals run on top, unchanged." },
       { e: "Sovereign engine", t: "An engine no one can switch off", b: "Open-weights models like GLM-5.2 now reach near-frontier quality you can download and run yourself — offline, air-gapped, on your own metal. The sovereign fallback stops being a downgrade." },
@@ -327,9 +329,11 @@ const en: Content = {
     outro: "Two layers stay active at once — vault context (strategic) + project context (execution). Every coding project Claude scaffolds is born with its own CLAUDE.md, so any teammate, human or AI, lands oriented.",
   },
   glass: {
-    eyebrow: "Glass", h: ["The graphical ", "front door", "."],
+    eyebrow: "Glass", h: ["Two graphical ", "front doors", "."],
     appBold: "The AIOS App", appRest: " is the standalone surface: the panel, real terminals, a vault explorer and one-click rituals in a signed, notarized Mac app — four guided steps from nothing installed to a working AIOS.",
     bodyBold: "AIOS Glass", bodyRest: " runs inside VS Code and Google Antigravity: slash commands become buttons, arguments become forms, spawn becomes a click. Non-developers operate their full AIOS without ever typing a command.",
+    appCaption: "The AIOS App — standalone, signed, notarized.",
+    glassCaption: "AIOS Glass — inside VS Code and Antigravity.",
     pullAccent: "Surfaces, not engines.", pullRest: " Both surface and trigger what the framework already does — neither reimplements it. Both read the framework’s own files at runtime, so every /aios:update shows up on its own.",
     cards: [
       { e: "Home + calendar", b: "Live dashboard, month grid, rituals one click away." },
@@ -456,7 +460,7 @@ const es: Content = {
     intro: "The AIOS ya corre cada día. Esta es la dirección de avance — cada punto remite a trabajo vivo en el framework, no a un comunicado de prensa.",
     items: [
       { e: "La app de escritorio", t: "AIOS, para todos", b: "Una app gratis e instalable — el panel, terminales reales, explorador del vault, rituales a un clic — con visores nativos para Markdown, HTML y PDFs.", ribbon: "público", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Descargar la app ↗" },
-      { e: "Agenda agéntica", t: "ID y mandatos para agentes", b: "Un directorio donde tus agentes portan credenciales verificables, así hereda el acceso correcto y puede interactuar de forma segura con los agentes de otras personas en tu nombre.", ribbon: "por liberarse", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
+      { e: "Agenda agéntica", t: "ID y mandatos para agentes", b: "Un directorio donde tus agentes portan una identidad verificable y los mandatos que la delimitan — qué puede hacer cada uno y desde qué parte de tu vault puede hablar — así heredan el acceso correcto y pueden interactuar de forma segura con los agentes de otras personas en tu nombre.", ribbon: "por liberarse", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
       { e: "Marketplace", t: "Instala un bundle en un comando", b: "Bundles de agentes, flujos verticales, el cerebro entero de una empresa — instalados por un marketplace con barrera de confianza: registro → escaneo de inyección → revisión de licencia → QA → instalación con registro de auditoría.", ribbon: "en construcción", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Agnóstico al modelo", t: "La capa, no el modelo", b: "The AIOS es el sustrato; el LLM es intercambiable. Corre Claude (el mejor motor hoy) o cualquier modelo frontera — el mismo contexto, agentes y rituales corren encima, sin cambios." },
       { e: "Motor soberano", t: "Un motor que nadie puede apagar", b: "Modelos de pesos abiertos como GLM-5.2 ya alcanzan calidad casi-frontera que puedes descargar y correr tú mismo — offline, aislado, en tu propio hardware. El respaldo soberano deja de ser un downgrade." },
@@ -598,9 +602,11 @@ const es: Content = {
     outro: "Dos capas se mantienen activas a la vez — contexto del vault (estratégico) + contexto del proyecto (ejecución). Cada proyecto de código que Claude scaffolda nace con su propio CLAUDE.md, así cualquier compañero, humano o IA, aterriza orientado.",
   },
   glass: {
-    eyebrow: "Glass", h: ["La puerta de entrada ", "gráfica", "."],
+    eyebrow: "Glass", h: ["Dos puertas de entrada ", "gráficas", "."],
     appBold: "La AIOS App", appRest: " es la superficie independiente: el panel, terminales reales, explorador del vault y rituales a un clic en una app de Mac firmada y notarizada — cuatro pasos guiados desde cero hasta un AIOS funcionando.",
     bodyBold: "AIOS Glass", bodyRest: " corre dentro de VS Code y Google Antigravity: los slash commands se vuelven botones, los argumentos se vuelven formularios, spawn se vuelve un clic. Los no-desarrolladores operan todo su AIOS sin escribir un solo comando.",
+    appCaption: "La AIOS App — independiente, firmada y notarizada.",
+    glassCaption: "AIOS Glass — dentro de VS Code y Antigravity.",
     pullAccent: "Superficies, no motores.", pullRest: " Ambas exponen y disparan lo que el framework ya hace — ninguna lo reimplementa. Ambas leen los propios archivos del framework en tiempo de ejecución, así cada /aios:update aparece automáticamente.",
     cards: [
       { e: "Home + calendario", b: "Dashboard vivo, grilla mensual, rituales a un clic." },
@@ -727,7 +733,7 @@ const pt: Content = {
     intro: "The AIOS já roda todos os dias. Esta é a direção de avanço — cada item remete a trabalho vivo no framework, não a um press release.",
     items: [
       { e: "O app de desktop", t: "AIOS, para todos", b: "Um app grátis e instalável — o painel, terminais reais, explorador do vault, rituais a um clique — com visualizadores nativos para Markdown, HTML e PDFs.", ribbon: "público", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Baixar o app ↗" },
-      { e: "Agenda agêntica", t: "ID e mandatos para agentes", b: "Um diretório onde seus agentes carregam credenciais verificáveis, então ele herda o acesso certo e pode interagir com segurança com os agentes de outras pessoas em seu nome.", ribbon: "em liberação", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
+      { e: "Agenda agêntica", t: "ID e mandatos para agentes", b: "Um diretório onde seus agentes carregam uma identidade verificável e os mandatos que a delimitam — o que cada um pode fazer e de que parte do seu vault pode falar — então eles herdam o acesso certo e podem interagir com segurança com os agentes de outras pessoas em seu nome.", ribbon: "em liberação", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
       { e: "Marketplace", t: "Instale um bundle em um comando", b: "Bundles de agentes, fluxos verticais, o cérebro inteiro de uma empresa — instalados por um marketplace com barreira de confiança: registro → varredura de injeção → checagem de licença → QA → instalação com log de auditoria.", ribbon: "em construção", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Agnóstico ao modelo", t: "A camada, não o modelo", b: "The AIOS é o substrato; o LLM é intercambiável. Rode Claude (o melhor motor hoje) ou qualquer modelo de fronteira — o mesmo contexto, agentes e rituais rodam por cima, sem mudança." },
       { e: "Motor soberano", t: "Um motor que ninguém pode desligar", b: "Modelos de pesos abertos como o GLM-5.2 já alcançam qualidade quase-fronteira que você pode baixar e rodar sozinho — offline, isolado, no seu próprio hardware. O fallback soberano deixa de ser um downgrade." },
@@ -869,9 +875,11 @@ const pt: Content = {
     outro: "Duas camadas ficam ativas ao mesmo tempo — contexto do vault (estratégico) + contexto do projeto (execução). Todo projeto de código que o Claude faz scaffold nasce com seu próprio CLAUDE.md, então qualquer colega, humano ou IA, chega orientado.",
   },
   glass: {
-    eyebrow: "Glass", h: ["A porta de entrada ", "gráfica", "."],
+    eyebrow: "Glass", h: ["Duas portas de entrada ", "gráficas", "."],
     appBold: "O AIOS App", appRest: " é a superfície independente: o painel, terminais reais, explorador do vault e rituais a um clique num app de Mac assinado e notarizado — quatro passos guiados do zero até um AIOS funcionando.",
     bodyBold: "AIOS Glass", bodyRest: " roda dentro do VS Code e do Google Antigravity: os slash commands viram botões, os argumentos viram formulários, spawn vira um clique. Não-desenvolvedores operam todo o seu AIOS sem digitar um único comando.",
+    appCaption: "O AIOS App — independente, assinado e notarizado.",
+    glassCaption: "AIOS Glass — dentro do VS Code e do Antigravity.",
     pullAccent: "Superfícies, não motores.", pullRest: " Ambos expõem e disparam o que o framework já faz — nenhum reimplementa. Ambos leem os próprios arquivos do framework em tempo de execução, então cada /aios:update aparece automaticamente.",
     cards: [
       { e: "Home + calendário", b: "Dashboard vivo, grade mensal, rituais a um clique." },
