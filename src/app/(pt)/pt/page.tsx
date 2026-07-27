@@ -33,10 +33,8 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <>
-      <script dangerouslySetInnerHTML={{ __html: 'document.documentElement.lang = "pt-BR";' }} />
-      <HomePage locale="pt" />
-    </>
-  );
+  /* `lang="pt-BR"` comes from this group's root layout now — it used to be
+     patched onto <html> by an inline script here, which React 19 flagged as a
+     hydration mismatch and which left crawlers reading lang="en". */
+  return <HomePage locale="pt" />;
 }

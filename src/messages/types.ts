@@ -1,12 +1,14 @@
 /* Locale machinery for the site.
  *
- * The site rebuild (2026-06) ships EN content inline in the components — the
- * fastest surface for live taste iteration and the "very simple" north star.
- * The route structure (/  ·  /es  ·  /pt), the LocaleSwitcher, and the SEO
- * hreflang wiring all stay live, so ES/PT content can be reintroduced later
- * without touching the routing. When that happens, reintroduce a typed
- * Messages map here and a parity audit under scripts/. Until then, /es and /pt
- * render the EN page (parked, not stale). */
+ * Reader-facing prose is trilingual and lives in `src/content.ts` (EN / ES-LATAM
+ * / PT-BR), keyed by these locales; the `Content` type enforces structural
+ * parity across all three at compile time, so a missing string fails the build.
+ * That IS the parity audit.
+ *
+ * Routing: three route groups — `(en)` · `(es)` · `(pt)` — each with its own
+ * root layout, so `<html lang>` is server-rendered per locale from
+ * LOCALE_HTML_LANG below. Route groups don't create path segments, so the URLs
+ * stay `/` · `/es` · `/pt`. */
 
 export type Locale = "en" | "es" | "pt";
 

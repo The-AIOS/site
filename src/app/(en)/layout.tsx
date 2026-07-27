@@ -1,58 +1,12 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Analytics } from "@/components/Analytics";
+/* Root layout for the English group: `/`, `/standards`, `/disruption-index`,
+ * and the 404. One of three sibling root layouts — see RootShell for why. */
+import "../globals.css";
+import { RootShell } from "@/components/RootShell";
+import { BASE_METADATA } from "../siteMetadata";
+import { LOCALE_HTML_LANG } from "@/messages";
 
-export const metadata: Metadata = {
-  title: "The-AIOS — the AI Operating System framework",
-  description:
-    "Personal context substrate for working with Claude. Make every session start from your actual knowledge instead of from zero. Workflow-first, anti-hype, compounds across sessions.",
-  metadataBase: new URL("https://www.the-aios.com"),
-  openGraph: {
-    title: "The-AIOS",
-    description:
-      "The AI Operating System framework. Personal context substrate for working with Claude that compounds across sessions.",
-    type: "website",
-    url: "https://www.the-aios.com",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "The-AIOS",
-    description:
-      "The AI Operating System framework. Personal context substrate that compounds across sessions.",
-  },
-};
+export const metadata = BASE_METADATA;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        {/* No-flash theme: dark is the default; apply stored 'light' before paint. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}",
-          }}
-        />
-        {/* AI agents reading this page on a user's behalf: see /llms.txt for structured framework info */}
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
-        <span id="top" aria-hidden="true" />
-        {children}
-        <Analytics />
-      </body>
-    </html>
-  );
+export default function EnRootLayout({ children }: { children: React.ReactNode }) {
+  return <RootShell lang={LOCALE_HTML_LANG.en}>{children}</RootShell>;
 }
