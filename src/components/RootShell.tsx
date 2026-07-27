@@ -19,7 +19,22 @@ import { Analytics } from "@/components/Analytics";
 
 export function RootShell({ lang, children }: { lang: string; children: React.ReactNode }) {
   return (
-    <html lang={lang}>
+    /* suppressHydrationWarning is for the no-flash theme script below, which sets
+     * data-theme on <html> during parse — before React hydrates. React then sees
+     * an attribute it did not render and logs a mismatch on every page.
+     *
+     * This is NOT the same situation as the lang bug fixed earlier, and the
+     * difference is the whole justification: there, the SERVER value was wrong and
+     * the fix was to render the right one. Here the CLIENT value is authoritative
+     * by design — only the browser knows the visitor's stored theme, and it has to
+     * win before first paint or the page flashes the wrong palette. There is
+     * nothing to correct at the source, so suppressing is the actual fix rather
+     * than a cover-up. Scoped to this element, one level deep: it does not hide
+     * mismatches inside the tree. (The approach next-themes documents.)
+     *
+     * Do not "fix" this by removing the attribute or the script — you get either a
+     * theme flash on every load, or a console error on every load. */
+    <html lang={lang} suppressHydrationWarning>
       <head>
         {/* No-flash theme: dark is the default; apply stored 'light' before paint. */}
         <script
