@@ -726,8 +726,13 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               </p>
             </div>
             {/* auto-fit rather than a fixed 2-up: the mockups carry 8–10px mono
-                labels, so they stack instead of shrinking below ~400px each. */}
-            <Reveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
+                labels, so they stack instead of shrinking below ~400px each.
+                The min track is min(400px, 100%), NOT a bare 400px — a bare
+                minmax floor keeps the track at 400px even when the container is
+                narrower, which pushed the frame 50px past the container on a
+                390px phone where the section's overflow-x:hidden silently
+                cropped it. */}
+            <Reveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(400px, 100%), 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
               <div className="graphic-frame tight">
                 <AppWindow />
                 <p className="graphic-caption">{c.glass.appCaption}</p>
