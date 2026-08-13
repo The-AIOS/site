@@ -33,6 +33,7 @@ export type DownloadCopy = {
   /** The modal a Windows visitor gets when they click a CTA. */
   soonTitle: string;
   soonBody: string;
+  /** Accessible label for the corner × — the glyph itself is decorative. */
   soonClose: string;
 };
 
@@ -78,6 +79,7 @@ function SoonModal({ copy, onClose }: { copy: DownloadCopy; onClose: () => void 
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
+          position: "relative",   // anchors the × in the corner
           maxWidth: "26rem", width: "100%",
           padding: "1.5rem",
           borderRadius: 14,
@@ -87,29 +89,38 @@ function SoonModal({ copy, onClose }: { copy: DownloadCopy; onClose: () => void 
           boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
         }}
       >
-        <h3 style={{ margin: "0 0 0.5rem", fontFamily: "var(--font-display)", fontSize: "1.0625rem", letterSpacing: "-0.02em" }}>
+        {/* Corner dismiss. The visible glyph is decorative, so it is aria-hidden and the button
+            carries the translated label — a screen reader announcing "×" tells nobody anything. */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label={copy.soonClose}
+          style={{
+            position: "absolute", top: "0.6875rem", right: "0.6875rem",
+            width: 28, height: 28,
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            border: 0, background: "transparent",
+            color: "var(--color-ink-muted)",
+            borderRadius: 999,
+            fontSize: "1.25rem", lineHeight: 1, fontFamily: "inherit",
+            cursor: "pointer",
+          }}
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+        {/* padding-right keeps a longer translated title clear of the × rather than sliding under it */}
+        <h3 style={{ margin: "0 0 0.5rem", paddingRight: "2rem", fontFamily: "var(--font-display)", fontSize: "1.0625rem", letterSpacing: "-0.02em" }}>
           {copy.soonTitle}
         </h3>
         <p style={{ margin: "0 0 1.125rem", fontSize: "0.875rem", lineHeight: 1.5, color: "var(--color-ink-muted)" }}>
           {copy.soonBody}
         </p>
-        {/* The builds that DO exist — a dead end is what the reroute was; this is the alternative. */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.125rem" }}>
+        {/* The builds that DO exist — a dead end is what the reroute was; this is the alternative.
+            Last element in the card now, so no trailing margin. */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
           <a href={ARTIFACTS.mac.href} className="nav-cta">{copy.mac}</a>
           <a href={ARTIFACTS.linux.href} className="nav-cta">{copy.linux}</a>
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          style={{
-            border: "1px solid var(--color-hairline)", background: "transparent",
-            color: "var(--color-ink-muted)", borderRadius: 999,
-            padding: "0.3125rem 0.75rem", fontSize: "0.75rem", fontFamily: "inherit",
-            cursor: "pointer",
-          }}
-        >
-          {copy.soonClose}
-        </button>
       </div>
     </div>,
     document.body,

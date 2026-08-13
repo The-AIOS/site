@@ -172,7 +172,7 @@ const en: Content = {
     linux: "Linux (x64)",
     windowsSoon: "Windows (soon)",
     soonTitle: "Windows is on the way",
-    soonBody: "Sorry — our engineers are already working on the app for your OS. Mac and Linux are available today, and the app is the same on both.",
+    soonBody: "Sorry — our engineers are already working on the app for your OS. Mac and Linux are available today.",
     soonClose: "Close",
   },
   why: {
@@ -450,7 +450,7 @@ const es: Content = {
     linux: "Linux (x64)",
     windowsSoon: "Windows (pronto)",
     soonTitle: "Windows está en camino",
-    soonBody: "Perdón — nuestros ingenieros ya están trabajando en la app para tu sistema operativo. Mac y Linux ya están disponibles, y la app es la misma en ambos.",
+    soonBody: "Perdón — nuestros ingenieros ya están trabajando en la app para tu sistema operativo. Mac y Linux ya están disponibles.",
     soonClose: "Cerrar",
   },
   why: {
@@ -728,7 +728,7 @@ const pt: Content = {
     linux: "Linux (x64)",
     windowsSoon: "Windows (em breve)",
     soonTitle: "Windows está a caminho",
-    soonBody: "Desculpe — nossos engenheiros já estão trabalhando no app para o seu sistema operacional. Mac e Linux já estão disponíveis, e o app é o mesmo nos dois.",
+    soonBody: "Desculpe — nossos engenheiros já estão trabalhando no app para o seu sistema operacional. Mac e Linux já estão disponíveis.",
     soonClose: "Fechar",
   },
   why: {
