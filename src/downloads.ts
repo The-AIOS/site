@@ -42,21 +42,37 @@ export type Platform = "mac" | "linux" | "windows" | "unknown";
 export function detectPlatform(nav: {
   userAgent: string;
   platform?: string;
-  /** navigator.maxTouchPoints. >1 on a MacIntel string means iPadOS, not macOS. */
+  /** navigator.maxTouchPoints. >1 alongside a Mac user agent means iPadOS, not macOS. */
   maxTouchPoints?: number;
 }): Platform {
-  const ua = `${nav.userAgent} ${nav.platform ?? ""}`.toLowerCase();
+  const ua = nav.userAgent.toLowerCase();
+  const plat = (nav.platform ?? "").toLowerCase();
+  const touch = nav.maxTouchPoints ?? 0;
 
-  // Mobile first — the cases most likely to be misread as a desktop OS.
+  // Mobile first — the cases most likely to be misread as a desktop OS. Android user agents
+  // contain "Linux", so this must precede the Linux check or every phone is offered an AppImage.
   if (/android/.test(ua)) return "unknown";
   if (/iphone|ipod|ipad/.test(ua)) return "unknown";
 
-  if (/win/.test(ua)) return "windows";
-  if (/mac/.test(ua)) {
-    // A trackpad reports 0; a touchscreen Mac does not exist. >1 here is an iPad.
-    return (nav.maxTouchPoints ?? 0) > 1 ? "unknown" : "mac";
+  /* The USER AGENT is the authoritative signal and is checked ALONE.
+     An earlier version folded navigator.platform into the same string, which was wrong twice
+     over: on a Mac, `platform` is always "MacIntel", so /mac/ matched even when the user agent
+     said Linux — misdetecting, and making the Linux path impossible to exercise from DevTools
+     (which overrides the user agent but never `platform`). Testability and correctness pointed
+     the same way here: read the field the browser actually reports about the OS, and treat
+     `platform` as a fallback for when the UA says nothing. */
+  if (/windows|win32|win64/.test(ua)) return "windows";
+  if (/linux|x11|cros|freebsd|openbsd|netbsd/.test(ua)) return "linux";
+  if (/mac os|macintosh/.test(ua)) {
+    // A trackpad reports 0 and a touchscreen Mac does not exist, so >1 here is an iPad
+    // reporting itself as "Macintosh" — indistinguishable from a Mac by strings alone.
+    return touch > 1 ? "unknown" : "mac";
   }
-  if (/linux|x11|cros|bsd/.test(ua)) return "linux";
+
+  // The UA told us nothing recognisable. Fall back to navigator.platform before giving up.
+  if (/win/.test(plat)) return "windows";
+  if (/linux|x11/.test(plat)) return "linux";
+  if (/mac/.test(plat)) return touch > 1 ? "unknown" : "mac";
   return "unknown";
 }
 

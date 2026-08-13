@@ -2,30 +2,28 @@
 
 /* Platform-aware download surfaces.
  *
- * Three rules shape this:
+ * Two kinds of surface, and they answer different questions:
  *
- * 1. DETECTION IS A DEFAULT, NOT A JAIL. Someone on a Mac may be downloading for the Linux box
- *    next to them, and any sniff is wrong for somebody. Every surface keeps a visible route to
- *    the other platform. Guessing well and locking the door are different things.
+ *   COMPACT CTAs (header pill, launch strip) — "give me the app". One destination, so they
+ *   follow the visitor's OS. There is no room to explain, so they must not promise: Windows
+ *   falls back to the Releases page rather than a link that cannot deliver.
  *
- * 2. NEVER OFFER WHAT DOES NOT EXIST. Windows has no artifact. Say so and show what IS there,
- *    rather than a download that 404s or a button that does nothing.
+ *   THE SETUP PANEL — the section is titled "pick your door", so it SHOWS BOTH doors. Two
+ *   links, no detection, no guessing. That also means it renders identically on the server and
+ *   the client: no hydration flash, and no moment where the panel says something it will
+ *   immediately replace.
  *
- * 3. ONLY ANNOUNCE WHAT SELF-UPDATES. The .deb ships on the release, but electron-updater has no
- *    deb updater — a .deb install never updates and is never told. Announcing it would
- *    manufacture the exact silent-staleness the release gates exist to prevent, so the AppImage
- *    is the Linux download this site offers. Anyone who specifically wants the .deb finds it on
- *    the Releases page and knows what they are choosing.
+ * The panel used to be a single <a> whose body was one detected sentence. It read thin beside the
+ * neighbouring card, whose body is a full monospace command — and it needed a trailing "Other
+ * platforms:" line underneath to stay honest, which is a second surface saying what the first
+ * should have said. Both links inside the panel removes the line and fills the space.
  *
- * COPY SHAPE: the label is the small pill that sits opposite "Copy" on the sibling card, so it
- * holds a VERB and nothing else. The body says who the file is for — "For Mac (Apple Silicon)",
- * not "AIOS-arm64.dmg". The first version put the platform in the pill and a filename in the
- * body; the pill overflowed and the body told the visitor nothing they needed.
+ * Consequence worth noting: a container with two links cannot itself be an anchor (nested anchors
+ * are invalid), so the panel is a <div> and the two <a>s are the actions.
  *
- * SSR: the server cannot know the visitor's OS, so the first render — server and client alike —
- * is the neutral variant, and the platform resolves in an effect after mount. Starting neutral is
- * what keeps the two renders identical (no hydration mismatch) and it is the truthful state:
- * before we have looked, we do not know.
+ * ONLY ANNOUNCE WHAT SELF-UPDATES. The .deb still ships on the release, but electron-updater has
+ * no deb updater — a .deb install never updates and is never told. Offering it here would
+ * manufacture the exact silent staleness the release gates exist to prevent.
  */
 
 import { useEffect, useState } from "react";
@@ -34,16 +32,11 @@ import { detectPlatform, offerFor, RELEASES_PAGE, ARTIFACTS, type Platform } fro
 export type DownloadCopy = {
   /** The pill. A verb — "Download". Never a platform, never a filename. */
   action: string;
-  /** Body lines: who this build is for. */
+  /** The two doors, shown side by side inside the panel. */
   mac: string;
   linux: string;
-  /** Before detection resolves, and for anything we cannot place. */
-  all: string;
-  /** Windows: its own pill, because "Download" would be a lie. */
-  windowsAction: string;
+  /** Shown only to Windows visitors, because neither door is theirs. */
   windows: string;
-  /** The escape hatch, always rendered. */
-  other: string;
 };
 
 export function usePlatform(): Platform {
@@ -58,34 +51,22 @@ export function usePlatform(): Platform {
   return p;
 }
 
-function bodyFor(p: Platform, copy: DownloadCopy): string {
-  switch (p) {
-    case "mac": return copy.mac;
-    case "linux": return copy.linux;
-    case "windows": return copy.windows;
-    default: return copy.all;
-  }
-}
-
-/** The compact header/menu CTA. Windows falls back to the Releases page rather than a dead link:
- *  a nav pill has no room to explain, so it must not promise. The panel does the explaining. */
-export function DownloadPill({ copy, label, className }: { copy: DownloadCopy; label: string; className?: string }) {
-  const p = usePlatform();
-  const { href } = offerFor(p);
+/** The compact header/menu CTA. Windows resolves to the Releases page: a nav pill has no room to
+ *  explain, so it must not promise something that does not exist. */
+export function DownloadPill({ label, className }: { label: string; className?: string }) {
+  const { href } = offerFor(usePlatform());
   return <a href={href ?? RELEASES_PAGE} className={className}>{label}</a>;
 }
 
-/** The launch strip that rides with the sticky header. Same resolution as everything else — it is
- *  the most prominent CTA on the page, so it must not be the one surface still assuming macOS. */
+/** The launch strip that rides with the sticky header — the most prominent CTA on the page, so it
+ *  follows the OS like the pill rather than pointing everyone at a generic page. */
 export function LaunchStrip({
-  banner, copy, className,
+  banner, className,
 }: {
   banner: { badge: string; text: string; rest: string; cta: string };
-  copy: DownloadCopy;
   className?: string;
 }) {
-  const p = usePlatform();
-  const { href } = offerFor(p);
+  const { href } = offerFor(usePlatform());
   return (
     <a href={href ?? RELEASES_PAGE} className={className}>
       <span className="launch-badge">{banner.badge}</span>
@@ -97,45 +78,44 @@ export function LaunchStrip({
   );
 }
 
-/** The setup section's app door — the real download surface, and the one with room to be honest. */
+/* White on coral, underlined so they read as links rather than as a label. The panel already sets
+   color:#fff, but an <a> carries its own UA colour and would ignore it. */
+const DOOR: React.CSSProperties = { color: "#fff", textDecoration: "underline", textUnderlineOffset: "3px" };
+
+/**
+ * The setup section's app door. Both platforms, always — the section asks the visitor to pick.
+ *
+ * Server-rendered on purpose: no detection means no useEffect, no flash, and the panel can never
+ * show a platform it is about to change its mind about.
+ */
 export function DownloadPanel({ copy }: { copy: DownloadCopy }) {
-  const p = usePlatform();
-  const { href } = offerFor(p);
-
-  /* Windows renders as a STATEMENT, not a link. A disabled-looking button invites a click that
-     cannot succeed; a plain panel that says "not yet, here is what exists" respects the visit. */
-  if (p === "windows") {
-    return (
-      <>
-        <div className="path-action" role="note" style={{ cursor: "default" }}>
-          <span className="path-action-label">{copy.windowsAction}</span>
-          <span className="path-action-body">{copy.windows}</span>
-        </div>
-        <OtherPlatforms copy={copy} />
-      </>
-    );
-  }
-
   return (
     <>
-      <a className="path-action" href={href ?? RELEASES_PAGE} target="_blank" rel="noreferrer">
+      {/* cursor:default because .path-action styles a clickable panel, and this one is a container
+          for two links rather than one action. */}
+      <div className="path-action" style={{ cursor: "default" }}>
         <span className="path-action-label">{copy.action}</span>
-        <span className="path-action-body">{bodyFor(p, copy)}</span>
-      </a>
-      <OtherPlatforms copy={copy} />
+        <span className="path-action-body">
+          <a href={ARTIFACTS.mac.href} style={DOOR}>{copy.mac}</a>
+          <span aria-hidden="true" style={{ opacity: 0.55 }}>{"  ·  "}</span>
+          <a href={ARTIFACTS.linux.href} style={DOOR}>{copy.linux}</a>
+        </span>
+      </div>
+      <WindowsNote copy={copy} />
     </>
   );
 }
 
-/* Always present, on every platform including the one we guessed right — rule 1. Two entries
-   only: the two builds that self-update. The .deb is deliberately absent (rule 3). */
-function OtherPlatforms({ copy }: { copy: DownloadCopy }) {
+/* Renders nothing at all except for Windows visitors. The old always-visible "Other platforms:"
+   line is gone — the panel now names both platforms itself, so a second line restating them was
+   noise. What a Windows visitor still needs is the one thing the panel cannot tell them: that
+   neither door is theirs yet. */
+function WindowsNote({ copy }: { copy: DownloadCopy }) {
+  const p = usePlatform();
+  if (p !== "windows") return null;
   return (
     <p className="caption" style={{ marginTop: "0.75rem", color: "var(--color-ink-muted)", textTransform: "none", letterSpacing: 0 }}>
-      {copy.other}{" "}
-      <a href={ARTIFACTS.mac.href} style={{ color: "var(--color-ink-muted)" }}>Mac</a>
-      {" · "}
-      <a href={ARTIFACTS.linux.href} style={{ color: "var(--color-ink-muted)" }}>Linux</a>
+      {copy.windows}
     </p>
   );
 }

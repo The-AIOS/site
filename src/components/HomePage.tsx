@@ -220,7 +220,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             so the strip is always exactly one line. */}
         {/* The most prominent CTA on the page, so it follows the visitor's OS like every other
             download surface — it was the one that still went to a generic page. */}
-        <LaunchStrip banner={c.hero.banner} copy={c.downloads} className="launch-strip" />
+        <LaunchStrip banner={c.hero.banner} className="launch-strip" />
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
           <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
             <Logo size={20} />
@@ -240,7 +240,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={REPO} surface="nav-desktop" className="nav-icon-btn" ariaLabel="GitHub">
                 <GitHubMark size={18} />
               </GitHubLink>
-              <DownloadPill copy={c.downloads} label={c.getApp} className="nav-cta" />
+              <DownloadPill label={c.getApp} className="nav-cta" />
             </span>
             <LocaleSwitcher current={locale} />
             <ThemeToggle />

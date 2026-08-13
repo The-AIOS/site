@@ -29,14 +29,12 @@ export type Content = {
      DownloadCTA resolves it on the client and picks from these. `all` is what renders before
      detection settles — and before we have looked, "all downloads" is the truthful answer. */
   downloads: {
-    /* `action` is the small pill opposite "Copy" on the sibling card — a VERB only. The platform
-       line is the body. Putting "Download for macOS" in the pill overflowed it and left the body
-       showing a filename, which told the visitor nothing they needed. */
+    /* `action` is the small pill opposite "Copy" on the sibling card — a VERB only. `mac` and
+       `linux` are the two doors shown side by side INSIDE the panel, because the section asks
+       the visitor to pick one. `windows` is shown only to Windows visitors, for whom neither
+       door is theirs yet. */
     action: string;
-    mac: string; linux: string; all: string;
-    /* Windows gets its own pill, because "Download" there would be a lie. */
-    windowsAction: string; windows: string;
-    other: string;
+    mac: string; linux: string; windows: string;
   };
   /* Act 2 — Why (urgency). Reuses journey.cards + OrchestratorShift + journey.caption. */
   why: {
@@ -168,12 +166,9 @@ const en: Content = {
   getApp: "Get the app",
   downloads: {
     action: "Download",
-    mac: "For Mac (Apple Silicon)",
-    linux: "For Linux (x64, AppImage)",
-    all: "For Mac or Linux — pick yours",
-    windowsAction: "Not yet",
-    windows: "Windows isn't ready yet — we're working on it. Mac and Linux are available today, and the app is the same on both.",
-    other: "Other platforms:",
+    mac: "Mac (Apple Silicon)",
+    linux: "Linux (x64)",
+    windows: "Windows isn't ready yet — we're working on it. The app is the same on Mac and Linux.",
   },
   why: {
     eyebrow: "Why now",
@@ -446,12 +441,9 @@ const es: Content = {
   getApp: "Descargar la app",
   downloads: {
     action: "Descargar",
-    mac: "Para Mac (Apple Silicon)",
-    linux: "Para Linux (x64, AppImage)",
-    all: "Para Mac o Linux — elige la tuya",
-    windowsAction: "Todavía no",
-    windows: "Windows todavía no está listo — estamos trabajando en eso. Mac y Linux ya están disponibles, y la app es la misma en ambos.",
-    other: "Otras plataformas:",
+    mac: "Mac (Apple Silicon)",
+    linux: "Linux (x64)",
+    windows: "Windows todavía no está listo — estamos trabajando en eso. La app es la misma en Mac y Linux.",
   },
   why: {
     eyebrow: "Por qué ahora",
@@ -724,12 +716,9 @@ const pt: Content = {
   getApp: "Baixar o app",
   downloads: {
     action: "Baixar",
-    mac: "Para Mac (Apple Silicon)",
-    linux: "Para Linux (x64, AppImage)",
-    all: "Para Mac ou Linux — escolha a sua",
-    windowsAction: "Ainda não",
-    windows: "Windows ainda não está pronto — estamos trabalhando nisso. Mac e Linux já estão disponíveis, e o app é o mesmo nos dois.",
-    other: "Outras plataformas:",
+    mac: "Mac (Apple Silicon)",
+    linux: "Linux (x64)",
+    windows: "Windows ainda não está pronto — estamos trabalhando nisso. O app é o mesmo no Mac e no Linux.",
   },
   why: {
     eyebrow: "Por que agora",
