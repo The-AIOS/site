@@ -47,7 +47,7 @@ import {
 } from "./deckGraphics";
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
-import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
+import { DownloadPill, DownloadPanel, LaunchStrip } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
 /* The version-less release URL: GitHub redirects it to the current asset, so this
@@ -218,13 +218,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             hero: an announcement shouldn't shove the headline down the page, and
             it stays visible as you scroll. `.launch-rest` drops on narrow screens
             so the strip is always exactly one line. */}
-        <a href={c.hero.banner.href} className="launch-strip">
-          <span className="launch-badge">{c.hero.banner.badge}</span>
-          <span className="launch-text">
-            {c.hero.banner.text}<span className="launch-rest"> — {c.hero.banner.rest}</span>
-          </span>
-          <span className="launch-cta">{c.hero.banner.cta} <span aria-hidden="true">→</span></span>
-        </a>
+        {/* The most prominent CTA on the page, so it follows the visitor's OS like every other
+            download surface — it was the one that still went to a generic page. */}
+        <LaunchStrip banner={c.hero.banner} copy={c.downloads} className="launch-strip" />
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
           <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
             <Logo size={20} />
@@ -244,7 +240,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={REPO} surface="nav-desktop" className="nav-icon-btn" ariaLabel="GitHub">
                 <GitHubMark size={18} />
               </GitHubLink>
-              <DownloadPill copy={c.downloads} className="nav-cta" />
+              <DownloadPill copy={c.downloads} label={c.getApp} className="nav-cta" />
             </span>
             <LocaleSwitcher current={locale} />
             <ThemeToggle />

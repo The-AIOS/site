@@ -29,11 +29,14 @@ export type Content = {
      DownloadCTA resolves it on the client and picks from these. `all` is what renders before
      detection settles — and before we have looked, "all downloads" is the truthful answer. */
   downloads: {
-    mac: string; macNote: string;
-    linux: string; linuxNote: string;
-    windows: string; windowsNote: string;
-    all: string; allNote: string;
-    other: string; debNote: string;
+    /* `action` is the small pill opposite "Copy" on the sibling card — a VERB only. The platform
+       line is the body. Putting "Download for macOS" in the pill overflowed it and left the body
+       showing a filename, which told the visitor nothing they needed. */
+    action: string;
+    mac: string; linux: string; all: string;
+    /* Windows gets its own pill, because "Download" there would be a lie. */
+    windowsAction: string; windows: string;
+    other: string;
   };
   /* Act 2 — Why (urgency). Reuses journey.cards + OrchestratorShift + journey.caption. */
   why: {
@@ -77,14 +80,16 @@ export type Content = {
     /* Both doors take the same three beats — who it's for, how it works, and the
        action itself — a coral panel that copies the line, or one that downloads the
        app. There is no separate CTA button: the panel IS the call to action. */
-    paths: { pill: string; q: string; b: string; cmd?: { copy: string; copied: string }; note?: string; dl?: string; href: string }[];
+    paths: { pill: string; q: string; b: string; cmd?: { copy: string; copied: string }; note?: string; dl?: string; href?: string }[];
     step1Body: string;
     learnable: string;
   };
   hero: {
     /* The announcement strip, attached to the header. `rest` is the qualifying
        clause, hidden on narrow screens so the strip stays one line. */
-    banner: { badge: string; text: string; rest: string; cta: string; href: string };
+    /* No href: the launch strip resolves the visitor's platform itself (LaunchStrip), so a
+       destination baked into per-locale copy would silently outrank the detection. */
+    banner: { badge: string; text: string; rest: string; cta: string };
     eyebrowPre: string; eyebrowAccent: string; eyebrowPost: string;
     h: H; leadBold: string; leadRest: string; tagline: string;
     ctaPrimary: string; ctaGithub: string; chips: string[];
@@ -162,16 +167,13 @@ const en: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Interface", "Manual"][i] })),
   getApp: "Get the app",
   downloads: {
-    mac: "Download for macOS",
-    macNote: "AIOS-arm64.dmg — signed and notarized. Apple silicon.",
-    linux: "Download for Linux",
-    linuxNote: "AIOS-x86_64.AppImage — x86_64. Make it executable, then run it.",
-    windows: "Windows isn't ready yet",
-    windowsNote: "We're working on it. macOS and Linux are available today — the app is the same on both.",
-    all: "All downloads",
-    allNote: "macOS and Linux, on the Releases page.",
+    action: "Download",
+    mac: "For Mac (Apple Silicon)",
+    linux: "For Linux (x64, AppImage)",
+    all: "For Mac or Linux — pick yours",
+    windowsAction: "Not yet",
+    windows: "Windows isn't ready yet — we're working on it. Mac and Linux are available today, and the app is the same on both.",
     other: "Other platforms:",
-    debNote: "Installs cleanly and integrates with your system menu, but does not update itself — use the AppImage if you want automatic updates.",
   },
   why: {
     eyebrow: "Why now",
@@ -239,7 +241,6 @@ const en: Content = {
         pill: "Everyone, including the tech-savvy",
         q: "Already familiar with AI apps like Claude.app?",
         b: "Download the app and follow its four guided steps, including the “Set up my AI-OS from https://github.com/The-AIOS/aios” done for you. Same powerful terminals, less intimidating.",
-        href: RELEASES_PAGE,
       },
     ],
     step1Body: "Claude reads SETUP.md and walks every choice — each step asks your consent.",
@@ -251,7 +252,6 @@ const en: Content = {
       text: "The AIOS App is here",
       rest: "signed, notarized, and free",
       cta: "Get the app",
-      href: RELEASES_PAGE,
     },
     eyebrowPre: "The AI Operating System", eyebrowAccent: "·", eyebrowPost: "Open source",
     h: ["Giving everyone a ", "team of agents.", ""],
@@ -445,16 +445,13 @@ const es: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Interfaz", "Manual"][i] })),
   getApp: "Descargar la app",
   downloads: {
-    mac: "Descargar para macOS",
-    macNote: "AIOS-arm64.dmg — firmada y notarizada. Apple silicon.",
-    linux: "Descargar para Linux",
-    linuxNote: "AIOS-x86_64.AppImage — x86_64. Dale permisos de ejecución y ábrela.",
-    windows: "Windows todavía no está listo",
-    windowsNote: "Estamos trabajando en eso. macOS y Linux ya están disponibles — la app es la misma en ambos.",
-    all: "Todas las descargas",
-    allNote: "macOS y Linux, en la página de Releases.",
+    action: "Descargar",
+    mac: "Para Mac (Apple Silicon)",
+    linux: "Para Linux (x64, AppImage)",
+    all: "Para Mac o Linux — elige la tuya",
+    windowsAction: "Todavía no",
+    windows: "Windows todavía no está listo — estamos trabajando en eso. Mac y Linux ya están disponibles, y la app es la misma en ambos.",
     other: "Otras plataformas:",
-    debNote: "Se instala limpio y se integra al menú del sistema, pero no se actualiza solo — usa el AppImage si quieres actualizaciones automáticas.",
   },
   why: {
     eyebrow: "Por qué ahora",
@@ -522,7 +519,6 @@ const es: Content = {
         pill: "Todos, incluidos los perfiles técnicos",
         q: "¿Ya conoces apps de IA como Claude.app?",
         b: "Descarga la app y sigue sus cuatro pasos guiados, incluyendo el “Set up my AI-OS from https://github.com/The-AIOS/aios” que hace por ti. Las mismas terminales potentes, menos intimidantes.",
-        href: RELEASES_PAGE,
       },
     ],
     step1Body: "Claude lee SETUP.md y guía cada decisión — cada paso pide tu consentimiento.",
@@ -534,7 +530,6 @@ const es: Content = {
       text: "La AIOS App ya está aquí",
       rest: "firmada, notarizada y gratis",
       cta: "Descargar la app",
-      href: RELEASES_PAGE,
     },
     eyebrowPre: "El sistema operativo de IA", eyebrowAccent: "·", eyebrowPost: "Código abierto",
     h: ["Dale a cada persona un ", "equipo de agentes.", ""],
@@ -728,16 +723,13 @@ const pt: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Interface", "Manual"][i] })),
   getApp: "Baixar o app",
   downloads: {
-    mac: "Baixar para macOS",
-    macNote: "AIOS-arm64.dmg — assinado e notarizado. Apple silicon.",
-    linux: "Baixar para Linux",
-    linuxNote: "AIOS-x86_64.AppImage — x86_64. Dê permissão de execução e abra.",
-    windows: "Windows ainda não está pronto",
-    windowsNote: "Estamos trabalhando nisso. macOS e Linux já estão disponíveis — o app é o mesmo nos dois.",
-    all: "Todos os downloads",
-    allNote: "macOS e Linux, na página de Releases.",
+    action: "Baixar",
+    mac: "Para Mac (Apple Silicon)",
+    linux: "Para Linux (x64, AppImage)",
+    all: "Para Mac ou Linux — escolha a sua",
+    windowsAction: "Ainda não",
+    windows: "Windows ainda não está pronto — estamos trabalhando nisso. Mac e Linux já estão disponíveis, e o app é o mesmo nos dois.",
     other: "Outras plataformas:",
-    debNote: "Instala limpo e integra ao menu do sistema, mas não se atualiza sozinho — use o AppImage se quiser atualizações automáticas.",
   },
   why: {
     eyebrow: "Por que agora",
@@ -805,7 +797,6 @@ const pt: Content = {
         pill: "Todos, incluindo os perfis técnicos",
         q: "Já conhece apps de IA como o Claude.app?",
         b: "Baixe o app e siga seus quatro passos guiados, incluindo o “Set up my AI-OS from https://github.com/The-AIOS/aios” que ele faz por você. Os mesmos terminais poderosos, menos intimidadores.",
-        href: RELEASES_PAGE,
       },
     ],
     step1Body: "O Claude lê o SETUP.md e guia cada decisão — cada passo pede seu consentimento.",
@@ -817,7 +808,6 @@ const pt: Content = {
       text: "O AIOS App chegou",
       rest: "assinado, notarizado e grátis",
       cta: "Baixar o app",
-      href: RELEASES_PAGE,
     },
     eyebrowPre: "O sistema operacional de IA", eyebrowAccent: "·", eyebrowPost: "Código aberto",
     h: ["Dando a cada pessoa um ", "time de agentes.", ""],
