@@ -8,8 +8,7 @@ import { LocaleSwitcher } from "./LocaleSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { Logo } from "./Logo";
 import type { Locale } from "@/messages";
-import { usePlatform } from "@/components/DownloadCTA";
-import { offerFor, RELEASES_PAGE } from "@/downloads";
+import { DownloadPill, type DownloadCopy } from "@/components/DownloadCTA";
 
 export type NavItem = { href: string; label: string };
 
@@ -17,17 +16,15 @@ export function MobileMenu({
   items,
   githubLabel,
   appLabel,
+  downloads,
   locale,
 }: {
   items: NavItem[];
   githubLabel: string;
   appLabel: string;
+  downloads: DownloadCopy;
   locale: Locale;
 }) {
-  /* The menu's app link follows the visitor's OS like every other download surface. On a phone
-     detection resolves to `unknown`, which points at the Releases page — the right answer, since
-     there is no phone build to hand them. */
-  const { href: appDownload } = offerFor(usePlatform());
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -111,13 +108,9 @@ export function MobileMenu({
               >
                 <GitHubMark size={18} />
               </GitHubLink>
-              <a
-                href={appDownload ?? RELEASES_PAGE}
-                className="nav-cta"
-                onClick={() => setOpen(false)}
-              >
-                {appLabel}
-              </a>
+              <span onClick={() => setOpen(false)} style={{ display: "inline-flex" }}>
+                <DownloadPill copy={downloads} label={appLabel} className="nav-cta" />
+              </span>
             </span>
           </nav>
 
