@@ -10,6 +10,11 @@
  */
 
 import type { Locale } from "@/messages";
+/* Download URLs are NOT written out here. A platform-specific link in per-locale prose is how
+   the site ended up with twelve copies of one .dmg URL — and how a Linux button would quietly
+   keep serving a mac file in Portuguese. Announcement and roadmap CTAs point at the Releases
+   page (correct on every OS); the actual per-platform choice is made by DownloadCTA at runtime. */
+import { RELEASES_PAGE } from "@/downloads";
 
 type H = [string, string, string]; // [pre, accent, post]
 type CardT = { e?: string; t?: string; b: string; mono?: string };
@@ -20,6 +25,16 @@ export type Content = {
   /* The header's app CTA. Sits beside the GitHub icon — the two doors,
      source and binary, in the order people actually want them. */
   getApp: string;
+  /* Platform-aware download copy. The site cannot know the visitor's OS at build time, so
+     DownloadCTA resolves it on the client and picks from these. `all` is what renders before
+     detection settles — and before we have looked, "all downloads" is the truthful answer. */
+  downloads: {
+    mac: string; macNote: string;
+    linux: string; linuxNote: string;
+    windows: string; windowsNote: string;
+    all: string; allNote: string;
+    other: string; debNote: string;
+  };
   /* Act 2 — Why (urgency). Reuses journey.cards + OrchestratorShift + journey.caption. */
   why: {
     eyebrow: string; h: H; lead: string; pull: H;
@@ -146,6 +161,18 @@ const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#setup", "#glass", "#ma
 const en: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Interface", "Manual"][i] })),
   getApp: "Get the app",
+  downloads: {
+    mac: "Download for macOS",
+    macNote: "AIOS-arm64.dmg — signed and notarized. Apple silicon.",
+    linux: "Download for Linux",
+    linuxNote: "AIOS-x86_64.AppImage — x86_64. Make it executable, then run it.",
+    windows: "Windows isn't ready yet",
+    windowsNote: "We're working on it. macOS and Linux are available today — the app is the same on both.",
+    all: "All downloads",
+    allNote: "macOS and Linux, on the Releases page.",
+    other: "Other platforms:",
+    debNote: "Installs cleanly and integrates with your system menu, but does not update itself — use the AppImage if you want automatic updates.",
+  },
   why: {
     eyebrow: "Why now",
     h: ["AI is getting better than us at ", "almost everything", "."],
@@ -186,7 +213,7 @@ const en: Content = {
     h: ["The next ", "layers", "."],
     intro: "The AIOS already runs every day. Here’s the direction of travel — each item traces to live work in the framework, not a press release.",
     items: [
-      { e: "The desktop app", t: "AIOS, for everyone", b: "A free, installable app — the panel, real terminals, vault explorer, one-click rituals — with native viewers for markdown, HTML, and PDFs.", ribbon: "public", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Get the app ↗" },
+      { e: "The desktop app", t: "AIOS, for everyone", b: "A free, installable app — the panel, real terminals, vault explorer, one-click rituals — with native viewers for markdown, HTML, and PDFs.", ribbon: "public", tone: "live", href: RELEASES_PAGE, cta: "Get the app ↗" },
       { e: "Agentic contact book", t: "ID and mandates for agents", b: "A directory where your agents carry a verifiable identity and the mandates that scope it — what each one may do, and which slice of your vault it may speak from — so they inherit the right access and can interact securely with other people’s agents on your behalf.", ribbon: "releasing", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
       { e: "Marketplace", t: "Install a bundle in one command", b: "Agent bundles, vertical workflows, a company’s whole brain — installed through a trust-gated marketplace: registry → injection scan → license check → QA → install with an audit log.", ribbon: "building", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Model-agnostic", t: "The layer, not the model", b: "The AIOS is the substrate; the LLM is swappable. Run Claude (the best engine today) or any frontier model — the same context, agents, and rituals run on top, unchanged." },
@@ -212,9 +239,7 @@ const en: Content = {
         pill: "Everyone, including the tech-savvy",
         q: "Already familiar with AI apps like Claude.app?",
         b: "Download the app and follow its four guided steps, including the “Set up my AI-OS from https://github.com/The-AIOS/aios” done for you. Same powerful terminals, less intimidating.",
-        note: "AIOS-arm64.dmg — signed and notarized. macOS on Apple silicon.",
-        dl: "Download",
-        href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+        href: RELEASES_PAGE,
       },
     ],
     step1Body: "Claude reads SETUP.md and walks every choice — each step asks your consent.",
@@ -226,7 +251,7 @@ const en: Content = {
       text: "The AIOS App is here",
       rest: "signed, notarized, and free",
       cta: "Get the app",
-      href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+      href: RELEASES_PAGE,
     },
     eyebrowPre: "The AI Operating System", eyebrowAccent: "·", eyebrowPost: "Open source",
     h: ["Giving everyone a ", "team of agents.", ""],
@@ -419,6 +444,18 @@ const en: Content = {
 const es: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Interfaz", "Manual"][i] })),
   getApp: "Descargar la app",
+  downloads: {
+    mac: "Descargar para macOS",
+    macNote: "AIOS-arm64.dmg — firmada y notarizada. Apple silicon.",
+    linux: "Descargar para Linux",
+    linuxNote: "AIOS-x86_64.AppImage — x86_64. Dale permisos de ejecución y ábrela.",
+    windows: "Windows todavía no está listo",
+    windowsNote: "Estamos trabajando en eso. macOS y Linux ya están disponibles — la app es la misma en ambos.",
+    all: "Todas las descargas",
+    allNote: "macOS y Linux, en la página de Releases.",
+    other: "Otras plataformas:",
+    debNote: "Se instala limpio y se integra al menú del sistema, pero no se actualiza solo — usa el AppImage si quieres actualizaciones automáticas.",
+  },
   why: {
     eyebrow: "Por qué ahora",
     h: ["La IA se está volviendo mejor que nosotros en ", "casi todo", "."],
@@ -459,7 +496,7 @@ const es: Content = {
     h: ["Las siguientes ", "capas", "."],
     intro: "The AIOS ya corre cada día. Esta es la dirección de avance — cada punto remite a trabajo vivo en el framework, no a un comunicado de prensa.",
     items: [
-      { e: "La app de escritorio", t: "AIOS, para todos", b: "Una app gratis e instalable — el panel, terminales reales, explorador del vault, rituales a un clic — con visores nativos para Markdown, HTML y PDFs.", ribbon: "público", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Descargar la app ↗" },
+      { e: "La app de escritorio", t: "AIOS, para todos", b: "Una app gratis e instalable — el panel, terminales reales, explorador del vault, rituales a un clic — con visores nativos para Markdown, HTML y PDFs.", ribbon: "público", tone: "live", href: RELEASES_PAGE, cta: "Descargar la app ↗" },
       { e: "Agenda agéntica", t: "ID y mandatos para agentes", b: "Un directorio donde tus agentes portan una identidad verificable y los mandatos que la delimitan — qué puede hacer cada uno y desde qué parte de tu vault puede hablar — así heredan el acceso correcto y pueden interactuar de forma segura con los agentes de otras personas en tu nombre.", ribbon: "por liberarse", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
       { e: "Marketplace", t: "Instala un bundle en un comando", b: "Bundles de agentes, flujos verticales, el cerebro entero de una empresa — instalados por un marketplace con barrera de confianza: registro → escaneo de inyección → revisión de licencia → QA → instalación con registro de auditoría.", ribbon: "en construcción", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Agnóstico al modelo", t: "La capa, no el modelo", b: "The AIOS es el sustrato; el LLM es intercambiable. Corre Claude (el mejor motor hoy) o cualquier modelo frontera — el mismo contexto, agentes y rituales corren encima, sin cambios." },
@@ -485,9 +522,7 @@ const es: Content = {
         pill: "Todos, incluidos los perfiles técnicos",
         q: "¿Ya conoces apps de IA como Claude.app?",
         b: "Descarga la app y sigue sus cuatro pasos guiados, incluyendo el “Set up my AI-OS from https://github.com/The-AIOS/aios” que hace por ti. Las mismas terminales potentes, menos intimidantes.",
-        note: "AIOS-arm64.dmg — firmada y notarizada. macOS con Apple silicon.",
-        dl: "Descargar",
-        href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+        href: RELEASES_PAGE,
       },
     ],
     step1Body: "Claude lee SETUP.md y guía cada decisión — cada paso pide tu consentimiento.",
@@ -499,7 +534,7 @@ const es: Content = {
       text: "La AIOS App ya está aquí",
       rest: "firmada, notarizada y gratis",
       cta: "Descargar la app",
-      href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+      href: RELEASES_PAGE,
     },
     eyebrowPre: "El sistema operativo de IA", eyebrowAccent: "·", eyebrowPost: "Código abierto",
     h: ["Dale a cada persona un ", "equipo de agentes.", ""],
@@ -692,6 +727,18 @@ const es: Content = {
 const pt: Content = {
   nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Interface", "Manual"][i] })),
   getApp: "Baixar o app",
+  downloads: {
+    mac: "Baixar para macOS",
+    macNote: "AIOS-arm64.dmg — assinado e notarizado. Apple silicon.",
+    linux: "Baixar para Linux",
+    linuxNote: "AIOS-x86_64.AppImage — x86_64. Dê permissão de execução e abra.",
+    windows: "Windows ainda não está pronto",
+    windowsNote: "Estamos trabalhando nisso. macOS e Linux já estão disponíveis — o app é o mesmo nos dois.",
+    all: "Todos os downloads",
+    allNote: "macOS e Linux, na página de Releases.",
+    other: "Outras plataformas:",
+    debNote: "Instala limpo e integra ao menu do sistema, mas não se atualiza sozinho — use o AppImage se quiser atualizações automáticas.",
+  },
   why: {
     eyebrow: "Por que agora",
     h: ["A IA está ficando melhor que nós em ", "quase tudo", "."],
@@ -732,7 +779,7 @@ const pt: Content = {
     h: ["As próximas ", "camadas", "."],
     intro: "The AIOS já roda todos os dias. Esta é a direção de avanço — cada item remete a trabalho vivo no framework, não a um press release.",
     items: [
-      { e: "O app de desktop", t: "AIOS, para todos", b: "Um app grátis e instalável — o painel, terminais reais, explorador do vault, rituais a um clique — com visualizadores nativos para Markdown, HTML e PDFs.", ribbon: "público", tone: "live", href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg", cta: "Baixar o app ↗" },
+      { e: "O app de desktop", t: "AIOS, para todos", b: "Um app grátis e instalável — o painel, terminais reais, explorador do vault, rituais a um clique — com visualizadores nativos para Markdown, HTML e PDFs.", ribbon: "público", tone: "live", href: RELEASES_PAGE, cta: "Baixar o app ↗" },
       { e: "Agenda agêntica", t: "ID e mandatos para agentes", b: "Um diretório onde seus agentes carregam uma identidade verificável e os mandatos que a delimitam — o que cada um pode fazer e de que parte do seu vault pode falar — então eles herdam o acesso certo e podem interagir com segurança com os agentes de outras pessoas em seu nome.", ribbon: "em liberação", tone: "soon", href: "https://forum.the-aios.com", cta: "forum.the-aios.com ↗" },
       { e: "Marketplace", t: "Instale um bundle em um comando", b: "Bundles de agentes, fluxos verticais, o cérebro inteiro de uma empresa — instalados por um marketplace com barreira de confiança: registro → varredura de injeção → checagem de licença → QA → instalação com log de auditoria.", ribbon: "em construção", tone: "wip", href: "https://www.the-aios.org/plugins", cta: "the-aios.org/plugins ↗" },
       { e: "Agnóstico ao modelo", t: "A camada, não o modelo", b: "The AIOS é o substrato; o LLM é intercambiável. Rode Claude (o melhor motor hoje) ou qualquer modelo de fronteira — o mesmo contexto, agentes e rituais rodam por cima, sem mudança." },
@@ -758,9 +805,7 @@ const pt: Content = {
         pill: "Todos, incluindo os perfis técnicos",
         q: "Já conhece apps de IA como o Claude.app?",
         b: "Baixe o app e siga seus quatro passos guiados, incluindo o “Set up my AI-OS from https://github.com/The-AIOS/aios” que ele faz por você. Os mesmos terminais poderosos, menos intimidadores.",
-        note: "AIOS-arm64.dmg — assinado e notarizado. macOS com Apple silicon.",
-        dl: "Baixar",
-        href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+        href: RELEASES_PAGE,
       },
     ],
     step1Body: "O Claude lê o SETUP.md e guia cada decisão — cada passo pede seu consentimento.",
@@ -772,7 +817,7 @@ const pt: Content = {
       text: "O AIOS App chegou",
       rest: "assinado, notarizado e grátis",
       cta: "Baixar o app",
-      href: "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg",
+      href: RELEASES_PAGE,
     },
     eyebrowPre: "O sistema operacional de IA", eyebrowAccent: "·", eyebrowPost: "Código aberto",
     h: ["Dando a cada pessoa um ", "time de agentes.", ""],

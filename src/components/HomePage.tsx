@@ -47,11 +47,14 @@ import {
 } from "./deckGraphics";
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
+import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
 /* The version-less release URL: GitHub redirects it to the current asset, so this
    link never rots when we cut a new version. */
-const APP_DMG = "https://github.com/The-AIOS/aios-app/releases/latest/download/AIOS-arm64.dmg";
+/* Download URLs live in src/downloads.ts — one table, imported by every surface. This used to be
+   a .dmg literal here plus twelve more across three locales in content.ts, which is how you end
+   up shipping a Linux button that serves a mac dmg in Portuguese. */
 /* The one-line install, verbatim. Shown in the hero and in the setup card, and it is
    exactly what the copy button writes — no `›` prompt character, which would break the
    paste. One constant, so the shown text and the copied text cannot drift apart. */
@@ -241,14 +244,14 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={REPO} surface="nav-desktop" className="nav-icon-btn" ariaLabel="GitHub">
                 <GitHubMark size={18} />
               </GitHubLink>
-              <a href={APP_DMG} className="nav-cta">{c.getApp}</a>
+              <DownloadPill copy={c.downloads} className="nav-cta" />
             </span>
             <LocaleSwitcher current={locale} />
             <ThemeToggle />
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <MobileMenu items={c.nav} githubLabel="GitHub ↗" appLabel={c.getApp} appHref={APP_DMG} locale={locale} />
+            <MobileMenu items={c.nav} githubLabel="GitHub ↗" appLabel={c.getApp} locale={locale} />
           </div>
         </div>
       </header>
@@ -673,10 +676,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                       › {SETUP_LINE}
                     </CopyPanel>
                   ) : (
-                    <a className="path-action" href={p.href} target="_blank" rel="noreferrer">
-                      <span className="path-action-label">{p.dl}</span>
-                      <span className="path-action-body">{p.note}</span>
-                    </a>
+                    /* The app door follows the visitor's OS, and always keeps a route to the
+                       other platforms — a sniff picks the default, it does not take the choice
+                       away. Its label and note come from c.downloads, not from p.dl/p.note. */
+                    <DownloadPanel copy={c.downloads} />
                   )}
                 </div>
               ))}
