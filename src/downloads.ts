@@ -24,6 +24,11 @@ export const ARTIFACTS = {
   /** Linux Debian/Ubuntu. Installs cleanly, but electron-updater has no deb updater —
    *  a .deb never self-updates, which is why the AppImage is the primary Linux link. */
   deb: { file: "AIOS-amd64.deb", href: `${BASE}/latest/download/AIOS-amd64.deb` },
+  /** Windows x64, nsis. Self-updating (NsisUpdater re-runs the installer, so the unsigned
+   *  SmartScreen prompt does NOT recur — it is stamped by the browser on a manual download, and
+   *  electron-updater fetches with its own client and spawns the installer directly. Verified at
+   *  file level 2026-08-15: the cached installer carries no Zone.Identifier stream.) */
+  windows: { file: "AIOS-x64.exe", href: `${BASE}/latest/download/AIOS-x64.exe` },
 } as const;
 
 export type Platform = "mac" | "linux" | "windows" | "unknown";
@@ -81,9 +86,14 @@ export function offerFor(p: Platform): { href: string | null; kind: Platform } {
   switch (p) {
     case "mac": return { href: ARTIFACTS.mac.href, kind: "mac" };
     case "linux": return { href: ARTIFACTS.linux.href, kind: "linux" };
-    // Windows has no artifact yet. Point at the Releases page rather than nowhere — a visitor
-    // who came to download should still be able to see what exists.
-    case "windows": return { href: null, kind: "windows" };
+    /* Windows shipped in v0.8.3 (2026-08-13) and the link opened on 2026-08-17, gated not on code
+       signing but on three first-run defects landing in v0.8.7 — a visitor before that would have
+       met the SmartScreen prompt AND a silent Obsidian failure AND a wizard reporting the tools it
+       had just installed as missing AND a greeting reading `{{first-name}}`. Verified end to end on
+       a clean Windows machine that none of us owns: install, setup, and a full self-update cycle.
+       The build is UNSIGNED, which the download copy states plainly rather than letting the
+       operator meet it cold — the prompt's damage is surprise, not the click. */
+    case "windows": return { href: ARTIFACTS.windows.href, kind: "windows" };
     default: return { href: RELEASES_PAGE, kind: "unknown" };
   }
 }

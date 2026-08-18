@@ -10,7 +10,7 @@
  *   They stay a button, keep the pointer cursor, and SAY what happened.
  *
  *   THE SETUP PANEL — the section is titled "pick your door", so it shows every door, including
- *   the one that is not open yet. Two links plus "Windows (soon)" as plain text, because a
+ *   all three now open (Windows joined 2026-08-17). Was two links plus "Windows (soon)", because a
  *   non-link is the honest rendering of a build that does not exist. No detection, which also
  *   means it renders identically on server and client: no hydration flash.
  *
@@ -29,8 +29,12 @@ export type DownloadCopy = {
   mac: string;
   linux: string;
   /** Listed but not a link — there is nothing to download yet. */
-  windowsSoon: string;
+  /** The third door. Was `windowsSoon` until 2026-08-17, when it stopped being soon. */
+  windows: string;
+  /** The small link beside a Windows download, offering the SmartScreen explanation. */
+  unsignedHint: string;
   /** The modal a Windows visitor gets when they click a CTA. */
+  /** Was the "not yet" modal; now explains what Windows will say and what to click. */
   soonTitle: string;
   soonBody: string;
   /** Accessible label for the corner × — the glyph itself is decorative. */
@@ -135,28 +139,44 @@ function SoonModal({ copy, onClose }: { copy: DownloadCopy; onClose: () => void 
  * somewhere wrong or does nothing, and both read as a broken click — which is exactly what the
  * earlier "reroute to the Releases page" did.
  */
-function useSoonGate(): { href: string | null; soon: boolean; open: boolean; setOpen: (v: boolean) => void } {
+/* Windows stopped being a "not yet" on 2026-08-17 — it has had a build since v0.8.3 and the link
+   opened once three first-run defects landed in v0.8.7. What it still lacks is a code signature, so
+   the gate became a NOTICE: the download proceeds, and the operator is told what Windows will say
+   before Windows says it. That ordering is the whole fix — the prompt's damage is SURPRISE, not the
+   click. Measured on a clean machine: it shows "Windows protected your PC" with Run anyway behind a
+   More info link, and the one person who met it cleared it unaided because someone was there to
+   say it was expected. This copy is that someone. */
+function usePlatformOffer(): { href: string | null; unsigned: boolean; open: boolean; setOpen: (v: boolean) => void } {
   const p = usePlatform();
   const [open, setOpen] = useState(false);
   const { href } = offerFor(p);
   // `unknown` (a phone, an unrecognised UA) still gets the Releases page: there may well be a build
-  // for them, we just cannot tell which. Only Windows is a definite "not yet".
-  return { href, soon: p === "windows", open, setOpen };
+  // for them, we just cannot tell which.
+  return { href, unsigned: p === "windows", open, setOpen };
 }
 
 export function DownloadPill({ copy, label, className }: { copy: DownloadCopy; label: string; className?: string }) {
-  const { href, soon, open, setOpen } = useSoonGate();
-  if (soon) {
-    return (
-      <>
-        <button type="button" className={className} style={{ cursor: "pointer", border: 0, font: "inherit" }} onClick={() => setOpen(true)}>
-          {label}
-        </button>
-        {open && <SoonModal copy={copy} onClose={() => setOpen(false)} />}
-      </>
-    );
-  }
-  return <a href={href ?? RELEASES_PAGE} className={className}>{label}</a>;
+  const { href, unsigned, open, setOpen } = usePlatformOffer();
+  /* The download is a real link on every platform now. On Windows it carries a note beside it —
+     deliberately NOT a modal in front of it, which would put a dialog between the operator and the
+     thing they came for, and would read as a warning about our software rather than about Windows. */
+  const link = <a href={href ?? RELEASES_PAGE} className={className}>{label}</a>;
+  if (!unsigned) return link;
+  return (
+    <>
+      {link}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        style={{ display: "block", marginTop: "0.5rem", background: "none", border: 0, padding: 0,
+                 font: "inherit", fontSize: "0.8em", opacity: 0.7, cursor: "pointer", textAlign: "left",
+                 textDecoration: "underline" }}
+      >
+        {copy.unsignedHint}
+      </button>
+      {open && <SoonModal copy={copy} onClose={() => setOpen(false)} />}
+    </>
+  );
 }
 
 export function LaunchStrip({
@@ -166,7 +186,7 @@ export function LaunchStrip({
   copy: DownloadCopy;
   className?: string;
 }) {
-  const { href, soon, open, setOpen } = useSoonGate();
+  const { href, unsigned } = usePlatformOffer();
   const inner = (
     <>
       <span className="launch-badge">{banner.badge}</span>
@@ -176,32 +196,19 @@ export function LaunchStrip({
       <span className="launch-cta">{banner.cta} <span aria-hidden="true">→</span></span>
     </>
   );
-  if (soon) {
-    return (
-      <>
-        <button type="button" className={className} style={{ cursor: "pointer", border: 0, font: "inherit", width: "100%" }} onClick={() => setOpen(true)}>
-          {inner}
-        </button>
-        {open && <SoonModal copy={copy} onClose={() => setOpen(false)} />}
-      </>
-    );
-  }
+  /* No Windows special case any more. The strip is one wide call to action, and interrupting it
+     with a modal put a dialog between the operator and the download — the note belongs on the
+     download surface (DownloadPill / DownloadPanel), not on a banner. `unsigned` is read only to
+     keep the signature honest about what this hook returns. */
+  void unsigned;
   return <a href={href ?? RELEASES_PAGE} className={className}>{inner}</a>;
 }
 
-/* White on coral, underlined so they read as links rather than as a label. .path-action sets
-   color:#fff, but an <a> carries its own UA colour and would ignore it. */
+/* The three doors inside the panel. `DOOR_SOON` is gone with the "Windows (soon)" text it dimmed
+   — as of 2026-08-17 every door is a real link, so there is no third state to style. */
 const DOOR: React.CSSProperties = { color: "#fff", textDecoration: "underline", textUnderlineOffset: "3px" };
-/* Not a link, and it should not look like one: there is nothing behind it yet. */
-const DOOR_SOON: React.CSSProperties = { color: "#fff", opacity: 0.62 };
 const SEP = <span aria-hidden="true" style={{ opacity: 0.45 }}>{"  ·  "}</span>;
 
-/**
- * The setup section's app door. Every platform listed, always — the section asks the visitor to
- * pick, so it names all three and lets the unavailable one say so. No detection: identical on
- * server and client, so nothing flashes and it can never show a platform it will change its mind
- * about.
- */
 export function DownloadPanel({ copy }: { copy: DownloadCopy }) {
   return (
     /* cursor:default because .path-action styles a clickable panel, and this is a container for
@@ -213,7 +220,8 @@ export function DownloadPanel({ copy }: { copy: DownloadCopy }) {
         {SEP}
         <a href={ARTIFACTS.linux.href} style={DOOR}>{copy.linux}</a>
         {SEP}
-        <span style={DOOR_SOON}>{copy.windowsSoon}</span>
+        {/* Three real doors as of 2026-08-17. `DOOR_SOON` is gone with the fourth-wall it described. */}
+        <a href={ARTIFACTS.windows.href} style={DOOR}>{copy.windows}</a>
       </span>
     </div>
   );

@@ -30,12 +30,17 @@ export type Content = {
      detection settles — and before we have looked, "all downloads" is the truthful answer. */
   downloads: {
     /* `action` is the small pill opposite "Copy" on the sibling card — a VERB only. `mac`,
-       `linux` and `windowsSoon` are the doors listed side by side INSIDE the panel: the first two
-       are links, the third is plain text because there is nothing behind it yet.
-       `soon*` is the modal a Windows visitor gets on clicking a CTA — rerouting them to a
-       Releases page full of builds for other systems reads as a click that failed. */
+       `linux` and `windows` are the doors listed side by side INSIDE the panel, and as of
+       2026-08-17 all three are real links: Windows shipped in v0.8.3 and the link opened once
+       three first-run defects landed in v0.8.7.
+       `unsignedHint` + `soon*` are now the SmartScreen explanation rather than a "not yet" —
+       the build is unsigned, so Windows shows a scary prompt, and the copy exists to say so
+       BEFORE the operator meets it. The damage is surprise, not the click: measured on a clean
+       machine, the one person who hit it cleared it unaided because someone was beside them to
+       say it was expected. This copy is that someone. */
     action: string;
-    mac: string; linux: string; windowsSoon: string;
+    mac: string; linux: string; windows: string;
+    unsignedHint: string;
     soonTitle: string; soonBody: string; soonClose: string;
   };
   /* Act 2 — Why (urgency). Reuses journey.cards + OrchestratorShift + journey.caption. */
@@ -170,10 +175,11 @@ const en: Content = {
     action: "Download",
     mac: "Mac (Apple Silicon)",
     linux: "Linux (x64)",
-    windowsSoon: "Windows (soon)",
-    soonTitle: "Windows is on the way",
-    soonBody: "Sorry — our engineers are already working on the app for your OS. Mac and Linux are available today.",
-    soonClose: "Close",
+    windows: "Windows (x64)",
+    unsignedHint: "Windows will show a warning — here’s why",
+    soonTitle: "Windows will warn you, and it’s expected",
+    soonBody: "The Windows build isn’t code-signed yet, so Windows shows “Windows protected your PC”. Click More info, then Run anyway. It warns; it does not block. Signing is on the way — the app itself is the same one Mac and Linux run.",
+    soonClose: "Got it",
   },
   why: {
     eyebrow: "Why now",
@@ -448,10 +454,11 @@ const es: Content = {
     action: "Descargar",
     mac: "Mac (Apple Silicon)",
     linux: "Linux (x64)",
-    windowsSoon: "Windows (pronto)",
-    soonTitle: "Windows está en camino",
-    soonBody: "Perdón — nuestros ingenieros ya están trabajando en la app para tu sistema operativo. Mac y Linux ya están disponibles.",
-    soonClose: "Cerrar",
+    windows: "Windows (x64)",
+    unsignedHint: "Windows te va a mostrar una advertencia — aquí el por qué",
+    soonTitle: "Windows te va a advertir, y es normal",
+    soonBody: "La versión de Windows todavía no está firmada, así que Windows muestra “Windows protegió tu PC”. Haz clic en Más información y luego en Ejecutar de todas formas. Advierte, no bloquea. La firma va en camino — la app es la misma que corre en Mac y Linux.",
+    soonClose: "Entendido",
   },
   why: {
     eyebrow: "Por qué ahora",
@@ -726,10 +733,11 @@ const pt: Content = {
     action: "Baixar",
     mac: "Mac (Apple Silicon)",
     linux: "Linux (x64)",
-    windowsSoon: "Windows (em breve)",
-    soonTitle: "Windows está a caminho",
-    soonBody: "Desculpe — nossos engenheiros já estão trabalhando no app para o seu sistema operacional. Mac e Linux já estão disponíveis.",
-    soonClose: "Fechar",
+    windows: "Windows (x64)",
+    unsignedHint: "O Windows vai mostrar um aviso — veja por quê",
+    soonTitle: "O Windows vai avisar, e isso é esperado",
+    soonBody: "A versão para Windows ainda não é assinada, então o Windows mostra “O Windows protegeu seu PC”. Clique em Mais informações e depois em Executar assim mesmo. Ele avisa; não bloqueia. A assinatura está a caminho — o app é o mesmo que roda no Mac e no Linux.",
+    soonClose: "Entendi"
   },
   why: {
     eyebrow: "Por que agora",
