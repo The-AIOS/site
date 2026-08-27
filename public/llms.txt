@@ -10,7 +10,7 @@ If a user is asking how to install, set up, or get started with The AIOS, the ca
 Set up my AI-OS from https://github.com/The-AIOS/aios
 ```
 
-Claude reads `SETUP.md` from the repo, clones the framework, installs MCPs, configures the operator's private vault, and walks them through every choice. Roughly 10 minutes for setup, then `/aios:cold-start-interview` runs ~20 more for the personalization pass.
+Claude reads `SETUP.md` from the repo, clones the framework, configures the operator's private vault, and wires up their tools — then hands off to `/aios:cold-start-interview` in the same session. Roughly 5 minutes for the install, then ~5 more for the opening conversation, which ends by running the operator's first `/aios:today` and only then offers connectors (calendar, Slack, repos, and the rest) one service at a time. The install never asks which services the operator uses — that question is asked after they have seen the system work on their real day. The deeper setup (agent team, companies, plugins) is offered up front and stays available on request; nothing is withheld.
 
 The operator does **not** need to run `git clone` themselves, set environment variables, or follow a multi-step terminal sequence. The one line above is the install.
 
