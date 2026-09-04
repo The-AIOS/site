@@ -18,7 +18,7 @@ export default function Privacy() {
     <LegalPage
       title={TITLE}
       standfirst="Most privacy policies explain what a company does with the data it collects. This one mostly explains why we do not have any."
-      updated="30 August 2026"
+      updated="4 September 2026"
     >
       <div className="callout">
         <p>
@@ -27,6 +27,12 @@ export default function Privacy() {
           machine</strong>. They do not pass through any server we run, because we do not run one. We cannot
           read your data, and no change to this policy could give us that ability without changing the
           software itself — which is open source, so you would be able to see it.
+        </p>
+        <p>
+          One caveat belongs up here rather than buried: the AIOS ships an <strong>optional</strong> script
+          that can call a model from another vendor. It stays inert until you create an API key file
+          yourself, and it still sends us nothing — but once enabled it does send your content to that
+          vendor. Details below.
         </p>
       </div>
 
@@ -87,6 +93,60 @@ export default function Privacy() {
           does not receive a copy.
         </li>
       </ul>
+
+      <h2>The one component that can send data off your machine</h2>
+
+      <p>
+        Everything above describes the AIOS as you install it. There is exactly one part that can behave
+        differently, and we would rather name it here than have you find it.
+      </p>
+
+      <p>
+        The AIOS ships a script that calls a model from a <strong>different vendor</strong> — OpenRouter, or
+        Google&rsquo;s Gemini API. It exists for two narrow jobs: a cheaper lane for bulk text work, and an{" "}
+        <strong>independent second opinion</strong>. The second job is the interesting one. A model cannot dock
+        points for a habit it shares, so asking Claude to grade Claude&rsquo;s own writing quietly misses
+        whatever the two have in common. Crossing to another vendor is the fix.
+      </p>
+
+      <p>
+        <strong>It is switched off until you switch it on.</strong> The script looks for an API key in a file
+        you create yourself. With no key present it makes no network call at all — it stops and prints the
+        path you would need to create. An operator who never wants this has a dormant script on disk and
+        nothing else. There is no default, no prompt, and no quiet fallback.
+      </p>
+
+      <div className="flow">
+{`  DEFAULT (no key file)
+     your content  ──►  refused locally, no request leaves the machine
+
+  AFTER YOU ADD A KEY
+     your content  ──►  OpenRouter or Google  (their terms, their retention)
+
+  The AIOS project  ····················  (not in this path either)`}
+      </div>
+
+      <p>
+        If you do turn it on, be clear about the trade you are making: whatever you pass that script travels to
+        that vendor and is governed by <em>their</em> policy, not ours. It still never reaches us — we have no
+        server in that path any more than in the Google one. But &ldquo;not us&rdquo; is a smaller promise than
+        &ldquo;nowhere,&rdquo; and the difference matters.
+      </p>
+
+      <p>
+        Our guidance, which also ships in the documentation: pass it drafts and prose. Keep client material,
+        anything under an NDA, financial records and personal context on your own machine. Before reaching for
+        it at all, check whether a smaller Claude model or a plain deterministic script does the job — most of
+        the time one of them does, and then nothing leaves at all.
+      </p>
+
+      <p>
+        The full boundary, including why we refuse to support proxies that reroute Claude Code itself, is in{" "}
+        <a href="https://github.com/The-AIOS/aios/blob/main/MODEL-ROUTING.md">
+          <code>MODEL-ROUTING.md</code>
+        </a>{" "}
+        in the open-source repository.
+      </p>
 
       <h2>What we collect</h2>
 
