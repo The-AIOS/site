@@ -3,8 +3,9 @@
  * the (en) group's segment-level `not-found`. Kept in one file so the page can
  * never drift between them. */
 
-import Link from "next/link";
-
+/* Plain <a>, not next/link: "/" is a different root layout from the 404 shell,
+ * so this is a full load anyway, and a prefetched cross-root <Link> target is
+ * what crashed Chrome's renderer — see LocaleSwitcher. */
 export function NotFoundBody() {
   return (
     <main style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -18,9 +19,9 @@ export function NotFoundBody() {
         <p className="lede" style={{ marginBottom: "2.5rem" }}>
           The page you were looking for doesn&apos;t exist on the-aios.com.
         </p>
-        <Link href="/" className="btn-primary">
+        <a href="/" className="btn-primary">
           Back to home →
-        </Link>
+        </a>
       </div>
     </main>
   );

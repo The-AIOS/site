@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CopyBlock } from "@/components/CopyBlock";
@@ -24,7 +23,8 @@ export function SkillsPage({ locale }: { locale: Locale }) {
             The AIOS
           </a>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <Link
+            {/* Plain <a>, never next/link — see LocaleSwitcher for the crash it prevents. */}
+            <a
               href={SKILLS_PATHS[next]}
               hrefLang={next}
               className="icon-btn sk-locale"
@@ -32,7 +32,7 @@ export function SkillsPage({ locale }: { locale: Locale }) {
               title={`Switch to ${LOCALE_LABELS[next].label}`}
             >
               {LOCALE_LABELS[locale].code}
-            </Link>
+            </a>
             <ThemeToggle />
           </div>
         </div>

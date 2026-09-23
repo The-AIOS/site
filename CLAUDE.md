@@ -74,4 +74,5 @@ Consequences to respect:
 - **Narrow viewports:** headless Chrome clamps `--window-size` to ~500px, so a 390px screenshot is a left-crop of a 500px layout and shows overflow that is not there. Use CDP `Emulation.setDeviceMetricsOverride`.
 - `minmax(400px, 1fr)` keeps a 400px track even in a narrower container. Use `minmax(min(400px, 100%), 1fr)`.
 - `trailingSlash: false` means the export writes `out/es.html`, not `out/es/index.html`. Serving `out/` locally needs Vercel's clean-URL fallback reproduced (`path` → `path.html` → `path/index.html`) or every non-root route 404s.
+- **Never `next/link` across root layouts** (locale switchers, the 404's home button, anything `/` ↔ `/es` ↔ `/pt`). It is a full document load regardless, and the `<Link>` viewport prefetch leaves a cached response that crashed Chrome 153's renderer ("Aw, Snap!") on navigating to exactly that URL — reproduced 3/3 on production, never on a page without the `<Link>`, never locally. Use a plain `<a>`. Regression check: on production, click the locale switcher ten times in a row in Chrome; any crash is this.
 - Apostrophes in JSX need `&apos;`/`&rsquo;`; `→`, `·`, `›` are fine as literals.
