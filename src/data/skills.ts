@@ -1,4 +1,4 @@
-/* /skills — the walkable ladder for the first hours after install.
+/* /climb — the walkable ladder for the first hours after install.
  *
  * UNLISTED BY DESIGN. Nothing on the site links here, it is not in llms.txt, and
  * every locale variant ships `robots: noindex`. It exists to be handed out by URL,
@@ -627,10 +627,10 @@ const pt: SkillsCopy = {
 
 export const SKILLS: Record<Locale, SkillsCopy> = { en, es, pt };
 
-export const SKILLS_PATHS: Record<Locale, string> = { en: "/skills", es: "/es/skills", pt: "/pt/skills" };
+export const SKILLS_PATHS: Record<Locale, string> = { en: "/climb", es: "/es/climb", pt: "/pt/climb" };
 
 /* noindex/nofollow on every variant: reachable by anyone holding the URL, never
- * surfaced by a search engine. hreflang only between the three /skills pages. */
+ * surfaced by a search engine. hreflang only between the three /climb pages. */
 export function skillsMetadata(locale: Locale): Metadata {
   const { title, description } = SKILLS[locale].meta;
   const url = `https://the-aios.com${SKILLS_PATHS[locale]}`;
@@ -641,9 +641,9 @@ export function skillsMetadata(locale: Locale): Metadata {
     alternates: {
       canonical: url,
       languages: {
-        en: "https://the-aios.com/skills",
-        es: "https://the-aios.com/es/skills",
-        "pt-BR": "https://the-aios.com/pt/skills",
+        en: "https://the-aios.com/climb",
+        es: "https://the-aios.com/es/climb",
+        "pt-BR": "https://the-aios.com/pt/climb",
       },
     },
     openGraph: { title, description, url, type: "website", images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "The AIOS" }] },

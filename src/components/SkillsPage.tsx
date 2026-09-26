@@ -5,7 +5,7 @@ import { LADDER, SKILLS, SKILLS_PATHS } from "@/data/skills";
 import { LOCALE_LABELS, LOCALES, type Locale } from "@/messages";
 import "./skills.css";
 
-/* /skills — unlisted. Nothing on the site links here; see src/data/skills.ts. */
+/* /climb — unlisted. Nothing on the site links here; see src/data/skills.ts. */
 export function SkillsPage({ locale }: { locale: Locale }) {
   const c = SKILLS[locale];
   const next = LOCALES[(LOCALES.indexOf(locale) + 1) % LOCALES.length];
