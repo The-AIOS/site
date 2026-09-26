@@ -17,7 +17,7 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/messages";
 
-export type RungId = "base" | "meet" | "feed" | "day" | "hands" | "team" | "run";
+export type RungId = "base" | "harness" | "memory" | "interface" | "compound" | "yours" | "team";
 
 export type CardId =
   | "name"
@@ -36,17 +36,28 @@ export type CardId =
   | "worker"
   | "rung"
   | "intent"
-  | "housekeeping";
+  | "housekeeping"
+  | "askBox"
+  | "findAround"
+  | "personalize"
+  | "extend"
+  | "brief"
+  | "reply"
+  | "resume"
+  | "close"
+  | "company"
+  | "collaborate";
 
-/* Station numbers match the eight-station climb used in hands-on sessions. */
+/* Base camp + the six stations of the hands-on climb, in the order the workshop
+ * deck (aios.html) walks them. A group IS a station, so cards carry no station tag. */
 export const LADDER: { rung: RungId; cards: { id: CardId; station?: number }[] }[] = [
-  { rung: "base", cards: [{ id: "name" }, { id: "interview", station: 4 }] },
-  { rung: "meet", cards: [{ id: "knows" }, { id: "pitch" }, { id: "ghost", station: 4 }] },
-  { rung: "feed", cards: [{ id: "ingest" }, { id: "stories" }] },
-  { rung: "day", cards: [{ id: "today", station: 4 }, { id: "closeSession", station: 7 }, { id: "closeDay", station: 7 }] },
-  { rung: "hands", cards: [{ id: "connect" }] },
-  { rung: "team", cards: [{ id: "hat", station: 3 }, { id: "firstAgent", station: 5 }, { id: "worker", station: 6 }] },
-  { rung: "run", cards: [{ id: "rung", station: 2 }, { id: "intent" }, { id: "housekeeping", station: 7 }] },
+  { rung: "base", cards: [{ id: "name" }] },
+  { rung: "harness", cards: [{ id: "askBox" }, { id: "hat" }, { id: "connect" }, { id: "intent" }, { id: "rung" }] },
+  { rung: "memory", cards: [{ id: "interview" }, { id: "today" }, { id: "ingest" }, { id: "ghost" }, { id: "knows" }, { id: "stories" }, { id: "pitch" }] },
+  { rung: "interface", cards: [{ id: "findAround" }] },
+  { rung: "compound", cards: [{ id: "closeSession" }, { id: "closeDay" }, { id: "housekeeping" }] },
+  { rung: "yours", cards: [{ id: "personalize" }, { id: "extend" }, { id: "firstAgent" }] },
+  { rung: "team", cards: [{ id: "worker" }, { id: "brief" }, { id: "reply" }, { id: "resume" }, { id: "close" }, { id: "company" }, { id: "collaborate" }] },
 ];
 
 export type Card = {
@@ -76,7 +87,7 @@ export type SkillsCopy = {
 const en: SkillsCopy = {
   meta: {
     title: "The climb — paste one, get a thing · The AIOS",
-    description: "Seventeen moves for the first hours with The AIOS. Each one is a paste block, and each one leaves something in your vault.",
+    description: "Twenty-seven moves for the first hours with The AIOS. Each one is a paste block, and each one leaves something in your vault.",
   },
   eyebrow: "The climb",
   h1: ["Paste one. ", "Get a thing.", ""],
@@ -87,16 +98,16 @@ const en: SkillsCopy = {
     ends: ["Ends in an artifact", "A plan, a note, an agent, a contract — filed where the next session will find it. That is what makes it compound."],
   },
   honest:
-    "Day one, the answers are thin — because the vault is thin. That is not a bug to hide; it is the whole reason the first rung is about bringing what you already have.",
-  labels: { copy: "Copy", copied: "Copied", gets: "You get", time: "Time", needs: "Needs", station: "Station", rung: "Rung" },
+    "Day one, the answers are thin — because the vault is thin. That is not a bug to hide; it is the whole reason the memory station is about bringing what you already have.",
+  labels: { copy: "Copy", copied: "Copied", gets: "You get", time: "Time", needs: "Needs", station: "Station", rung: "Station" },
   rungs: {
     base: { name: "Base camp", proves: "It is mine, and it knows where I start." },
-    meet: { name: "Meet it", proves: "It already knows me." },
-    feed: { name: "Feed it", proves: "I can make it know more." },
-    day: { name: "Work the day", proves: "It holds my day, not just my questions." },
-    hands: { name: "Give it hands", proves: "It can reach my actual tools." },
-    team: { name: "Hire the team", proves: "It is not one assistant. It is a team." },
-    run: { name: "Let it run", proves: "It works inside rules I wrote." },
+    harness: { name: "Meet your harness", proves: "It knows what it is, what it can reach, and how far it may go." },
+    memory: { name: "Your memory", proves: "It remembers me, and it gets better with everything I give it." },
+    interface: { name: "Know your interface", proves: "I know where everything is." },
+    compound: { name: "Compounding value", proves: "What I do today, tomorrow already knows." },
+    yours: { name: "Make it yours", proves: "It fits my work, and no update undoes it." },
+    team: { name: "Your team", proves: "It is not one assistant. It is a team, and so are we." },
   },
   cards: {
     name: {
@@ -124,7 +135,7 @@ const en: SkillsCopy = {
         "What do you actually know about me? Separate what I told you (declared) from what you have observed working with me. Then name the three biggest gaps, and add them as questions at the bottom of today's daily note.",
       gets: "A read-back of your context, and the three gaps filed as questions in today's note.",
       time: "1 min",
-      needs: "01 or 02.",
+      needs: "07, or a vault with some history.",
     },
     pitch: {
       name: "The cocktail pitch",
@@ -133,7 +144,7 @@ const en: SkillsCopy = {
         "Using what my vault knows about me, write my 30-second answer to “so, what do you do?” — spoken, not written, the way I would actually say it at a dinner. Then render it as a one-page infographic and save it to 03 - export/.",
       gets: "The spoken pitch, plus a rendered one-pager filed in your vault.",
       time: "3 min",
-      needs: "02.",
+      needs: "07.",
     },
     ghost: {
       name: "Ghost — it answers as you",
@@ -142,7 +153,7 @@ const en: SkillsCopy = {
       hint: "What it gets wrong is the useful part. Correct it once, in the session.",
       gets: "An answer in your voice — and your correction written into the vault, so the next draft starts closer.",
       time: "2 min",
-      needs: "02.",
+      needs: "07.",
     },
     ingest: {
       name: "Bring what you already wrote",
@@ -160,7 +171,7 @@ const en: SkillsCopy = {
         "Read my vault — observed context, daily notes, anything I have published — and propose three stories I already tell or should tell. For each: a title, the moment, the turn, the one line people remember, when to use it, and where in the vault it comes from. Never invent a detail I did not write. Save them to context/declared/story-vault.md only after I approve each one.",
       gets: "context/declared/story-vault.md — three sourced stories, ready for a talk, a pitch or a post.",
       time: "5 min",
-      needs: "A vault with some history — 06 speeds it up.",
+      needs: "A vault with some history — 09 speeds it up.",
     },
     today: {
       name: "Your first morning",
@@ -209,8 +220,8 @@ const en: SkillsCopy = {
       name: "Your first agent",
       promise: "You keep explaining the same job to the same assistant.",
       paste:
-        "Build me an agent in agents/custom/ that acts as my [role] — it should know [what] and always [rule]. Then spawn it and give it one real task.",
-      hint: "Fill the three brackets from your own business.",
+        "Launch the aios-builder to help me build a custom agent that acts as my [role] — it should know [what] and always [rule]. Then spawn it and give it one real task.",
+      hint: "Fill the three brackets from your own business. Prefer a form? The Designer in the App and Glass is the same builder, as a few fields.",
       gets: "agents/custom/{name}.md — yours, survives every update, spawnable by name.",
       time: "5 min",
       needs: "Nothing.",
@@ -241,7 +252,7 @@ const en: SkillsCopy = {
         "Open INTENT.md with me. Go domain by domain — email, calendar, money, code, anything I publish — and propose what you may do on your own, what you draft for my approval, and what you never touch. Change nothing until I confirm each one.",
       gets: "INTENT.md filled in — the autonomy you granted, per domain, in writing, read by every session.",
       time: "10 min",
-      needs: "02.",
+      needs: "Nothing. It gets sharper after 07.",
     },
     housekeeping: {
       name: "Tidy the house",
@@ -252,6 +263,105 @@ const en: SkillsCopy = {
       time: "5 min",
       needs: "A week of use.",
     },
+    askBox: {
+      name: "Ask your session",
+      promise: "You don’t know what came in the box.",
+      paste:
+        "Which agents and skills in my AIOS would you use to help me build a well-engineered, secure app for my company? I’m not technical — tell me what each one does and where it lives. Then add the three you would use first to today's daily note.",
+      hint: "Then open one of the files it names. Everything it knows is a file you can read.",
+      gets: "A plain-words map of the agents and skills you already have, each with the file it lives in — and your first three filed in today’s note.",
+      time: "2 min",
+      needs: "Nothing.",
+    },
+    findAround: {
+      name: "Find your way around",
+      promise: "There is more in the App than the chat window.",
+      paste:
+        "Show me around my AIOS App: where my named sessions are, where today's note is, and what the command palette can do. Then add the three shortcuts I will use most to today's note.",
+      hint: "In the App: Running lists your sessions and ⌘K opens the palette. In Glass: the Sessions hub, and ⌘⌥G.",
+      gets: "Your three shortcuts, written into today’s note.",
+      time: "2 min",
+      needs: "The App or Glass open.",
+    },
+    personalize: {
+      name: "Make a command yours",
+      promise: "The daily plan is almost right for you, every day.",
+      paste:
+        "Open USER.md at Command personalizations → /today with me. Propose three changes to how my daily plan looks, based on how I actually work. Write only the ones I approve.",
+      hint: "Every command reads its own section of USER.md before it runs. Updates never touch that file.",
+      gets: "USER.md with your overrides — and tomorrow’s /aios:today shaped by them.",
+      time: "5 min",
+      needs: "A few days of /aios:today.",
+    },
+    extend: {
+      name: "Six things you can add",
+      promise: "The framework fits most of your work, not all of it.",
+      paste:
+        "Show me the six things I can add to my AIOS — agents, skills, hooks, MCPs, plugins, templates — and where each one lives in custom/. Then, from what you know about my work, propose the one I should build first and why. Save the proposal to today's note.",
+      hint: "Anything in custom/ is yours: it wins over the bundled version on a name clash, and no update ever touches it.",
+      gets: "The extension map for your own setup, plus one proposal filed in today’s note.",
+      time: "3 min",
+      needs: "Nothing.",
+    },
+    brief: {
+      name: "Brief it big, on the right model",
+      promise: "A three-line prompt gets a three-line job.",
+      paste:
+        "Spawn a writer on the fast tier with this whole brief: [paste your brief here]. Tell me when it is running.",
+      hint: "Over 1 KB, the brief is saved to ~/.aios/bus-payloads/ and the worker gets a one-line pointer. Pick the tier by the shape of the work, not its importance.",
+      gets: "A worker on the model you chose, holding your full brief as a file it can re-read.",
+      time: "2 min",
+      needs: "21.",
+    },
+    reply: {
+      name: "Have it report back",
+      promise: "You keep checking a tab to see whether it’s done.",
+      paste:
+        "Tell researcher to add their pricing, and to report back to me when it is done.",
+      gets: "A one-line report delivered into this session when the worker finishes — and its note filed in your vault.",
+      time: "1 min",
+      needs: "21.",
+    },
+    resume: {
+      name: "Reopen yesterday’s worker",
+      promise: "A fresh session starts from zero every time.",
+      paste:
+        "Reopen yesterday's researcher and pick up where it left off.",
+      hint: "resume gives you back the same someone. spawn gives you a fresh something.",
+      gets: "The same named session back, with everything it learned, continuing the work.",
+      time: "1 min",
+      needs: "A worker you closed before.",
+    },
+    close: {
+      name: "Close it when it’s done",
+      promise: "Finished workers pile up, and you lose track of what is running.",
+      paste:
+        "Close the researcher session, after it runs /aios:close-session.",
+      hint: "Want the next one somewhere specific? Say “open it in Glass, not the App.” A request file disappearing means picked up, not done — ask “did it actually finish?” and it reads the worker’s transcript.",
+      gets: "The worker’s session captured in today’s note, then closed.",
+      time: "1 min",
+      needs: "21.",
+    },
+    company: {
+      name: "Mount your company",
+      promise: "Every teammate’s AI describes the company a little differently.",
+      paste:
+        "/aios:company",
+      hint: "It asks whether to create the company repo or mount one a teammate shared. Read-only in your vault, and namespaced beside your own files, never over them.",
+      gets: "Your company’s positioning, voice and offerings in vault/00 - notes/context/ventures/{company}/ — one source every teammate’s AIOS reads.",
+      time: "10 min to create · 2 min to mount",
+      needs: "A GitHub or Drive your company already uses.",
+    },
+    collaborate: {
+      name: "Open a shared space",
+      promise: "The launch plan lives in five heads and one chat thread.",
+      paste:
+        "/aios:collaborate",
+      hint: "Pick the project and where your team already works — Drive or GitHub. Your observed context never writes to the shared space: structural, not policy.",
+      gets: "A project note mirrored to the shared space, with the space’s rules and a welcome page — and nothing from your personal context.",
+      time: "5 min",
+      needs: "A teammate, and a Drive or repo you already share.",
+    },
   },
   close: "You walked in with a chat window. Walk the ladder and you leave with someone who remembers you tomorrow.",
   back: "the-aios.com",
@@ -260,7 +370,7 @@ const en: SkillsCopy = {
 const es: SkillsCopy = {
   meta: {
     title: "La escalada — pega uno, obtén algo · The AIOS",
-    description: "Diecisiete movimientos para tus primeras horas con The AIOS. Cada uno es un bloque para pegar, y cada uno deja algo en tu vault.",
+    description: "Veintisiete movimientos para tus primeras horas con The AIOS. Cada uno es un bloque para pegar, y cada uno deja algo en tu vault.",
   },
   eyebrow: "La escalada",
   h1: ["Pega uno. ", "Obtén algo.", ""],
@@ -271,16 +381,16 @@ const es: SkillsCopy = {
     ends: ["Termina en un artefacto", "Un plan, una nota, un agente, un contrato — archivado donde la siguiente sesión lo va a encontrar. Eso es lo que lo hace acumularse."],
   },
   honest:
-    "El primer día, las respuestas son delgadas — porque el vault es delgado. No es un defecto que esconder; es justo la razón por la que el primer peldaño consiste en traer lo que ya tienes.",
-  labels: { copy: "Copiar", copied: "Copiado", gets: "Obtienes", time: "Tiempo", needs: "Requiere", station: "Estación", rung: "Peldaño" },
+    "El primer día, las respuestas son delgadas — porque el vault es delgado. No es un defecto que esconder; es justo la razón por la que la estación de memoria consiste en traer lo que ya tienes.",
+  labels: { copy: "Copiar", copied: "Copiado", gets: "Obtienes", time: "Tiempo", needs: "Requiere", station: "Estación", rung: "Estación" },
   rungs: {
     base: { name: "Campamento base", proves: "Es mío, y sabe desde dónde empiezo." },
-    meet: { name: "Conócelo", proves: "Ya me conoce." },
-    feed: { name: "Aliméntalo", proves: "Puedo hacer que sepa más." },
-    day: { name: "Trabaja el día", proves: "Sostiene mi día, no solo mis preguntas." },
-    hands: { name: "Dale manos", proves: "Puede alcanzar mis herramientas reales." },
-    team: { name: "Contrata al equipo", proves: "No es un asistente. Es un equipo." },
-    run: { name: "Déjalo correr", proves: "Trabaja dentro de reglas que yo escribí." },
+    harness: { name: "Conoce tu arnés", proves: "Sabe qué es, qué alcanza y hasta dónde puede llegar." },
+    memory: { name: "Tu memoria", proves: "Se acuerda de mí, y mejora con todo lo que le doy." },
+    interface: { name: "Conoce tu interfaz", proves: "Sé dónde está cada cosa." },
+    compound: { name: "Valor que se acumula", proves: "Lo que hago hoy, mañana ya lo sabe." },
+    yours: { name: "Hazlo tuyo", proves: "Se ajusta a mi trabajo, y ninguna actualización lo deshace." },
+    team: { name: "Tu equipo", proves: "No es un asistente. Es un equipo, y nosotros también." },
   },
   cards: {
     name: {
@@ -308,7 +418,7 @@ const es: SkillsCopy = {
         "¿Qué sabes realmente de mí? Separa lo que yo te dije (declarado) de lo que has observado trabajando conmigo. Luego nombra los tres huecos más grandes y agrégalos como preguntas al final de la nota diaria de hoy.",
       gets: "Una lectura de tu contexto, y los tres huecos archivados como preguntas en la nota de hoy.",
       time: "1 min",
-      needs: "01 o 02.",
+      needs: "07, o un vault con algo de historia.",
     },
     pitch: {
       name: "El pitch de coctel",
@@ -317,7 +427,7 @@ const es: SkillsCopy = {
         "Con lo que mi vault sabe de mí, escribe mi respuesta de 30 segundos a “¿y tú a qué te dedicas?” — hablada, no escrita, como de verdad la diría en una cena. Luego conviértela en una infografía de una página y guárdala en 03 - export/.",
       gets: "El pitch hablado, más una infografía de una página archivada en tu vault.",
       time: "3 min",
-      needs: "02.",
+      needs: "07.",
     },
     ghost: {
       name: "Ghost — responde como tú",
@@ -326,7 +436,7 @@ const es: SkillsCopy = {
       hint: "Lo que se equivoca es la parte útil. Corrígelo una vez, en la sesión.",
       gets: "Una respuesta con tu voz — y tu corrección escrita en el vault, para que el siguiente borrador empiece más cerca.",
       time: "2 min",
-      needs: "02.",
+      needs: "07.",
     },
     ingest: {
       name: "Trae lo que ya escribiste",
@@ -344,7 +454,7 @@ const es: SkillsCopy = {
         "Lee mi vault — contexto observado, notas diarias, lo que haya publicado — y propón tres historias que ya cuento o que debería contar. Para cada una: un título, el momento, el giro, la frase que la gente recuerda, cuándo usarla y de qué parte del vault viene. Nunca inventes un detalle que yo no haya escrito. Guárdalas en context/declared/story-vault.md solo después de que apruebe cada una.",
       gets: "context/declared/story-vault.md — tres historias con fuente, listas para una charla, un pitch o un post.",
       time: "5 min",
-      needs: "Un vault con algo de historia — 06 lo acelera.",
+      needs: "Un vault con algo de historia — 09 lo acelera.",
     },
     today: {
       name: "Tu primera mañana",
@@ -393,8 +503,8 @@ const es: SkillsCopy = {
       name: "Tu primer agente",
       promise: "Sigues explicándole el mismo trabajo al mismo asistente.",
       paste:
-        "Constrúyeme un agente en agents/custom/ que actúe como mi [rol] — debe saber [qué] y siempre [regla]. Luego lánzalo y dale una tarea real.",
-      hint: "Llena los tres corchetes desde tu propio negocio.",
+        "Lanza el aios-builder para ayudarme a crear un agente propio que actúe como mi [rol] — debe saber [qué] y siempre [regla]. Luego lánzalo y dale una tarea real.",
+      hint: "Llena los tres corchetes desde tu propio negocio. ¿Prefieres un formulario? El Designer de la App y de Glass es el mismo constructor, en unos cuantos campos.",
       gets: "agents/custom/{nombre}.md — tuyo, sobrevive cada actualización, se lanza por nombre.",
       time: "5 min",
       needs: "Nada.",
@@ -425,7 +535,7 @@ const es: SkillsCopy = {
         "Abre INTENT.md conmigo. Ve dominio por dominio — correo, calendario, dinero, código, todo lo que publico — y propón qué puedes hacer por tu cuenta, qué me dejas como borrador para aprobar y qué nunca tocas. No cambies nada hasta que confirme cada uno.",
       gets: "INTENT.md lleno — la autonomía que otorgaste, por dominio, por escrito, leída por cada sesión.",
       time: "10 min",
-      needs: "02.",
+      needs: "Nada. Se afina después del 07.",
     },
     housekeeping: {
       name: "Ordena la casa",
@@ -436,6 +546,105 @@ const es: SkillsCopy = {
       time: "5 min",
       needs: "Una semana de uso.",
     },
+    askBox: {
+      name: "Pregúntale a tu sesión",
+      promise: "No sabes qué venía en la caja.",
+      paste:
+        "¿Qué agentes y skills de mi AIOS usarías para ayudarme a construir una app bien hecha y segura para mi empresa? No soy técnico: dime qué hace cada uno y dónde vive. Luego agrega los tres que usarías primero a la nota diaria de hoy.",
+      hint: "Después abre uno de los archivos que mencione. Todo lo que sabe es un archivo que puedes leer.",
+      gets: "Un mapa en palabras simples de los agentes y skills que ya tienes, cada uno con el archivo donde vive — y tus primeros tres archivados en la nota de hoy.",
+      time: "2 min",
+      needs: "Nada.",
+    },
+    findAround: {
+      name: "Ubícate",
+      promise: "La App tiene mucho más que la ventana de chat.",
+      paste:
+        "Enséñame mi App de AIOS: dónde están mis sesiones con nombre, dónde está la nota de hoy y qué puede hacer la paleta de comandos. Luego agrega a la nota de hoy los tres atajos que más voy a usar.",
+      hint: "En la App: Running muestra tus sesiones y ⌘K abre la paleta. En Glass: el hub de Sessions, y ⌘⌥G.",
+      gets: "Tus tres atajos, escritos en la nota de hoy.",
+      time: "2 min",
+      needs: "La App o Glass abiertas.",
+    },
+    personalize: {
+      name: "Haz tuyo un comando",
+      promise: "El plan del día casi te queda, todos los días.",
+      paste:
+        "Abre conmigo USER.md en Command personalizations → /today. Propón tres cambios a cómo se ve mi plan del día, según cómo trabajo de verdad. Escribe solo los que yo apruebe.",
+      hint: "Cada comando lee su propia sección de USER.md antes de correr. Las actualizaciones nunca tocan ese archivo.",
+      gets: "USER.md con tus ajustes — y el /aios:today de mañana ya con esa forma.",
+      time: "5 min",
+      needs: "Unos días usando /aios:today.",
+    },
+    extend: {
+      name: "Seis cosas que puedes agregar",
+      promise: "El framework le queda a casi todo tu trabajo, no a todo.",
+      paste:
+        "Enséñame las seis cosas que puedo agregar a mi AIOS — agentes, skills, hooks, MCPs, plugins, plantillas — y dónde vive cada una en custom/. Luego, con lo que sabes de mi trabajo, propón cuál debería construir primero y por qué. Guarda la propuesta en la nota de hoy.",
+      hint: "Todo lo que está en custom/ es tuyo: gana sobre la versión incluida si se llaman igual, y ninguna actualización lo toca.",
+      gets: "El mapa de extensiones de tu propia instalación, más una propuesta archivada en la nota de hoy.",
+      time: "3 min",
+      needs: "Nada.",
+    },
+    brief: {
+      name: "Un brief completo, en el modelo correcto",
+      promise: "Un prompt de tres líneas da un trabajo de tres líneas.",
+      paste:
+        "Lanza un writer en el tier fast con este brief completo: [pega aquí tu brief]. Avísame cuando esté corriendo.",
+      hint: "Si pasa de 1 KB, el brief se guarda en ~/.aios/bus-payloads/ y el worker recibe una línea que apunta a él. Elige el tier por la forma del trabajo, no por su importancia.",
+      gets: "Un worker en el modelo que elegiste, con tu brief completo como un archivo que puede volver a leer.",
+      time: "2 min",
+      needs: "21.",
+    },
+    reply: {
+      name: "Que te reporte de vuelta",
+      promise: "Sigues revisando una pestaña para ver si ya terminó.",
+      paste:
+        "Dile a researcher que agregue sus precios y que me reporte cuando termine.",
+      gets: "Un reporte de una línea que llega a esta sesión cuando el worker termina — y su nota archivada en tu vault.",
+      time: "1 min",
+      needs: "21.",
+    },
+    resume: {
+      name: "Reabre al worker de ayer",
+      promise: "Una sesión nueva empieza desde cero, cada vez.",
+      paste:
+        "Reabre al researcher de ayer y que siga donde se quedó.",
+      hint: "resume te devuelve al mismo alguien. spawn te da un algo nuevo.",
+      gets: "La misma sesión con nombre de vuelta, con todo lo que aprendió, siguiendo el trabajo.",
+      time: "1 min",
+      needs: "Un worker que ya cerraste antes.",
+    },
+    close: {
+      name: "Ciérralo cuando termine",
+      promise: "Los workers que ya terminaron se acumulan y pierdes la cuenta de qué sigue corriendo.",
+      paste:
+        "Cierra la sesión de researcher, después de que corra /aios:close-session.",
+      hint: "¿Quieres el siguiente en un lugar específico? Di “ábrelo en Glass, no en la App.” Que el archivo de la solicitud desaparezca significa que lo tomó, no que terminó — pregunta “¿de verdad terminó?” y leerá la transcripción del worker.",
+      gets: "La sesión del worker capturada en la nota de hoy, y luego cerrada.",
+      time: "1 min",
+      needs: "21.",
+    },
+    company: {
+      name: "Monta tu empresa",
+      promise: "La IA de cada quien en el equipo describe la empresa un poco distinto.",
+      paste:
+        "/aios:company",
+      hint: "Te pregunta si crear el repo de la empresa o montar uno que alguien del equipo compartió. En tu vault es de solo lectura, y vive en su propia carpeta junto a tus archivos, nunca encima.",
+      gets: "El posicionamiento, la voz y la oferta de tu empresa en vault/00 - notes/context/ventures/{empresa}/ — una sola fuente que lee el AIOS de todo el equipo.",
+      time: "10 min para crearla · 2 min para montarla",
+      needs: "Un GitHub o Drive que tu empresa ya use.",
+    },
+    collaborate: {
+      name: "Abre un espacio compartido",
+      promise: "El plan del lanzamiento vive en cinco cabezas y un hilo de chat.",
+      paste:
+        "/aios:collaborate",
+      hint: "Elige el proyecto y dónde ya trabaja tu equipo — Drive o GitHub. Tu contexto observado nunca se escribe en el espacio compartido: es estructural, no una política.",
+      gets: "Una nota de proyecto reflejada en el espacio compartido, con las reglas del espacio y una página de bienvenida — y nada de tu contexto personal.",
+      time: "5 min",
+      needs: "Alguien del equipo, y un Drive o repo que ya compartan.",
+    },
   },
   close: "Llegaste con una ventana de chat. Sube la escalera y te vas con alguien que te va a recordar mañana.",
   back: "the-aios.com",
@@ -444,7 +653,7 @@ const es: SkillsCopy = {
 const pt: SkillsCopy = {
   meta: {
     title: "A escalada — cole um, receba algo · The AIOS",
-    description: "Dezessete movimentos para as primeiras horas com The AIOS. Cada um é um bloco para colar, e cada um deixa algo no seu vault.",
+    description: "Vinte e sete movimentos para as primeiras horas com The AIOS. Cada um é um bloco para colar, e cada um deixa algo no seu vault.",
   },
   eyebrow: "A escalada",
   h1: ["Cole um. ", "Receba algo.", ""],
@@ -455,16 +664,16 @@ const pt: SkillsCopy = {
     ends: ["Termina em um artefato", "Um plano, uma nota, um agente, um contrato — arquivado onde a próxima sessão vai encontrar. É isso que faz acumular."],
   },
   honest:
-    "No primeiro dia, as respostas são rasas — porque o vault é raso. Não é um defeito para esconder; é exatamente por isso que o primeiro degrau é trazer o que você já tem.",
-  labels: { copy: "Copiar", copied: "Copiado", gets: "Você recebe", time: "Tempo", needs: "Precisa", station: "Estação", rung: "Degrau" },
+    "No primeiro dia, as respostas são rasas — porque o vault é raso. Não é um defeito para esconder; é exatamente por isso que a estação de memória é trazer o que você já tem.",
+  labels: { copy: "Copiar", copied: "Copiado", gets: "Você recebe", time: "Tempo", needs: "Precisa", station: "Estação", rung: "Estação" },
   rungs: {
     base: { name: "Acampamento base", proves: "É meu, e sabe de onde eu começo." },
-    meet: { name: "Conheça", proves: "Ele já me conhece." },
-    feed: { name: "Alimente", proves: "Posso fazer ele saber mais." },
-    day: { name: "Trabalhe o dia", proves: "Ele segura o meu dia, não só as minhas perguntas." },
-    hands: { name: "Dê mãos", proves: "Ele alcança as minhas ferramentas reais." },
-    team: { name: "Contrate o time", proves: "Não é um assistente. É um time." },
-    run: { name: "Deixe rodar", proves: "Ele trabalha dentro de regras que eu escrevi." },
+    harness: { name: "Conheça o seu arnês", proves: "Ele sabe o que é, o que alcança e até onde pode ir." },
+    memory: { name: "A sua memória", proves: "Ele lembra de mim, e melhora com tudo o que eu dou a ele." },
+    interface: { name: "Conheça a sua interface", proves: "Eu sei onde está cada coisa." },
+    compound: { name: "Valor que se acumula", proves: "O que eu faço hoje, amanhã ele já sabe." },
+    yours: { name: "Deixe do seu jeito", proves: "Ele se encaixa no meu trabalho, e nenhuma atualização desfaz isso." },
+    team: { name: "O seu time", proves: "Não é um assistente. É um time, e nós também." },
   },
   cards: {
     name: {
@@ -492,7 +701,7 @@ const pt: SkillsCopy = {
         "O que você realmente sabe sobre mim? Separe o que eu te contei (declarado) do que você observou trabalhando comigo. Depois nomeie as três maiores lacunas e adicione como perguntas no fim da nota diária de hoje.",
       gets: "Uma leitura do seu contexto, e as três lacunas arquivadas como perguntas na nota de hoje.",
       time: "1 min",
-      needs: "01 ou 02.",
+      needs: "07, ou um vault com alguma história.",
     },
     pitch: {
       name: "O pitch de coquetel",
@@ -501,7 +710,7 @@ const pt: SkillsCopy = {
         "Com o que o meu vault sabe sobre mim, escreva a minha resposta de 30 segundos para “e você, o que faz?” — falada, não escrita, do jeito que eu realmente diria num jantar. Depois transforme em um infográfico de uma página e salve em 03 - export/.",
       gets: "O pitch falado, mais um infográfico de uma página arquivado no seu vault.",
       time: "3 min",
-      needs: "02.",
+      needs: "07.",
     },
     ghost: {
       name: "Ghost — ele responde como você",
@@ -510,7 +719,7 @@ const pt: SkillsCopy = {
       hint: "O que ele erra é a parte útil. Corrija uma vez, na sessão.",
       gets: "Uma resposta com a sua voz — e a sua correção escrita no vault, para o próximo rascunho começar mais perto.",
       time: "2 min",
-      needs: "02.",
+      needs: "07.",
     },
     ingest: {
       name: "Traga o que você já escreveu",
@@ -528,7 +737,7 @@ const pt: SkillsCopy = {
         "Leia o meu vault — contexto observado, notas diárias, tudo o que eu publiquei — e proponha três histórias que eu já conto ou deveria contar. Para cada uma: um título, o momento, a virada, a frase que as pessoas lembram, quando usar e de que parte do vault ela vem. Nunca invente um detalhe que eu não escrevi. Salve em context/declared/story-vault.md só depois que eu aprovar cada uma.",
       gets: "context/declared/story-vault.md — três histórias com fonte, prontas para uma palestra, um pitch ou um post.",
       time: "5 min",
-      needs: "Um vault com alguma história — 06 acelera.",
+      needs: "Um vault com alguma história — 09 acelera.",
     },
     today: {
       name: "A sua primeira manhã",
@@ -577,8 +786,8 @@ const pt: SkillsCopy = {
       name: "O seu primeiro agente",
       promise: "Você continua explicando o mesmo trabalho para o mesmo assistente.",
       paste:
-        "Construa um agente em agents/custom/ que atue como o meu [papel] — ele deve saber [o quê] e sempre [regra]. Depois inicie ele e dê uma tarefa real.",
-      hint: "Preencha os três colchetes com o seu próprio negócio.",
+        "Inicie o aios-builder para me ajudar a criar um agente próprio que atue como o meu [papel] — ele deve saber [o quê] e sempre [regra]. Depois inicie o agente e dê uma tarefa real.",
+      hint: "Preencha os três colchetes com o seu próprio negócio. Prefere um formulário? O Designer do App e do Glass é o mesmo construtor, em poucos campos.",
       gets: "agents/custom/{nome}.md — seu, sobrevive a toda atualização, iniciável pelo nome.",
       time: "5 min",
       needs: "Nada.",
@@ -609,7 +818,7 @@ const pt: SkillsCopy = {
         "Abra o INTENT.md comigo. Vá domínio por domínio — e-mail, calendário, dinheiro, código, tudo o que eu publico — e proponha o que você pode fazer sozinho, o que deixa como rascunho para eu aprovar e o que nunca toca. Não mude nada até eu confirmar cada um.",
       gets: "INTENT.md preenchido — a autonomia que você concedeu, por domínio, por escrito, lida por toda sessão.",
       time: "10 min",
-      needs: "02.",
+      needs: "Nada. Fica mais preciso depois do 07.",
     },
     housekeeping: {
       name: "Arrume a casa",
@@ -619,6 +828,105 @@ const pt: SkillsCopy = {
       gets: "Uma lista de fusões, arquivamentos, índices e links para reparar — aplicada só onde você disser sim.",
       time: "5 min",
       needs: "Uma semana de uso.",
+    },
+    askBox: {
+      name: "Pergunte à sua sessão",
+      promise: "Você não sabe o que veio na caixa.",
+      paste:
+        "Quais agentes e skills do meu AIOS você usaria para me ajudar a construir um app bem feito e seguro para a minha empresa? Não sou técnico: me diga o que cada um faz e onde ele fica. Depois adicione na nota diária de hoje os três que você usaria primeiro.",
+      hint: "Depois abra um dos arquivos que ele citar. Tudo o que ele sabe é um arquivo que você pode ler.",
+      gets: "Um mapa em palavras simples dos agentes e skills que você já tem, cada um com o arquivo onde fica — e os seus três primeiros arquivados na nota de hoje.",
+      time: "2 min",
+      needs: "Nada.",
+    },
+    findAround: {
+      name: "Ache o seu caminho",
+      promise: "O App tem muito mais do que a janela de chat.",
+      paste:
+        "Me mostre o meu App do AIOS: onde estão as minhas sessões com nome, onde está a nota de hoje e o que a paleta de comandos faz. Depois adicione na nota de hoje os três atalhos que eu mais vou usar.",
+      hint: "No App: Running mostra as suas sessões e ⌘K abre a paleta. No Glass: o hub de Sessions, e ⌘⌥G.",
+      gets: "Os seus três atalhos, escritos na nota de hoje.",
+      time: "2 min",
+      needs: "O App ou o Glass abertos.",
+    },
+    personalize: {
+      name: "Deixe um comando do seu jeito",
+      promise: "O plano do dia quase serve para você, todo dia.",
+      paste:
+        "Abra comigo o USER.md em Command personalizations → /today. Proponha três mudanças no jeito que o meu plano do dia aparece, com base em como eu trabalho de verdade. Escreva só as que eu aprovar.",
+      hint: "Cada comando lê a própria seção do USER.md antes de rodar. As atualizações nunca mexem nesse arquivo.",
+      gets: "O USER.md com os seus ajustes — e o /aios:today de amanhã já com esse formato.",
+      time: "5 min",
+      needs: "Alguns dias usando o /aios:today.",
+    },
+    extend: {
+      name: "Seis coisas que você pode adicionar",
+      promise: "O framework serve para quase todo o seu trabalho, não para todo.",
+      paste:
+        "Me mostre as seis coisas que eu posso adicionar ao meu AIOS — agentes, skills, hooks, MCPs, plugins, templates — e onde cada uma fica em custom/. Depois, com o que você sabe do meu trabalho, proponha qual eu deveria construir primeiro e por quê. Salve a proposta na nota de hoje.",
+      hint: "Tudo o que está em custom/ é seu: ganha da versão incluída se tiver o mesmo nome, e nenhuma atualização mexe nisso.",
+      gets: "O mapa de extensões da sua própria instalação, mais uma proposta arquivada na nota de hoje.",
+      time: "3 min",
+      needs: "Nada.",
+    },
+    brief: {
+      name: "Um brief completo, no modelo certo",
+      promise: "Um prompt de três linhas gera um trabalho de três linhas.",
+      paste:
+        "Inicie um writer no tier fast com este brief completo: [cole aqui o seu brief]. Me avise quando estiver rodando.",
+      hint: "Acima de 1 KB, o brief é salvo em ~/.aios/bus-payloads/ e o worker recebe uma linha apontando para ele. Escolha o tier pela forma do trabalho, não pela importância.",
+      gets: "Um worker no modelo que você escolheu, com o seu brief completo como um arquivo que ele pode reler.",
+      time: "2 min",
+      needs: "21.",
+    },
+    reply: {
+      name: "Peça para ele reportar",
+      promise: "Você fica olhando uma aba para ver se já terminou.",
+      paste:
+        "Diga ao researcher para adicionar os preços e me reportar quando terminar.",
+      gets: "Um relatório de uma linha entregue nesta sessão quando o worker termina — e a nota dele arquivada no seu vault.",
+      time: "1 min",
+      needs: "21.",
+    },
+    resume: {
+      name: "Reabra o worker de ontem",
+      promise: "Uma sessão nova começa do zero, toda vez.",
+      paste:
+        "Reabra o researcher de ontem e continue de onde ele parou.",
+      hint: "resume devolve o mesmo alguém. spawn dá um algo novo.",
+      gets: "A mesma sessão com nome de volta, com tudo o que aprendeu, continuando o trabalho.",
+      time: "1 min",
+      needs: "Um worker que você já fechou antes.",
+    },
+    close: {
+      name: "Feche quando terminar",
+      promise: "Workers que já terminaram se acumulam e você perde a conta do que está rodando.",
+      paste:
+        "Feche a sessão do researcher, depois que ele rodar /aios:close-session.",
+      hint: "Quer o próximo num lugar específico? Diga “abra no Glass, não no App.” O arquivo do pedido sumir significa que foi pego, não que terminou — pergunte “terminou mesmo?” e ele lê a transcrição do worker.",
+      gets: "A sessão do worker capturada na nota de hoje, e depois fechada.",
+      time: "1 min",
+      needs: "21.",
+    },
+    company: {
+      name: "Monte a sua empresa",
+      promise: "A IA de cada pessoa do time descreve a empresa de um jeito um pouco diferente.",
+      paste:
+        "/aios:company",
+      hint: "Ele pergunta se deve criar o repo da empresa ou montar um que alguém do time compartilhou. No seu vault é só leitura, e fica numa pasta própria ao lado dos seus arquivos, nunca por cima.",
+      gets: "O posicionamento, a voz e as ofertas da sua empresa em vault/00 - notes/context/ventures/{empresa}/ — uma única fonte que o AIOS de todo o time lê.",
+      time: "10 min para criar · 2 min para montar",
+      needs: "Um GitHub ou Drive que a sua empresa já usa.",
+    },
+    collaborate: {
+      name: "Abra um espaço compartilhado",
+      promise: "O plano do lançamento vive em cinco cabeças e numa thread de chat.",
+      paste:
+        "/aios:collaborate",
+      hint: "Escolha o projeto e onde o seu time já trabalha — Drive ou GitHub. O seu contexto observado nunca é escrito no espaço compartilhado: é estrutural, não política.",
+      gets: "Uma nota de projeto espelhada no espaço compartilhado, com as regras do espaço e uma página de boas-vindas — e nada do seu contexto pessoal.",
+      time: "5 min",
+      needs: "Alguém do time, e um Drive ou repo que vocês já compartilham.",
     },
   },
   close: "Você chegou com uma janela de chat. Suba a escada e saia com alguém que vai lembrar de você amanhã.",
