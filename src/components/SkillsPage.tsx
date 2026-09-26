@@ -1,6 +1,7 @@
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CopyBlock } from "@/components/CopyBlock";
+import { HarnessFig } from "@/components/HarnessFig";
 import { LADDER, SKILLS, SKILLS_PATHS } from "@/data/skills";
 import { LOCALE_LABELS, LOCALES, type Locale } from "@/messages";
 import "./skills.css";
@@ -40,7 +41,8 @@ export function SkillsPage({ locale }: { locale: Locale }) {
 
       <main>
         <section className="hero-glow sk-hero">
-          <div className="container sk-narrow">
+          <div className="container sk-narrow sk-hero-inner">
+            <HarnessFig locale={locale} />
             <p className="eyebrow">{c.eyebrow}</p>
             <h1 className="sk-h1">
               {c.h1[0]}
