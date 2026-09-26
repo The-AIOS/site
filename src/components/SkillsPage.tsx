@@ -2,6 +2,7 @@ import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CopyBlock } from "@/components/CopyBlock";
 import { HarnessFig } from "@/components/HarnessFig";
+import { StationIcon } from "@/components/StationIcon";
 import { LADDER, SKILLS, SKILLS_PATHS } from "@/data/skills";
 import { LOCALE_LABELS, LOCALES, type Locale } from "@/messages";
 import "./skills.css";
@@ -67,7 +68,10 @@ export function SkillsPage({ locale }: { locale: Locale }) {
           {LADDER.map(({ rung, cards }, ri) => (
             <section key={rung} className="sk-rung" aria-labelledby={`rung-${rung}`}>
               <div className="sk-rung-head">
-                <span className="sk-rung-num">{ri === 0 ? "00" : `${c.labels.rung} ${ri}`}</span>
+                <StationIcon rung={rung} />
+                <span className="sk-rung-num">
+                  {rung === "base" ? "00" : rung === "summit" ? c.labels.summit : `${c.labels.rung} ${ri}`}
+                </span>
                 <h2 id={`rung-${rung}`}>{c.rungs[rung].name}</h2>
                 <p>{c.rungs[rung].proves}</p>
               </div>

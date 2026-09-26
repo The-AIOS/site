@@ -151,3 +151,9 @@
 @media (min-width: 641px) and (max-width: 1099px) {
   .sk-hero-inner .sk-lede { padding-right: clamp(60px, 9vw, 104px); }
 }
+
+/* Station icons — the deck's hairline set, one per group, in the accent. */
+.sk-st-icon {
+  display: block; width: 30px; height: 30px; margin-bottom: 0.55rem;
+  fill: none; stroke: var(--color-accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}

@@ -17,7 +17,7 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/messages";
 
-export type RungId = "base" | "harness" | "memory" | "interface" | "compound" | "yours" | "team";
+export type RungId = "base" | "harness" | "memory" | "interface" | "compound" | "yours" | "team" | "summit";
 
 export type CardId =
   | "name"
@@ -46,9 +46,11 @@ export type CardId =
   | "resume"
   | "close"
   | "company"
-  | "collaborate";
+  | "collaborate"
+  | "comprehension"
+  | "why";
 
-/* Base camp + the six stations of the hands-on climb, in the order the workshop
+/* Base camp + the six stations of the hands-on climb + the summit, in the order the workshop
  * deck (aios.html) walks them. A group IS a station, so cards carry no station tag. */
 export const LADDER: { rung: RungId; cards: { id: CardId; station?: number }[] }[] = [
   { rung: "base", cards: [{ id: "name" }] },
@@ -58,6 +60,7 @@ export const LADDER: { rung: RungId; cards: { id: CardId; station?: number }[] }
   { rung: "compound", cards: [{ id: "closeSession" }, { id: "closeDay" }, { id: "housekeeping" }] },
   { rung: "yours", cards: [{ id: "personalize" }, { id: "extend" }, { id: "firstAgent" }] },
   { rung: "team", cards: [{ id: "worker" }, { id: "brief" }, { id: "reply" }, { id: "resume" }, { id: "close" }, { id: "company" }, { id: "collaborate" }] },
+  { rung: "summit", cards: [{ id: "comprehension" }, { id: "why" }] },
 ];
 
 export type Card = {
@@ -77,7 +80,7 @@ export type SkillsCopy = {
   lede: string;
   rules: { starts: [string, string]; ends: [string, string] };
   honest: string;
-  labels: { copy: string; copied: string; gets: string; time: string; needs: string; station: string; rung: string };
+  labels: { copy: string; copied: string; gets: string; time: string; needs: string; station: string; rung: string; summit: string };
   rungs: Record<RungId, { name: string; proves: string }>;
   cards: Record<CardId, Card>;
   close: string;
@@ -87,7 +90,7 @@ export type SkillsCopy = {
 const en: SkillsCopy = {
   meta: {
     title: "The climb — paste one, get a thing · The AIOS",
-    description: "Twenty-seven moves for the first hours with The AIOS. Each one is a paste block, and each one leaves something in your vault.",
+    description: "Twenty-nine moves for the first hours with The AIOS. Each one is a paste block, and each one leaves something in your vault.",
   },
   eyebrow: "The climb",
   h1: ["Paste one. ", "Get a thing.", ""],
@@ -99,7 +102,7 @@ const en: SkillsCopy = {
   },
   honest:
     "Day one, the answers are thin — because the vault is thin. That is not a bug to hide; it is the whole reason the memory station is about bringing what you already have.",
-  labels: { copy: "Copy", copied: "Copied", gets: "You get", time: "Time", needs: "Needs", station: "Station", rung: "Station" },
+  labels: { copy: "Copy", copied: "Copied", gets: "You get", time: "Time", needs: "Needs", station: "Station", rung: "Station", summit: "Summit" },
   rungs: {
     base: { name: "Base camp", proves: "It is mine, and it knows where I start." },
     harness: { name: "Meet your harness", proves: "It knows what it is, what it can reach, and how far it may go." },
@@ -108,6 +111,7 @@ const en: SkillsCopy = {
     compound: { name: "Compounding value", proves: "What I do today, tomorrow already knows." },
     yours: { name: "Make it yours", proves: "It fits my work, and no update undoes it." },
     team: { name: "Your team", proves: "It is not one assistant. It is a team, and so are we." },
+    summit: { name: "From the summit", proves: "I can defend what shipped, and I know where I am going." },
   },
   cards: {
     name: {
@@ -362,6 +366,26 @@ const en: SkillsCopy = {
       time: "5 min",
       needs: "A teammate, and a Drive or repo you already share.",
     },
+    comprehension: {
+      name: "Walk me through what shipped",
+      promise: "A lot ships at AI speed, and your understanding falls behind.",
+      paste:
+        "A lot shipped this session — walk me through what I need to understand. Then add anything I still don't get as an open thread in today's note.",
+      hint: "The skill is comprehension-debt. The feeling is intentional: don’t try to keep up. The bar is defend, debug, decide — never read every line.",
+      gets: "A recap of everything the agents shipped, walked through at the depth you need — and what you haven’t grasped yet carried in today’s note as comprehension debt.",
+      time: "5 min",
+      needs: "A long session where agents did real work.",
+    },
+    why: {
+      name: "What does all of this add up to?",
+      promise: "Every goal completes, then asks what’s next.",
+      paste:
+        "What does all of this add up to?",
+      hint: "The skill is finding-your-why. It never asks you to state your purpose; it derives it from what stayed the same, and your words win. Ask it when a ship lands and it feels flat.",
+      gets: "A reading of what hasn’t changed across everything you’ve done, offered as candidates for you to correct — and kept as your compass in growth.md only if you say it’s right.",
+      time: "5 min",
+      needs: "Variety: several projects and domains in your vault.",
+    },
   },
   close: "You walked in with a chat window. Walk the ladder and you leave with someone who remembers you tomorrow.",
   back: "the-aios.com",
@@ -370,7 +394,7 @@ const en: SkillsCopy = {
 const es: SkillsCopy = {
   meta: {
     title: "La escalada — pega uno, obtén algo · The AIOS",
-    description: "Veintisiete movimientos para tus primeras horas con The AIOS. Cada uno es un bloque para pegar, y cada uno deja algo en tu vault.",
+    description: "Veintinueve movimientos para tus primeras horas con The AIOS. Cada uno es un bloque para pegar, y cada uno deja algo en tu vault.",
   },
   eyebrow: "La escalada",
   h1: ["Pega uno. ", "Obtén algo.", ""],
@@ -382,7 +406,7 @@ const es: SkillsCopy = {
   },
   honest:
     "El primer día, las respuestas son delgadas — porque el vault es delgado. No es un defecto que esconder; es justo la razón por la que la estación de memoria consiste en traer lo que ya tienes.",
-  labels: { copy: "Copiar", copied: "Copiado", gets: "Obtienes", time: "Tiempo", needs: "Requiere", station: "Estación", rung: "Estación" },
+  labels: { copy: "Copiar", copied: "Copiado", gets: "Obtienes", time: "Tiempo", needs: "Requiere", station: "Estación", rung: "Estación", summit: "Cima" },
   rungs: {
     base: { name: "Campamento base", proves: "Es mío, y sabe desde dónde empiezo." },
     harness: { name: "Conoce tu arnés", proves: "Sabe qué es, qué alcanza y hasta dónde puede llegar." },
@@ -391,6 +415,7 @@ const es: SkillsCopy = {
     compound: { name: "Valor que se acumula", proves: "Lo que hago hoy, mañana ya lo sabe." },
     yours: { name: "Hazlo tuyo", proves: "Se ajusta a mi trabajo, y ninguna actualización lo deshace." },
     team: { name: "Tu equipo", proves: "No es un asistente. Es un equipo, y nosotros también." },
+    summit: { name: "Desde la cima", proves: "Puedo defender lo que se entregó, y sé hacia dónde voy." },
   },
   cards: {
     name: {
@@ -645,6 +670,26 @@ const es: SkillsCopy = {
       time: "5 min",
       needs: "Alguien del equipo, y un Drive o repo que ya compartan.",
     },
+    comprehension: {
+      name: "Explícame lo que se entregó",
+      promise: "Se entrega mucho a velocidad de IA, y tu entendimiento se queda atrás.",
+      paste:
+        "Se entregó mucho en esta sesión: explícame lo que necesito entender. Luego agrega lo que todavía no me quede claro como un pendiente abierto en la nota de hoy.",
+      hint: "El skill es comprehension-debt. La sensación es intencional: no intentes seguirle el paso. La vara es defender, depurar, decidir — nunca leer cada línea.",
+      gets: "Un recuento de todo lo que entregaron los agentes, explicado a la profundidad que necesitas — y lo que todavía no entiendes, cargado en la nota de hoy como deuda de comprensión.",
+      time: "5 min",
+      needs: "Una sesión larga donde los agentes hicieron trabajo real.",
+    },
+    why: {
+      name: "¿A qué suma todo esto?",
+      promise: "Cada meta se cumple y luego pregunta qué sigue.",
+      paste:
+        "¿A qué suma todo esto?",
+      hint: "El skill es finding-your-why. Nunca te pide que declares tu propósito; lo deriva de lo que se mantuvo igual, y tus palabras ganan. Pregúntalo cuando algo se entrega y se siente plano.",
+      gets: "Una lectura de lo que no ha cambiado en todo lo que has hecho, ofrecida como candidatos para que tú corrijas — y guardada como tu brújula en growth.md solo si dices que es cierta.",
+      time: "5 min",
+      needs: "Variedad: varios proyectos y dominios en tu vault.",
+    },
   },
   close: "Llegaste con una ventana de chat. Sube la escalera y te vas con alguien que te va a recordar mañana.",
   back: "the-aios.com",
@@ -653,7 +698,7 @@ const es: SkillsCopy = {
 const pt: SkillsCopy = {
   meta: {
     title: "A escalada — cole um, receba algo · The AIOS",
-    description: "Vinte e sete movimentos para as primeiras horas com The AIOS. Cada um é um bloco para colar, e cada um deixa algo no seu vault.",
+    description: "Vinte e nove movimentos para as primeiras horas com The AIOS. Cada um é um bloco para colar, e cada um deixa algo no seu vault.",
   },
   eyebrow: "A escalada",
   h1: ["Cole um. ", "Receba algo.", ""],
@@ -665,7 +710,7 @@ const pt: SkillsCopy = {
   },
   honest:
     "No primeiro dia, as respostas são rasas — porque o vault é raso. Não é um defeito para esconder; é exatamente por isso que a estação de memória é trazer o que você já tem.",
-  labels: { copy: "Copiar", copied: "Copiado", gets: "Você recebe", time: "Tempo", needs: "Precisa", station: "Estação", rung: "Estação" },
+  labels: { copy: "Copiar", copied: "Copiado", gets: "Você recebe", time: "Tempo", needs: "Precisa", station: "Estação", rung: "Estação", summit: "Cume" },
   rungs: {
     base: { name: "Acampamento base", proves: "É meu, e sabe de onde eu começo." },
     harness: { name: "Conheça o seu arnês", proves: "Ele sabe o que é, o que alcança e até onde pode ir." },
@@ -674,6 +719,7 @@ const pt: SkillsCopy = {
     compound: { name: "Valor que se acumula", proves: "O que eu faço hoje, amanhã ele já sabe." },
     yours: { name: "Deixe do seu jeito", proves: "Ele se encaixa no meu trabalho, e nenhuma atualização desfaz isso." },
     team: { name: "O seu time", proves: "Não é um assistente. É um time, e nós também." },
+    summit: { name: "Do cume", proves: "Eu consigo defender o que foi entregue, e sei para onde estou indo." },
   },
   cards: {
     name: {
@@ -927,6 +973,26 @@ const pt: SkillsCopy = {
       gets: "Uma nota de projeto espelhada no espaço compartilhado, com as regras do espaço e uma página de boas-vindas — e nada do seu contexto pessoal.",
       time: "5 min",
       needs: "Alguém do time, e um Drive ou repo que vocês já compartilham.",
+    },
+    comprehension: {
+      name: "Me explique o que foi entregue",
+      promise: "Muita coisa é entregue na velocidade da IA, e o seu entendimento fica para trás.",
+      paste:
+        "Muita coisa foi entregue nesta sessão: me explique o que eu preciso entender. Depois adicione o que eu ainda não entendi como um ponto aberto na nota de hoje.",
+      hint: "O skill é comprehension-debt. A sensação é intencional: não tente acompanhar tudo. A régua é defender, depurar, decidir — nunca ler cada linha.",
+      gets: "Um resumo de tudo o que os agentes entregaram, explicado na profundidade que você precisa — e o que você ainda não entendeu, carregado na nota de hoje como dívida de compreensão.",
+      time: "5 min",
+      needs: "Uma sessão longa em que os agentes fizeram trabalho de verdade.",
+    },
+    why: {
+      name: "No que tudo isso dá?",
+      promise: "Toda meta se cumpre e depois pergunta o que vem a seguir.",
+      paste:
+        "No que tudo isso dá?",
+      hint: "O skill é finding-your-why. Ele nunca pede que você declare o seu propósito; ele deriva isso do que ficou igual, e as suas palavras ganham. Pergunte quando uma entrega chega e parece sem graça.",
+      gets: "Uma leitura do que não mudou em tudo o que você fez, oferecida como candidatos para você corrigir — e guardada como a sua bússola em growth.md só se você disser que está certa.",
+      time: "5 min",
+      needs: "Variedade: vários projetos e domínios no seu vault.",
     },
   },
   close: "Você chegou com uma janela de chat. Suba a escada e saia com alguém que vai lembrar de você amanhã.",
