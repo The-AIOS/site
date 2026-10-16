@@ -415,9 +415,9 @@ const en: Content = {
   },
   manual: {
     eyebrow: "The manual", h: ["The whole system, ", "one document", "."],
-    body: "Eighteen sections — from first principles to 24/7 containment. The design language, the architecture, the fleet, the rituals and the trust contract, in one branded artifact. This very site is its web-native sibling. Read it online, or take the PDF into your next meeting.",
+    body: "Twenty-one sections — from first principles to 24/7 containment. The design language, the architecture, the fleet, the rituals and the trust contract, in one branded artifact. This very site is its web-native sibling. Read it online, or take the PDF into your next meeting.",
     readBtn: "Read the manual →", downloadBtn: "Download PDF",
-    coverSub: "18 sections — first principles to the one-page map",
+    coverSub: "21 sections — first principles to the one-page map",
   },
   getStarted: {
     eyebrow: "Get started", h: ["Running in ", "30 seconds", "."],
@@ -694,9 +694,9 @@ const es: Content = {
   },
   manual: {
     eyebrow: "El manual", h: ["Todo el sistema, ", "un solo documento", "."],
-    body: "Dieciocho secciones — de los primeros principios a la contención 24/7. El lenguaje de diseño, la arquitectura, la flota, los rituales y el contrato de confianza, en un solo artefacto de marca. Este mismo sitio es su hermano web. Léelo en línea, o llévate el PDF a tu próxima reunión.",
+    body: "Veintiuna secciones — de los primeros principios a la contención 24/7. El lenguaje de diseño, la arquitectura, la flota, los rituales y el contrato de confianza, en un solo artefacto de marca. Este mismo sitio es su hermano web. Léelo en línea, o llévate el PDF a tu próxima reunión.",
     readBtn: "Lee el manual →", downloadBtn: "Descargar PDF",
-    coverSub: "18 secciones — de los primeros principios al mapa de una página",
+    coverSub: "21 secciones — de los primeros principios al mapa de una página",
   },
   getStarted: {
     eyebrow: "Empezar", h: ["Funcionando en ", "30 segundos", "."],
@@ -973,9 +973,9 @@ const pt: Content = {
   },
   manual: {
     eyebrow: "O manual", h: ["O sistema inteiro, ", "um só documento", "."],
-    body: "Dezoito seções — dos primeiros princípios à contenção 24/7. A linguagem de design, a arquitetura, a frota, os rituais e o contrato de confiança, em um só artefato de marca. Este próprio site é o irmão web dele. Leia online, ou leve o PDF para a sua próxima reunião.",
+    body: "Vinte e uma seções — dos primeiros princípios à contenção 24/7. A linguagem de design, a arquitetura, a frota, os rituais e o contrato de confiança, em um só artefato de marca. Este próprio site é o irmão web dele. Leia online, ou leve o PDF para a sua próxima reunião.",
     readBtn: "Leia o manual →", downloadBtn: "Baixar PDF",
-    coverSub: "18 seções — dos primeiros princípios ao mapa de uma página",
+    coverSub: "21 seções — dos primeiros princípios ao mapa de uma página",
   },
   getStarted: {
     eyebrow: "Começar", h: ["Rodando em ", "30 segundos", "."],
