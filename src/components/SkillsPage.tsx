@@ -70,7 +70,13 @@ export function SkillsPage({ locale }: { locale: Locale }) {
               <div className="sk-rung-head">
                 <StationIcon rung={rung} />
                 <span className="sk-rung-num">
-                  {rung === "base" ? "00" : rung === "summit" ? c.labels.summit : `${c.labels.rung} ${ri}`}
+                  {rung === "base"
+                    ? "00"
+                    : rung === "summit"
+                      ? c.labels.summit
+                      : rung === "build"
+                        ? c.labels.day
+                        : `${c.labels.rung} ${ri}`}
                 </span>
                 <h2 id={`rung-${rung}`}>{c.rungs[rung].name}</h2>
                 <p>{c.rungs[rung].proves}</p>

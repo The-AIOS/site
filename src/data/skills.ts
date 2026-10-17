@@ -17,7 +17,7 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/messages";
 
-export type RungId = "base" | "harness" | "memory" | "interface" | "compound" | "yours" | "team" | "summit";
+export type RungId = "base" | "harness" | "memory" | "interface" | "compound" | "yours" | "team" | "summit" | "build";
 
 export type CardId =
   | "name"
@@ -48,10 +48,21 @@ export type CardId =
   | "company"
   | "collaborate"
   | "comprehension"
-  | "why";
+  | "why"
+  | "deck"
+  | "blogpost"
+  | "webapp"
+  | "agreement"
+  | "financials"
+  | "studyBuddy"
+  | "migrate"
+  | "companion";
 
 /* Base camp + the six stations of the hands-on climb + the summit, in the order the workshop
- * deck (aios.html) walks them. A group IS a station, so cards carry no station tag. */
+ * deck (aios.html) walks them. A group IS a station, so cards carry no station tag.
+ * "build" comes AFTER the summit on purpose: the summit closes day one's climb, and day two
+ * (build with it) is a second walk that starts from the top. Appending it keeps every
+ * existing card number — the "needs" lines cite them (07, 09, 21) — stable. */
 export const LADDER: { rung: RungId; cards: { id: CardId; station?: number }[] }[] = [
   { rung: "base", cards: [{ id: "name" }] },
   { rung: "harness", cards: [{ id: "askBox" }, { id: "hat" }, { id: "connect" }, { id: "intent" }, { id: "rung" }] },
@@ -61,6 +72,19 @@ export const LADDER: { rung: RungId; cards: { id: CardId; station?: number }[] }
   { rung: "yours", cards: [{ id: "personalize" }, { id: "extend" }, { id: "firstAgent" }] },
   { rung: "team", cards: [{ id: "worker" }, { id: "brief" }, { id: "reply" }, { id: "resume" }, { id: "close" }, { id: "company" }, { id: "collaborate" }] },
   { rung: "summit", cards: [{ id: "comprehension" }, { id: "why" }] },
+  {
+    rung: "build",
+    cards: [
+      { id: "deck" },
+      { id: "blogpost" },
+      { id: "webapp" },
+      { id: "agreement" },
+      { id: "financials" },
+      { id: "studyBuddy" },
+      { id: "migrate" },
+      { id: "companion" },
+    ],
+  },
 ];
 
 export type Card = {
@@ -80,7 +104,7 @@ export type SkillsCopy = {
   lede: string;
   rules: { starts: [string, string]; ends: [string, string] };
   honest: string;
-  labels: { copy: string; copied: string; gets: string; time: string; needs: string; station: string; rung: string; summit: string };
+  labels: { copy: string; copied: string; gets: string; time: string; needs: string; station: string; rung: string; summit: string; day: string };
   rungs: Record<RungId, { name: string; proves: string }>;
   cards: Record<CardId, Card>;
   close: string;
@@ -90,7 +114,7 @@ export type SkillsCopy = {
 const en: SkillsCopy = {
   meta: {
     title: "The climb — paste one, get a thing · The AIOS",
-    description: "Twenty-nine moves for the first hours with The AIOS. Each one is a paste block, and each one leaves something in your vault.",
+    description: "Thirty-seven moves for the first hours with The AIOS, and a second day building with it. Each one is a paste block, and each one leaves something in your vault.",
   },
   eyebrow: "The climb",
   h1: ["Paste one. ", "Get a thing.", ""],
@@ -102,7 +126,7 @@ const en: SkillsCopy = {
   },
   honest:
     "Day one, the answers are thin — because the vault is thin. That is not a bug to hide; it is the whole reason the memory station is about bringing what you already have.",
-  labels: { copy: "Copy", copied: "Copied", gets: "You get", time: "Time", needs: "Needs", station: "Station", rung: "Station", summit: "Summit" },
+  labels: { copy: "Copy", copied: "Copied", gets: "You get", time: "Time", needs: "Needs", station: "Station", rung: "Station", summit: "Summit", day: "Day 2" },
   rungs: {
     base: { name: "Base camp", proves: "It is mine, and it knows where I start." },
     harness: { name: "Meet your harness", proves: "It knows what it is, what it can reach, and how far it may go." },
@@ -112,6 +136,7 @@ const en: SkillsCopy = {
     yours: { name: "Make it yours", proves: "It fits my work, and no update undoes it." },
     team: { name: "Your team", proves: "It is not one assistant. It is a team, and so are we." },
     summit: { name: "From the summit", proves: "I can defend what shipped, and I know where I am going." },
+    build: { name: "Day two · Build with it", proves: "It ships real work, from what it already knows about me." },
   },
   cards: {
     name: {
@@ -386,6 +411,86 @@ const en: SkillsCopy = {
       time: "5 min",
       needs: "Variety: several projects and domains in your vault.",
     },
+    deck: {
+      name: "A deck from what it knows",
+      promise: "The board meeting is Thursday, and the deck is still a blank slide.",
+      paste:
+        "Read my vault for my company's latest numbers, wins and open problems, and build me a board-update deck as one self-contained HTML file — eight slides at most, arrow keys to advance, no outside links. Mark anything you inferred rather than read as “confirm”. Save it to 03 - export/decks/.",
+      hint: "Open the file in your browser and present from there. Want a pitch instead? Swap “board-update” for “investor pitch”.",
+      gets: "03 - export/decks/{name}.html — a deck that opens in any browser, built from your own notes.",
+      time: "5 min",
+      needs: "07. 09 makes it sharper.",
+    },
+    blogpost: {
+      name: "A post in your voice",
+      promise: "You have things worth saying, and no time to write them down.",
+      paste:
+        "Read my vault — daily notes, reflections, anything I have published — and find the one idea I keep coming back to. Draft a 600-word post about it in my voice: my words, my examples, nothing I did not write or say. Save it to 03 - export/posts/ as a draft, and list the three lines you are least sure sound like me.",
+      hint: "Correct those three lines in the session. That correction is how the next draft starts closer.",
+      gets: "A draft post in 03 - export/posts/, sourced from your own notes — with the lines to check flagged for you.",
+      time: "4 min",
+      needs: "07. Better after 10.",
+    },
+    webapp: {
+      name: "A small app for a real problem",
+      promise: "A spreadsheet is doing a job an app should do.",
+      paste:
+        "From what my vault knows about my business, propose three small tools that would save me time every week. Then build the first one as a single self-contained HTML file — works offline, keeps its data in the browser, no sign-up, no outside services. Save it to 03 - export/apps/ and tell me how to open it.",
+      hint: "Open the file in your browser. Then ask for one change at a time — that is the whole loop.",
+      gets: "03 - export/apps/{name}.html — a working tool you can open, use and hand to someone as one file.",
+      time: "8 min",
+      needs: "07.",
+    },
+    agreement: {
+      name: "Draft the agreement",
+      promise: "The deal was agreed on a call, and nobody has written it down.",
+      paste:
+        "Find the most recent deal or engagement described in my vault — client, scope, price, dates. Draft a services agreement from it: parties, scope, deliverables, fees and payment terms, confidentiality, term and termination. Put every term you could not find in brackets as [CONFIRM]. Head it “Draft for review by a lawyer — not legal advice.” Save it to 03 - export/agreements/.",
+      hint: "This is a draft for your lawyer, not a contract. It saves them an hour; it does not replace them.",
+      gets: "A first-draft agreement in 03 - export/agreements/, built from what the vault says was agreed — every gap marked [CONFIRM].",
+      time: "5 min",
+      needs: "A deal written somewhere in your vault — a note, or a call transcript brought in with 09.",
+    },
+    financials: {
+      name: "Your financial cockpit",
+      promise: "You find out how the month went three weeks after it ends.",
+      paste:
+        "Build me a one-page financial cockpit as a single self-contained HTML file: cash, monthly revenue, monthly burn, runway in months, and the three biggest costs. Use any numbers already in my vault; for the rest, ask me to paste them — totals only. Show where every figure came from. Save it to 03 - export/finance/ and keep it on this machine.",
+      hint: "Paste totals, never statements. Never paste a bank password, a card number or an account login — it does not need them.",
+      gets: "A one-page cockpit in 03 - export/finance/ — every number sourced, on your machine and nowhere else.",
+      time: "5 min",
+      needs: "Your own numbers, roughly.",
+    },
+    studyBuddy: {
+      name: "A study buddy that remembers",
+      promise: "You finish the course and keep almost none of it.",
+      paste:
+        "Take the most recent document I brought into my vault — or the file I paste next — and turn it into a study protocol: the five ideas that matter, in order, each in plain words. Then quiz me one question at a time. Save the protocol to 00 - notes/reflections/study/ with a list of what I got wrong, and start every next quiz from that list.",
+      hint: "Drop a PDF or a course link in first. Tomorrow, just say “quiz me again.”",
+      gets: "A study protocol and a running list of what you got wrong, in reflections/study/ — the next quiz starts there.",
+      time: "10 min a round",
+      needs: "A document or course — 09 brings it in.",
+    },
+    migrate: {
+      name: "Bring your other AI with you",
+      promise: "Two years of ChatGPT knows you better than your new system does.",
+      paste:
+        "I am moving here from another AI. Right after this message I will paste what it knows about me — my ChatGPT memory, or a Claude Project's instructions and files. Sort it: who I am and how I work go to context/declared/, each project to its own note in projects/, and anything stale, wrong or not mine goes on a list for me to confirm. Show me the plan before you write anything.",
+      hint: "First, get it out: ask ChatGPT “list everything you remember about me, word for word”, or copy a Claude Project's instructions and download its files. If your session has an import skill it will use it — you do not need one.",
+      gets: "Your declared context and project notes, seeded from what your old AI knew — and nothing filed until you approved it.",
+      time: "5 min",
+      needs: "An export from the other AI.",
+    },
+    companion: {
+      name: "Brief a companion for the screen",
+      promise: "You want to show peers what it does, without showing them your life.",
+      paste:
+        "Save this brief to my vault as companion-brief.md, then spawn a session named atlas-companion and give it the brief. Brief: tomorrow you are on a projector in front of my peers. You may show my public work, what I have published, and only the files I name to you. You never show or say: financials or any money figure, the names of clients or deals, anything about my family or personal life, or anything from context/observed — profile, growth, patterns. If a request would cross that line, say so and offer something safe instead. Tell me when you are ready.",
+      hint: "Do it the evening of Day 1, before “EOers in action”. It can still read your vault — the brief governs what reaches the screen. Test it tonight: ask it something it must refuse.",
+      gets: "atlas-companion, a separate session briefed for the projector — and companion-brief.md in your vault, so it starts tomorrow from the same rules.",
+      time: "5 min, plus a test",
+      needs: "01, and the App or Glass open.",
+    },
   },
   close: "You walked in with a chat window. Walk the ladder and you leave with someone who remembers you tomorrow.",
   back: "the-aios.com",
@@ -394,7 +499,7 @@ const en: SkillsCopy = {
 const es: SkillsCopy = {
   meta: {
     title: "La escalada — pega uno, obtén algo · The AIOS",
-    description: "Veintinueve movimientos para tus primeras horas con The AIOS. Cada uno es un bloque para pegar, y cada uno deja algo en tu vault.",
+    description: "Treinta y siete movimientos para tus primeras horas con The AIOS, y un segundo día construyendo con él. Cada uno es un bloque para pegar, y cada uno deja algo en tu vault.",
   },
   eyebrow: "La escalada",
   h1: ["Pega uno. ", "Obtén algo.", ""],
@@ -406,7 +511,7 @@ const es: SkillsCopy = {
   },
   honest:
     "El primer día, las respuestas son delgadas — porque el vault es delgado. No es un defecto que esconder; es justo la razón por la que la estación de memoria consiste en traer lo que ya tienes.",
-  labels: { copy: "Copiar", copied: "Copiado", gets: "Obtienes", time: "Tiempo", needs: "Requiere", station: "Estación", rung: "Estación", summit: "Cima" },
+  labels: { copy: "Copiar", copied: "Copiado", gets: "Obtienes", time: "Tiempo", needs: "Requiere", station: "Estación", rung: "Estación", summit: "Cima", day: "Día 2" },
   rungs: {
     base: { name: "Campamento base", proves: "Es mío, y sabe desde dónde empiezo." },
     harness: { name: "Conoce tu arnés", proves: "Sabe qué es, qué alcanza y hasta dónde puede llegar." },
@@ -416,6 +521,7 @@ const es: SkillsCopy = {
     yours: { name: "Hazlo tuyo", proves: "Se ajusta a mi trabajo, y ninguna actualización lo deshace." },
     team: { name: "Tu equipo", proves: "No es un asistente. Es un equipo, y nosotros también." },
     summit: { name: "Desde la cima", proves: "Puedo defender lo que se entregó, y sé hacia dónde voy." },
+    build: { name: "Día dos · Construye con él", proves: "Entrega trabajo real, a partir de lo que ya sabe de mí." },
   },
   cards: {
     name: {
@@ -690,6 +796,86 @@ const es: SkillsCopy = {
       time: "5 min",
       needs: "Variedad: varios proyectos y dominios en tu vault.",
     },
+    deck: {
+      name: "Un deck con lo que ya sabe",
+      promise: "La junta de consejo es el jueves, y el deck sigue siendo una diapositiva en blanco.",
+      paste:
+        "Lee mi vault para encontrar los números más recientes de mi empresa, los logros y los problemas abiertos, y hazme un deck de actualización para el consejo como un solo archivo HTML autocontenido — máximo ocho diapositivas, que avance con las flechas, sin enlaces externos. Marca como “confirmar” todo lo que hayas inferido en lugar de leído. Guárdalo en 03 - export/decks/.",
+      hint: "Abre el archivo en tu navegador y presenta desde ahí. ¿Prefieres un pitch? Cambia “actualización para el consejo” por “pitch para inversionistas”.",
+      gets: "03 - export/decks/{nombre}.html — un deck que abre en cualquier navegador, hecho con tus propias notas.",
+      time: "5 min",
+      needs: "07. El 09 lo afina.",
+    },
+    blogpost: {
+      name: "Un post con tu voz",
+      promise: "Tienes cosas que vale la pena decir, y no tienes tiempo de escribirlas.",
+      paste:
+        "Lee mi vault — notas diarias, reflexiones, lo que haya publicado — y encuentra la idea a la que siempre regreso. Escribe un borrador de post de 600 palabras sobre ella con mi voz: mis palabras, mis ejemplos, nada que yo no haya escrito o dicho. Guárdalo como borrador en 03 - export/posts/, y enlista las tres frases que menos seguro estás de que suenen a mí.",
+      hint: "Corrige esas tres frases en la sesión. Esa corrección es lo que hace que el siguiente borrador empiece más cerca.",
+      gets: "Un borrador de post en 03 - export/posts/, con fuente en tus propias notas — y las frases por revisar ya señaladas.",
+      time: "4 min",
+      needs: "07. Mejor después del 10.",
+    },
+    webapp: {
+      name: "Una app pequeña para un problema real",
+      promise: "Una hoja de cálculo está haciendo el trabajo de una app.",
+      paste:
+        "Con lo que mi vault sabe de mi negocio, propón tres herramientas pequeñas que me ahorrarían tiempo cada semana. Luego construye la primera como un solo archivo HTML autocontenido — que funcione sin internet, que guarde sus datos en el navegador, sin registro y sin servicios externos. Guárdala en 03 - export/apps/ y dime cómo abrirla.",
+      hint: "Abre el archivo en tu navegador. Luego pide un cambio a la vez — ese es todo el ciclo.",
+      gets: "03 - export/apps/{nombre}.html — una herramienta que funciona, que puedes abrir, usar y pasarle a alguien como un solo archivo.",
+      time: "8 min",
+      needs: "07.",
+    },
+    agreement: {
+      name: "Redacta el contrato",
+      promise: "El trato se cerró en una llamada, y nadie lo ha puesto por escrito.",
+      paste:
+        "Encuentra el trato o proyecto más reciente descrito en mi vault — cliente, alcance, precio, fechas. Redacta con eso un contrato de prestación de servicios: partes, alcance, entregables, honorarios y forma de pago, confidencialidad, vigencia y terminación. Pon entre corchetes como [CONFIRMAR] cada término que no hayas encontrado. Encabézalo con “Borrador para revisión de un abogado — no es asesoría legal.” Guárdalo en 03 - export/agreements/.",
+      hint: "Es un borrador para tu abogado, no un contrato. Le ahorra una hora; no lo reemplaza.",
+      gets: "Un primer borrador de contrato en 03 - export/agreements/, hecho con lo que el vault dice que se acordó — cada hueco marcado como [CONFIRMAR].",
+      time: "5 min",
+      needs: "Un trato escrito en algún lugar de tu vault — una nota, o la transcripción de una llamada traída con el 09.",
+    },
+    financials: {
+      name: "Tu cabina financiera",
+      promise: "Te enteras de cómo te fue en el mes tres semanas después de que termina.",
+      paste:
+        "Hazme una cabina financiera de una página como un solo archivo HTML autocontenido: caja, ingresos del mes, gasto del mes, runway en meses y los tres costos más grandes. Usa los números que ya estén en mi vault; para los demás, pídeme que los pegue — solo totales. Muestra de dónde salió cada cifra. Guárdala en 03 - export/finance/ y que se quede en esta máquina.",
+      hint: "Pega totales, nunca estados de cuenta. Nunca pegues una contraseña del banco, un número de tarjeta ni un acceso a una cuenta — no los necesita.",
+      gets: "Una cabina de una página en 03 - export/finance/ — cada número con su fuente, en tu máquina y en ningún otro lado.",
+      time: "5 min",
+      needs: "Tus propios números, aproximados.",
+    },
+    studyBuddy: {
+      name: "Un compañero de estudio que se acuerda",
+      promise: "Terminas el curso y casi no te queda nada.",
+      paste:
+        "Toma el documento más reciente que traje a mi vault — o el archivo que pegue a continuación — y conviértelo en un protocolo de estudio: las cinco ideas que importan, en orden, cada una en palabras simples. Luego hazme un quiz, una pregunta a la vez. Guarda el protocolo en 00 - notes/reflections/study/ con una lista de lo que contesté mal, y empieza cada quiz siguiente desde esa lista.",
+      hint: "Primero suelta un PDF o el link de un curso. Mañana solo di “hazme el quiz otra vez.”",
+      gets: "Un protocolo de estudio y una lista viva de lo que contestaste mal, en reflections/study/ — el siguiente quiz empieza ahí.",
+      time: "10 min por ronda",
+      needs: "Un documento o curso — el 09 lo trae.",
+    },
+    migrate: {
+      name: "Trae a tu otra IA contigo",
+      promise: "Dos años de ChatGPT te conocen mejor que tu sistema nuevo.",
+      paste:
+        "Me estoy cambiando aquí desde otra IA. Justo después de este mensaje voy a pegar lo que sabe de mí — mi memoria de ChatGPT, o las instrucciones y archivos de un Claude Project. Ordénalo: quién soy y cómo trabajo va a context/declared/, cada proyecto a su propia nota en projects/, y todo lo viejo, equivocado o que no sea mío va a una lista para que yo lo confirme. Enséñame el plan antes de escribir nada.",
+      hint: "Primero sácalo: pídele a ChatGPT “enlista todo lo que recuerdas de mí, palabra por palabra”, o copia las instrucciones de un Claude Project y descarga sus archivos. Si tu sesión tiene un skill de importación lo va a usar — no lo necesitas.",
+      gets: "Tu contexto declarado y tus notas de proyecto, sembrados con lo que sabía tu IA anterior — y nada archivado hasta que lo apruebes.",
+      time: "5 min",
+      needs: "Una exportación de la otra IA.",
+    },
+    companion: {
+      name: "Prepara a un acompañante para la pantalla",
+      promise: "Quieres enseñarles a tus pares lo que hace, sin enseñarles tu vida.",
+      paste:
+        "Guarda este brief en mi vault como companion-brief.md, luego lanza una sesión llamada atlas-companion y dale el brief. Brief: mañana vas a estar en un proyector frente a mis pares. Puedes mostrar mi trabajo público, lo que he publicado y solo los archivos que yo te nombre. Nunca muestras ni dices: finanzas ni ninguna cifra de dinero, nombres de clientes o tratos, nada de mi familia ni de mi vida personal, ni nada de context/observed — profile, growth, patterns. Si una petición cruza esa línea, dilo y ofrece algo seguro en su lugar. Avísame cuando estés listo.",
+      hint: "Hazlo la noche del Día 1, antes de “EOers in action”. Todavía puede leer tu vault — el brief gobierna lo que llega a la pantalla. Pruébalo hoy: pídele algo que deba negarse a mostrar.",
+      gets: "atlas-companion, una sesión aparte preparada para el proyector — y companion-brief.md en tu vault, para que mañana empiece con las mismas reglas.",
+      time: "5 min, más una prueba",
+      needs: "01, y la App o Glass abiertas.",
+    },
   },
   close: "Llegaste con una ventana de chat. Sube la escalera y te vas con alguien que te va a recordar mañana.",
   back: "the-aios.com",
@@ -698,7 +884,7 @@ const es: SkillsCopy = {
 const pt: SkillsCopy = {
   meta: {
     title: "A escalada — cole um, receba algo · The AIOS",
-    description: "Vinte e nove movimentos para as primeiras horas com The AIOS. Cada um é um bloco para colar, e cada um deixa algo no seu vault.",
+    description: "Trinta e sete movimentos para as primeiras horas com The AIOS, e um segundo dia construindo com ele. Cada um é um bloco para colar, e cada um deixa algo no seu vault.",
   },
   eyebrow: "A escalada",
   h1: ["Cole um. ", "Receba algo.", ""],
@@ -710,7 +896,7 @@ const pt: SkillsCopy = {
   },
   honest:
     "No primeiro dia, as respostas são rasas — porque o vault é raso. Não é um defeito para esconder; é exatamente por isso que a estação de memória é trazer o que você já tem.",
-  labels: { copy: "Copiar", copied: "Copiado", gets: "Você recebe", time: "Tempo", needs: "Precisa", station: "Estação", rung: "Estação", summit: "Cume" },
+  labels: { copy: "Copiar", copied: "Copiado", gets: "Você recebe", time: "Tempo", needs: "Precisa", station: "Estação", rung: "Estação", summit: "Cume", day: "Dia 2" },
   rungs: {
     base: { name: "Acampamento base", proves: "É meu, e sabe de onde eu começo." },
     harness: { name: "Conheça o seu arnês", proves: "Ele sabe o que é, o que alcança e até onde pode ir." },
@@ -720,6 +906,7 @@ const pt: SkillsCopy = {
     yours: { name: "Deixe do seu jeito", proves: "Ele se encaixa no meu trabalho, e nenhuma atualização desfaz isso." },
     team: { name: "O seu time", proves: "Não é um assistente. É um time, e nós também." },
     summit: { name: "Do cume", proves: "Eu consigo defender o que foi entregue, e sei para onde estou indo." },
+    build: { name: "Dia dois · Construa com ele", proves: "Ele entrega trabalho de verdade, a partir do que já sabe sobre mim." },
   },
   cards: {
     name: {
@@ -993,6 +1180,86 @@ const pt: SkillsCopy = {
       gets: "Uma leitura do que não mudou em tudo o que você fez, oferecida como candidatos para você corrigir — e guardada como a sua bússola em growth.md só se você disser que está certa.",
       time: "5 min",
       needs: "Variedade: vários projetos e domínios no seu vault.",
+    },
+    deck: {
+      name: "Um deck com o que ele já sabe",
+      promise: "A reunião do conselho é na quinta, e o deck ainda é um slide em branco.",
+      paste:
+        "Leia o meu vault para achar os números mais recentes da minha empresa, as conquistas e os problemas em aberto, e monte um deck de atualização para o conselho como um único arquivo HTML autocontido — no máximo oito slides, avançando com as setas, sem links externos. Marque como “confirmar” tudo o que você deduziu em vez de ler. Salve em 03 - export/decks/.",
+      hint: "Abra o arquivo no navegador e apresente dali. Prefere um pitch? Troque “atualização para o conselho” por “pitch para investidores”.",
+      gets: "03 - export/decks/{nome}.html — um deck que abre em qualquer navegador, feito com as suas próprias notas.",
+      time: "5 min",
+      needs: "07. O 09 deixa mais preciso.",
+    },
+    blogpost: {
+      name: "Um post com a sua voz",
+      promise: "Você tem coisas que valem a pena dizer, e não tem tempo de escrever.",
+      paste:
+        "Leia o meu vault — notas diárias, reflexões, tudo o que eu publiquei — e encontre a ideia à qual eu sempre volto. Escreva um rascunho de post de 600 palavras sobre ela com a minha voz: as minhas palavras, os meus exemplos, nada que eu não tenha escrito ou dito. Salve como rascunho em 03 - export/posts/, e liste as três frases que você tem menos certeza de que soam como eu.",
+      hint: "Corrija essas três frases na sessão. Essa correção é o que faz o próximo rascunho começar mais perto.",
+      gets: "Um rascunho de post em 03 - export/posts/, com fonte nas suas próprias notas — e as frases para revisar já marcadas.",
+      time: "4 min",
+      needs: "07. Melhor depois do 10.",
+    },
+    webapp: {
+      name: "Um app pequeno para um problema real",
+      promise: "Uma planilha está fazendo o trabalho de um app.",
+      paste:
+        "Com o que o meu vault sabe sobre o meu negócio, proponha três ferramentas pequenas que me economizariam tempo toda semana. Depois construa a primeira como um único arquivo HTML autocontido — funciona sem internet, guarda os dados no navegador, sem cadastro e sem serviços externos. Salve em 03 - export/apps/ e me diga como abrir.",
+      hint: "Abra o arquivo no navegador. Depois peça uma mudança de cada vez — esse é o ciclo inteiro.",
+      gets: "03 - export/apps/{nome}.html — uma ferramenta que funciona, que você pode abrir, usar e passar para alguém como um único arquivo.",
+      time: "8 min",
+      needs: "07.",
+    },
+    agreement: {
+      name: "Rascunhe o contrato",
+      promise: "O acordo foi fechado numa call, e ninguém colocou no papel.",
+      paste:
+        "Encontre o acordo ou projeto mais recente descrito no meu vault — cliente, escopo, preço, datas. Com isso, rascunhe um contrato de prestação de serviços: partes, escopo, entregáveis, honorários e forma de pagamento, confidencialidade, vigência e rescisão. Coloque entre colchetes como [CONFIRMAR] cada termo que você não encontrou. Abra com “Rascunho para revisão de um advogado — não é aconselhamento jurídico.” Salve em 03 - export/agreements/.",
+      hint: "É um rascunho para o seu advogado, não um contrato. Economiza uma hora dele; não o substitui.",
+      gets: "Um primeiro rascunho de contrato em 03 - export/agreements/, feito com o que o vault diz que foi acordado — cada lacuna marcada como [CONFIRMAR].",
+      time: "5 min",
+      needs: "Um acordo escrito em algum lugar do seu vault — uma nota, ou a transcrição de uma call trazida com o 09.",
+    },
+    financials: {
+      name: "O seu cockpit financeiro",
+      promise: "Você descobre como foi o mês três semanas depois que ele acaba.",
+      paste:
+        "Monte um cockpit financeiro de uma página como um único arquivo HTML autocontido: caixa, receita do mês, queima do mês, runway em meses e os três maiores custos. Use os números que já estão no meu vault; para o resto, me peça para colar — só totais. Mostre de onde veio cada número. Salve em 03 - export/finance/ e mantenha nesta máquina.",
+      hint: "Cole totais, nunca extratos. Nunca cole uma senha do banco, um número de cartão ou um login de conta — ele não precisa disso.",
+      gets: "Um cockpit de uma página em 03 - export/finance/ — cada número com fonte, na sua máquina e em nenhum outro lugar.",
+      time: "5 min",
+      needs: "Os seus próprios números, aproximados.",
+    },
+    studyBuddy: {
+      name: "Um parceiro de estudo que lembra",
+      promise: "Você termina o curso e quase nada fica.",
+      paste:
+        "Pegue o documento mais recente que eu trouxe para o meu vault — ou o arquivo que eu colar a seguir — e transforme em um protocolo de estudo: as cinco ideias que importam, em ordem, cada uma em palavras simples. Depois me faça um quiz, uma pergunta de cada vez. Salve o protocolo em 00 - notes/reflections/study/ com uma lista do que eu errei, e comece cada próximo quiz por essa lista.",
+      hint: "Primeiro solte um PDF ou o link de um curso. Amanhã, é só dizer “me faça o quiz de novo.”",
+      gets: "Um protocolo de estudo e uma lista viva do que você errou, em reflections/study/ — o próximo quiz começa ali.",
+      time: "10 min por rodada",
+      needs: "Um documento ou curso — o 09 traz.",
+    },
+    migrate: {
+      name: "Traga a sua outra IA com você",
+      promise: "Dois anos de ChatGPT conhecem você melhor do que o seu sistema novo.",
+      paste:
+        "Estou vindo de outra IA. Logo depois desta mensagem vou colar o que ela sabe sobre mim — a minha memória do ChatGPT, ou as instruções e os arquivos de um Claude Project. Organize: quem eu sou e como eu trabalho vai para context/declared/, cada projeto para a sua própria nota em projects/, e tudo o que estiver velho, errado ou não for meu vai para uma lista para eu confirmar. Me mostre o plano antes de escrever qualquer coisa.",
+      hint: "Primeiro, tire de lá: peça ao ChatGPT “liste tudo o que você lembra sobre mim, palavra por palavra”, ou copie as instruções de um Claude Project e baixe os arquivos. Se a sua sessão tiver um skill de importação, ela vai usar — você não precisa dele.",
+      gets: "O seu contexto declarado e as suas notas de projeto, semeados com o que a sua IA anterior sabia — e nada arquivado até você aprovar.",
+      time: "5 min",
+      needs: "Uma exportação da outra IA.",
+    },
+    companion: {
+      name: "Prepare um acompanhante para a tela",
+      promise: "Você quer mostrar aos seus pares o que ele faz, sem mostrar a sua vida.",
+      paste:
+        "Salve este brief no meu vault como companion-brief.md, depois inicie uma sessão chamada atlas-companion e passe o brief para ela. Brief: amanhã você vai estar num projetor na frente dos meus pares. Você pode mostrar o meu trabalho público, o que eu publiquei e só os arquivos que eu nomear. Você nunca mostra nem diz: finanças ou qualquer valor em dinheiro, nomes de clientes ou de acordos, nada sobre a minha família ou a minha vida pessoal, nem nada de context/observed — profile, growth, patterns. Se um pedido cruzar essa linha, diga isso e ofereça algo seguro no lugar. Me avise quando estiver pronta.",
+      hint: "Faça na noite do Dia 1, antes de “EOers in action”. Ela ainda pode ler o seu vault — o brief governa o que chega à tela. Teste hoje: peça algo que ela deva se recusar a mostrar.",
+      gets: "atlas-companion, uma sessão separada preparada para o projetor — e companion-brief.md no seu vault, para ela começar amanhã com as mesmas regras.",
+      time: "5 min, mais um teste",
+      needs: "01, e o App ou o Glass abertos.",
     },
   },
   close: "Você chegou com uma janela de chat. Suba a escada e saia com alguém que vai lembrar de você amanhã.",

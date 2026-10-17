@@ -62,6 +62,15 @@ const PATHS: Record<RungId, React.ReactNode> = {
       <path d="M16 3.4h4.2l-1.2 1.6 1.2 1.6H16" />
     </>
   ),
+  /* Day two — a shipped package: the thing it builds, boxed and ready to hand over. */
+  build: (
+    <>
+      <path d="M12 2.8l8 4.4v9.6l-8 4.4-8-4.4V7.2z" />
+      <path d="M4 7.2l8 4.4 8-4.4" />
+      <path d="M12 11.6v9.6" />
+      <path d="M8 5l8 4.4" />
+    </>
+  ),
 };
 
 export function StationIcon({ rung }: { rung: RungId }) {
