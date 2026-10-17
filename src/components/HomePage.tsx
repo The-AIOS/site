@@ -57,8 +57,9 @@ const REPO = "https://github.com/The-AIOS/aios";
    up shipping a Linux button that serves a mac dmg in Portuguese. */
 /* The one-line install, verbatim. Shown in the hero and in the setup card, and it is
    exactly what the copy button writes — no `›` prompt character, which would break the
-   paste. One constant, so the shown text and the copied text cannot drift apart. */
-const SETUP_LINE = "Set up my AI-OS from https://github.com/The-AIOS/aios";
+   paste. One constant, so the shown text and the copied text cannot drift apart.
+   Exported for the unlisted /install page, which must show the same line byte for byte. */
+export const SETUP_LINE = "Set up my AI-OS from https://github.com/The-AIOS/aios";
 
 const ORG = "https://github.com/The-AIOS";
 
