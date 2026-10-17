@@ -58,9 +58,9 @@ const en: InstallCopy = {
     name: "The AIOS App",
     steps: [
       "Download the App and open it.",
-      "Follow its four guided steps. One of them sends the setup line for you — there is nothing to type.",
-      "Say yes as it goes. Claude reads SETUP.md and walks every choice — each step asks your consent. About 5 minutes.",
-      "Have the opening conversation: who you are, how you work, and a trust contract — then your first daily plan. About 5 minutes.",
+      "“Install what I need”: one click installs the free tools it runs on and skips what you already have. Then “Log in to Claude” with your paid plan.",
+      "“Log in to GitHub” backs up your vault from day one. It is optional: “Skip for now” works, and you can connect it later.",
+      "“Set up my AIOS”: a guided conversation sets up your vault and learns who you are. It asks before it changes anything. When the App says “You’re in.”, you are. About 10 minutes.",
     ],
   },
   cli: {
@@ -105,9 +105,9 @@ const es: InstallCopy = {
     name: "La AIOS App",
     steps: [
       "Descarga la App y ábrela.",
-      "Sigue sus cuatro pasos guiados. Uno de ellos envía la línea de setup por ti — no tienes que escribir nada.",
-      "Acepta conforme avanza. Claude lee SETUP.md y guía cada decisión — cada paso pide tu consentimiento. Unos 5 minutos.",
-      "Ten la conversación inicial: quién eres, cómo trabajas y un contrato de confianza — y luego tu primer plan diario. Unos 5 minutos.",
+      "“Instalar lo que necesito”: un clic instala las herramientas gratuitas con las que funciona y se salta lo que ya tienes. Luego “Inicia sesión en Claude” con tu plan de pago.",
+      "“Inicia sesión en GitHub” respalda tu vault desde el primer día. Es opcional: “Omitir por ahora” funciona y puedes conectarlo después.",
+      "“Configurar mi AIOS”: una conversación guiada configura tu vault y aprende quién eres. Pregunta antes de cambiar cualquier cosa. Cuando la App diga “Ya estás dentro.”, ya estás. Unos 10 minutos.",
     ],
   },
   cli: {
@@ -152,9 +152,9 @@ const pt: InstallCopy = {
     name: "O AIOS App",
     steps: [
       "Baixe o App e abra.",
-      "Siga seus quatro passos guiados. Um deles envia a linha de setup por você — não precisa digitar nada.",
-      "Aceite conforme avança. O Claude lê o SETUP.md e guia cada decisão — cada passo pede seu consentimento. Uns 5 minutos.",
-      "Faça a conversa inicial: quem você é, como trabalha e um contrato de confiança — e depois o seu primeiro plano diário. Uns 5 minutos.",
+      "“Instalar o que eu preciso”: um clique instala as ferramentas gratuitas com que ele funciona e pula o que você já tem. Depois, “Entrar no Claude” com o seu plano pago.",
+      "“Entrar no GitHub” faz o backup do seu vault desde o primeiro dia. É opcional: “Pular por enquanto” funciona, e você pode conectar depois.",
+      "“Configurar meu AIOS”: uma conversa guiada configura o seu vault e aprende quem você é. Pergunta antes de mudar qualquer coisa. Quando o App disser “Você entrou.”, você entrou. Uns 10 minutos.",
     ],
   },
   cli: {
