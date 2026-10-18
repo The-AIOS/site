@@ -80,6 +80,9 @@ export function SkillsPage({ locale }: { locale: Locale }) {
                 </span>
                 <h2 id={`rung-${rung}`}>{c.rungs[rung].name}</h2>
                 <p>{c.rungs[rung].proves}</p>
+                <p className="sk-leave">
+                  <span>{c.labels.leave}</span> {c.rungs[rung].leave}
+                </p>
               </div>
 
               <ol className="sk-cards">
