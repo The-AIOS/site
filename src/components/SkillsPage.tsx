@@ -4,6 +4,7 @@ import { CopyBlock } from "@/components/CopyBlock";
 import { HarnessFig } from "@/components/HarnessFig";
 import { StationIcon } from "@/components/StationIcon";
 import { LADDER, SKILLS, SKILLS_PATHS } from "@/data/skills";
+import { INSTALL_PATHS } from "@/data/install";
 import { LOCALE_LABELS, LOCALES, type Locale } from "@/messages";
 import "./skills.css";
 
@@ -61,6 +62,9 @@ export function SkillsPage({ locale }: { locale: Locale }) {
               ))}
             </div>
             <p className="sk-honest">{c.honest}</p>
+            <p className="sk-install">
+              {c.install[0]} <a href={INSTALL_PATHS[locale]}>{c.install[1]}</a>
+            </p>
           </div>
         </section>
 

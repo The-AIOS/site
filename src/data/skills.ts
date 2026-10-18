@@ -107,6 +107,7 @@ export type SkillsCopy = {
   lede: string;
   rules: { starts: [string, string]; ends: [string, string] };
   honest: string;
+  install: [string, string]; // lead-in, link text — the link goes to the unlisted /install
   labels: { copy: string; copied: string; gets: string; time: string; needs: string; station: string; rung: string; summit: string; day: string; leave: string };
   rungs: Record<RungId, { name: string; proves: string; leave: string }>; // leave: the artifacts a station leaves in the vault
   cards: Record<CardId, Card>;
@@ -129,6 +130,7 @@ const en: SkillsCopy = {
   },
   honest:
     "Day one, the answers are thin — because the vault is thin. That is not a bug to hide; it is the whole reason the memory station is about bringing what you already have.",
+  install: ["Haven’t installed?", "Click here"],
   labels: { copy: "Copy", copied: "Copied", gets: "You get", time: "Time", needs: "Needs", station: "Station", rung: "Station", summit: "Summit", day: "Day 2", leave: "You leave with" },
   rungs: {
     base: { name: "Base camp", proves: "It is mine, and it knows where I start.", leave: "A named session, a checked install, and a one-page note on how to think about it." },
@@ -553,6 +555,7 @@ const es: SkillsCopy = {
   },
   honest:
     "El primer día, las respuestas son delgadas — porque el vault es delgado. No es un defecto que esconder; es justo la razón por la que la estación de memoria consiste en traer lo que ya tienes.",
+  install: ["¿Aún no lo instalas?", "Haz clic aquí"],
   labels: { copy: "Copiar", copied: "Copiado", gets: "Obtienes", time: "Tiempo", needs: "Requiere", station: "Estación", rung: "Estación", summit: "Cima", day: "Día 2", leave: "Te llevas" },
   rungs: {
     base: { name: "Campamento base", proves: "Es mío, y sabe desde dónde empiezo.", leave: "Una sesión con nombre, una instalación revisada y una nota de una página sobre cómo pensar en todo esto." },
@@ -977,6 +980,7 @@ const pt: SkillsCopy = {
   },
   honest:
     "No primeiro dia, as respostas são rasas — porque o vault é raso. Não é um defeito para esconder; é exatamente por isso que a estação de memória é trazer o que você já tem.",
+  install: ["Ainda não instalou?", "Clique aqui"],
   labels: { copy: "Copiar", copied: "Copiado", gets: "Você recebe", time: "Tempo", needs: "Precisa", station: "Estação", rung: "Estação", summit: "Cume", day: "Dia 2", leave: "Você sai com" },
   rungs: {
     base: { name: "Acampamento base", proves: "É meu, e sabe de onde eu começo.", leave: "Uma sessão com nome, uma instalação conferida e uma nota de uma página sobre como pensar nisso tudo." },
