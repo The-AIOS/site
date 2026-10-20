@@ -75,8 +75,8 @@ const en: InstallCopy = {
   done: {
     title: "You’re in when…",
     body: "A named session greets you as itself.",
-    how: "In a terminal — or use “Spawn a session” in the App and type the name:",
-    after: "If atlas answers as atlas, you’re done. Pick any name you would say out loud — it keeps that identity every time you open it.",
+    how: "In the App, click “Spawn a session”, paste this name and press Enter (or open a new terminal and paste: spawn lawyer):",
+    after: "If lawyer answers as your lawyer, you’re done. Any name you would say out loud works — it keeps that identity every time you open it.",
   },
   next: { lead: "Installed, and greeted by name? The workshop picks up from there.", cta: "Then start the climb →" },
   labels: { copy: "Copy", copied: "Copied" },
@@ -122,8 +122,8 @@ const es: InstallCopy = {
   done: {
     title: "Ya estás dentro cuando…",
     body: "Una sesión con nombre te saluda como sí misma.",
-    how: "En una terminal — o usa “Spawn a session” en la App y escribe el nombre:",
-    after: "Si atlas te responde como atlas, listo. Elige cualquier nombre que dirías en voz alta — conserva esa identidad cada vez que la abres.",
+    how: "En la App, haz clic en “Spawn a session”, pega este nombre y presiona Enter (o abre una terminal nueva y pega: spawn lawyer):",
+    after: "Si lawyer te responde como tu abogado, listo. Sirve cualquier nombre que dirías en voz alta — conserva esa identidad cada vez que la abres.",
   },
   next: { lead: "¿Ya quedó instalado y te saludó por su nombre? El taller arranca desde ahí.", cta: "Luego empieza la escalada →" },
   labels: { copy: "Copiar", copied: "Copiado" },
@@ -169,8 +169,8 @@ const pt: InstallCopy = {
   done: {
     title: "Você está dentro quando…",
     body: "Uma sessão com nome cumprimenta você como ela mesma.",
-    how: "Em um terminal — ou use “Spawn a session” no App e digite o nome:",
-    after: "Se o atlas responder como atlas, pronto. Escolha qualquer nome que você diria em voz alta — ela mantém essa identidade toda vez que você a abre.",
+    how: "No App, clique em “Spawn a session”, cole este nome e aperte Enter (ou abra um terminal novo e cole: spawn lawyer):",
+    after: "Se o lawyer responder como o seu advogado, pronto. Qualquer nome que você diria em voz alta funciona — ela mantém essa identidade toda vez que você a abre.",
   },
   next: { lead: "Instalado e cumprimentado pelo nome? O workshop começa daí.", cta: "Depois, comece a escalada →" },
   labels: { copy: "Copiar", copied: "Copiado" },
