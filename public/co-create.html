@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your turn · The AIOS</title>
+<meta name="description" content="Four prompts for your main AIOS session: ingest, explain, build, trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--surface:#141414;--hairline:#2a2a2a;--ink:#f4f1ec;--muted:#a39e96;--accent:#ff5d4d;}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#faf8f4;--surface:#ffffff;--hairline:#e4ded4;--ink:#1a1714;--muted:#6b645b;--accent:#d93d2e;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+main{max-width:980px;margin:0 auto;padding:40px 16px 56px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.eyebrow b{color:var(--accent)}
+.lang{font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.1em;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:999px;padding:8px 14px;cursor:pointer}
+h1{font-size:clamp(30px,6vw,56px);font-weight:800;letter-spacing:-.025em;line-height:1.08}
+h1 .hl{color:var(--accent)}
+.lede{color:var(--muted);font-size:clamp(16px,2.2vw,20px);margin:14px 0 28px;max-width:46ch}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+.box{background:var(--surface);border:1px solid var(--hairline);border-left:3px solid var(--accent);border-radius:10px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px}
+.label{font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.label b{color:var(--accent);font-weight:600}
+code{font:400 15px/1.55 'JetBrains Mono',monospace;color:var(--ink);overflow-wrap:anywhere}
+.copy{align-self:flex-start;font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:999px;padding:9px 16px;cursor:pointer}
+.copy.ok{background:var(--accent);color:var(--bg)}
+.foot{margin-top:32px;color:var(--muted);font-size:14px}
+.foot a{color:var(--ink)}
+[data-l="es"] .en,[data-l="en"] .es{display:none}
+</style>
+</head>
+<body data-l="en">
+<main>
+  <div class="top">
+    <div class="eyebrow"><b>✋ <span class="en">Hands-on</span><span class="es">Manos a la obra</span></b> · EO Barcelona · Day 2</div>
+    <button class="lang" type="button" id="lang">ES</button>
+  </div>
+  <h1><span class="en">Your turn. <span class="hl">Four prompts, one main session.</span></span><span class="es">Tu turno. <span class="hl">Cuatro prompts, una sesión principal.</span></span></h1>
+  <p class="lede"><span class="en">Paste any of them into your main session. It launches what it needs. You learn by using it.</span><span class="es">Pega cualquiera en tu sesión principal. Ella lanza lo que necesita. Aprendes usándolo.</span></p>
+
+  <div class="grid">
+    <div class="box">
+      <div class="label"><b>1</b> · <span class="en">ingest</span><span class="es">ingerir</span></div>
+      <code class="en">Spawn a session to /aios:ingest https://chuycepeda.substack.com/p/the-agentic-culture-team-management and tell me what it filed and where.</code>
+      <code class="es">Lanza una sesión que haga /aios:ingest https://chuycepeda.substack.com/p/the-agentic-culture-team-management y dime qué archivó y dónde.</code>
+      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
+    </div>
+    <div class="box">
+      <div class="label"><b>2</b> · <span class="en">explain</span><span class="es">explicar</span></div>
+      <code class="en">Spawn an explainer session: in under 10 minutes, build a very clear visual of how the /aios:company command works, so I can onboard my team.</code>
+      <code class="es">Lanza una sesión explainer: en menos de 10 minutos, construye un visual muy claro de cómo funciona el comando /aios:company, para incorporar a mi equipo.</code>
+      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
+    </div>
+    <div class="box">
+      <div class="label"><b>3</b> · <span class="en">build</span><span class="es">construir</span></div>
+      <code class="en">I want to build my own custom agent. Pick the best agent in the AIOS to help me build it, and launch it.</code>
+      <code class="es">Quiero construir mi propio agente. Elige el mejor agente del AIOS para ayudarme a construirlo, y lánzalo.</code>
+      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
+    </div>
+    <div class="box">
+      <div class="label"><b>4</b> · <span class="en">trust</span><span class="es">confianza</span></div>
+      <code class="en">Help me personalize my INTENT.md: what you do on your own, what stays a draft for me, and what you always ask me first.</code>
+      <code class="es">Ayúdame a personalizar mi INTENT.md: qué haces por tu cuenta, qué se queda en borrador para mí y qué siempre me preguntas primero.</code>
+      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
+    </div>
+  </div>
+
+  <p class="foot"><span class="en">Keep climbing:</span><span class="es">Sigue subiendo:</span> <a href="/climb">the-aios.com/climb</a></p>
+</main>
+<script>
+(function(){
+  var b=document.body, btn=document.getElementById('lang');
+  function set(l){ b.setAttribute('data-l',l); document.documentElement.lang=l; btn.textContent=l==='en'?'ES':'EN'; try{localStorage.setItem('cc-lang',l);}catch(e){} }
+  var saved=null; try{saved=localStorage.getItem('cc-lang');}catch(e){}
+  set(saved || ((navigator.language||'').toLowerCase().indexOf('es')===0 ? 'es' : 'en'));
+  btn.addEventListener('click',function(){ set(b.getAttribute('data-l')==='en'?'es':'en'); });
+  function fallback(t){ var a=document.createElement('textarea'); a.value=t; a.setAttribute('readonly',''); a.style.position='fixed'; a.style.opacity='0'; document.body.appendChild(a); a.select(); var ok=false; try{ok=document.execCommand('copy');}catch(e){} a.remove(); return ok; }
+  document.querySelectorAll('.copy').forEach(function(c){
+    c.addEventListener('click',function(){
+      var l=b.getAttribute('data-l'), t=c.parentNode.querySelector('code.'+l).textContent.trim();
+      function done(){ c.classList.add('ok'); setTimeout(function(){c.classList.remove('ok');},1400); }
+      var p = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t) : Promise.reject();
+      Promise.race([p, new Promise(function(_,r){setTimeout(r,800);})]).then(done, function(){ if(fallback(t)) done(); });
+    });
+  });
+})();
+</script>
+</body>
+</html>
