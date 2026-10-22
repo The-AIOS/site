@@ -3,90 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Your turn · The AIOS</title>
-<meta name="description" content="Four prompts for your main AIOS session: ingest, explain, build, trust.">
+<meta name="description" content="Four prompts for your main AIOS session: ingest, explain, build, trust. Plus alternatives for each.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0a;--surface:#141414;--hairline:#2a2a2a;--ink:#f4f1ec;--muted:#a39e96;--accent:#ff5d4d;}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#faf8f4;--surface:#ffffff;--hairline:#e4ded4;--ink:#1a1714;--muted:#6b645b;--accent:#d93d2e;}}
+:root{--bg:#faf8f4;--surface:#ffffff;--soft:#f3efe8;--hairline:#e4ded4;--ink:#1a1714;--muted:#6b645b;--accent:#d93d2e;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
-main{max-width:980px;margin:0 auto;padding:40px 16px 56px}
+main{max-width:860px;margin:0 auto;padding:40px 16px 56px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .eyebrow b{color:var(--accent)}
-.lang{font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.1em;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:999px;padding:8px 14px;cursor:pointer}
-h1{font-size:clamp(30px,6vw,56px);font-weight:800;letter-spacing:-.025em;line-height:1.08}
+.lang{font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.1em;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:999px;padding:8px 14px;cursor:pointer;flex:none}
+h1{font-size:clamp(30px,6vw,52px);font-weight:800;letter-spacing:-.025em;line-height:1.08}
 h1 .hl{color:var(--accent)}
-.lede{color:var(--muted);font-size:clamp(16px,2.2vw,20px);margin:14px 0 28px;max-width:46ch}
-.grid{display:grid;grid-template-columns:1fr;gap:14px}
-@media (min-width:760px){.grid{grid-template-columns:1fr 1fr}}
-.box{background:var(--surface);border:1px solid var(--hairline);border-left:3px solid var(--accent);border-radius:10px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px}
+.lede{color:var(--muted);font-size:clamp(16px,2.2vw,19px);margin:14px 0 30px;max-width:48ch}
+.list{display:flex;flex-direction:column;gap:22px}
+.card{background:var(--surface);border:1px solid var(--hairline);border-left:3px solid var(--accent);border-radius:12px;overflow:hidden}
+.main{padding:20px 20px 18px;display:flex;flex-direction:column;gap:12px}
 .label{font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .label b{color:var(--accent);font-weight:600}
-code{font:400 15px/1.55 'JetBrains Mono',monospace;color:var(--ink);overflow-wrap:anywhere}
-.copy{align-self:flex-start;font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:999px;padding:9px 16px;cursor:pointer}
-.copy.ok{background:var(--accent);color:var(--bg)}
+.main code{font:400 16px/1.6 'JetBrains Mono',monospace;color:var(--ink);overflow-wrap:anywhere}
+.copy{align-self:flex-start;font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:999px;padding:9px 16px;cursor:pointer;flex:none}
+.copy.ok{background:var(--accent);color:#fff}
+.alts{background:var(--soft);border-top:1px solid var(--hairline);padding:14px 20px 16px}
+.alts h3{font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.alt{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--hairline)}
+.alt:first-of-type{border-top:0}
+.alt span{font-size:14.5px;color:var(--ink)}
+.alt .copy{padding:6px 12px;font-size:11px}
 .foot{margin-top:32px;color:var(--muted);font-size:14px}
 .foot a{color:var(--ink)}
-[data-l="es"] .en,[data-l="en"] .es{display:none}
 </style>
 </head>
-<body data-l="en">
+<body>
 <main>
   <div class="top">
-    <div class="eyebrow"><b>✋ <span class="en">Hands-on</span><span class="es">Manos a la obra</span></b> · EO Barcelona · Day 2</div>
+    <div class="eyebrow"><b data-i18n="hands">✋ Hands-on</b> · EO Barcelona · <span data-i18n="day">Day 2</span></div>
     <button class="lang" type="button" id="lang">ES</button>
   </div>
-  <h1><span class="en">Your turn. <span class="hl">Four prompts, one main session.</span></span><span class="es">Tu turno. <span class="hl">Cuatro prompts, una sesión principal.</span></span></h1>
-  <p class="lede"><span class="en">Paste any of them into your main session. It launches what it needs. You learn by using it.</span><span class="es">Pega cualquiera en tu sesión principal. Ella lanza lo que necesita. Aprendes usándolo.</span></p>
-
-  <div class="grid">
-    <div class="box">
-      <div class="label"><b>1</b> · <span class="en">ingest</span><span class="es">ingerir</span></div>
-      <code class="en">Spawn a session to /aios:ingest https://chuycepeda.substack.com/p/the-agentic-culture-team-management and tell me what it filed and where.</code>
-      <code class="es">Lanza una sesión que haga /aios:ingest https://chuycepeda.substack.com/p/the-agentic-culture-team-management y dime qué archivó y dónde.</code>
-      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
-    </div>
-    <div class="box">
-      <div class="label"><b>2</b> · <span class="en">explain</span><span class="es">explicar</span></div>
-      <code class="en">Spawn an explainer session: in under 10 minutes, build a very clear visual of how the /aios:company command works, so I can onboard my team.</code>
-      <code class="es">Lanza una sesión explainer: en menos de 10 minutos, construye un visual muy claro de cómo funciona el comando /aios:company, para incorporar a mi equipo.</code>
-      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
-    </div>
-    <div class="box">
-      <div class="label"><b>3</b> · <span class="en">build</span><span class="es">construir</span></div>
-      <code class="en">I want to build my own custom agent. Pick the best agent in the AIOS to help me build it, and launch it.</code>
-      <code class="es">Quiero construir mi propio agente. Elige el mejor agente del AIOS para ayudarme a construirlo, y lánzalo.</code>
-      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
-    </div>
-    <div class="box">
-      <div class="label"><b>4</b> · <span class="en">trust</span><span class="es">confianza</span></div>
-      <code class="en">Help me personalize my INTENT.md: what you do on your own, what stays a draft for me, and what you always ask me first.</code>
-      <code class="es">Ayúdame a personalizar mi INTENT.md: qué haces por tu cuenta, qué se queda en borrador para mí y qué siempre me preguntas primero.</code>
-      <button class="copy" type="button"><span class="en">copy</span><span class="es">copiar</span></button>
-    </div>
-  </div>
-
-  <p class="foot"><span class="en">Keep climbing:</span><span class="es">Sigue subiendo:</span> <a href="/climb">the-aios.com/climb</a></p>
+  <h1 data-i18n-html="title"></h1>
+  <p class="lede" data-i18n="lede"></p>
+  <div class="list" id="list"></div>
+  <p class="foot"><span data-i18n="climb"></span> <a href="/climb">the-aios.com/climb</a></p>
 </main>
 <script>
 (function(){
-  var b=document.body, btn=document.getElementById('lang');
-  function set(l){ b.setAttribute('data-l',l); document.documentElement.lang=l; btn.textContent=l==='en'?'ES':'EN'; try{localStorage.setItem('cc-lang',l);}catch(e){} }
-  var saved=null; try{saved=localStorage.getItem('cc-lang');}catch(e){}
-  set(saved || ((navigator.language||'').toLowerCase().indexOf('es')===0 ? 'es' : 'en'));
-  btn.addEventListener('click',function(){ set(b.getAttribute('data-l')==='en'?'es':'en'); });
-  function fallback(t){ var a=document.createElement('textarea'); a.value=t; a.setAttribute('readonly',''); a.style.position='fixed'; a.style.opacity='0'; document.body.appendChild(a); a.select(); var ok=false; try{ok=document.execCommand('copy');}catch(e){} a.remove(); return ok; }
-  document.querySelectorAll('.copy').forEach(function(c){
-    c.addEventListener('click',function(){
-      var l=b.getAttribute('data-l'), t=c.parentNode.querySelector('code.'+l).textContent.trim();
-      function done(){ c.classList.add('ok'); setTimeout(function(){c.classList.remove('ok');},1400); }
-      var p = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t) : Promise.reject();
-      Promise.race([p, new Promise(function(_,r){setTimeout(r,800);})]).then(done, function(){ if(fallback(t)) done(); });
-    });
+var U='https://chuycepeda.substack.com/p/the-agentic-culture-team-management';
+var EXP_EN='Spawn a session named explainer: in under 10 minutes, build a very clear visual of ';
+var EXP_ES='Lanza una sesión llamada explainer: en menos de 10 minutos, construye un visual muy claro de ';
+var T={
+ en:{hands:'✋ Hands-on',day:'Day 2',title:'Your turn. <span class="hl">Four prompts, one main session.</span>',lede:'Paste any of them into your main session. It launches what it needs. You learn by using it.',alt:'Alternatively',copy:'copy',climb:'Keep climbing:'},
+ es:{hands:'✋ Manos a la obra',day:'Día 2',title:'Tu turno. <span class="hl">Cuatro prompts, una sesión principal.</span>',lede:'Pega cualquiera en tu sesión principal. Ella lanza lo que necesita. Aprendes usándolo.',alt:'O también',copy:'copiar',climb:'Sigue subiendo:'}
+};
+var C=[
+ {k:{en:'ingest',es:'ingerir'},
+  p:{en:'Spawn a session to /aios:ingest '+U+' and tell me what it filed and where.',es:'Lanza una sesión que haga /aios:ingest '+U+' y dime qué archivó y dónde.'},
+  a:[
+   {en:'Spawn a session to /aios:ingest a PDF on my computer (a contract, a report) and tell me what it filed and where.',es:'Lanza una sesión que haga /aios:ingest de un PDF en mi computadora (un contrato, un reporte) y dime qué archivó y dónde.'},
+   {en:'Spawn a session to /aios:ingest a YouTube talk I liked and tell me the three ideas worth keeping.',es:'Lanza una sesión que haga /aios:ingest de una charla de YouTube que me gustó y dime las tres ideas que vale la pena guardar.'},
+   {en:'Spawn a session to /aios:ingest my company’s website and tell me how it connects to my context.',es:'Lanza una sesión que haga /aios:ingest del sitio web de mi empresa y dime cómo se conecta con mi contexto.'},
+   {en:'Spawn a session to /aios:ingest last week’s meeting transcript and route the decisions to my projects.',es:'Lanza una sesión que haga /aios:ingest de la transcripción de la reunión de la semana pasada y lleva las decisiones a mis proyectos.'}
+  ]},
+ {k:{en:'explain',es:'explicar'},
+  p:{en:EXP_EN+'how the /aios:company command works, so I can onboard my team.',es:EXP_ES+'cómo funciona el comando /aios:company, para incorporar a mi equipo.'},
+  a:[
+   {en:EXP_EN+'how /aios:collaborate works, so I can open a shared space with my team.',es:EXP_ES+'cómo funciona /aios:collaborate, para abrir un espacio compartido con mi equipo.'},
+   {en:EXP_EN+'how the AIOS updates itself, and what it never touches.',es:EXP_ES+'cómo se actualiza el AIOS a sí mismo, y qué nunca toca.'},
+   {en:EXP_EN+'the AIOS main CLAUDE.md: what it tells every session to do.',es:EXP_ES+'el CLAUDE.md principal del AIOS: qué le pide a cada sesión.'},
+   {en:EXP_EN+'the AIOS CONTRIBUTING.md: how I can give work back to the framework.',es:EXP_ES+'el CONTRIBUTING.md del AIOS: cómo puedo aportar al framework.'}
+  ]},
+ {k:{en:'build',es:'construir'},
+  p:{en:'I want to build my own custom agent. Pick the best agent in the AIOS to help me build it, and launch it.',es:'Quiero construir mi propio agente. Elige el mejor agente del AIOS para ayudarme a construirlo, y lánzalo.'},
+  a:[
+   {en:'I want to turn something I explain every week into a skill. Pick the best agent in the AIOS to help me build it, and launch it.',es:'Quiero convertir algo que explico cada semana en una skill. Elige el mejor agente del AIOS para ayudarme a construirla, y lánzalo.'},
+   {en:'I want my own slash command for a routine I repeat. Pick the best agent in the AIOS to help me build it, and launch it.',es:'Quiero mi propio comando para una rutina que repito. Elige el mejor agente del AIOS para ayudarme a construirlo, y lánzalo.'},
+   {en:'I want a template for my proposals. Pick the best agent in the AIOS to help me build it, and launch it.',es:'Quiero una plantilla para mis propuestas. Elige el mejor agente del AIOS para ayudarme a construirla, y lánzalo.'}
+  ]},
+ {k:{en:'trust',es:'confianza'},
+  p:{en:'Help me personalize my INTENT.md: what you do on your own, what stays a draft for me, and what you always ask me first.',es:'Ayúdame a personalizar mi INTENT.md: qué haces por tu cuenta, qué se queda en borrador para mí y qué siempre me preguntas primero.'},
+  a:[
+   {en:'Show me which domains in my INTENT.md are autonomous today, and suggest one to move up a level, with your reasons.',es:'Muéstrame qué dominios de mi INTENT.md son autónomos hoy, y sugiere uno para subir de nivel, con tus razones.'},
+   {en:'Help me write the anti-values in my INTENT.md: what this system must never become.',es:'Ayúdame a escribir los anti-valores de mi INTENT.md: lo que este sistema nunca debe llegar a ser.'},
+   {en:'Interview me to fill in my declared context: who I am, my voice, how I work.',es:'Entrevístame para llenar mi contexto declarado: quién soy, mi voz, cómo trabajo.'},
+   {en:'Walk me through my USER.md and help me personalize how /aios:today plans my day.',es:'Recórreme mi USER.md y ayúdame a personalizar cómo /aios:today planea mi día.'}
+  ]}
+];
+var list=document.getElementById('list'), btn=document.getElementById('lang'), L='en';
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function render(){
+  var t=T[L], h='';
+  C.forEach(function(c,i){
+    h+='<div class="card"><div class="main"><div class="label"><b>'+(i+1)+'</b> · '+c.k[L]+'</div><code>'+esc(c.p[L])+'</code><button class="copy" type="button" data-t="'+esc(c.p[L]).replace(/"/g,'&quot;')+'">'+t.copy+'</button></div>';
+    h+='<div class="alts"><h3>'+t.alt+'</h3>';
+    c.a.forEach(function(a){ h+='<div class="alt"><span>'+esc(a[L])+'</span><button class="copy" type="button" data-t="'+esc(a[L]).replace(/"/g,'&quot;')+'">'+t.copy+'</button></div>'; });
+    h+='</div></div>';
   });
+  list.innerHTML=h;
+  document.querySelectorAll('[data-i18n]').forEach(function(e){e.textContent=t[e.getAttribute('data-i18n')];});
+  document.querySelectorAll('[data-i18n-html]').forEach(function(e){e.innerHTML=t[e.getAttribute('data-i18n-html')];});
+  document.documentElement.lang=L; btn.textContent=L==='en'?'ES':'EN';
+}
+function set(l){L=l; try{localStorage.setItem('cc-lang',l);}catch(e){} render();}
+var saved=null; try{saved=localStorage.getItem('cc-lang');}catch(e){}
+set(saved || ((navigator.language||'').toLowerCase().indexOf('es')===0?'es':'en'));
+btn.addEventListener('click',function(){set(L==='en'?'es':'en');});
+function fallback(t){var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}a.remove();return ok;}
+list.addEventListener('click',function(ev){
+  var c=ev.target.closest('.copy'); if(!c) return;
+  var tx=c.getAttribute('data-t').replace(/&lt;/g,'<').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
+  function done(){c.classList.add('ok');setTimeout(function(){c.classList.remove('ok');},1400);}
+  var p=navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(tx):Promise.reject();
+  Promise.race([p,new Promise(function(_,r){setTimeout(r,800);})]).then(done,function(){if(fallback(tx))done();});
+});
 })();
 </script>
 </body>
