@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Your turn · The AIOS</title>
-<meta name="description" content="Four prompts for your main AIOS session: ingest, explain, build, trust. Plus alternatives for each.">
+<meta name="description" content="Five prompts for your main AIOS session: ingest, explain, build, trust, team. Plus alternatives for each.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -47,7 +47,7 @@ h1 .hl{color:var(--accent)}
   <h1 data-i18n-html="title"></h1>
   <p class="lede" data-i18n="lede"></p>
   <div class="list" id="list"></div>
-  <p class="foot"><span data-i18n="climb"></span> <a href="/climb">the-aios.com/climb</a></p>
+  <p class="foot"><span data-i18n="climb"></span> <a href="https://chuycepeda.com/public/builder-ant.html">chuycepeda.com/public/builder-ant.html</a></p>
 </main>
 <script>
 (function(){
@@ -55,8 +55,8 @@ var U='https://chuycepeda.substack.com/p/the-agentic-culture-team-management';
 var EXP_EN='Spawn a session named explainer: in under 10 minutes, build a very clear visual of ';
 var EXP_ES='Lanza una sesión llamada explainer: en menos de 10 minutos, construye un visual muy claro de ';
 var T={
- en:{hands:'✋ Hands-on',day:'Day 2',title:'Your turn. <span class="hl">Four prompts, one main session.</span>',lede:'Paste any of them into your main session. It launches what it needs. You learn by using it.',alt:'Alternatively',copy:'copy',climb:'Keep climbing:'},
- es:{hands:'✋ Manos a la obra',day:'Día 2',title:'Tu turno. <span class="hl">Cuatro prompts, una sesión principal.</span>',lede:'Pega cualquiera en tu sesión principal. Ella lanza lo que necesita. Aprendes usándolo.',alt:'O también',copy:'copiar',climb:'Sigue subiendo:'}
+ en:{hands:'✋ Hands-on',day:'Day 2',title:'Your turn. <span class="hl">Five prompts, one main session.</span>',lede:'Paste any of them into your main session. It launches what it needs. You learn by using it.',alt:'Alternatively',copy:'copy',climb:'The AIOS deck, at your own pace:'},
+ es:{hands:'✋ Manos a la obra',day:'Día 2',title:'Tu turno. <span class="hl">Cinco prompts, una sesión principal.</span>',lede:'Pega cualquiera en tu sesión principal. Ella lanza lo que necesita. Aprendes usándolo.',alt:'O también',copy:'copiar',climb:'El deck del AIOS, a tu ritmo:'}
 };
 var C=[
  {k:{en:'ingest',es:'ingerir'},
@@ -89,6 +89,14 @@ var C=[
    {en:'Help me write the anti-values in my INTENT.md: what this system must never become.',es:'Ayúdame a escribir los anti-valores de mi INTENT.md: lo que este sistema nunca debe llegar a ser.'},
    {en:'Interview me to fill in my declared context: who I am, my voice, how I work.',es:'Entrevístame para llenar mi contexto declarado: quién soy, mi voz, cómo trabajo.'},
    {en:'Walk me through my USER.md and help me personalize how /aios:today plans my day.',es:'Recórreme mi USER.md y ayúdame a personalizar cómo /aios:today planea mi día.'}
+  ]},
+ {k:{en:'team',es:'equipo'},
+  p:{en:'Help me mount my company in my AIOS with /aios:company: walk me through create or mount, and what my team will see.',es:'Ayúdame a montar mi empresa en mi AIOS con /aios:company: guíame entre crear o montar, y qué va a ver mi equipo.'},
+  a:[
+   {en:'Help me open a shared space with /aios:collaborate for a project I run with part of my team.',es:'Ayúdame a abrir un espacio compartido con /aios:collaborate para un proyecto que llevo con parte de mi equipo.'},
+   {en:'Generate an invite so a teammate can mount my company in their own AIOS (/aios:company --invite).',es:'Genera una invitación para que alguien de mi equipo monte mi empresa en su propio AIOS (/aios:company --invite).'},
+   {en:'Help me write my company\u2019s voice.md, so every teammate\u2019s AIOS writes like us.',es:'Ayúdame a escribir el voice.md de mi empresa, para que el AIOS de cada persona del equipo escriba como nosotros.'},
+   {en:'Show me what is mounted in my vault and when it last synced (/aios:company --status).',es:'Muéstrame qué está montado en mi vault y cuándo se sincronizó por última vez (/aios:company --status).'}
   ]}
 ];
 var list=document.getElementById('list'), btn=document.getElementById('lang'), L='en';
