@@ -408,6 +408,14 @@
   },
   "palette": [
    {
+    "name": "coral",
+    "hex": "#ff5d4d"
+   },
+   {
+    "name": "black",
+    "hex": "#111111"
+   },
+   {
     "name": "gold",
     "hex": "#ca8a04"
    },
@@ -471,7 +479,6 @@
   "command": "python3 generator.py initial <LETTER> --colour <HEX>"
  },
  "rules": [
-  "Coral #ff5d4d is kept for the AIOS team.",
   "Pick the closest existing hat first; draw a new one only if none fits.",
   "A new hat follows the docstring in generator.py and must pass its circle check.",
   "One flat colour background, white ant and hat. No text, gradients or faces."

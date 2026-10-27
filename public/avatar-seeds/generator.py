@@ -16,7 +16,7 @@ the hat group there is drawn in exactly this box. Keep shapes few and bold; fine
 vanishes at 40 px. Use fill="#fff" for the hat and "BG" for cut-out details.
 Every hat render is checked against Discord's circle crop (initials have fixed, safe geometry).
 Every render also writes a 40 px preview (*-40.png) to check that it still reads small.
-Initials use JetBrains Mono ExtraBold (OFL), downloaded from github.com on first use if not installed. Coral #ff5d4d is kept for the AIOS team.
+Initials use JetBrains Mono ExtraBold (OFL), downloaded from github.com on first use if not installed.
 """
 import argparse, io, json, math, os, sys, urllib.request
 import fitz
@@ -118,7 +118,10 @@ def font_path():
     if not os.path.exists(p): urllib.request.urlretrieve(FONT_URL,p)  # OFL-1.1, JetBrains
     return p
 def shade(h,a=0.26):
-    r,g,b=(int(h[i:i+2],16) for i in (1,3,5)); return tuple(int(c*(1-a)) for c in (r,g,b))
+    r,g,b=(int(h[i:i+2],16) for i in (1,3,5))
+    if 0.299*r+0.587*g+0.114*b<60:  # very dark background: lift the letter instead of darkening it
+        return tuple(int(c+(255-c)*0.14) for c in (r,g,b))
+    return tuple(int(c*(1-a)) for c in (r,g,b))
 def initial_png(letter,c):
     im=Image.new('RGBA',(1024,1024),c)
     ImageDraw.Draw(im).text((512,560),letter.upper(),font=ImageFont.truetype(font_path(),1000),fill=shade(c),anchor='mm')
@@ -149,7 +152,7 @@ def check(rows,margin=0.8):
 BUNDLE_COLOUR={b:c for b,c,_ in AGENTS}
 AGENT_HAT={n:(h,c,b) for b,c,items in AGENTS for n,h in items}
 CORAL='#ff5d4d'
-INITIAL_PALETTE=['#ca8a04','#0284c7','#ea580c','#0d9488','#4f46e5','#7c3aed','#1e40af','#059669','#b45309','#65a30d','#db2777','#a21caf','#78716c','#334155','#be123c']
+INITIAL_PALETTE=['#ff5d4d','#111111','#ca8a04','#0284c7','#ea580c','#0d9488','#4f46e5','#7c3aed','#1e40af','#059669','#b45309','#65a30d','#db2777','#a21caf','#78716c','#334155','#be123c']
 
 def preview40(path_png):
     Image.open(path_png).convert('RGB').resize((40,40),Image.LANCZOS).save(path_png[:-4]+'-40.png')
