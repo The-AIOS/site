@@ -1,0 +1,435 @@
+{
+ "about": "AIOS avatars: the AIOS ant (the logo is its head) with a hat for what you do, or your initial behind it. Free for anyone to use.",
+ "gallery": "https://www.the-aios.com/avatar-seeds",
+ "generator": "https://www.the-aios.com/avatar-seeds/generator.py",
+ "requires": [
+  "pymupdf",
+  "pillow"
+ ],
+ "bundles": {
+  "engineering": "#0284c7",
+  "communication": "#db2777",
+  "finance-legal": "#059669",
+  "personal": "#7c3aed",
+  "sales": "#ea580c",
+  "strategy": "#1e40af",
+  "commerce": "#ca8a04"
+ },
+ "hats": [
+  {
+   "name": "aios-builder",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "wizard",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-aios-builder.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-aios-builder.svg"
+  },
+  {
+   "name": "technical-cofounder",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "crown",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-technical-cofounder.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-technical-cofounder.svg"
+  },
+  {
+   "name": "bug-triager",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "deerstalker",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-bug-triager.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-bug-triager.svg"
+  },
+  {
+   "name": "code-reviewer",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "sunglasses",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-code-reviewer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-code-reviewer.svg"
+  },
+  {
+   "name": "code-documenter",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "pencil",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-code-documenter.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-code-documenter.svg"
+  },
+  {
+   "name": "refactor-engineer",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "hardhat",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-refactor-engineer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-refactor-engineer.svg"
+  },
+  {
+   "name": "security-engineer",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "knight",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-security-engineer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-security-engineer.svg"
+  },
+  {
+   "name": "growth-engineer",
+   "bundle": "engineering",
+   "colour": "#0284c7",
+   "hat": "backcap",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-growth-engineer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-growth-engineer.svg"
+  },
+  {
+   "name": "content-writer",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "feathercap",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-content-writer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-content-writer.svg"
+  },
+  {
+   "name": "content-scheduler",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "partyhat",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-content-scheduler.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-content-scheduler.svg"
+  },
+  {
+   "name": "deck-builder",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "sailor",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-deck-builder.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-deck-builder.svg"
+  },
+  {
+   "name": "design-md-author",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "beret",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-design-md-author.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-design-md-author.svg"
+  },
+  {
+   "name": "animation-composer",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "headphones",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-animation-composer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-animation-composer.svg"
+  },
+  {
+   "name": "brochure-builder",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "paperhat",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-brochure-builder.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-brochure-builder.svg"
+  },
+  {
+   "name": "email-drafter",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "postalcap",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-email-drafter.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-email-drafter.svg"
+  },
+  {
+   "name": "explainer",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "lightbulb",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-explainer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-explainer.svg"
+  },
+  {
+   "name": "kdp-publisher",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "book",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-kdp-publisher.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-kdp-publisher.svg"
+  },
+  {
+   "name": "meeting-prepper",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "headset",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-meeting-prepper.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-meeting-prepper.svg"
+  },
+  {
+   "name": "report-drafter",
+   "bundle": "communication",
+   "colour": "#db2777",
+   "hat": "newsboy",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-report-drafter.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-report-drafter.svg"
+  },
+  {
+   "name": "accountant",
+   "bundle": "finance-legal",
+   "colour": "#059669",
+   "hat": "visor",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-accountant.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-accountant.svg"
+  },
+  {
+   "name": "invoice-tracker",
+   "bundle": "finance-legal",
+   "colour": "#059669",
+   "hat": "tophat",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-invoice-tracker.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-invoice-tracker.svg"
+  },
+  {
+   "name": "lawyer",
+   "bundle": "finance-legal",
+   "colour": "#059669",
+   "hat": "wig",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-lawyer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-lawyer.svg"
+  },
+  {
+   "name": "compliance-checker",
+   "bundle": "finance-legal",
+   "colour": "#059669",
+   "hat": "policecap",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-compliance-checker.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-compliance-checker.svg"
+  },
+  {
+   "name": "aios-feedback",
+   "bundle": "personal",
+   "colour": "#7c3aed",
+   "hat": "bubble",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-aios-feedback.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-aios-feedback.svg"
+  },
+  {
+   "name": "crisis-mode",
+   "bundle": "personal",
+   "colour": "#7c3aed",
+   "hat": "firefighter",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-crisis-mode.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-crisis-mode.svg"
+  },
+  {
+   "name": "decision-journaler",
+   "bundle": "personal",
+   "colour": "#7c3aed",
+   "hat": "signpost",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-decision-journaler.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-decision-journaler.svg"
+  },
+  {
+   "name": "growth-companion",
+   "bundle": "personal",
+   "colour": "#7c3aed",
+   "hat": "sprout",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-growth-companion.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-growth-companion.svg"
+  },
+  {
+   "name": "journal-prompter",
+   "bundle": "personal",
+   "colour": "#7c3aed",
+   "hat": "nightcap",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-journal-prompter.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-journal-prompter.svg"
+  },
+  {
+   "name": "onboarding-aios",
+   "bundle": "personal",
+   "colour": "#7c3aed",
+   "hat": "propeller",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-onboarding-aios.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-onboarding-aios.svg"
+  },
+  {
+   "name": "study-buddy",
+   "bundle": "personal",
+   "colour": "#7c3aed",
+   "hat": "gradcap",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-study-buddy.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-study-buddy.svg"
+  },
+  {
+   "name": "brand-monitor",
+   "bundle": "sales",
+   "colour": "#ea580c",
+   "hat": "radar",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-brand-monitor.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-brand-monitor.svg"
+  },
+  {
+   "name": "crm-updater",
+   "bundle": "sales",
+   "colour": "#ea580c",
+   "hat": "sticky",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-crm-updater.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-crm-updater.svg"
+  },
+  {
+   "name": "lead-generator",
+   "bundle": "sales",
+   "colour": "#ea580c",
+   "hat": "cowboy",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-lead-generator.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-lead-generator.svg"
+  },
+  {
+   "name": "proposal-writer",
+   "bundle": "sales",
+   "colour": "#ea580c",
+   "hat": "fedora",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-proposal-writer.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-proposal-writer.svg"
+  },
+  {
+   "name": "company-analyst",
+   "bundle": "strategy",
+   "colour": "#1e40af",
+   "hat": "miner",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-company-analyst.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-company-analyst.svg"
+  },
+  {
+   "name": "consultant",
+   "bundle": "strategy",
+   "colour": "#1e40af",
+   "hat": "bowler",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-consultant.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-consultant.svg"
+  },
+  {
+   "name": "market-researcher",
+   "bundle": "strategy",
+   "colour": "#1e40af",
+   "hat": "pith",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-market-researcher.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-market-researcher.svg"
+  },
+  {
+   "name": "okr-coach",
+   "bundle": "strategy",
+   "colour": "#1e40af",
+   "hat": "laurel",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-okr-coach.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-okr-coach.svg"
+  },
+  {
+   "name": "protocol-steward",
+   "bundle": "strategy",
+   "colour": "#1e40af",
+   "hat": "captain",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-protocol-steward.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-protocol-steward.svg"
+  },
+  {
+   "name": "commerce-agent-architect",
+   "bundle": "commerce",
+   "colour": "#ca8a04",
+   "hat": "boater",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-commerce-agent-architect.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-commerce-agent-architect.svg"
+  },
+  {
+   "name": "operator",
+   "bundle": "community",
+   "colour": "#ff5d4d",
+   "hat": "none",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-operator.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-operator.svg"
+  },
+  {
+   "name": "creator",
+   "bundle": "community",
+   "colour": "#ff5d4d",
+   "hat": "wizard",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-creator.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-creator.svg"
+  },
+  {
+   "name": "pirate",
+   "bundle": "community+",
+   "colour": "#334155",
+   "hat": "pirate",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-pirate.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-pirate.svg"
+  },
+  {
+   "name": "chef",
+   "bundle": "community+",
+   "colour": "#334155",
+   "hat": "chef",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-chef.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-chef.svg"
+  },
+  {
+   "name": "nurse",
+   "bundle": "community+",
+   "colour": "#334155",
+   "hat": "nursecap",
+   "png": "https://www.the-aios.com/avatar-seeds/hats/aios-nurse.png",
+   "svg": "https://www.the-aios.com/avatar-seeds/hats/aios-nurse.svg"
+  }
+ ],
+ "initials": {
+  "files": {
+   "A": "https://www.the-aios.com/avatar-seeds/initials/aios-A.png",
+   "B": "https://www.the-aios.com/avatar-seeds/initials/aios-B.png",
+   "C": "https://www.the-aios.com/avatar-seeds/initials/aios-C.png",
+   "D": "https://www.the-aios.com/avatar-seeds/initials/aios-D.png",
+   "E": "https://www.the-aios.com/avatar-seeds/initials/aios-E.png",
+   "F": "https://www.the-aios.com/avatar-seeds/initials/aios-F.png",
+   "G": "https://www.the-aios.com/avatar-seeds/initials/aios-G.png",
+   "H": "https://www.the-aios.com/avatar-seeds/initials/aios-H.png",
+   "I": "https://www.the-aios.com/avatar-seeds/initials/aios-I.png",
+   "J": "https://www.the-aios.com/avatar-seeds/initials/aios-J.png",
+   "K": "https://www.the-aios.com/avatar-seeds/initials/aios-K.png",
+   "L": "https://www.the-aios.com/avatar-seeds/initials/aios-L.png",
+   "M": "https://www.the-aios.com/avatar-seeds/initials/aios-M.png",
+   "N": "https://www.the-aios.com/avatar-seeds/initials/aios-N.png",
+   "O": "https://www.the-aios.com/avatar-seeds/initials/aios-O.png",
+   "P": "https://www.the-aios.com/avatar-seeds/initials/aios-P.png",
+   "Q": "https://www.the-aios.com/avatar-seeds/initials/aios-Q.png",
+   "R": "https://www.the-aios.com/avatar-seeds/initials/aios-R.png",
+   "S": "https://www.the-aios.com/avatar-seeds/initials/aios-S.png",
+   "T": "https://www.the-aios.com/avatar-seeds/initials/aios-T.png",
+   "U": "https://www.the-aios.com/avatar-seeds/initials/aios-U.png",
+   "V": "https://www.the-aios.com/avatar-seeds/initials/aios-V.png",
+   "W": "https://www.the-aios.com/avatar-seeds/initials/aios-W.png",
+   "X": "https://www.the-aios.com/avatar-seeds/initials/aios-X.png",
+   "Y": "https://www.the-aios.com/avatar-seeds/initials/aios-Y.png",
+   "Z": "https://www.the-aios.com/avatar-seeds/initials/aios-Z.png"
+  },
+  "palette": [
+   "#ca8a04",
+   "#0284c7",
+   "#ea580c",
+   "#0d9488",
+   "#4f46e5",
+   "#7c3aed",
+   "#1e40af",
+   "#059669",
+   "#b45309",
+   "#65a30d",
+   "#db2777",
+   "#a21caf",
+   "#78716c",
+   "#334155",
+   "#be123c"
+  ],
+  "command": "python3 generator.py initial <LETTER> --colour <HEX>"
+ },
+ "rules": [
+  "Coral #ff5d4d is kept for the AIOS team.",
+  "Pick the closest existing hat first; draw a new one only if none fits.",
+  "A new hat follows the docstring in generator.py and must pass its circle check.",
+  "One flat colour background, white ant and hat. No text, gradients or faces."
+ ],
+ "discord": "User Settings > Edit Profiles > avatar > Upload Image"
+}

@@ -108,6 +108,10 @@ The framework is built toward an explicit horizon: AI agents acting on people's 
 
 The vault already provides the human-side substrate (declared identity, intent contracts, observed behavior — all file-based and versioned). The agent-side and trust-layer integrations are the natural extension. Operators who build their practice on AIOS today won't have to swap surfaces when accountability infrastructure arrives.
 
+## Avatars (community)
+
+If a user asks for an AIOS avatar or profile picture, use https://www.the-aios.com/avatar-seeds. `manifest.json` maps every bundled agent to a hat and a team colour, and lists the initial palette. `generator.py` (pymupdf + pillow) renders a hat, a new custom hat, or an initial, and checks the result fits Discord's circle crop. Pick the closest existing hat before drawing a new one. Coral #ff5d4d is kept for the AIOS team. All files are free to use.
+
 ## Voice + tone
 
 Anti-hype, workflow-first, "orientation + leverage" mindset. The AIOS does not market AI — it scaffolds the *practice* of working with AI. Reference voice: `chuycepeda.substack.com` — see *The Amplifier: AIOS* and *The Agentic Culture*.
