@@ -11,8 +11,12 @@ Needs: pip install pymupdf pillow
   python3 generator.py initial C --colour "#ff5d4d"
 
 A custom hat is SVG drawn in the hat box: base on y=1, centred on x=3.5, up is negative,
-about 7 wide and at most ~6.3 tall. Use fill="#fff" for the hat and "BG" for cut-out details.
-Every render is checked against Discord's circle crop. Coral #ff5d4d is kept for the AIOS team.
+about 7 wide and at most ~6.3 tall. For scale, open any file in hats/ (e.g. aios-lawyer.svg):
+the hat group there is drawn in exactly this box. Keep shapes few and bold; fine detail
+vanishes at 40 px. Use fill="#fff" for the hat and "BG" for cut-out details.
+Every hat render is checked against Discord's circle crop (initials have fixed, safe geometry).
+Every render also writes a 40 px preview (*-40.png) to check that it still reads small.
+Initials use JetBrains Mono ExtraBold (OFL), downloaded from github.com on first use if not installed. Coral #ff5d4d is kept for the AIOS team.
 """
 import argparse, io, json, math, os, sys, urllib.request
 import fitz
@@ -147,8 +151,12 @@ AGENT_HAT={n:(h,c,b) for b,c,items in AGENTS for n,h in items}
 CORAL='#ff5d4d'
 INITIAL_PALETTE=['#ca8a04','#0284c7','#ea580c','#0d9488','#4f46e5','#7c3aed','#1e40af','#059669','#b45309','#65a30d','#db2777','#a21caf','#78716c','#334155','#be123c']
 
+def preview40(path_png):
+    Image.open(path_png).convert('RGB').resize((40,40),Image.LANCZOS).save(path_png[:-4]+'-40.png')
+
 def render_svg(svg,path_png):
     fitz.open(stream=svg.encode(),filetype='svg')[0].get_pixmap().save(path_png)
+    preview40(path_png)
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -163,7 +171,7 @@ def main():
             for n,hat in items: print(f'  {n:26} {hat or "(no hat)"}')
         return
     if a.cmd=='initial':
-        p=os.path.join(a.out,f'aios-{a.letter.upper()}.png'); initial_png(a.letter[0],a.colour).save(p); print(p); return
+        p=os.path.join(a.out,f'aios-{a.letter.upper()}.png'); initial_png(a.letter[0],a.colour).save(p); preview40(p); print(p); return
     if a.hat_svg:
         hat_key='custom'; H['custom']=open(a.hat_svg).read(); colour=a.colour or '#334155'; name=a.name or 'custom'
     else:

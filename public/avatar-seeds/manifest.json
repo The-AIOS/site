@@ -407,21 +407,66 @@
    "Z": "https://www.the-aios.com/avatar-seeds/initials/aios-Z.png"
   },
   "palette": [
-   "#ca8a04",
-   "#0284c7",
-   "#ea580c",
-   "#0d9488",
-   "#4f46e5",
-   "#7c3aed",
-   "#1e40af",
-   "#059669",
-   "#b45309",
-   "#65a30d",
-   "#db2777",
-   "#a21caf",
-   "#78716c",
-   "#334155",
-   "#be123c"
+   {
+    "name": "gold",
+    "hex": "#ca8a04"
+   },
+   {
+    "name": "blue",
+    "hex": "#0284c7"
+   },
+   {
+    "name": "orange",
+    "hex": "#ea580c"
+   },
+   {
+    "name": "teal",
+    "hex": "#0d9488"
+   },
+   {
+    "name": "indigo",
+    "hex": "#4f46e5"
+   },
+   {
+    "name": "violet",
+    "hex": "#7c3aed"
+   },
+   {
+    "name": "navy",
+    "hex": "#1e40af"
+   },
+   {
+    "name": "green",
+    "hex": "#059669"
+   },
+   {
+    "name": "amber",
+    "hex": "#b45309"
+   },
+   {
+    "name": "lime",
+    "hex": "#65a30d"
+   },
+   {
+    "name": "pink",
+    "hex": "#db2777"
+   },
+   {
+    "name": "magenta",
+    "hex": "#a21caf"
+   },
+   {
+    "name": "stone",
+    "hex": "#78716c"
+   },
+   {
+    "name": "slate",
+    "hex": "#334155"
+   },
+   {
+    "name": "crimson",
+    "hex": "#be123c"
+   }
   ],
   "command": "python3 generator.py initial <LETTER> --colour <HEX>"
  },
@@ -431,5 +476,12 @@
   "A new hat follows the docstring in generator.py and must pass its circle check.",
   "One flat colour background, white ant and hat. No text, gradients or faces."
  ],
- "discord": "User Settings > Edit Profiles > avatar > Upload Image"
+ "discord": "User Settings > Edit Profiles > avatar > Upload Image",
+ "new_hat_colour": "Use the bundle colour of the agent closest to the work (see bundles); if none is close, slate #334155.",
+ "urls": {
+  "manifest": "https://www.the-aios.com/avatar-seeds/manifest.json",
+  "generator": "https://www.the-aios.com/avatar-seeds/generator.py",
+  "hats": "https://www.the-aios.com/avatar-seeds/hats/",
+  "initials": "https://www.the-aios.com/avatar-seeds/initials/"
+ }
 }
