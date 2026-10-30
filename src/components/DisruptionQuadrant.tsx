@@ -7,7 +7,7 @@ import {
   type MarketPoint,
   type Response,
 } from "@/data/exemplars";
-import { slugOf } from "@/components/DisruptionIndex";
+import { findInIndex } from "@/components/DisruptionIndex";
 
 /* The quadrant: every listed company in the index, placed by two measured
  * numbers since ChatGPT's launch (30 Nov 2022).
@@ -247,9 +247,9 @@ function Tooltip({ d, onClose, pinned }: { d: Dot; onClose: () => void; pinned: 
           price ({m.priceSource.label})
         </a>
       </p>
-      <a className="dq-tip-card" href={`#${slugOf(e.company)}`}>
-        Read the {e.company} card →
-      </a>
+      <button type="button" className="dq-tip-card" onClick={() => findInIndex(e.company)}>
+        Show {e.company} in the index →
+      </button>
     </div>
   );
 }
