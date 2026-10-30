@@ -98,7 +98,8 @@ export type Content = {
   /* Act 2 — Why (urgency). Reuses journey.cards + OrchestratorShift + journey.caption. */
   why: {
     eyebrow: string; h: H; lead: string; pull: H;
-    diLabel: string; diTitle: string; diSub: string; diUpdated: string;   // "Last updated", the date itself comes from src/data/exemplars.ts
+    diLabel: string; diTitle: string; diSub: string; diUpdated: string;
+    ppLabel: string; ppTitle: [string, string, string]; ppSub: string; ppPair: [string, string]; ppLink: string;   // the proof-pair card, under the index   // "Last updated", the date itself comes from src/data/exemplars.ts
   };
   /* Act 3 — How (wrapper + subsection labels for the integrated mechanical section). */
   how: {
@@ -258,6 +259,11 @@ const en: Content = {
     diTitle: "The Disruption Index",
     diSub: "Industries ranked by how fast AI is reshaping them — with the real companies that died, reinvented, or rode the wave. Browse it →",
     diUpdated: "Last updated",
+    ppLabel: "The open spec",
+    ppTitle: ["The ", "Proof", " Pair"],
+    ppSub: "Before an agent acts, a signed mandate says what it may do. After, a signed receipt says what it did. Passed on, a mandate can only narrow. Read the spec →",
+    ppPair: ["Mandate in", "Receipt out"],
+    ppLink: "the-aios.org/proof-pair ↗",
   },
   how: {
     eyebrow: "How it works",
@@ -894,6 +900,11 @@ const es: Content = {
     diTitle: "The Disruption Index",
     diSub: "Industrias ordenadas por qué tan rápido las está transformando la IA — con las empresas reales que murieron, se reinventaron o surfearon la ola. Explóralo →",
     diUpdated: "Última actualización",
+    ppLabel: "La especificación abierta",
+    ppTitle: ["El ", "Proof", " Pair"],
+    ppSub: "Antes de que un agente actúe, un mandato firmado dice qué puede hacer. Después, un recibo firmado dice qué hizo. Al pasarse, un mandato solo puede estrecharse. Lee la especificación →",
+    ppPair: ["Entra un mandato", "Sale un recibo"],
+    ppLink: "the-aios.org/proof-pair ↗",
   },
   how: {
     eyebrow: "Cómo funciona",
@@ -1516,6 +1527,11 @@ const pt: Content = {
     diTitle: "The Disruption Index",
     diSub: "Indústrias ordenadas por quão rápido a IA as está transformando — com as empresas reais que morreram, se reinventaram ou surfaram a onda. Explore →",
     diUpdated: "Última atualização",
+    ppLabel: "A especificação aberta",
+    ppTitle: ["O ", "Proof", " Pair"],
+    ppSub: "Antes de um agente agir, um mandato assinado diz o que ele pode fazer. Depois, um recibo assinado diz o que ele fez. Ao ser repassado, um mandato só pode se estreitar. Leia a especificação →",
+    ppPair: ["Entra um mandato", "Sai um recibo"],
+    ppLink: "the-aios.org/proof-pair ↗",
   },
   how: {
     eyebrow: "Como funciona",

@@ -32,7 +32,7 @@ import { ManualEmbed, ManualDownload } from "./ManualEmbed";
 import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
 import { RoleField } from "./RoleField";
-import { YourAios } from "./YourAios";
+import { YourAios, ProofViz } from "./YourAios";
 import { ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, CommunityLine } from "./LandingBlocks";
 import type { RoleId } from "@/data/roles";
 import {
@@ -402,6 +402,24 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                   </div>
                 ))}
                 <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>/disruption-index</span>
+              </div>
+            </a>
+
+            {/* The proof pair — the open spec behind "it can prove what it did". */}
+            <a href="https://www.the-aios.org/proof-pair/" target="_blank" rel="noreferrer" className="manual-card" style={{ textDecoration: "none", alignItems: "center", marginTop: "1.25rem" }}>
+              <div>
+                <div className="card-eyebrow" style={{ marginBottom: "0.75rem" }}>{c.why.ppLabel}</div>
+                <h3 className="display-md" style={{ marginBottom: "0.75rem" }}>
+                  {c.why.ppTitle[0]}<span className="accent">{c.why.ppTitle[1]}</span>{c.why.ppTitle[2]}
+                </h3>
+                <p className="body-text" style={{ margin: 0 }}>{c.why.ppSub}</p>
+              </div>
+              <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <p style={{ margin: 0, display: "flex", gap: "0.625rem", alignItems: "baseline", flexWrap: "wrap", fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em", color: "var(--color-ink)" }}>
+                  <span>{c.why.ppPair[0]}</span><span aria-hidden="true" style={{ color: "var(--color-accent)", fontWeight: 500 }}>→</span><span>{c.why.ppPair[1]}</span>
+                </p>
+                <ProofViz chain={c.roles.chain} before={c.roles.before} after={c.roles.after} alt={c.roles.alts.proof} />
+                <span className="repo-link-inline" style={{ marginTop: "0.25rem" }}>{c.why.ppLink}</span>
               </div>
             </a>
           </div>
