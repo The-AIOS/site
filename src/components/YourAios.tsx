@@ -180,7 +180,7 @@ function ForumViz({ pair, alt }: { pair: [string, string]; alt: string }) {
 }
 
 /** 06 · the proof pair: mandate in, receipt out. */
-function ProofViz({ chain, before, after, alt }: { chain: [string, string, string, string]; before: string; after: string; alt: string }) {
+export function ProofViz({ chain, before, after, alt }: { chain: [string, string, string, string]; before: string; after: string; alt: string }) {
   const xs = [44, 122, 200, 278];
   return (
     <svg viewBox="0 0 320 200" className="yv" role="img" aria-label={alt}>
@@ -301,7 +301,7 @@ function RoleFrames({ r, c }: { r: RoleStory; c: RolesContent }) {
 
 /* ============================================================================ */
 
-export function YourAios({ c, num = "00" }: { c: RolesContent; num?: string }) {
+export function YourAios({ c, num = "00", beat, after }: { c: RolesContent; num?: string; beat?: ReactNode; after?: ReactNode }) {
   const uid = useId();
   const byId = useRef(new Map(c.items.map((r) => [r.id, r])));
   const ids = ROLE_ORDER.filter((id) => byId.current.has(id));
@@ -487,12 +487,16 @@ export function YourAios({ c, num = "00" }: { c: RolesContent; num?: string }) {
             </div>
           </div>
 
+          {/* the proof pair as its own beat, for visitors who never open a role */}
+          {beat}
+
           {/* the sign-off, said once */}
           <p className="yo-signoff">
             <span>{c.signoff[0]}</span>
             <strong>{c.signoff[1]}</strong>
             <em>{c.signoff[2]}</em>
           </p>
+          {after}
         </div>
       </div>
     </section>

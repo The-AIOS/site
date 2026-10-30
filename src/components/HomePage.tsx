@@ -33,6 +33,7 @@ import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
 import { RoleField } from "./RoleField";
 import { YourAios } from "./YourAios";
+import { WayIn, ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, ProofBeat, CommunityLine } from "./LandingBlocks";
 import type { RoleId } from "@/data/roles";
 import {
   HeroConstellation,
@@ -306,7 +307,11 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         </section>
 
         {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
-        <YourAios c={c.roles} />
+        <YourAios
+          c={c.roles}
+          beat={<ProofBeat c={c.proofBeat} chain={c.roles.chain} before={c.roles.before} after={c.roles.after} alt={c.roles.alts.proof} />}
+          after={<CommunityLine c={c.community} />}
+        />
 
         {/* ============ 01 — WHAT ============ */}
         <section id="what" className="section">
@@ -337,6 +342,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <OsAnatomy />
               <p className="graphic-caption">{c.arch.anatomyCaption}</p>
             </Reveal>
+            <SystemWrites c={c.writes} />
 
             <div className="eyebrow" style={{ marginBottom: "0.5rem" }}>{c.arch.distinctEyebrow}: <span className="accent">{c.arch.distinctTail}</span></div>
             <div>
@@ -347,6 +353,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 </div>
               ))}
             </div>
+
+            <WayIn c={c.wayIn} />
+            <ProofFromPeople c={c.people} />
           </div>
         </section>
 
@@ -586,7 +595,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               ))}
             </Reveal>
 
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1rem" }}>
+            <p id="containment" className="body-text" style={{ maxWidth: "64ch", marginBottom: "1rem", scrollMarginTop: "6rem" }}>
               {c.containment.body1Pre}
               <strong style={INK}>{c.containment.body1Bold}</strong>
               {c.containment.body1Post}
@@ -691,6 +700,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
             {/* What happens next — true of both doors, so it sits below both. */}
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{c.setup.step1Body}</p>
+
+            {/* the question a visitor has right here: is it safe to give it access? */}
+            <SafeByConstruction c={c.safe} />
+            <WhyGit c={c.whyGit} />
 
             <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
               {c.getStarted.steps.map((s) => (
@@ -834,6 +847,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <a href="/disruption-index" className="footer-link">The Disruption Index</a>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="footer-link">{c.footer.amplifier}</SubstackLink>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="footer-link">{c.footer.agenticCulture}</SubstackLink>
+            </FooterCol>
+
+            <FooterCol title={c.footer.community}>
+              <a href="https://discord.gg/f3rdxBTDMG" className="footer-link" target="_blank" rel="noreferrer">{c.footer.discord}</a>
             </FooterCol>
 
             <FooterCol title={c.footer.forAi}>

@@ -17,6 +17,11 @@ import type { Locale } from "@/messages";
 import { RELEASES_PAGE } from "@/downloads";
 import type { RoleId } from "@/data/roles";
 
+/* Two outside links the landing blocks cite. McKinsey is the source of the enterprise route
+   in "a different way in" — cited, never mocked. The Discord is where people building theirs meet. */
+const MCKINSEY = "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-ai-operating-system-a-new-way-for-ceos-to-run-the-enterprise";
+const DISCORD = "https://discord.gg/f3rdxBTDMG";
+
 type H = [string, string, string]; // [pre, accent, post]
 type CardT = { e?: string; t?: string; b: string; mono?: string };
 type Row = [string, string];
@@ -209,12 +214,21 @@ export type Content = {
     eyebrow: string; h: H; prompt: string; codeComment: string; consent: string;
     steps: CardT[]; setupBtn: string; prereqBtn: string;
   };
+  /* ---- the small answer-blocks (LandingBlocks.tsx), each where its question comes up ---- */
+  wayIn: { h: H; routes: { k: string; t: string; lines: [string, string] }[]; cite: { pre: string; label: string; href: string }; close: string };          // end of 01
+  people: { eyebrow: string; roomsLabel: string; rooms: { where: string; what: string; when: string }[]; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; liveLabel: string; note: string }; // end of 01
+  writes: { h: string; b: string };                                                                     // 01, under the anatomy
+  safe: { eyebrow: string; h: H; lede: string; facts: { t: string; b: string }[]; ladder: { pre: string; link: string; post: string }; honest: { pre: string; link: string; post: string } }; // 05
+  whyGit: { k: string; b: string };                                                                     // 05, one line
+  proofBeat: { eyebrow: string; inn: string; out: string; b: string; spec: string; href: string };     // 00, before the sign-off
+  community: { pre: string; link: string; href: string };                                              // 00, after the sign-off
   back: { h: H; lede: string };
   footer: {
     tagline: string; license: string;
     repo: string; narrative: string; forAi: string;
     amplifier: string; agenticCulture: string; manualLink: string;
     copyright: string;
+    community: string; discord: string;
   };
   meta: { title: string; description: string };
 };
@@ -628,6 +642,56 @@ const en: Content = {
       },
     ],
   },
+  wayIn: {
+    h: ["Same destination. ", "A different way in", "."],
+    routes: [
+      { k: "the enterprise route", t: "Top-down.", lines: ["A program led by the top team, with consultants beside it.", "About 12 to 16 weeks to first value, around 100 data sources."] },
+      { k: "the AIOS", t: "One person.", lines: ["One hour, free, in files you own.", "The team joins when it sees it working."] },
+    ],
+    cite: { pre: "The enterprise figures: ", label: "McKinsey / QuantumBlack, The AI operating system, October 2026 ↗", href: MCKINSEY },
+    close: "Both end in a company that runs on its own context. Ours starts with you.",
+  },
+  people: {
+    eyebrow: "Proof from people",
+    roomsLabel: "Rooms it has been told in",
+    rooms: [
+      { where: "EO Monterrey", what: "The AI Moment", when: "June 2026" },
+      { where: "EO Boston · AI Day, Babson", what: "The Fortress", when: "September 2026" },
+      { where: "EO Reno Tahoe · Reno Startup Week", what: "Keynote and workshop", when: "September 2026" },
+      { where: "EO Barcelona", what: "Next Generation", when: "October 2026" },
+    ],
+    /* Public, verifiable, dated. Stars are re-read live in the browser; the rest state their date.
+       TODO(chuy): installs and active users are not public numbers — confirm a figure and its date
+       before one appears here. Nothing in this block is estimated. */
+    numbers: [
+      { n: "89", label: "GitHub stars", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
+      { n: "9,938", label: "AIOS Glass downloads on Open VSX", asOf: "29 Oct 2026", href: "https://open-vsx.org/extension/the-aios/aios-glass" },
+      { n: "15", label: "contributors", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
+    ],
+    liveLabel: "live from GitHub",
+    note: "Public numbers, read at the source, dated.",
+  },
+  writes: { h: "You direct. The system writes.", b: "Every file above is written by sessions, agents and rituals. You say what you want; the vault writes itself down." },
+  safe: {
+    eyebrow: "Safe by construction",
+    h: ["Before you connect anything: ", "what holds", "."],
+    lede: "The rules you write come later. These are built in.",
+    facts: [
+      { t: "It trusts an instruction by where it came from.", b: "Your prompt is yours. An email, a web page, a file or another session’s message arrives marked as text someone else wrote: data, never a command." },
+      { t: "Keys never live in the vault.", b: "Secrets have their own place on your machine, and the commit path scans for them before anything leaves it." },
+      { t: "Autonomy has rungs.", b: "From the default install to a walled second machine: a ladder of six rungs. Climb in order, and stop where the cost stops being worth it." },
+    ],
+    ladder: { pre: "The ladder, and the two-machine ", link: "Fortress", post: ", are up in 03 · How." },
+    honest: { pre: "No setting replaces a model that declines. ", link: "SECURITY.md", post: " says so, and names the levers you hold." },
+  },
+  whyGit: { k: "Why GitHub?", b: "AI moves fast. Git is your undo button: every change kept, nothing ever lost." },
+  proofBeat: {
+    eyebrow: "And it can prove what it did",
+    inn: "Mandate in", out: "Receipt out",
+    b: "Before an agent acts, a signed mandate says what it may do. After, a signed receipt says what it did. Passed on, a mandate can only narrow.",
+    spec: "Read the open spec ↗", href: "https://www.the-aios.org/proof-pair/",
+  },
+  community: { pre: "People are building theirs in the open. ", link: "Join the Discord ↗", href: DISCORD },
   what: {
     eyebrow: "What it is", h: ["Your AI co-workers, ", "orchestrated", "."],
     body1: "Run every co-worker yourself and be their orchestrator — or let one AI co-worker run the rest as your chief of staff who never sleeps.",
@@ -801,6 +865,7 @@ const en: Content = {
     repo: "Repository", narrative: "Narrative", forAi: "For AI agents",
     amplifier: "The Amplifier: AIOS", agenticCulture: "The Agentic Culture", manualLink: "Operating Manual",
     copyright: "© 2026 The AIOS · Built with Claude on Claude Code.",
+    community: "Community", discord: "Discord ↗",
   },
   meta: {
     title: "The AIOS — AI as a team, not a tool",
@@ -911,6 +976,8 @@ const es: Content = {
      The native LatAm-neutral (tú) version lands in the second commit on this branch,
      before anything merges. */
   roles: en.roles,
+  // TODO(blocks-es): native copy for the landing blocks before merge; EN serves meanwhile.
+  wayIn: en.wayIn, people: en.people, writes: en.writes, safe: en.safe, whyGit: en.whyGit, proofBeat: en.proofBeat, community: en.community,
   what: {
     eyebrow: "Qué es", h: ["Tus compañeros de IA, ", "orquestados", "."],
     body1: "Opera a cada compañero tú mismo y sé su orquestador — o deja que un compañero de IA dirija al resto como tu jefe de gabinete que nunca duerme.",
@@ -1084,6 +1151,7 @@ const es: Content = {
     repo: "Repositorio", narrative: "Narrativa", forAi: "Para agentes de IA",
     amplifier: "The Amplifier: AIOS", agenticCulture: "The Agentic Culture", manualLink: "Manual operativo",
     copyright: "© 2026 The AIOS · Construido con Claude en Claude Code.",
+    community: "Comunidad", discord: "Discord ↗",
   },
   meta: {
     title: "The AIOS — IA como un equipo, no una herramienta",
@@ -1194,6 +1262,8 @@ const pt: Content = {
      The native PT-BR (você) version lands in the second commit on this branch, before
      anything merges. */
   roles: en.roles,
+  // TODO(blocks-pt): native copy for the landing blocks before merge; EN serves meanwhile.
+  wayIn: en.wayIn, people: en.people, writes: en.writes, safe: en.safe, whyGit: en.whyGit, proofBeat: en.proofBeat, community: en.community,
   what: {
     eyebrow: "O que é", h: ["Seus colegas de IA, ", "orquestrados", "."],
     body1: "Opere cada colega você mesmo e seja o orquestrador deles — ou deixe um colega de IA conduzir o resto como seu chefe de gabinete que nunca dorme.",
@@ -1367,6 +1437,7 @@ const pt: Content = {
     repo: "Repositório", narrative: "Narrativa", forAi: "Para agentes de IA",
     amplifier: "The Amplifier: AIOS", agenticCulture: "The Agentic Culture", manualLink: "Manual operacional",
     copyright: "© 2026 The AIOS · Construído com Claude no Claude Code.",
+    community: "Comunidade", discord: "Discord ↗",
   },
   meta: {
     title: "The AIOS — IA como um time, não uma ferramenta",
