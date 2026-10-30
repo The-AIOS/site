@@ -45,15 +45,6 @@ export function ProofFromPeople({ c }: { c: Content["people"] }) {
   return (
     <div className="pf">
       <div className="eyebrow pf-eyebrow">{c.eyebrow}</div>
-      <ul className="pf-rooms" aria-label={c.roomsLabel}>
-        {c.rooms.map((r) => (
-          <li key={r.where + r.when}>
-            <span className="pf-where">{r.where}</span>
-            <span className="pf-what">{r.what}</span>
-            <span className="pf-when">{r.when}</span>
-          </li>
-        ))}
-      </ul>
       <div className="pf-nums">
         {c.numbers.map((n) => <LiveStat key={n.label} {...n} liveLabel={c.liveLabel} numberLocale={c.numberLocale} />)}
       </div>

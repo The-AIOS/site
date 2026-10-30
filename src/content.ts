@@ -218,7 +218,7 @@ export type Content = {
   };
   /* ---- the small answer-blocks (LandingBlocks.tsx), each where its question comes up ---- */
   wayIn: { h: H; routes: { k: string; t: string; lines: [string, string] }[]; cite: { pre: string; label: string; href: string }; close: string };          // end of 01
-  people: { eyebrow: string; roomsLabel: string; rooms: { where: string; what: string; when: string }[]; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; numberLocale: string; quotes: string[]; liveLabel: string }; // end of 01
+  people: { eyebrow: string; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; numberLocale: string; quotes: string[]; liveLabel: string }; // end of 01
   writes: { h: string; b: string };                                                                     // 01, under the anatomy
   safe: { eyebrow: string; h: H; lede: string; facts: { t: string; b: string }[]; ladder: { pre: string; link: string; post: string }; honest: { pre: string; link: string; post: string } }; // 05
   whyGit: { k: string; b: string };                                                                     // 05, one line
@@ -664,13 +664,6 @@ const en: Content = {
   },
   people: {
     eyebrow: "Proof from people",
-    roomsLabel: "Rooms it has been told in",
-    rooms: [
-      { where: "EO Monterrey", what: "The AI Moment", when: "June 2026" },
-      { where: "EO Boston", what: "The Fortress", when: "September 2026" },
-      { where: "EO Reno Tahoe", what: "Keynote and workshop", when: "September 2026" },
-      { where: "EO Barcelona", what: "Workshop", when: "October 2026" },
-    ],
     /* Public, verifiable, dated. Stars are re-read live in the browser; the rest state their date.
        App downloads count installer files only (.dmg .exe .AppImage .deb across all releases), never
        update checks, so they are labelled downloads, not users. Nothing in this block is estimated.
@@ -1311,13 +1304,6 @@ const es: Content = {
   },
   people: {
     eyebrow: "Prueba desde la gente",
-    roomsLabel: "Salas donde se ha contado",
-    rooms: [
-      { where: "EO Monterrey", what: "The AI Moment", when: "junio de 2026" },
-      { where: "EO Boston", what: "The Fortress", when: "septiembre de 2026" },
-      { where: "EO Reno Tahoe", what: "Keynote y taller", when: "septiembre de 2026" },
-      { where: "EO Barcelona", what: "Taller", when: "octubre de 2026" },
-    ],
     numbers: [
       { n: "89", label: "estrellas en GitHub", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
       { n: "23", label: "forks", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios/forks" },
@@ -1953,13 +1939,6 @@ const pt: Content = {
   },
   people: {
     eyebrow: "Prova vinda de pessoas",
-    roomsLabel: "Salas onde já foi contado",
-    rooms: [
-      { where: "EO Monterrey", what: "The AI Moment", when: "junho de 2026" },
-      { where: "EO Boston", what: "The Fortress", when: "setembro de 2026" },
-      { where: "EO Reno Tahoe", what: "Keynote e workshop", when: "setembro de 2026" },
-      { where: "EO Barcelona", what: "Workshop", when: "outubro de 2026" },
-    ],
     numbers: [
       { n: "89", label: "estrelas no GitHub", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
       { n: "23", label: "forks", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios/forks" },
