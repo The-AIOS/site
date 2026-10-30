@@ -1,0 +1,183 @@
+/* roles.css — the hero's type-and-find field and section 00 · Your AIOS.
+   Tokens and primitives come from globals.css; this file adds only what does not
+   exist there: a compact combobox with a suggestion list, a quiet role switcher, a
+   horizontal track of frames that continues into the next role, and the small
+   animations the frame visuals use. One accent, always. */
+
+/* ---------- the hero field (sits beside "View on GitHub") ---------- */
+.role-field { position: relative; flex: 1 1 240px; max-width: 340px; min-width: 0; }
+.rf-box {
+  display: flex; align-items: center; height: 100%; min-height: 2.75rem;
+  border: 1px solid var(--color-hairline); border-radius: 6px; background: var(--color-surface-1);
+  transition: border-color 0.15s ease;
+}
+.rf-box:focus-within { border-color: var(--color-accent); }
+.rf-input {
+  flex: 1 1 auto; min-width: 0; padding: 0.5rem 0.25rem 0.5rem 0.875rem; border: 0; background: transparent;
+  color: var(--color-ink); font-family: var(--font-label); font-size: 0.875rem; font-weight: 500; letter-spacing: -0.005em; outline: none;
+}
+.rf-input::placeholder { color: var(--color-ink-subtle); }
+.rf-go {
+  flex: 0 0 auto; width: 2.5rem; align-self: stretch; display: inline-flex; align-items: center; justify-content: center;
+  border: 0; background: transparent; color: var(--color-ink-subtle); cursor: pointer; padding: 0;
+}
+.rf-go:hover { color: var(--color-accent); }
+.rf-list {
+  position: absolute; z-index: 8; left: 0; right: 0; top: calc(100% + 0.375rem); margin: 0; padding: 0.375rem; list-style: none;
+  background: var(--color-surface-1); border: 1px solid var(--color-hairline); border-radius: 8px; box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.6);
+}
+.rf-list[hidden] { display: none; }
+.rf-opt {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 6px;
+  color: var(--color-ink-muted); font-family: var(--font-label); font-size: 0.875rem; font-weight: 500; cursor: pointer;
+}
+.rf-opt[aria-selected="true"] { background: var(--color-surface-2); color: var(--color-ink); }
+.rf-opt .rf-fallback { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-subtle); white-space: nowrap; }
+@media (max-width: 560px) { .role-field { flex-basis: 100%; max-width: none; } }
+
+/* ---------- section 00 · your AIOS ---------- */
+
+/* the quiet switcher: one mono line, not nine pills */
+.yo-switch {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; margin: 0 0 1.25rem;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--color-ink-subtle);
+}
+.yo-switch .yo-switch-k { margin-right: 0.25rem; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.6875rem; white-space: nowrap; }
+.yo-role { padding: 0.25rem 0; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--color-ink-subtle); font: inherit; cursor: pointer; white-space: nowrap; }
+.yo-role:hover { color: var(--color-ink); }
+.yo-role[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-accent); }
+@media (max-width: 560px) {
+  .yo-switch { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.25rem; }
+  .yo-switch::-webkit-scrollbar { display: none; }
+}
+
+/* the track */
+.yo-stage { position: relative; }
+.yo-track {
+  display: flex; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none;
+  border: 1px solid var(--color-hairline); border-radius: 10px; background: var(--color-surface-1); outline: none;
+}
+.yo-track::-webkit-scrollbar { display: none; }
+.yo-track:focus-visible { border-color: var(--color-accent); }
+.yo-frame {
+  position: relative; flex: 0 0 100%; min-width: 0; scroll-snap-align: start;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: center;
+  min-height: 420px; padding: 2rem 2.25rem;
+}
+.yo-frame-text { min-width: 0; }
+@media (max-width: 900px) { .yo-frame { grid-template-columns: 1fr; gap: 1rem; min-height: 0; padding: 1.5rem 1.25rem; align-content: start; } }
+
+/* the role-change marker: frame 1 of every role breaks the track and says the name */
+.yo-frame--first { border-left: 4px solid var(--color-accent); padding-top: 4.25rem; }
+.yo-marker { position: absolute; left: 2.25rem; top: 1.25rem; right: 2.25rem; display: flex; align-items: baseline; gap: 0.75rem; padding-bottom: 0.625rem; border-bottom: 1px solid var(--color-hairline); }
+.yo-marker-k { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); white-space: nowrap; }
+.yo-marker-name { font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; color: var(--color-ink); }
+@media (max-width: 900px) { .yo-marker { left: 1.25rem; right: 1.25rem; top: 1rem; } .yo-frame--first { padding-top: 4rem; } }
+
+.yo-frame-n { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-ink-subtle); margin: 0 0 0.625rem; }
+.yo-frame-n b { color: var(--color-accent); font-weight: 600; margin-right: 0.5rem; }
+.yo-frame h3 { margin: 0 0 0.625rem; font-family: var(--font-display); font-size: clamp(1.375rem, 2.2vw, 1.875rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); text-wrap: balance; }
+.yo-frame p { margin: 0; font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-muted); max-width: 44ch; }
+.yo-frame p b { color: var(--color-ink); font-weight: 600; }
+.yo-frame p + p { margin-top: 0.5rem; }
+.yo-visual { min-width: 0; }
+.yo-visual svg { display: block; width: 100%; max-width: 440px; height: auto; margin: 0 auto; overflow: visible; }
+
+/* labels on frames 3 and 7 */
+.yo-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.yo-chips li { display: inline-flex; align-items: center; gap: 0.4375rem; padding: 0.3125rem 0.625rem; border: 1px solid var(--color-hairline); border-radius: 999px; background: var(--color-surface-2); font-size: 0.75rem; color: var(--color-ink-muted); }
+.yo-chips li b { color: var(--color-ink); font-weight: 600; }
+.yo-chips li code { font-family: var(--font-mono); font-size: 0.625rem; color: var(--color-ink-subtle); }
+.yo-marks { display: grid; gap: 0.375rem; margin: 0.75rem 0 0; padding: 0; list-style: none; font-size: 0.875rem; line-height: 1.45; color: var(--color-ink-muted); max-width: 44ch; }
+.yo-marks li { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0.5rem; align-items: baseline; }
+.yo-marks li span { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); }
+.yo-marks li.is-learn { color: var(--color-ink); font-weight: 600; }
+.yo-frame .yo-marks + .yo-cta { margin-top: 1.25rem; }
+
+/* controls */
+.yo-ctl { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.875rem; }
+.yo-dots { display: flex; gap: 0.5rem; align-items: center; margin: 0; padding: 0; list-style: none; }
+.yo-dot { width: 1.5rem; height: 0.25rem; border-radius: 999px; border: 0; padding: 0; background: var(--color-hairline); cursor: pointer; transition: background 0.15s ease, width 0.15s ease; }
+.yo-dot[aria-current="true"] { background: var(--color-accent); width: 2.25rem; }
+.yo-dot:hover { background: var(--color-ink-subtle); }
+.yo-arrows { display: flex; gap: 0.5rem; }
+.yo-ctl .yo-where { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; color: var(--color-ink-subtle); }
+@media (max-width: 560px) { .yo-ctl .yo-where { display: none; } }
+
+/* the sign-off: three lines, the last in the accent */
+.yo-signoff { margin: 3rem 0 0; font-family: var(--font-display); line-height: 1.1; letter-spacing: -0.025em; text-wrap: balance; }
+.yo-signoff span, .yo-signoff strong, .yo-signoff em { display: block; font-style: normal; }
+.yo-signoff span { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 500; color: var(--color-ink-subtle); margin-bottom: 0.375rem; letter-spacing: -0.01em; }
+.yo-signoff strong { font-size: clamp(1.75rem, 3.4vw, 2.75rem); font-weight: 700; color: var(--color-ink); }
+.yo-signoff em { font-size: clamp(1.75rem, 3.4vw, 2.75rem); font-weight: 700; color: var(--color-accent); }
+
+/* 06 · the story, folded */
+.yo-cta { display: flex; flex-wrap: wrap; gap: 0.625rem; align-items: center; margin-top: 1rem; }
+.yo-story { margin-top: 0.75rem; font-size: 0.8125rem; color: var(--color-ink-muted); max-width: 44ch; }
+.yo-story summary { cursor: pointer; color: var(--color-ink-subtle); font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.06em; }
+.yo-story summary:hover { color: var(--color-ink); }
+.yo-story p { margin-top: 0.5rem; font-size: 0.8125rem; line-height: 1.5; }
+.yo-story .cite { font-family: var(--font-mono); font-size: 0.625rem; color: var(--color-ink-subtle); }
+
+/* ---------- the visuals' motion (CSS only; off under reduced motion) ---------- */
+.yv-pop { animation: yv-pop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes yv-pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+.yv-draw { stroke-dasharray: 400; stroke-dashoffset: 400; animation: yv-draw 0.9s ease-out both; }
+.yv-draw-long { stroke-dasharray: 600; stroke-dashoffset: 600; animation: yv-draw 1.6s ease-out 0.2s both; }
+@keyframes yv-draw { to { stroke-dashoffset: 0; } }
+.yv-flow { animation: yv-flow 1.4s linear infinite; }
+@keyframes yv-flow { to { stroke-dashoffset: -24; } }
+.yv-float { animation: yv-float 3s ease-in-out infinite; }
+@keyframes yv-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.yv-fade { animation: yv-fade 1.6s ease-out 0.6s both; }
+@keyframes yv-fade { from { opacity: 0; } to { opacity: 1; } }
+.yv-ride { offset-distance: 0%; offset-rotate: 0deg; animation: yv-ride 4s ease-in-out infinite; }
+.yv-ride-b { animation-delay: 2s; }
+.yv-ride-loop { animation: yv-ride-loop 7s linear infinite; }
+/* the loop's captions and station pulses, each a quarter of the 7s ride (delay set inline) */
+.yv-cap { animation: yv-cap 7s linear infinite backwards; }
+@keyframes yv-cap { 0% { opacity: 0; } 3% { opacity: 1; } 22% { opacity: 1; } 25% { opacity: 0; } 100% { opacity: 0; } }
+.yv-station { transform-box: fill-box; transform-origin: center; animation: yv-station 7s ease-out infinite backwards; }
+@keyframes yv-station { 0% { transform: scale(1); } 2% { transform: scale(1.6); } 9% { transform: scale(1); } 100% { transform: scale(1); } }
+/* the orbit: the group turns, each node turns back so its letters stay upright; the outer ring runs the other way */
+.yv-orbit { transform-box: view-box; transform-origin: 160px 110px; animation: yv-spin 48s linear infinite; }
+.yv-orbit--outer { animation-duration: 80s; animation-direction: reverse; }
+.yv-node { transform-box: fill-box; transform-origin: center; animation: yv-spin 48s linear infinite reverse; outline: none; cursor: default; }
+.yv-orbit--outer .yv-node { animation-duration: 80s; animation-direction: normal; }
+@keyframes yv-spin { to { transform: rotate(360deg); } }
+.yv-node > circle:not(.yv-resolve) { transition: stroke-width 0.15s ease, fill 0.15s ease; }
+.yv-node:hover > circle:not(.yv-resolve), .yv-node:focus-visible > circle:not(.yv-resolve) { fill: var(--color-accent-glow); stroke-width: 2.5; }
+.yv-resolve { transform-box: fill-box; transform-origin: center; opacity: 0; animation: yv-resolve 9s linear infinite backwards; }
+@keyframes yv-resolve { 0% { transform: scale(1); opacity: 0.8; } 13% { transform: scale(2.3); opacity: 0; } 100% { transform: scale(2.3); opacity: 0; } }
+.yv-halo { transform-box: fill-box; transform-origin: center; animation: yv-halo 4s ease-in-out infinite alternate; }
+@keyframes yv-halo { from { transform: scale(1); opacity: 0.16; } to { transform: scale(1.2); opacity: 0.07; } }
+.yv-wrap { min-width: 0; }
+.yv-name { margin: 0.375rem 0 0; min-height: 1.3em; text-align: center; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.06em; color: var(--color-ink-muted); }
+.yo-caps { display: none; }
+@keyframes yv-ride-loop { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes yv-ride { 0% { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 50% { offset-distance: 100%; opacity: 1; } 58% { opacity: 0; } 100% { offset-distance: 100%; opacity: 0; } }
+
+/* ---------- reduced motion: a plain list, still frames ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .yo-track { display: block; overflow: visible; scroll-snap-type: none; scroll-behavior: auto; }
+  .yo-frame { min-height: 0; border-top: 1px solid var(--color-hairline); }
+  .yo-frame:first-child { border-top: 0; }
+  .yo-ctl { display: none; }
+  .yo-peek { display: none; }                       /* no track to hand off; the switcher does it */
+  .yv-pop, .yv-draw, .yv-draw-long, .yv-flow, .yv-float, .yv-fade, .yv-ride, .yv-ride-loop, .yv-cap, .yv-station, .yv-orbit, .yv-node, .yv-resolve, .yv-halo { animation: none !important; }
+  .yv-draw, .yv-draw-long { stroke-dashoffset: 0; }
+  .yv-pop, .yv-fade { opacity: 1; transform: none; }
+  .yv-ride { offset-distance: 50%; opacity: 1; }
+  .yv-ride-loop { offset-distance: 62%; }       /* resting on the closing arc */
+  .yv-cap { display: none; }                      /* the list under the visual carries every caption */
+  .yv-resolve { opacity: 0; }
+  .yv-name { display: none; }
+  .yo-caps { display: grid; gap: 0.25rem; margin: 0.75rem auto 0; padding: 0; max-width: 440px; list-style: none; font-size: 0.8125rem; color: var(--color-ink-muted); }
+  .yo-caps li { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0.5rem; }
+  .yo-caps li span { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); }
+  .yo-caps li.is-learn { color: var(--color-ink); font-weight: 600; }
+}
+
+.yo-head { margin: 0 0 1.5rem; }
+.yo-head strong, .yo-head em { display: inline; }
+.yo-head span { font-size: clamp(1.75rem, 3.4vw, 2.75rem); font-weight: 700; color: var(--color-ink-subtle); margin-bottom: 0; letter-spacing: -0.025em; }

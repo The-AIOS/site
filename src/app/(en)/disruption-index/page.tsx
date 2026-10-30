@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import DisruptionIndex from "@/components/DisruptionIndex";
-import { EXEMPLARS, SPEED_META, SPEED_ORDER } from "@/data/exemplars";
+import DisruptionQuadrant from "@/components/DisruptionQuadrant";
+import EmergentOpportunities from "@/components/EmergentOpportunities";
+import { CHANGELOG, EXEMPLARS, LAST_UPDATED, SPEED_META, SPEED_ORDER, formatDay } from "@/data/exemplars";
 import "./di.css";
 
 const TITLE = "The Disruption Index — industries ranked by the speed of AI disruption";
@@ -30,6 +32,7 @@ export const metadata: Metadata = {
 
 const industryCount = new Set(EXEMPLARS.map((e) => e.industry)).size;
 const goneCount = EXEMPLARS.filter((e) => e.speed === "gone").length;
+/* "Last updated" (LAST_UPDATED) and formatDay live in src/data/exemplars.ts, shared with the landing card. */
 const insulatedCount = EXEMPLARS.filter((e) => e.speed === "insulated").length;
 const countOf = (s: (typeof SPEED_ORDER)[number]) =>
   EXEMPLARS.filter((e) => e.speed === s).length;
@@ -87,10 +90,11 @@ export default function DisruptionIndexPage() {
         >
           <div className="container">
             <p className="eyebrow">
-              <span className="accent">●</span> The speed of AI disruption · live index
+              <span className="accent">●</span> The speed of AI disruption · live index · last updated{" "}
+              <time dateTime={LAST_UPDATED}>{formatDay(LAST_UPDATED)}</time>
             </p>
             <h1 className="display-xl" style={{ marginTop: "1rem", maxWidth: "20ch" }}>
-              Some industries already lost their moat.{" "}
+              Some industries already lost.{" "}
               <span className="accent">Yours is on this map somewhere.</span>
             </h1>
             <p className="lede" style={{ maxWidth: "60ch", marginTop: "1.25rem" }}>
@@ -116,7 +120,7 @@ export default function DisruptionIndexPage() {
                 <div className="n" style={{ color: SPEED_META.gone.color }}>
                   {goneCount}
                 </div>
-                <div className="l">moats already gone</div>
+                <div className="l">already gone</div>
               </div>
               <div className="di-stat">
                 <div className="n" style={{ color: SPEED_META.insulated.color }}>
@@ -145,8 +149,28 @@ export default function DisruptionIndexPage() {
           </div>
         </section>
 
+        {/* ---------- The quadrant: revenue vs market value since ChatGPT ---------- */}
+        <DisruptionQuadrant />
+
+        {/* ---------- Changelog strip ---------- */}
+        <div className="di-changelog" aria-label="Index changelog">
+          <div className="container">
+            <ol>
+              {CHANGELOG.map((c) => (
+                <li key={c.date}>
+                  <time dateTime={c.date}>{c.date}</time>
+                  {c.summary}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+
         {/* ---------- The interactive index ---------- */}
         <DisruptionIndex />
+
+        {/* ---------- What the disruption opens up ---------- */}
+        <EmergentOpportunities />
       </main>
 
       {/* ---------- Footer ---------- */}
@@ -157,8 +181,8 @@ export default function DisruptionIndexPage() {
             <strong style={{ color: "var(--color-ink)" }}>
               Accuracy is the point.
             </strong>{" "}
-            Every entry was researched against public reporting and carries a
-            confidence rating. Where a number is a company&apos;s own claim, an
+            Every entry was researched against public reporting, links its
+            sources, and carries a confidence rating. Where a number is a company&apos;s own claim, an
             estimate, or part of a multi-causal story, the card&apos;s note says
             so plainly. Disruption stories are messy — overstating them would
             cost the one thing that makes urgency land: <em>being true</em>.
@@ -176,7 +200,7 @@ export default function DisruptionIndexPage() {
             <a href="/" className="footer-link" style={{ fontSize: "0.8125rem" }}>
               the-aios.com
             </a>{" "}
-            · Research current as of June 2026.
+            · First researched June 2026; every entry re-verified 30 Oct 2026.
           </p>
         </div>
       </footer>

@@ -1,0 +1,78 @@
+/* LandingBlocks — the small blocks that answer a visitor's question where it comes up:
+ *
+ *   ProofFromPeople     00, after the track · public dated numbers and what people said
+ *   SystemWrites        01, under the anatomy · "do I have to write all these files?"
+ *   SafeByConstruction  05, between the doors and the steps · "is it safe to give it access?"
+ *   WhyGit              05, after the safe block · one line
+ *   CommunityLine       00, after the sign-off · the Discord
+ *
+ * All copy from CONTENT[locale]; claims in SafeByConstruction come from the framework's own
+ * SECURITY.md, FORTRESS.md and hooks/provenance.py — nothing stronger than those say. */
+
+import type { Content } from "@/content";
+import { GitHubLink } from "./GitHubLink";
+import { LiveStat } from "./LiveCount";
+import "./landing-blocks.css";
+
+const REPO = "https://github.com/The-AIOS/aios";
+
+function HL({ h }: { h: [string, string, string] }) {
+  return <>{h[0]}<span className="accent">{h[1]}</span>{h[2]}</>;
+}
+
+export function ProofFromPeople({ c }: { c: Content["people"] }) {
+  return (
+    <div className="pf">
+      <div className="eyebrow pf-eyebrow">{c.eyebrow}</div>
+      <div className="pf-nums">
+        {c.numbers.map((n) => <LiveStat key={n.label} {...n} liveLabel={c.liveLabel} numberLocale={c.numberLocale} />)}
+      </div>
+      <figure className="pf-quotes">
+        {c.quotes.map((q) => (
+          <blockquote key={q}>“{q}”</blockquote>
+        ))}
+      </figure>
+    </div>
+  );
+}
+
+export function SystemWrites({ c }: { c: Content["writes"] }) {
+  return (
+    <div className="sw">
+      <p className="sw-h">{c.h}</p>
+      <p className="sw-b">{c.b}</p>
+    </div>
+  );
+}
+
+export function SafeByConstruction({ c }: { c: Content["safe"] }) {
+  return (
+    <div className="sb">
+      <div className="eyebrow" style={{ marginBottom: "0.75rem" }}>{c.eyebrow}</div>
+      <h3 className="display-md sb-h"><HL h={c.h} /></h3>
+      <p className="sb-lede">{c.lede}</p>
+      <div className="grid-3 sb-grid">
+        {c.facts.map((f) => (
+          <div key={f.t} className="card">
+            <h4>{f.t}</h4>
+            <p>{f.b}</p>
+          </div>
+        ))}
+      </div>
+      <p className="sb-line">{c.ladder.pre}<a href="#containment" className="link-inline">{c.ladder.link}</a>{c.ladder.post}</p>
+      <p className="sb-line">{c.honest.pre}<GitHubLink href={`${REPO}/blob/main/SECURITY.md`} surface="safe-security" className="link-inline">{c.honest.link}</GitHubLink>{c.honest.post}</p>
+    </div>
+  );
+}
+
+export function WhyGit({ c }: { c: Content["whyGit"] }) {
+  return (
+    <p className="wg"><span className="wg-k">{c.k}</span>{c.b}</p>
+  );
+}
+
+export function CommunityLine({ c }: { c: Content["community"] }) {
+  return (
+    <p className="cm">{c.pre}<a href={c.href} target="_blank" rel="noreferrer" className="link-inline">{c.link}</a></p>
+  );
+}

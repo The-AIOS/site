@@ -31,6 +31,10 @@ import { ThemeToggle } from "./ThemeToggle";
 import { ManualEmbed, ManualDownload } from "./ManualEmbed";
 import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
+import { RoleField } from "./RoleField";
+import { YourAios, ProofViz } from "./YourAios";
+import { ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, CommunityLine } from "./LandingBlocks";
+import type { RoleId } from "@/data/roles";
 import {
   HeroConstellation,
   CompoundTimeline,
@@ -47,9 +51,12 @@ import {
 } from "./deckGraphics";
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
-import { DownloadPill, DownloadPanel, LaunchStrip } from "@/components/DownloadCTA";
+import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
+import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
+/* The reader's date locale per site locale (the Disruption Index card's "last updated"). */
+const DATE_LOCALE: Record<Locale, string> = { en: "en-US", es: "es-MX", pt: "pt-BR" };
 /* The version-less release URL: GitHub redirects it to the current asset, so this
    link never rots when we cut a new version. */
 /* Download URLs live in src/downloads.ts — one table, imported by every surface. This used to be
@@ -210,18 +217,13 @@ function MMCard({ word, kind, title, mock, children }: { word: string; kind: str
 
 export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Locale }) {
   const c = CONTENT[locale];
+  /* The hero field shows the same labels as the section-00 tabs — one source. */
+  const roleLabels = Object.fromEntries(c.roles.items.map((r) => [r.id, r.label])) as Record<RoleId, string>;
 
   return (
     <>
       {/* ============ Header ============ */}
       <header className="site-header">
-        {/* The launch strip rides with the sticky header rather than sitting in the
-            hero: an announcement shouldn't shove the headline down the page, and
-            it stays visible as you scroll. `.launch-rest` drops on narrow screens
-            so the strip is always exactly one line. */}
-        {/* The most prominent CTA on the page, so it follows the visitor's OS like every other
-            download surface — it was the one that still went to a generic page. */}
-        <LaunchStrip banner={c.hero.banner} copy={c.downloads} className="launch-strip" />
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
           <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
             <Logo size={20} />
@@ -288,18 +290,24 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               </span>
             </div>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "2.5rem" }}>
+            {/* Two buttons and, beside them, the type-and-find field: the visitor types
+                their trade, suggestions appear as they type, Enter or a click opens that
+                role in section 00 and writes #<role> into the URL. The old vocabulary
+                chip row is gone. */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "stretch" }}>
               <a href="#what" className="btn-primary">{c.hero.ctaPrimary}</a>
               <GitHubLink href={REPO} surface="hero-primary" className="btn-secondary">{c.hero.ctaGithub}</GitHubLink>
-            </div>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {c.hero.chips.map((chip) => (
-                <span key={chip} className="code-chip">{chip}</span>
-              ))}
+              <RoleField copy={c.hero.field} labels={roleLabels} />
             </div>
           </div>
         </section>
+
+        {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
+        <YourAios
+          c={c.roles}
+          beat={<ProofFromPeople c={c.people} />}
+          after={<CommunityLine c={c.community} />}
+        />
 
         {/* ============ 01 — WHAT ============ */}
         <section id="what" className="section">
@@ -329,7 +337,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <Reveal className="graphic-frame" style={{ marginBottom: "3rem" }}>
               <OsAnatomy />
               <p className="graphic-caption">{c.arch.anatomyCaption}</p>
+              <p className="graphic-caption">{c.wayIn.pre}<a href={c.wayIn.href} target="_blank" rel="noreferrer" className="link-inline">{c.wayIn.label}</a>{c.wayIn.post}</p>
             </Reveal>
+            <SystemWrites c={c.writes} />
 
             <div className="eyebrow" style={{ marginBottom: "0.5rem" }}>{c.arch.distinctEyebrow}: <span className="accent">{c.arch.distinctTail}</span></div>
             <div>
@@ -340,6 +350,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 </div>
               ))}
             </div>
+
           </div>
         </section>
 
@@ -371,20 +382,44 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                   The <span className="accent">Disruption</span> Index
                 </h3>
                 <p className="body-text" style={{ margin: 0 }}>{c.why.diSub}</p>
+                {/* derived from the data, same helper as the index page */}
+                <p style={{ margin: "0.875rem 0 0", fontFamily: "var(--font-mono)", fontSize: "0.6875rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-ink-subtle)" }}>
+                  {c.why.diUpdated} · <time dateTime={LAST_UPDATED}>{formatDay(LAST_UPDATED, DATE_LOCALE[locale])}</time>
+                </p>
               </div>
               <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                {[
-                  ["already gone", "var(--color-accent)"],
-                  ["on the clock", "var(--color-ink-muted)"],
-                  ["reinventing", "var(--color-ink-muted)"],
-                  ["insulated", "var(--color-ink-subtle)"],
-                ].map(([label, color]) => (
+                {/* counts read from the data, so the card never disagrees with the index */}
+                {([
+                  ["gone", "already gone", "var(--color-accent)"],
+                  ["on-the-clock", "on the clock", "var(--color-ink-muted)"],
+                  ["reinventing", "reinventing", "var(--color-ink-muted)"],
+                  ["insulated", "insulated", "var(--color-ink-subtle)"],
+                ] as const).map(([speed, label, color]) => (
                   <div key={label} style={{ display: "flex", alignItems: "center", gap: "0.625rem", fontFamily: "var(--font-mono)", fontSize: "0.8125rem", color }}>
                     <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, flex: "0 0 auto" }} />
                     {label}
+                    <span style={{ marginLeft: "auto", color: "var(--color-ink-subtle)" }}>{countBySpeed(speed)}</span>
                   </div>
                 ))}
                 <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>/disruption-index</span>
+              </div>
+            </a>
+
+            {/* The proof pair — the open spec behind "it can prove what it did". */}
+            <a href="https://www.the-aios.org/proof-pair/" target="_blank" rel="noreferrer" className="manual-card" style={{ textDecoration: "none", alignItems: "center", marginTop: "1.25rem" }}>
+              <div>
+                <div className="card-eyebrow" style={{ marginBottom: "0.75rem" }}>{c.why.ppLabel}</div>
+                <h3 className="display-md" style={{ marginBottom: "0.75rem" }}>
+                  {c.why.ppTitle[0]}<span className="accent">{c.why.ppTitle[1]}</span>{c.why.ppTitle[2]}
+                </h3>
+                <p className="body-text" style={{ margin: 0 }}>{c.why.ppSub}</p>
+              </div>
+              <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <p style={{ margin: 0, display: "flex", gap: "0.625rem", alignItems: "baseline", flexWrap: "wrap", fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em", color: "var(--color-ink)" }}>
+                  <span>{c.why.ppPair[0]}</span><span aria-hidden="true" style={{ color: "var(--color-accent)", fontWeight: 500 }}>→</span><span>{c.why.ppPair[1]}</span>
+                </p>
+                <ProofViz chain={c.roles.chain} before={c.roles.before} after={c.roles.after} alt={c.roles.alts.proof} />
+                <span className="repo-link-inline" style={{ marginTop: "0.25rem" }}>{c.why.ppLink}</span>
               </div>
             </a>
           </div>
@@ -579,7 +614,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               ))}
             </Reveal>
 
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1rem" }}>
+            <p id="containment" className="body-text" style={{ maxWidth: "64ch", marginBottom: "1rem", scrollMarginTop: "6rem" }}>
               {c.containment.body1Pre}
               <strong style={INK}>{c.containment.body1Bold}</strong>
               {c.containment.body1Post}
@@ -684,6 +719,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
             {/* What happens next — true of both doors, so it sits below both. */}
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{c.setup.step1Body}</p>
+
+            {/* the question a visitor has right here: is it safe to give it access? */}
+            <SafeByConstruction c={c.safe} />
+            <WhyGit c={c.whyGit} />
 
             <Reveal className="grid-3 reveal-cards" style={{ marginBottom: "2rem" }}>
               {c.getStarted.steps.map((s) => (
@@ -827,6 +866,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <a href="/disruption-index" className="footer-link">The Disruption Index</a>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="footer-link">{c.footer.amplifier}</SubstackLink>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="footer-link">{c.footer.agenticCulture}</SubstackLink>
+            </FooterCol>
+
+            <FooterCol title={c.footer.community}>
+              <a href="https://discord.gg/f3rdxBTDMG" className="footer-link" target="_blank" rel="noreferrer">{c.footer.discord}</a>
             </FooterCol>
 
             <FooterCol title={c.footer.forAi}>
