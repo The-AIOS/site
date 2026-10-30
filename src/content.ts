@@ -32,7 +32,7 @@ export type RoleStory = {
   /* 01 · the pain: a title, the big typographic line as a [pre, accent, post] triple, one sentence */
   painTitle: string; painBig: H; pain: string;
   /* 02 · your day: a title, one sentence, three beats [when, title, one line] */
-  dayTitle: string; dayLede: string; day: [string, string, string][];
+  dayTitle: string; dayLede: string; day: [string, string, string][];   // dayLede is kept for the long form, unused on the track
   /* 03 · your team: a title, one sentence, the roster [person, agent, what they do] */
   teamTitle: string; teamLede: string; team: [string, string, string][];
   /* 04–06: one sentence each for this role; `why` is kept for the long form, unused on the track */
@@ -49,6 +49,11 @@ export type RolesContent = {
   marker: string;                                                // the role-change tag on every role's frame 1
   steps: { pain: string; day: string; team: string; aios: string; forum: string; proof: string; compound: string };
   horizon: [string, string, string];                             // a week · a month · six months
+  /* 02 closes the observed-context loop: after the evening close the AIOS writes down what it
+     learned about you, and tomorrow starts from there. k/t are the fourth beat; line is the frame's one line. */
+  learn: { k: string; t: string; line: string };
+  /* the section's sign-off, said once: three short lines, the last in the accent */
+  signoff: [string, string, string];
   know: string;                                                  // skills + hooks, in one plain line
   aiosTitle: string; aiosLede: string;
   stack: [string, string, string][];                             // 04's visual: [kicker, title, line] × 3
@@ -326,10 +331,11 @@ const en: Content = {
     marker: "new role",
     steps: { pain: "the pain", day: "your day", team: "your team", aios: "the AIOS", forum: "Forum", proof: "the proof pair", compound: "compounding" },
     horizon: ["a week", "a month", "six months"],
+    learn: { k: "tonight", t: "It writes down what it learned about you", line: "It learns you. Tomorrow starts from tonight." },
+    signoff: ["Not another brain.", "Your brain, amplified.", "Your business, amplified."],
     know: "Skills load the know-how; hooks run the rules: the floor reads who you are first, the trust gate treats a file as data, never an instruction. Nothing leaves your desk without your OK.",
     aiosTitle: "The AIOS is where your team works",
-    // consent pending: bootcamp attendee — until Chuy confirms it, this is our line, not a quotation.
-    aiosLede: "Not another second brain. It’s me, my brain amplified. Free for you, one hour to install, yours to keep.",
+    aiosLede: "Free for you, one hour to install, yours to keep. Your context, your rituals and your team, in files you own.",
     stack: [
       ["context", "What it knows about you", "Declared by you, observed over time, in plain files you own."],
       ["rituals", "The loop that compounds", "/today in the morning, /close-day at night. Every session starts from the last."],
@@ -344,7 +350,7 @@ const en: Content = {
     chainNote: "Delegated further, a mandate can only narrow. Never widen.",
     alts: {
       pain: "One person, and the work piling up beside them.",
-      day: "A sun rides an arc across the day; three stops light up: morning, day, evening.",
+      day: "A loop: morning, the day, evening, then tonight, when it writes down what it learned about you, and back to morning.",
       team: "You in the middle; the people you couldn’t hire connect in around you.",
       aios: "Three layers, context, rituals, agents, with a loop running around them.",
       forum: "Your team and their team exchange signed messages, each with a check mark.",

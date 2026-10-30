@@ -69,21 +69,41 @@ function PainViz({ alt }: { alt: string }) {
   );
 }
 
-/** 02 · your day: a sun rides the arc; three stops light up as it passes. */
-function DayViz({ beats, alt }: { beats: [string, string, string][]; alt: string }) {
-  const stops = [[62, 113], [160, 60], [258, 113]];
+/** 02 · your day: a loop. Morning, the day, evening, then tonight, when it writes down
+ *  what it learned about you, and the arrow back to morning. That arc is the one in the accent. */
+function DayViz({ beats, learnK, alt }: { beats: [string, string, string][]; learnK: string; alt: string }) {
+  const cx = 160, cy = 100, R = 62;
+  const ring = `path('M${cx} ${cy - R} A${R} ${R} 0 1 1 ${cx - 0.01} ${cy - R}')`;
+  const k = (i: number) => (beats[i]?.[0] ?? "").toUpperCase();
   return (
-    <svg viewBox="0 0 320 200" className="yv" role="img" aria-label={alt}>
-      <path d="M40 140 Q 160 -20 280 140" fill="none" stroke={HAIR} strokeWidth="2" strokeDasharray="4 7" />
-      <circle className="yv-ride" r="9" fill={ACC} style={{ offsetPath: "path('M40 140 Q 160 -20 280 140')" } as React.CSSProperties} />
-      {stops.map(([x, y], i) => (
-        <g key={i}>
-          <circle className="yv-pop" cx={x} cy={y} r="6" fill={i === 1 ? ACC : S3} stroke={i === 1 ? ACC : SUBTLE} strokeWidth="2" style={{ animationDelay: `${0.4 + i * 0.6}s`, transformOrigin: `${x}px ${y}px` }} />
-          <text x={x} y={y + 24} textAnchor="middle" fontFamily={MONO} fontSize="9" letterSpacing="1" fill={SUBTLE}>{(beats[i]?.[0] ?? "").toUpperCase()}</text>
-          <text x={x} y={y + 40} textAnchor="middle" fontFamily={SANS} fontSize="10.5" fontWeight="600" fill={INK}>{beats[i]?.[1] ?? ""}</text>
-        </g>
-      ))}
-      <line x1="30" y1="166" x2="290" y2="166" stroke={HAIR} strokeWidth="2" />
+    <svg viewBox="0 0 320 206" className="yv" role="img" aria-label={alt}>
+      {/* the day: morning → the day → evening */}
+      <path d={`M${cx - R} ${cy} A${R} ${R} 0 1 1 ${cx} ${cy + R}`} fill="none" stroke={HAIR} strokeWidth="2" />
+      {/* the loop closing: tonight → morning, in the accent */}
+      <path className="yv-flow" d={`M${cx} ${cy + R} A${R} ${R} 0 0 1 ${cx - R} ${cy}`} fill="none" stroke={ACC} strokeWidth="2.5" strokeDasharray="5 7" />
+      <path d={`M${cx - R - 6} ${cy + 14} L${cx - R} ${cy + 8} L${cx - R + 6} ${cy + 14}`} fill="none" stroke={ACC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <circle className="yv-ride yv-ride-loop" r="5" fill={ACC} style={{ offsetPath: ring } as React.CSSProperties} />
+      {/* morning · left */}
+      <g className="yv-pop" style={{ animationDelay: "0.2s", transformOrigin: `${cx - R}px ${cy}px` }}>
+        <circle cx={cx - R} cy={cy} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" />
+        <text x={cx - R - 14} y={cy + 3.5} textAnchor="end" fontFamily={MONO} fontSize="9" letterSpacing="1" fill={MUTED}>{k(0)}</text>
+      </g>
+      {/* the day · top */}
+      <g className="yv-pop" style={{ animationDelay: "0.8s", transformOrigin: `${cx}px ${cy - R}px` }}>
+        <circle cx={cx} cy={cy - R} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" />
+        <text x={cx} y={cy - R - 14} textAnchor="middle" fontFamily={MONO} fontSize="9" letterSpacing="1" fill={MUTED}>{k(1)}</text>
+      </g>
+      {/* evening · right */}
+      <g className="yv-pop" style={{ animationDelay: "1.4s", transformOrigin: `${cx + R}px ${cy}px` }}>
+        <circle cx={cx + R} cy={cy} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" />
+        <text x={cx + R + 14} y={cy + 3.5} fontFamily={MONO} fontSize="9" letterSpacing="1" fill={MUTED}>{k(2)}</text>
+      </g>
+      {/* tonight · bottom: the AIOS writes down what it learned about you */}
+      <g className="yv-pop" style={{ animationDelay: "2s", transformOrigin: `${cx}px ${cy + R}px` }}>
+        <circle cx={cx} cy={cy + R} r="9" fill={GLOW} stroke={ACC} strokeWidth="2" />
+        <circle cx={cx} cy={cy + R} r="3" fill={ACC} />
+        <text x={cx} y={cy + R + 24} textAnchor="middle" fontFamily={MONO} fontSize="9" letterSpacing="1" fill={ACC}>{learnK.toUpperCase()}</text>
+      </g>
     </svg>
   );
 }
@@ -235,8 +255,12 @@ function RoleFrames({ r, c }: { r: RoleStory; c: RolesContent }) {
       <Frame n={1} label={s.pain} title={r.painTitle} first roleLabel={r.label} markerLabel={c.marker} visual={<PainViz alt={c.alts.pain} />}>
         <p>{r.pain}</p>
       </Frame>
-      <Frame n={2} label={s.day} title={r.dayTitle} visual={<DayViz beats={r.day} alt={c.alts.day} />}>
-        <p>{r.dayLede}</p>
+      <Frame n={2} label={s.day} title={r.dayTitle} visual={<DayViz beats={r.day} learnK={c.learn.k} alt={c.alts.day} />}>
+        <p><b>{c.learn.line}</b></p>
+        <ul className="yo-marks">
+          {r.day.map((b) => <li key={b[0]}><span>{b[0]}</span>{b[1]}</li>)}
+          <li className="is-learn"><span>{c.learn.k}</span>{c.learn.t}</li>
+        </ul>
       </Frame>
       <Frame n={3} label={s.team} title={r.teamTitle} visual={<TeamViz team={r.team} alt={c.alts.team} />}>
         <p>{r.teamLede}</p>
@@ -462,6 +486,13 @@ export function YourAios({ c, num = "00" }: { c: RolesContent; num?: string }) {
               </button>
             </div>
           </div>
+
+          {/* the sign-off, said once */}
+          <p className="yo-signoff">
+            <span>{c.signoff[0]}</span>
+            <strong>{c.signoff[1]}</strong>
+            <em>{c.signoff[2]}</em>
+          </p>
         </div>
       </div>
     </section>

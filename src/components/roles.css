@@ -91,6 +91,8 @@
 .yo-marks { display: grid; gap: 0.375rem; margin: 0.75rem 0 0; padding: 0; list-style: none; font-size: 0.875rem; line-height: 1.45; color: var(--color-ink-muted); max-width: 44ch; }
 .yo-marks li { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0.5rem; align-items: baseline; }
 .yo-marks li span { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); }
+.yo-marks li.is-learn { color: var(--color-ink); font-weight: 600; }
+.yo-frame .yo-marks + .yo-cta { margin-top: 1.25rem; }
 
 /* controls */
 .yo-ctl { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.875rem; }
@@ -101,6 +103,13 @@
 .yo-arrows { display: flex; gap: 0.5rem; }
 .yo-ctl .yo-where { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; color: var(--color-ink-subtle); }
 @media (max-width: 560px) { .yo-ctl .yo-where { display: none; } }
+
+/* the sign-off: three lines, the last in the accent */
+.yo-signoff { margin: 3rem 0 0; font-family: var(--font-display); line-height: 1.1; letter-spacing: -0.025em; text-wrap: balance; }
+.yo-signoff span, .yo-signoff strong, .yo-signoff em { display: block; font-style: normal; }
+.yo-signoff span { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 500; color: var(--color-ink-subtle); margin-bottom: 0.375rem; letter-spacing: -0.01em; }
+.yo-signoff strong { font-size: clamp(1.75rem, 3.4vw, 2.75rem); font-weight: 700; color: var(--color-ink); }
+.yo-signoff em { font-size: clamp(1.75rem, 3.4vw, 2.75rem); font-weight: 700; color: var(--color-accent); }
 
 /* 06 · the story, folded */
 .yo-cta { display: flex; flex-wrap: wrap; gap: 0.625rem; align-items: center; margin-top: 1rem; }
@@ -124,6 +133,8 @@
 @keyframes yv-fade { from { opacity: 0; } to { opacity: 1; } }
 .yv-ride { offset-distance: 0%; offset-rotate: 0deg; animation: yv-ride 4s ease-in-out infinite; }
 .yv-ride-b { animation-delay: 2s; }
+.yv-ride-loop { animation: yv-ride-loop 7s linear infinite; }
+@keyframes yv-ride-loop { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 @keyframes yv-ride { 0% { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 50% { offset-distance: 100%; opacity: 1; } 58% { opacity: 0; } 100% { offset-distance: 100%; opacity: 0; } }
 
 /* ---------- reduced motion: a plain list, still frames ---------- */
@@ -133,8 +144,9 @@
   .yo-frame:first-child { border-top: 0; }
   .yo-ctl { display: none; }
   .yo-peek { display: none; }                       /* no track to hand off; the switcher does it */
-  .yv-pop, .yv-draw, .yv-draw-long, .yv-flow, .yv-float, .yv-fade, .yv-ride { animation: none !important; }
+  .yv-pop, .yv-draw, .yv-draw-long, .yv-flow, .yv-float, .yv-fade, .yv-ride, .yv-ride-loop { animation: none !important; }
   .yv-draw, .yv-draw-long { stroke-dashoffset: 0; }
   .yv-pop, .yv-fade { opacity: 1; transform: none; }
   .yv-ride { offset-distance: 50%; opacity: 1; }
+  .yv-ride-loop { offset-distance: 62%; }       /* resting on the closing arc */
 }
