@@ -530,7 +530,7 @@ export function YourAios({ c, num = "00", beat, after }: { c: RolesContent; num?
             </div>
           </div>
 
-          {/* optional slot before the sign-off */}
+          {/* proof from people, between the track and the community line */}
           {beat}
 
           {after}

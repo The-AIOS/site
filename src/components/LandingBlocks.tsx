@@ -2,7 +2,7 @@
  *
  *   WayIn               end of 01 · same destination, a different way in (the enterprise
  *                       route beside the AIOS; McKinsey cited as the source, never mocked)
- *   ProofFromPeople     end of 01 · the rooms it has been told in, and public dated numbers
+ *   ProofFromPeople     00, after the track · the rooms it has been told in, and public dated numbers
  *   SystemWrites        01, under the anatomy · "do I have to write all these files?"
  *   SafeByConstruction  05, between the doors and the steps · "is it safe to give it access?"
  *   WhyGit              05, after the safe block · one line

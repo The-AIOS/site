@@ -305,6 +305,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
         <YourAios
           c={c.roles}
+          beat={<ProofFromPeople c={c.people} />}
           after={<CommunityLine c={c.community} />}
         />
 
@@ -350,7 +351,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             </div>
 
             <WayIn c={c.wayIn} />
-            <ProofFromPeople c={c.people} />
           </div>
         </section>
 
