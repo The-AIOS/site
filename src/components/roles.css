@@ -177,3 +177,5 @@
   .yo-caps li span { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); }
   .yo-caps li.is-learn { color: var(--color-ink); font-weight: 600; }
 }
+
+.yo-head { margin: 0 0 1.5rem; }

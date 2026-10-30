@@ -1,4 +1,4 @@
-/* YourAios — section 00, before "01 · What". It opens on "You already have a team." and
+/* YourAios — section 00, before "01 · What". It opens on the sign-off ("Not another second brain…") and
  * a quiet role switcher; the story runs horizontally, seven frames per role (the pain →
  * your day → your team → the AIOS → Forum → the proof pair → compounding), a line or two
  * of text per frame and a small animated SVG that carries it.
@@ -464,8 +464,10 @@ export function YourAios({ c, num = "00", beat, after }: { c: RolesContent; num?
           <span className="num">{num}</span>
           <span className="eyebrow">{c.eyebrow}</span>
         </div>
-        <h2 className="display-lg" style={{ marginBottom: "1rem", maxWidth: "18ch" }}>
-          {c.h[0]}<span className="accent">{c.h[1]}</span>{c.h[2]}
+        <h2 className="yo-signoff yo-head">
+          <span>{c.signoff[0]}</span>
+          <strong>{c.signoff[1]}</strong>
+          <em>{c.signoff[2]}</em>
         </h2>
 
         {/* the quiet switcher */}
@@ -531,12 +533,6 @@ export function YourAios({ c, num = "00", beat, after }: { c: RolesContent; num?
           {/* optional slot before the sign-off */}
           {beat}
 
-          {/* the sign-off, said once */}
-          <p className="yo-signoff">
-            <span>{c.signoff[0]}</span>
-            <strong>{c.signoff[1]}</strong>
-            <em>{c.signoff[2]}</em>
-          </p>
           {after}
         </div>
       </div>

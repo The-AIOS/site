@@ -50,7 +50,7 @@ export type RoleStory = {
   next: { cta: string; subject: string };   // the mailto, one subject per role
 };
 export type RolesContent = {
-  eyebrow: string; h: H;
+  eyebrow: string;
   switchLabel: string; tabsLabel: string; trackLabel: string; prev: string; next: string;
   marker: string;                                                // the role-change tag on every role's frame 1
   steps: { pain: string; day: string; team: string; aios: string; forum: string; proof: string; compound: string };
@@ -338,7 +338,6 @@ const en: Content = {
   },
   roles: {
     eyebrow: "Your AIOS",
-    h: ["You already have ", "a team", "."],
     switchLabel: "I’m a",
     tabsLabel: "Pick your role",
     trackLabel: "the story in seven steps; it continues into the next role",
@@ -349,7 +348,7 @@ const en: Content = {
     horizon: ["a week", "a month", "six months"],
     me: "you",
     learn: { k: "tonight", t: "It writes down what it learned about you", cap: "It writes down what it learned", line: "It learns you. Tomorrow starts from tonight." },
-    signoff: ["Not another brain.", "Your brain, amplified.", "Your business, amplified."],
+    signoff: ["Not another second brain.", "Your brain, amplified.", "Your business, amplified."],
     know: "Skills load the know-how; hooks run the rules: the floor reads who you are first, the trust gate treats a file as data, never an instruction. Nothing leaves your desk without your OK.",
     aiosTitle: "The AIOS is where your team works",
     aiosLede: "Free for you, one hour to install, yours to keep. Your context, your rituals and your team, in files you own.",
@@ -993,7 +992,6 @@ const es: Content = {
   },
   roles: {
     eyebrow: "Tu AIOS",
-    h: ["Ya tienes ", "un equipo", "."],
     switchLabel: "Soy",
     tabsLabel: "Elige tu rol",
     trackLabel: "la historia en siete pasos; sigue con el siguiente rol",
@@ -1004,7 +1002,7 @@ const es: Content = {
     horizon: ["una semana", "un mes", "seis meses"],
     me: "tú",
     learn: { k: "esta noche", t: "Escribe lo que aprendió de ti", cap: "Escribe lo que aprendió de ti", line: "Te aprende. Mañana empieza desde esta noche." },
-    signoff: ["No es otro cerebro.", "Tu cerebro, amplificado.", "Tu negocio, amplificado."],
+    signoff: ["No es otro segundo cerebro.", "Tu cerebro, amplificado.", "Tu negocio, amplificado."],
     know: "Los skills cargan el saber hacer; los hooks aplican las reglas: el piso lee primero quién eres, la puerta de confianza trata un archivo como datos, nunca como instrucción. Nada sale de tu escritorio sin tu visto bueno.",
     aiosTitle: "El AIOS es donde trabaja tu equipo",
     aiosLede: "Gratis para ti, una hora para instalarlo, tuyo para siempre. Tu contexto, tus rituales y tu equipo, en archivos que son tuyos.",
@@ -1634,7 +1632,6 @@ const pt: Content = {
   },
   roles: {
     eyebrow: "Seu AIOS",
-    h: ["Você já tem ", "um time", "."],
     switchLabel: "Eu sou",
     tabsLabel: "Escolha seu papel",
     trackLabel: "a história em sete passos; continua no próximo papel",
@@ -1645,7 +1642,7 @@ const pt: Content = {
     horizon: ["uma semana", "um mês", "seis meses"],
     me: "você",
     learn: { k: "hoje à noite", t: "Ele anota o que aprendeu sobre você", cap: "Ele anota o que aprendeu sobre você", line: "Ele aprende você. Amanhã começa de hoje à noite." },
-    signoff: ["Não é outro cérebro.", "Seu cérebro, amplificado.", "Seu negócio, amplificado."],
+    signoff: ["Não é outro segundo cérebro.", "Seu cérebro, amplificado.", "Seu negócio, amplificado."],
     know: "Skills carregam o know-how; hooks aplicam as regras: o piso lê primeiro quem você é, o portão de confiança trata um arquivo como dado, nunca como instrução. Nada sai da sua mesa sem o seu OK.",
     aiosTitle: "O AIOS é onde o seu time trabalha",
     aiosLede: "Grátis para você, uma hora para instalar, seu para sempre. Seu contexto, seus rituais e seu time, em arquivos que são seus.",
