@@ -218,7 +218,7 @@ export type Content = {
   };
   /* ---- the small answer-blocks (LandingBlocks.tsx), each where its question comes up ---- */
   wayIn: { h: H; routes: { k: string; t: string; lines: [string, string] }[]; cite: { pre: string; label: string; href: string }; close: string };          // end of 01
-  people: { eyebrow: string; roomsLabel: string; rooms: { where: string; what: string; when: string }[]; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; numberLocale: string; quotes: string[]; quotesWho: string; liveLabel: string; note: string }; // end of 01
+  people: { eyebrow: string; roomsLabel: string; rooms: { where: string; what: string; when: string }[]; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; numberLocale: string; quotes: string[]; liveLabel: string }; // end of 01
   writes: { h: string; b: string };                                                                     // 01, under the anatomy
   safe: { eyebrow: string; h: H; lede: string; facts: { t: string; b: string }[]; ladder: { pre: string; link: string; post: string }; honest: { pre: string; link: string; post: string } }; // 05
   whyGit: { k: string; b: string };                                                                     // 05, one line
@@ -688,10 +688,12 @@ const en: Content = {
       "I installed it and it blew my mind compared to at least what I had, which was rubbish.",
       "Finally, [I] have my attention on what really matters.",
       "I installed the AIOS while you were talking.",
+      "I do not remember having had two days with so much impact in terms of my thinking before.",
+      "My mindset is to tell, and now I’m starting to ask, and this [is] changing my game.",
+      "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
+      "Oh, thank you, I have a CFO now.",
     ],
-    quotesWho: "Workshop and keynote participants, 2026",
     liveLabel: "live from GitHub",
-    note: "Public numbers, read at the source, dated.",
   },
   writes: { h: "You direct. The system writes.", b: "Every file above is written by sessions, agents and rituals. You say what you want; the vault writes itself down." },
   safe: {
@@ -1328,10 +1330,12 @@ const es: Content = {
       "I installed it and it blew my mind compared to at least what I had, which was rubbish.",
       "Finally, [I] have my attention on what really matters.",
       "I installed the AIOS while you were talking.",
+      "I do not remember having had two days with so much impact in terms of my thinking before.",
+      "My mindset is to tell, and now I’m starting to ask, and this [is] changing my game.",
+      "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
+      "Oh, thank you, I have a CFO now.",
     ],
-    quotesWho: "Participantes de talleres y keynotes, 2026 (citas en su idioma original)",
     liveLabel: "en vivo desde GitHub",
-    note: "Números públicos, leídos en la fuente, con fecha.",
   },
   writes: { h: "Tú diriges. El sistema escribe.", b: "Cada archivo de arriba lo escriben sesiones, agentes y rituales. Tú dices qué quieres; el vault se escribe solo." },
   safe: {
@@ -1968,10 +1972,12 @@ const pt: Content = {
       "I installed it and it blew my mind compared to at least what I had, which was rubbish.",
       "Finally, [I] have my attention on what really matters.",
       "I installed the AIOS while you were talking.",
+      "I do not remember having had two days with so much impact in terms of my thinking before.",
+      "My mindset is to tell, and now I’m starting to ask, and this [is] changing my game.",
+      "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
+      "Oh, thank you, I have a CFO now.",
     ],
-    quotesWho: "Participantes de workshops e keynotes, 2026 (citações no idioma original)",
     liveLabel: "ao vivo do GitHub",
-    note: "Números públicos, lidos na fonte, datados.",
   },
   writes: { h: "Você dirige. O sistema escreve.", b: "Cada arquivo acima é escrito por sessões, agentes e rituais. Você diz o que quer; o vault se escreve sozinho." },
   safe: {
