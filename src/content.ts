@@ -653,7 +653,7 @@ const en: Content = {
       },
     ],
   },
-  wayIn: { pre: "Same destination as the enterprise route ", label: "McKinsey describes ↗", post: " (a top-down program, 12 to 16 weeks to first value), a different way in: one person, one hour, free, in files you own.", href: MCKINSEY },
+  wayIn: { pre: "Same destination as the enterprise route ", label: "McKinsey describes ↗", post: ", a different way in: one person, one hour, free, in files you own.", href: MCKINSEY },
   people: {
     eyebrow: "Proof from people",
     /* Public, verifiable, dated. Stars are re-read live in the browser; the rest state their date.
@@ -672,7 +672,7 @@ const en: Content = {
       "I’ve been a Claude Code power user. Why is this so different?",
       "I do not remember having had two days with so much impact in terms of my thinking before.",
       "In June, only drafts. From this month, I have a large amount of emails sent directly from the AIOS.",
-      "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
+      "It took me two minutes, and I’d gone three years without managing it.",
       "My mindset is to tell, and now I’m starting to ask, and this is changing my game.",
       "It built something I didn’t ask for, and it’s amazing.",
     ],
@@ -1283,7 +1283,7 @@ const es: Content = {
       },
     ],
   },
-  wayIn: { pre: "El mismo destino que la ruta empresarial que ", label: "describe McKinsey ↗", post: " (un programa de arriba hacia abajo, de 12 a 16 semanas para el primer resultado), por otra entrada: una persona, una hora, gratis, en archivos que son tuyos.", href: MCKINSEY },
+  wayIn: { pre: "El mismo destino que la ruta empresarial que ", label: "describe McKinsey ↗", post: ", por otra entrada: una persona, una hora, gratis, en archivos que son tuyos.", href: MCKINSEY },
   people: {
     eyebrow: "Prueba desde la gente",
     numbers: [
@@ -1297,7 +1297,7 @@ const es: Content = {
       "I’ve been a Claude Code power user. Why is this so different?",
       "I do not remember having had two days with so much impact in terms of my thinking before.",
       "In June, only drafts. From this month, I have a large amount of emails sent directly from the AIOS.",
-      "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
+      "Me demoré dos minutos, y llevaba tres años sin lograrlo.",
       "My mindset is to tell, and now I’m starting to ask, and this is changing my game.",
       "It built something I didn’t ask for, and it’s amazing.",
     ],
@@ -1908,7 +1908,7 @@ const pt: Content = {
       },
     ],
   },
-  wayIn: { pre: "O mesmo destino da rota corporativa que ", label: "a McKinsey descreve ↗", post: " (um programa de cima para baixo, de 12 a 16 semanas até o primeiro resultado), por outra porta: uma pessoa, uma hora, grátis, em arquivos que são seus.", href: MCKINSEY },
+  wayIn: { pre: "O mesmo destino da rota corporativa que ", label: "a McKinsey descreve ↗", post: ", por outra porta: uma pessoa, uma hora, grátis, em arquivos que são seus.", href: MCKINSEY },
   people: {
     eyebrow: "Prova vinda de pessoas",
     numbers: [
@@ -1922,7 +1922,7 @@ const pt: Content = {
       "I’ve been a Claude Code power user. Why is this so different?",
       "I do not remember having had two days with so much impact in terms of my thinking before.",
       "In June, only drafts. From this month, I have a large amount of emails sent directly from the AIOS.",
-      "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
+      "Levei dois minutos, e estava havia três anos sem conseguir.",
       "My mindset is to tell, and now I’m starting to ask, and this is changing my game.",
       "It built something I didn’t ask for, and it’s amazing.",
     ],
