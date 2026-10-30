@@ -92,7 +92,7 @@ export default function DisruptionIndexPage() {
               <span className="accent">●</span> The speed of AI disruption · live index
             </p>
             <h1 className="display-xl" style={{ marginTop: "1rem", maxWidth: "20ch" }}>
-              Some industries already lost their moat.{" "}
+              Some industries already lost.{" "}
               <span className="accent">Yours is on this map somewhere.</span>
             </h1>
             <p className="lede" style={{ maxWidth: "60ch", marginTop: "1.25rem" }}>
