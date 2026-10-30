@@ -466,7 +466,7 @@ export function YourAios({ c, num = "00", beat, after }: { c: RolesContent; num?
         </div>
         <h2 className="yo-signoff yo-head">
           <span>{c.signoff[0]}</span>
-          <strong>{c.signoff[1]}</strong>
+          <strong>{c.signoff[1]}</strong>{" "}
           <em>{c.signoff[2]}</em>
         </h2>
 
