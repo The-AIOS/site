@@ -38,6 +38,7 @@ export type RoleStory = {
   painTitle: string; painBig: H; pain: string;
   /* 02 · your day: a title, one sentence, three beats [when, title, one line] */
   dayTitle: string; dayLede: string; day: [string, string, string][];   // dayLede is kept for the long form, unused on the track
+  caps: [string, string, string];   // the loop's captions at morning · day · evening, a few words each (tonight's is shared: learn.cap)
   /* 03 · your team: a title, one sentence, the roster [person, agent, what they do] */
   teamTitle: string; teamLede: string; team: [string, string, string][];
   /* 04–06: one sentence each for this role; `why` is kept for the long form, unused on the track */
@@ -57,7 +58,7 @@ export type RolesContent = {
   me: string;                                                    // the word in the middle of the team visual: you / tú / você
   /* 02 closes the observed-context loop: after the evening close the AIOS writes down what it
      learned about you, and tomorrow starts from there. k/t are the fourth beat; line is the frame's one line. */
-  learn: { k: string; t: string; line: string };
+  learn: { k: string; t: string; cap: string; line: string };
   /* the section's sign-off, said once: three short lines, the last in the accent */
   signoff: [string, string, string];
   know: string;                                                  // skills + hooks, in one plain line
@@ -348,7 +349,7 @@ const en: Content = {
     steps: { pain: "the pain", day: "your day", team: "your team", aios: "the AIOS", forum: "Forum", proof: "the proof pair", compound: "compounding" },
     horizon: ["a week", "a month", "six months"],
     me: "you",
-    learn: { k: "tonight", t: "It writes down what it learned about you", line: "It learns you. Tomorrow starts from tonight." },
+    learn: { k: "tonight", t: "It writes down what it learned about you", cap: "It writes down what it learned", line: "It learns you. Tomorrow starts from tonight." },
     signoff: ["Not another brain.", "Your brain, amplified.", "Your business, amplified."],
     know: "Skills load the know-how; hooks run the rules: the floor reads who you are first, the trust gate treats a file as data, never an instruction. Nothing leaves your desk without your OK.",
     aiosTitle: "The AIOS is where your team works",
@@ -388,6 +389,7 @@ const en: Content = {
           ["day", "Your team works while you sell", "The cofounder ships the feature. The lawyer reads the new supplier contract. The lead generator leaves you four names and why."],
           ["evening", "Invoices chased, pipeline true", "The invoice tracker drafts two follow-ups; the pipeline matches what happened today. /close-day writes the rest down."],
         ],
+        caps: ["Plans from your numbers", "Agents work while you sell", "Invoices chased"],
         teamTitle: "The seven you couldn’t hire",
         teamLede: "Each one reads your business before it works, and nothing leaves your desk without your OK.",
         team: [
@@ -419,6 +421,7 @@ const en: Content = {
           ["day", "Your team works in parallel", "The analyst reads the board pack. The chief of staff writes three briefs. The one who writes down the call holds the decision that is due."],
           ["evening", "Written down, not remembered", "/close-day records what you learned, what carried and why. Tomorrow starts from there."],
         ],
+        caps: ["Plans from your calendar", "Agents work in parallel", "Decisions written down"],
         teamTitle: "The office you never had to staff",
         teamLede: "Each one walks in knowing the company, the people and the last decision.",
         team: [
@@ -449,6 +452,7 @@ const en: Content = {
           ["day", "Drafts leave as drafts", "Reports and replies written in your words, waiting for your signature. You read each one; that is the job."],
           ["evening", "Capture", "What you promised, to whom, by when. Nothing lives only in your head."],
         ],
+        caps: ["Six minutes of prep", "Drafts wait for your signature", "Every promise captured"],
         teamTitle: "The staff behind the manager",
         teamLede: "They prepare, draft and keep the record; you read, decide and sign.",
         team: [
@@ -479,6 +483,7 @@ const en: Content = {
           ["day", "Review drafts and client memos", "Contract review against the clauses you negotiated before; memos in your voice, for your signature."],
           ["evening", "The matter log updates itself", "Time, decisions and open points, captured without a Friday afternoon."],
         ],
+        caps: ["The matter, prepared", "Reviews and memos drafted", "The matter log updates"],
         teamTitle: "The firm inside the firm",
         teamLede: "An associate, a compliance officer, a billing clerk. None of them bills you.",
         team: [
@@ -509,6 +514,7 @@ const en: Content = {
           ["day", "Drafting in your voice", "With your past posts as the reference. The gate flags the lines that are not you."],
           ["evening", "Scheduled, done", "Cross-linked, scheduled, the image attached. The second job gets smaller."],
         ],
+        caps: ["Ideas caught", "Drafts in your voice", "Scheduled, done"],
         teamTitle: "The newsroom you never had",
         teamLede: "A drafter, an editor, a publisher, a designer, and someone watching the mentions. You still press publish.",
         team: [
@@ -539,6 +545,7 @@ const en: Content = {
           ["day", "Triage, docs, autonomous runs", "Bug triage, docs that match the code, runs that stay inside the permissions you set."],
           ["evening", "The project note", "What changed, why, what is next. The next session starts from it."],
         ],
+        caps: ["Review with the rules loaded", "Triage, docs, autonomous runs", "The project note written"],
         teamTitle: "The engineering team of one",
         teamLede: "A cofounder, a reviewer, a security engineer, triage, docs, and the one who makes the codebase smaller.",
         team: [
@@ -569,6 +576,7 @@ const en: Content = {
           ["day", "Research briefs and feedback drafts", "What is new on the topic since your notes; feedback on what they wrote, in your voice, for you to finish."],
           ["evening", "What landed", "What worked in class, written down for next year, not lost by June."],
         ],
+        caps: ["Class prep from your notes", "Briefs and feedback drafts", "What landed, written down"],
         teamTitle: "The department of one",
         teamLede: "A teaching assistant, a reading partner, the one who builds the slides, the one who writes it up.",
         team: [
@@ -598,6 +606,7 @@ const en: Content = {
           ["day", "Explanations three ways", "The concept until it clicks. And the career question you keep not asking, asked back to you."],
           ["evening", "What stuck", "Written down, so tomorrow starts from it."],
         ],
+        caps: ["A plan for the week", "Explanations until it clicks", "What stuck, written down"],
         teamTitle: "The study group that shows up",
         teamLede: "They explain, quiz and ask; the notes stay yours, on your machine.",
         team: [
@@ -626,6 +635,7 @@ const en: Content = {
           ["day 1", "A day in the room sets the team up", "Shared contexts, governance, each person’s own agents. With the files open."],
           ["after", "The team space is the product", "Your teams meet in one room, signed. Work moves between them; the record writes itself."],
         ],
+        caps: ["One person runs it", "A day in the room", "The team space is live"],
         teamTitle: "What a team adds",
         teamLede: "Two layers of context, written governance, and a concierge for every new member.",
         team: [
@@ -999,7 +1009,7 @@ const es: Content = {
     steps: { pain: "el dolor", day: "tu día", team: "tu equipo", aios: "el AIOS", forum: "Forum", proof: "mandato y recibo", compound: "lo que crece" },
     horizon: ["una semana", "un mes", "seis meses"],
     me: "tú",
-    learn: { k: "esta noche", t: "Escribe lo que aprendió de ti", line: "Te aprende. Mañana empieza desde esta noche." },
+    learn: { k: "esta noche", t: "Escribe lo que aprendió de ti", cap: "Escribe lo que aprendió de ti", line: "Te aprende. Mañana empieza desde esta noche." },
     signoff: ["No es otro cerebro.", "Tu cerebro, amplificado.", "Tu negocio, amplificado."],
     know: "Los skills cargan el saber hacer; los hooks aplican las reglas: el piso lee primero quién eres, la puerta de confianza trata un archivo como datos, nunca como instrucción. Nada sale de tu escritorio sin tu visto bueno.",
     aiosTitle: "El AIOS es donde trabaja tu equipo",
@@ -1039,6 +1049,7 @@ const es: Content = {
           ["día", "Tu equipo trabaja mientras vendes", "El cofundador entrega la funcionalidad. El abogado lee el nuevo contrato con el proveedor. El generador de prospectos te deja cuatro nombres y por qué."],
           ["noche", "Facturas cobradas, pipeline real", "El que persigue facturas redacta dos recordatorios; el pipeline coincide con lo que pasó hoy. /close-day escribe el resto."],
         ],
+        caps: ["Planes desde tus números", "Tu equipo trabaja mientras vendes", "Facturas cobradas"],
         teamTitle: "Los siete que no podías contratar",
         teamLede: "Cada uno lee tu negocio antes de trabajar, y nada sale de tu escritorio sin tu visto bueno.",
         team: [
@@ -1069,6 +1080,7 @@ const es: Content = {
           ["día", "Tu equipo trabaja en paralelo", "El analista lee el paquete del consejo. El jefe de gabinete escribe tres briefs. El que registra la decisión sostiene la que toca hoy."],
           ["noche", "Escrito, no recordado", "/close-day registra qué aprendiste, qué se arrastra y por qué. Mañana empieza desde ahí."],
         ],
+        caps: ["Planes desde tu calendario", "Agentes trabajan en paralelo", "Decisiones por escrito"],
         teamTitle: "La oficina que nunca tuviste que contratar",
         teamLede: "Cada uno entra sabiendo la empresa, la gente y la última decisión.",
         team: [
@@ -1098,6 +1110,7 @@ const es: Content = {
           ["día", "Los borradores salen como borradores", "Reportes y respuestas escritos con tus palabras, esperando tu firma. Lees cada uno; ese es el trabajo."],
           ["noche", "Captura", "Qué prometiste, a quién, para cuándo. Nada vive solo en tu cabeza."],
         ],
+        caps: ["Seis minutos de preparación", "Borradores esperan tu firma", "Cada promesa capturada"],
         teamTitle: "El staff detrás del gerente",
         teamLede: "Ellos preparan, redactan y llevan el registro; tú lees, decides y firmas.",
         team: [
@@ -1127,6 +1140,7 @@ const es: Content = {
           ["día", "Revisión de borradores y memos al cliente", "Revisión de contratos contra las cláusulas que negociaste antes; memos con tu voz, para tu firma."],
           ["noche", "La bitácora del asunto se actualiza sola", "Tiempo, decisiones y puntos abiertos, capturados sin una tarde de viernes."],
         ],
+        caps: ["El asunto, preparado", "Revisiones y memos redactados", "La bitácora se actualiza"],
         teamTitle: "El despacho dentro del despacho",
         teamLede: "Un asociado, un oficial de cumplimiento, un encargado de cobranza. Ninguno te factura.",
         team: [
@@ -1156,6 +1170,7 @@ const es: Content = {
           ["día", "Borradores con tu voz", "Con tus posts anteriores como referencia. La puerta señala las líneas que no son tú."],
           ["noche", "Programado, listo", "Enlazado, programado, con la imagen adjunta. El segundo trabajo se hace más chico."],
         ],
+        caps: ["Ideas atrapadas", "Borradores con tu voz", "Programado, listo"],
         teamTitle: "La redacción que nunca tuviste",
         teamLede: "Un redactor, un editor, un publicador, un diseñador y alguien que vigila las menciones. Publicar sigue siendo tuyo.",
         team: [
@@ -1185,6 +1200,7 @@ const es: Content = {
           ["día", "Triage, docs, corridas autónomas", "Triage de bugs, docs que coinciden con el código, corridas que se quedan dentro de los permisos que fijaste."],
           ["noche", "La nota del proyecto", "Qué cambió, por qué, qué sigue. La siguiente sesión empieza desde ahí."],
         ],
+        caps: ["Revisión con las reglas cargadas", "Triage, docs, corridas autónomas", "La nota del proyecto escrita"],
         teamTitle: "El equipo de ingeniería de uno",
         teamLede: "Un cofundador, un revisor, un ingeniero de seguridad, triage, docs y el que hace más chica la base de código.",
         team: [
@@ -1214,6 +1230,7 @@ const es: Content = {
           ["día", "Briefs de investigación y borradores de retroalimentación", "Qué hay de nuevo sobre el tema desde tus notas; retroalimentación sobre lo que escribieron, con tu voz, para que la termines."],
           ["noche", "Lo que funcionó", "Qué funcionó en clase, escrito para el próximo año, no perdido en junio."],
         ],
+        caps: ["Clase preparada desde tus notas", "Briefs y retroalimentación en borrador", "Lo que funcionó, escrito"],
         teamTitle: "El departamento de uno",
         teamLede: "Un asistente de cátedra, un compañero de lectura, el que arma las diapositivas, el que lo escribe.",
         team: [
@@ -1242,6 +1259,7 @@ const es: Content = {
           ["día", "Explicaciones de tres maneras", "El concepto hasta que haga clic. Y la pregunta sobre tu carrera que sigues sin hacer, devuelta a ti."],
           ["noche", "Lo que se quedó", "Escrito, para que mañana empiece desde ahí."],
         ],
+        caps: ["Un plan para la semana", "Explicaciones hasta que haga clic", "Lo que se quedó, escrito"],
         teamTitle: "El grupo de estudio que sí llega",
         teamLede: "Explican, preguntan y cuestionan; las notas siguen siendo tuyas, en tu máquina.",
         team: [
@@ -1269,6 +1287,7 @@ const es: Content = {
           ["día 1", "Un día en la sala deja listo al equipo", "Contextos compartidos, gobernanza, los agentes propios de cada persona. Con los archivos abiertos."],
           ["después", "El espacio del equipo es el producto", "Tus equipos se reúnen en una sala, firmados. El trabajo se mueve entre ellos; el registro se escribe solo."],
         ],
+        caps: ["Una persona lo usa", "Un día en la sala", "El espacio del equipo, activo"],
         teamTitle: "Lo que suma un equipo",
         teamLede: "Dos capas de contexto, gobernanza por escrito y un concierge para cada nuevo miembro.",
         team: [
@@ -1636,7 +1655,7 @@ const pt: Content = {
     steps: { pain: "a dor", day: "seu dia", team: "seu time", aios: "o AIOS", forum: "Forum", proof: "mandato e recibo", compound: "o que cresce" },
     horizon: ["uma semana", "um mês", "seis meses"],
     me: "você",
-    learn: { k: "hoje à noite", t: "Ele anota o que aprendeu sobre você", line: "Ele aprende você. Amanhã começa de hoje à noite." },
+    learn: { k: "hoje à noite", t: "Ele anota o que aprendeu sobre você", cap: "Ele anota o que aprendeu sobre você", line: "Ele aprende você. Amanhã começa de hoje à noite." },
     signoff: ["Não é outro cérebro.", "Seu cérebro, amplificado.", "Seu negócio, amplificado."],
     know: "Skills carregam o know-how; hooks aplicam as regras: o piso lê primeiro quem você é, o portão de confiança trata um arquivo como dado, nunca como instrução. Nada sai da sua mesa sem o seu OK.",
     aiosTitle: "O AIOS é onde o seu time trabalha",
@@ -1676,6 +1695,7 @@ const pt: Content = {
           ["dia", "Seu time trabalha enquanto você vende", "O cofundador entrega a funcionalidade. O advogado lê o novo contrato com o fornecedor. O gerador de leads deixa quatro nomes e o porquê."],
           ["noite", "Faturas cobradas, pipeline verdadeiro", "O cobrador de faturas redige dois lembretes; o pipeline bate com o que aconteceu hoje. /close-day anota o resto."],
         ],
+        caps: ["Planos a partir dos seus números", "Seu time trabalha enquanto você vende", "Faturas cobradas"],
         teamTitle: "Os sete que você não podia contratar",
         teamLede: "Cada um lê o seu negócio antes de trabalhar, e nada sai da sua mesa sem o seu OK.",
         team: [
@@ -1706,6 +1726,7 @@ const pt: Content = {
           ["dia", "Seu time trabalha em paralelo", "O analista lê o material do conselho. O chefe de gabinete escreve três briefs. Quem registra a decisão segura a que vence hoje."],
           ["noite", "Anotado, não lembrado", "/close-day registra o que você aprendeu, o que ficou para depois e por quê. Amanhã começa dali."],
         ],
+        caps: ["Planos a partir da sua agenda", "Agentes trabalham em paralelo", "Decisões por escrito"],
         teamTitle: "O escritório que você nunca precisou contratar",
         teamLede: "Cada um entra sabendo a empresa, as pessoas e a última decisão.",
         team: [
@@ -1735,6 +1756,7 @@ const pt: Content = {
           ["dia", "Rascunhos saem como rascunhos", "Relatórios e respostas escritos com as suas palavras, esperando a sua assinatura. Você lê cada um; esse é o trabalho."],
           ["noite", "Captura", "O que você prometeu, a quem, para quando. Nada vive só na sua cabeça."],
         ],
+        caps: ["Seis minutos de preparação", "Rascunhos esperam sua assinatura", "Cada promessa capturada"],
         teamTitle: "O staff por trás do gestor",
         teamLede: "Eles preparam, redigem e mantêm o registro; você lê, decide e assina.",
         team: [
@@ -1764,6 +1786,7 @@ const pt: Content = {
           ["dia", "Revisão de minutas e memorandos ao cliente", "Revisão de contratos contra as cláusulas que você negociou antes; memorandos na sua voz, para a sua assinatura."],
           ["noite", "O registro do caso se atualiza sozinho", "Horas, decisões e pontos em aberto, capturados sem uma tarde de sexta."],
         ],
+        caps: ["O caso, preparado", "Revisões e memorandos redigidos", "O registro do caso se atualiza"],
         teamTitle: "O escritório dentro do escritório",
         teamLede: "Um associado, um oficial de compliance, um responsável pela cobrança. Nenhum deles te cobra.",
         team: [
@@ -1793,6 +1816,7 @@ const pt: Content = {
           ["dia", "Rascunhos na sua voz", "Com os seus posts anteriores como referência. O portão aponta as linhas que não são você."],
           ["noite", "Agendado, pronto", "Interligado, agendado, com a imagem anexada. O segundo emprego fica menor."],
         ],
+        caps: ["Ideias capturadas", "Rascunhos na sua voz", "Agendado, pronto"],
         teamTitle: "A redação que você nunca teve",
         teamLede: "Um redator, um editor, um publicador, um designer e alguém de olho nas menções. Apertar publicar continua sendo seu.",
         team: [
@@ -1822,6 +1846,7 @@ const pt: Content = {
           ["dia", "Triagem, docs, rodadas autônomas", "Triagem de bugs, docs que batem com o código, rodadas que ficam dentro das permissões que você definiu."],
           ["noite", "A nota do projeto", "O que mudou, por quê, o que vem a seguir. A próxima sessão começa dela."],
         ],
+        caps: ["Revisão com as regras carregadas", "Triagem, docs, rodadas autônomas", "A nota do projeto escrita"],
         teamTitle: "O time de engenharia de uma pessoa",
         teamLede: "Um cofundador, um revisor, um engenheiro de segurança, triagem, docs e quem deixa a base de código menor.",
         team: [
@@ -1851,6 +1876,7 @@ const pt: Content = {
           ["dia", "Briefs de pesquisa e rascunhos de feedback", "O que há de novo no tema desde as suas notas; feedback sobre o que eles escreveram, na sua voz, para você terminar."],
           ["noite", "O que funcionou", "O que funcionou em aula, anotado para o ano que vem, não perdido em junho."],
         ],
+        caps: ["Aula preparada das suas notas", "Briefs e rascunhos de feedback", "O que funcionou, anotado"],
         teamTitle: "O departamento de uma pessoa",
         teamLede: "Um assistente de ensino, um parceiro de leitura, quem monta os slides, quem escreve.",
         team: [
@@ -1879,6 +1905,7 @@ const pt: Content = {
           ["dia", "Explicações de três jeitos", "O conceito até fazer clique. E a pergunta sobre carreira que você continua sem fazer, devolvida para você."],
           ["noite", "O que ficou", "Anotado, para que amanhã comece dali."],
         ],
+        caps: ["Um plano para a semana", "Explicações até fazer clique", "O que ficou, anotado"],
         teamTitle: "O grupo de estudo que aparece",
         teamLede: "Eles explicam, testam e perguntam; as notas continuam suas, na sua máquina.",
         team: [
@@ -1906,6 +1933,7 @@ const pt: Content = {
           ["dia 1", "Um dia na sala deixa o time pronto", "Contextos compartilhados, governança, os agentes próprios de cada pessoa. Com os arquivos abertos."],
           ["depois", "O espaço do time é o produto", "Seus times se encontram numa sala, assinados. O trabalho se move entre eles; o registro se escreve sozinho."],
         ],
+        caps: ["Uma pessoa usa", "Um dia na sala", "O espaço do time, no ar"],
         teamTitle: "O que um time acrescenta",
         teamLede: "Duas camadas de contexto, governança por escrito e um concierge para cada novo membro.",
         team: [

@@ -22,7 +22,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { ROLE_ORDER, isRoleId, type RoleId } from "@/data/roles";
+import { ROLE_ORDER, agentCode, isRoleId, type RoleId } from "@/data/roles";
 import { ROLE_EVENT, ROLE_SECTION_ID } from "./RoleField";
 import type { RolesContent, RoleStory } from "@/content";
 import "./roles.css";
@@ -41,7 +41,7 @@ function initials(agent: string): string {
    of them is switched off under prefers-reduced-motion, leaving the final state.
    ============================================================================ */
 
-const INK = "var(--color-ink)", MUTED = "var(--color-ink-muted)", SUBTLE = "var(--color-ink-subtle)",
+const CANVAS = "var(--color-canvas)", INK = "var(--color-ink)", MUTED = "var(--color-ink-muted)", SUBTLE = "var(--color-ink-subtle)",
   HAIR = "var(--color-hairline)", ACC = "var(--color-accent)", GLOW = "var(--color-accent-glow)",
   S2 = "var(--color-surface-2)", S3 = "var(--color-surface-3)";
 const MONO = "var(--font-mono)", SANS = "var(--font-display)";
@@ -70,66 +70,98 @@ function PainViz({ alt }: { alt: string }) {
 }
 
 /** 02 · your day: a loop. Morning, the day, evening, then tonight, when it writes down
- *  what it learned about you, and the arrow back to morning. That arc is the one in the accent. */
-function DayViz({ beats, learnK, alt }: { beats: [string, string, string][]; learnK: string; alt: string }) {
+ *  what it learned about you, and the arrow back to morning. That arc is the one in the accent.
+ *  A caption under the ring changes as the dot reaches each station; the station pulses once. */
+function DayViz({ beats, learnK, caps, alt }: { beats: [string, string, string][]; learnK: string; caps: [string, string, string, string]; alt: string }) {
   const cx = 160, cy = 100, R = 62;
   const ring = `path('M${cx} ${cy - R} A${R} ${R} 0 1 1 ${cx - 0.01} ${cy - R}')`;
   const k = (i: number) => (beats[i]?.[0] ?? "").toUpperCase();
+  /* the dot starts at the top and runs clockwise: day 0 · evening 1 · tonight 2 · morning 3 (quarters of the 7s loop) */
+  const at = (q: number) => ({ animationDelay: `${q * 1.75}s` });
   return (
-    <svg viewBox="0 0 320 206" className="yv" role="img" aria-label={alt}>
-      {/* the day: morning → the day → evening */}
+    <svg viewBox="0 0 320 236" className="yv" role="img" aria-label={alt}>
       <path d={`M${cx - R} ${cy} A${R} ${R} 0 1 1 ${cx} ${cy + R}`} fill="none" stroke={HAIR} strokeWidth="2" />
-      {/* the loop closing: tonight → morning, in the accent */}
       <path className="yv-flow" d={`M${cx} ${cy + R} A${R} ${R} 0 0 1 ${cx - R} ${cy}`} fill="none" stroke={ACC} strokeWidth="2.5" strokeDasharray="5 7" />
       <path d={`M${cx - R - 6} ${cy + 14} L${cx - R} ${cy + 8} L${cx - R + 6} ${cy + 14}`} fill="none" stroke={ACC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       <circle className="yv-ride yv-ride-loop" r="5" fill={ACC} style={{ offsetPath: ring } as React.CSSProperties} />
-      {/* morning · left */}
+      {/* morning · left (quarter 3) */}
       <g className="yv-pop" style={{ animationDelay: "0.2s", transformOrigin: `${cx - R}px ${cy}px` }}>
-        <circle cx={cx - R} cy={cy} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" />
+        <circle className="yv-station" cx={cx - R} cy={cy} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" style={at(3)} />
         <text x={cx - R - 14} y={cy + 3.5} textAnchor="end" fontFamily={MONO} fontSize="9" letterSpacing="1" fill={MUTED}>{k(0)}</text>
       </g>
-      {/* the day · top */}
+      {/* the day · top (quarter 0) */}
       <g className="yv-pop" style={{ animationDelay: "0.8s", transformOrigin: `${cx}px ${cy - R}px` }}>
-        <circle cx={cx} cy={cy - R} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" />
+        <circle className="yv-station" cx={cx} cy={cy - R} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" style={at(0)} />
         <text x={cx} y={cy - R - 14} textAnchor="middle" fontFamily={MONO} fontSize="9" letterSpacing="1" fill={MUTED}>{k(1)}</text>
       </g>
-      {/* evening · right */}
+      {/* evening · right (quarter 1) */}
       <g className="yv-pop" style={{ animationDelay: "1.4s", transformOrigin: `${cx + R}px ${cy}px` }}>
-        <circle cx={cx + R} cy={cy} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" />
+        <circle className="yv-station" cx={cx + R} cy={cy} r="7" fill={S3} stroke={SUBTLE} strokeWidth="2" style={at(1)} />
         <text x={cx + R + 14} y={cy + 3.5} fontFamily={MONO} fontSize="9" letterSpacing="1" fill={MUTED}>{k(2)}</text>
       </g>
-      {/* tonight · bottom: the AIOS writes down what it learned about you */}
+      {/* tonight · bottom (quarter 2): it writes down what it learned about you */}
       <g className="yv-pop" style={{ animationDelay: "2s", transformOrigin: `${cx}px ${cy + R}px` }}>
-        <circle cx={cx} cy={cy + R} r="9" fill={GLOW} stroke={ACC} strokeWidth="2" />
+        <circle className="yv-station" cx={cx} cy={cy + R} r="9" fill={GLOW} stroke={ACC} strokeWidth="2" style={at(2)} />
         <circle cx={cx} cy={cy + R} r="3" fill={ACC} />
         <text x={cx} y={cy + R + 24} textAnchor="middle" fontFamily={MONO} fontSize="9" letterSpacing="1" fill={ACC}>{learnK.toUpperCase()}</text>
       </g>
+      {/* the captions, one at a time, each for a quarter of the loop (hidden under reduced motion; the list below the visual stands in) */}
+      {([caps[1], caps[2], caps[3], caps[0]] as const).map((t, q) => (
+        <text key={q} className="yv-cap" x={cx} y="226" textAnchor="middle" fontFamily={SANS} fontSize="11" fontWeight="600" fill={q === 2 ? ACC : INK} style={at(q)}>{t}</text>
+      ))}
     </svg>
   );
 }
 
-/** 03 · your team: you in the middle, the people you couldn't hire connecting in. */
+/** 03 · your team: the orchestrator orbit from the decks. You at the centre (halo, fill, ring),
+ *  agents on two calm orbits, each tethered to you, each a two-letter circle with the full name
+ *  on hover and focus and in its label. A resolve pulse rings one of them every few seconds. */
 function TeamViz({ team, me, alt }: { team: [string, string, string][]; me: string; alt: string }) {
-  const n = Math.min(team.length, 7);
-  const cx = 160, cy = 100, R = 72;
+  const [hot, setHot] = useState<number | null>(null);
+  const cx = 160, cy = 110;
+  const n = team.length;
+  const innerN = n <= 3 ? n : Math.min(3, Math.ceil(n / 2));
+  const rings = [{ r: 46, members: team.slice(0, innerN), from: 0 }, { r: 84, members: team.slice(innerN), from: innerN }].filter((o) => o.members.length);
+  const name = hot == null ? null : team[hot];
   return (
-    <svg viewBox="0 0 320 200" className="yv" role="img" aria-label={alt}>
-      {team.slice(0, n).map((m, i) => {
-        const a = (-90 + (360 / n) * i) * (Math.PI / 180);
-        const x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
-        return (
-          <g key={m[1]}>
-            <line className="yv-draw" x1={cx} y1={cy} x2={x} y2={y} stroke={HAIR} strokeWidth="1.5" style={{ animationDelay: `${0.15 + i * 0.12}s` }} />
-            <g className="yv-pop" style={{ animationDelay: `${0.35 + i * 0.12}s`, transformOrigin: `${x}px ${y}px` }}>
-              <circle cx={x} cy={y} r="14" fill={S2} stroke={HAIR} strokeWidth="1.5" />
-              <text x={x} y={y + 3.5} textAnchor="middle" fontFamily={MONO} fontSize="9" fontWeight="600" fill={INK}>{initials(m[1])}</text>
-            </g>
+    <div className="yv-wrap">
+      <svg viewBox="0 0 320 220" className="yv" role="img" aria-label={alt}>
+        {rings.map((o, oi) => (
+          <g key={o.r} className={oi === 0 ? "yv-orbit" : "yv-orbit yv-orbit--outer"}>
+            <circle cx={cx} cy={cy} r={o.r} fill="none" stroke={HAIR} strokeWidth="1" strokeDasharray="3 6" />
+            {o.members.map((m, j) => {
+              const i = o.from + j;
+              const a = (-90 + (360 / o.members.length) * j + (oi === 1 ? 180 / o.members.length : 0)) * (Math.PI / 180);
+              const x = cx + o.r * Math.cos(a), y = cy + o.r * Math.sin(a);
+              const label = `${m[0]} · ${m[1]}`;
+              return (
+                <g key={m[1]}>
+                  <line x1={cx} y1={cy} x2={x} y2={y} stroke={ACC} strokeOpacity="0.35" strokeWidth="1" />
+                  <g
+                    className="yv-node"
+                    tabIndex={0}
+                    role="img"
+                    aria-label={label}
+                    onMouseEnter={() => setHot(i)} onMouseLeave={() => setHot(null)}
+                    onFocus={() => setHot(i)} onBlur={() => setHot(null)}
+                  >
+                    <title>{label}</title>
+                    <circle className="yv-resolve" cx={x} cy={y} r="14" fill="none" stroke={INK} strokeWidth="1.5" style={{ animationDelay: `${0.8 + i * 1.3}s` }} />
+                    <circle cx={x} cy={y} r="14" fill={S2} stroke={ACC} strokeWidth="1.5" />
+                    <text x={x} y={y + 3.5} textAnchor="middle" fontFamily={MONO} fontSize="9.5" fontWeight="700" letterSpacing="0.5" fill={INK}>{agentCode(m[1])}</text>
+                  </g>
+                </g>
+              );
+            })}
           </g>
-        );
-      })}
-      <circle className="yv-float" cx={cx} cy={cy} r="20" fill={GLOW} stroke={ACC} strokeWidth="2" style={{ transformOrigin: `${cx}px ${cy}px` }} />
-      <text x={cx} y={cy + 4} textAnchor="middle" fontFamily={SANS} fontSize="11" fontWeight="700" fill={INK}>{me}</text>
-    </svg>
+        ))}
+        {/* you: halo, fill, ring in the page colour */}
+        <circle className="yv-halo" cx={cx} cy={cy} r="30" fill={ACC} opacity="0.16" />
+        <circle cx={cx} cy={cy} r="21" fill={ACC} stroke={CANVAS} strokeWidth="2" />
+        <text x={cx} y={cy + 4} textAnchor="middle" fontFamily={SANS} fontSize="11" fontWeight="700" fill={CANVAS}>{me}</text>
+      </svg>
+      <p className="yv-name" aria-hidden="true">{name ? `${name[0]} · ${name[1]}` : "\u00a0"}</p>
+    </div>
   );
 }
 
@@ -255,7 +287,16 @@ function RoleFrames({ r, c }: { r: RoleStory; c: RolesContent }) {
       <Frame n={1} label={s.pain} title={r.painTitle} first roleLabel={r.label} markerLabel={c.marker} visual={<PainViz alt={c.alts.pain} />}>
         <p>{r.pain}</p>
       </Frame>
-      <Frame n={2} label={s.day} title={r.dayTitle} visual={<DayViz beats={r.day} learnK={c.learn.k} alt={c.alts.day} />}>
+      <Frame n={2} label={s.day} title={r.dayTitle} visual={
+        <>
+          <DayViz beats={r.day} learnK={c.learn.k} caps={[r.caps[0], r.caps[1], r.caps[2], c.learn.cap]} alt={c.alts.day} />
+          {/* reduced motion: every caption, visible at once */}
+          <ol className="yo-caps" aria-hidden="true">
+            {r.day.map((b, i) => <li key={b[0]}><span>{b[0]}</span>{r.caps[i]}</li>)}
+            <li className="is-learn"><span>{c.learn.k}</span>{c.learn.cap}</li>
+          </ol>
+        </>
+      }>
         <p><b>{c.learn.line}</b></p>
         <ul className="yo-marks">
           {r.day.map((b) => <li key={b[0]}><span>{b[0]}</span>{b[1]}</li>)}

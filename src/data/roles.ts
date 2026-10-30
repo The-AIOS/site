@@ -184,3 +184,25 @@ export function resolveRole(text: string, labels?: Partial<Record<RoleId, string
 export function isRoleId(s: string): s is RoleId {
   return (ROLE_ORDER as string[]).includes(s);
 }
+
+/* Two-letter codes for the orbit in "your team" (section 00, frame 3). The full name sits in
+   the node's <title> and aria-label; the code is only the glyph on the circle. Unknown slugs
+   fall back to initials. Codes need to be distinct within one role's team, not globally. */
+export const AGENT_CODES: Record<string, string> = {
+  lawyer: "LW", accountant: "AC", "technical-cofounder": "TC", "lead-generator": "LG", "proposal-writer": "PW",
+  "invoice-tracker": "IT", "crm-updater": "CU", "company-analyst": "CA", "meeting-prepper": "MP",
+  "decision-journaler": "DJ", "okr-coach": "OK", consultant: "CO", "report-drafter": "RD", "email-drafter": "ED",
+  "growth-companion": "GC", "compliance-checker": "CC", "content-writer": "CW", "voice-gate": "VG",
+  "kdp-publisher": "KP", "deck-builder": "DB", "content-scheduler": "CS", "brand-monitor": "BM",
+  "code-reviewer": "CR", "security-engineer": "SE", "bug-triager": "BT", "code-documenter": "CD",
+  "refactor-engineer": "RE", explainer: "EX", "study-buddy": "SB", "journal-prompter": "JP",
+  "/company": "CO", "INTENT.md": "IN", "onboarding-aios": "OB", "aios-feedback": "FB",
+};
+
+export function agentCode(slug: string): string {
+  const known = AGENT_CODES[slug];
+  if (known) return known;
+  const p = slug.replace(/^\//, "").replace(/\.md$/, "").split(/[-\s]+/).filter(Boolean);
+  const two = p.length >= 2 ? p[0].charAt(0) + p[1].charAt(0) : (p[0] ?? "ag").slice(0, 2);
+  return two.toUpperCase();
+}
