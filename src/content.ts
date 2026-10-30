@@ -662,9 +662,6 @@ const en: Content = {
        Quotes: anonymized by Chuy's decision (2026-10-30); several were said under EO forum
        confidentiality, so never add a name, company, chapter or city to them. */
     numbers: [
-      { n: "89", label: "GitHub stars", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
-      { n: "23", label: "forks", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios/forks" },
-      { n: "15", label: "contributors", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
       { n: "1,200+", label: "AIOS App installer downloads", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "en-US",
@@ -1287,9 +1284,6 @@ const es: Content = {
   people: {
     eyebrow: "Prueba desde la gente",
     numbers: [
-      { n: "89", label: "estrellas en GitHub", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
-      { n: "23", label: "forks", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios/forks" },
-      { n: "15", label: "colaboradores", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
       { n: "1,200+", label: "descargas del instalador de la AIOS App", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "es-MX",
@@ -1912,9 +1906,6 @@ const pt: Content = {
   people: {
     eyebrow: "Prova vinda de pessoas",
     numbers: [
-      { n: "89", label: "estrelas no GitHub", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
-      { n: "23", label: "forks", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios/forks" },
-      { n: "15", label: "colaboradores", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
       { n: "1.200+", label: "downloads do instalador do AIOS App", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "pt-BR",

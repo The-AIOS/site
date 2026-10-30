@@ -24,8 +24,10 @@ export function LiveStat({ n, label, asOf, liveLabel, href, live, numberLocale =
   return (
     <a className="pf-num" href={href} target="_blank" rel="noreferrer">
       <span className="pf-n">{liveN ?? n}</span>
-      <span className="pf-l">{label}</span>
-      <span className="pf-as">{liveN ? liveLabel : asOf}</span>
+      <span className="pf-txt">
+        <span className="pf-l">{label}</span>
+        <span className="pf-as">{liveN ? liveLabel : asOf}</span>
+      </span>
     </a>
   );
 }
