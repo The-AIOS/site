@@ -528,7 +528,7 @@ export function YourAios({ c, num = "00", beat, after }: { c: RolesContent; num?
             </div>
           </div>
 
-          {/* the proof pair as its own beat, for visitors who never open a role */}
+          {/* optional slot before the sign-off */}
           {beat}
 
           {/* the sign-off, said once */}

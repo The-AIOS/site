@@ -33,7 +33,7 @@ import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
 import { RoleField } from "./RoleField";
 import { YourAios } from "./YourAios";
-import { WayIn, ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, ProofBeat, CommunityLine } from "./LandingBlocks";
+import { WayIn, ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, CommunityLine } from "./LandingBlocks";
 import type { RoleId } from "@/data/roles";
 import {
   HeroConstellation,
@@ -312,7 +312,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
         <YourAios
           c={c.roles}
-          beat={<ProofBeat c={c.proofBeat} chain={c.roles.chain} before={c.roles.before} after={c.roles.after} alt={c.roles.alts.proof} />}
           after={<CommunityLine c={c.community} />}
         />
 

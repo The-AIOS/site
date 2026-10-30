@@ -222,7 +222,6 @@ export type Content = {
   writes: { h: string; b: string };                                                                     // 01, under the anatomy
   safe: { eyebrow: string; h: H; lede: string; facts: { t: string; b: string }[]; ladder: { pre: string; link: string; post: string }; honest: { pre: string; link: string; post: string } }; // 05
   whyGit: { k: string; b: string };                                                                     // 05, one line
-  proofBeat: { eyebrow: string; inn: string; out: string; b: string; spec: string; href: string };     // 00, before the sign-off
   community: { pre: string; link: string; href: string };                                              // 00, after the sign-off
   back: { h: H; lede: string };
   footer: {
@@ -709,12 +708,7 @@ const en: Content = {
     honest: { pre: "No setting replaces a model that declines. ", link: "SECURITY.md", post: " says so, and names the levers you hold." },
   },
   whyGit: { k: "Why GitHub?", b: "AI moves fast. Git is your undo button: every change kept, nothing ever lost." },
-  proofBeat: {
-    eyebrow: "And it can prove what it did",
-    inn: "Mandate in", out: "Receipt out",
-    b: "Before an agent acts, a signed mandate says what it may do. After, a signed receipt says what it did. Passed on, a mandate can only narrow.",
-    spec: "Read the open spec ↗", href: "https://www.the-aios.org/proof-pair/",
-  },
+
   community: { pre: "People are building theirs in the open. ", link: "Join the Discord ↗", href: DISCORD },
   what: {
     eyebrow: "What it is", h: ["Your AI co-workers, ", "orchestrated", "."],
@@ -1355,12 +1349,7 @@ const es: Content = {
     honest: { pre: "Ningún ajuste reemplaza a un modelo que se niega. ", link: "SECURITY.md", post: " lo dice, y nombra las palancas que tú tienes." },
   },
   whyGit: { k: "¿Por qué GitHub?", b: "La IA se mueve rápido. Git es tu botón de deshacer: cada cambio guardado, nada se pierde jamás." },
-  proofBeat: {
-    eyebrow: "Y puede probar lo que hizo",
-    inn: "Entra un mandato", out: "Sale un recibo",
-    b: "Antes de que un agente actúe, un mandato firmado dice qué puede hacer. Después, un recibo firmado dice qué hizo. Al pasarse, un mandato solo puede estrecharse.",
-    spec: "Lee la especificación abierta ↗", href: "https://www.the-aios.org/proof-pair/",
-  },
+
   community: { pre: "Hay gente armando el suyo en abierto. ", link: "Únete al Discord ↗", href: DISCORD },
   what: {
     eyebrow: "Qué es", h: ["Tus compañeros de IA, ", "orquestados", "."],
@@ -2001,12 +1990,7 @@ const pt: Content = {
     honest: { pre: "Nenhuma configuração substitui um modelo que recusa. ", link: "SECURITY.md", post: " diz isso, e nomeia as alavancas que você tem." },
   },
   whyGit: { k: "Por que GitHub?", b: "A IA anda rápido. O Git é o seu botão de desfazer: cada mudança guardada, nada se perde nunca." },
-  proofBeat: {
-    eyebrow: "E ele pode provar o que fez",
-    inn: "Entra um mandato", out: "Sai um recibo",
-    b: "Antes de um agente agir, um mandato assinado diz o que ele pode fazer. Depois, um recibo assinado diz o que ele fez. Ao ser repassado, um mandato só pode se estreitar.",
-    spec: "Leia a especificação aberta ↗", href: "https://www.the-aios.org/proof-pair/",
-  },
+
   community: { pre: "Tem gente montando o seu em aberto. ", link: "Entre no Discord ↗", href: DISCORD },
   what: {
     eyebrow: "O que é", h: ["Seus colegas de IA, ", "orquestrados", "."],

@@ -6,8 +6,6 @@
  *   SystemWrites        01, under the anatomy · "do I have to write all these files?"
  *   SafeByConstruction  05, between the doors and the steps · "is it safe to give it access?"
  *   WhyGit              05, after the safe block · one line
- *   ProofBeat           00, before the sign-off · the ending the roles tell, for people who
- *                       never open a role
  *   CommunityLine       00, after the sign-off · the Discord
  *
  * All copy from CONTENT[locale]; claims in SafeByConstruction come from the framework's own
@@ -16,7 +14,6 @@
 import type { Content } from "@/content";
 import { GitHubLink } from "./GitHubLink";
 import { LiveStat } from "./LiveCount";
-import { ProofViz } from "./YourAios";
 import "./landing-blocks.css";
 
 const REPO = "https://github.com/The-AIOS/aios";
@@ -103,22 +100,6 @@ export function SafeByConstruction({ c }: { c: Content["safe"] }) {
 export function WhyGit({ c }: { c: Content["whyGit"] }) {
   return (
     <p className="wg"><span className="wg-k">{c.k}</span>{c.b}</p>
-  );
-}
-
-export function ProofBeat({ c, chain, before, after, alt }: {
-  c: Content["proofBeat"]; chain: [string, string, string, string]; before: string; after: string; alt: string;
-}) {
-  return (
-    <div className="pb">
-      <div className="pb-text">
-        <div className="eyebrow" style={{ marginBottom: "0.625rem" }}>{c.eyebrow}</div>
-        <p className="pb-pair"><span>{c.inn}</span><span aria-hidden="true">→</span><span>{c.out}</span></p>
-        <p className="pb-b">{c.b}</p>
-        <a href={c.href} target="_blank" rel="noreferrer" className="repo-link-inline">{c.spec}</a>
-      </div>
-      <div className="pb-viz"><ProofViz chain={chain} before={before} after={after} alt={alt} /></div>
-    </div>
   );
 }
 
