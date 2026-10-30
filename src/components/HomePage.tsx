@@ -52,7 +52,7 @@ import {
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
 import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
-import { DownloadPill, DownloadPanel, LaunchStrip } from "@/components/DownloadCTA";
+import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
 /* The reader's date locale per site locale (the Disruption Index card's "last updated"). */
@@ -224,13 +224,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
     <>
       {/* ============ Header ============ */}
       <header className="site-header">
-        {/* The launch strip rides with the sticky header rather than sitting in the
-            hero: an announcement shouldn't shove the headline down the page, and
-            it stays visible as you scroll. `.launch-rest` drops on narrow screens
-            so the strip is always exactly one line. */}
-        {/* The most prominent CTA on the page, so it follows the visitor's OS like every other
-            download surface — it was the one that still went to a generic page. */}
-        <LaunchStrip banner={c.hero.banner} copy={c.downloads} className="launch-strip" />
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
           <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
             <Logo size={20} />
