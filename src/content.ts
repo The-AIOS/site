@@ -217,7 +217,7 @@ export type Content = {
   };
   /* ---- the small answer-blocks (LandingBlocks.tsx), each where its question comes up ---- */
   wayIn: { h: H; routes: { k: string; t: string; lines: [string, string] }[]; cite: { pre: string; label: string; href: string }; close: string };          // end of 01
-  people: { eyebrow: string; roomsLabel: string; rooms: { where: string; what: string; when: string }[]; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; numberLocale: string; liveLabel: string; note: string }; // end of 01
+  people: { eyebrow: string; roomsLabel: string; rooms: { where: string; what: string; when: string }[]; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; numberLocale: string; quotes: string[]; quotesWho: string; liveLabel: string; note: string }; // end of 01
   writes: { h: string; b: string };                                                                     // 01, under the anatomy
   safe: { eyebrow: string; h: H; lede: string; facts: { t: string; b: string }[]; ladder: { pre: string; link: string; post: string }; honest: { pre: string; link: string; post: string } }; // 05
   whyGit: { k: string; b: string };                                                                     // 05, one line
@@ -664,14 +664,24 @@ const en: Content = {
       { where: "EO Barcelona", what: "Next Generation", when: "October 2026" },
     ],
     /* Public, verifiable, dated. Stars are re-read live in the browser; the rest state their date.
-       TODO(chuy): installs and active users are not public numbers — confirm a figure and its date
-       before one appears here. Nothing in this block is estimated. */
+       App downloads count installer files only (.dmg .exe .AppImage .deb across all releases), never
+       update checks, so they are labelled downloads, not users. Nothing in this block is estimated.
+       Quotes: anonymized by Chuy's decision (2026-10-30); several were said under EO forum
+       confidentiality, so never add a name, company, chapter or city to them. */
     numbers: [
       { n: "89", label: "GitHub stars", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
       { n: "9,938", label: "AIOS Glass downloads on Open VSX", asOf: "29 Oct 2026", href: "https://open-vsx.org/extension/the-aios/aios-glass" },
       { n: "15", label: "contributors", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
+      { n: "1,200+", label: "AIOS App installer downloads", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "en-US",
+    quotes: [
+      "I went from deeply frustrated to amazed.",
+      "I installed it and it blew my mind compared to what I had.",
+      "Finally, [I] have my attention on what really matters.",
+      "I installed the AIOS while you were talking.",
+    ],
+    quotesWho: "Workshop and keynote participants, 2026",
     liveLabel: "live from GitHub",
     note: "Public numbers, read at the source, dated.",
   },
@@ -1299,8 +1309,16 @@ const es: Content = {
       { n: "89", label: "estrellas en GitHub", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
       { n: "9,938", label: "descargas de AIOS Glass en Open VSX", asOf: "29 oct 2026", href: "https://open-vsx.org/extension/the-aios/aios-glass" },
       { n: "15", label: "colaboradores", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
+      { n: "1,200+", label: "descargas del instalador de la AIOS App", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "es-MX",
+    quotes: [
+      "I went from deeply frustrated to amazed.",
+      "I installed it and it blew my mind compared to what I had.",
+      "Finally, [I] have my attention on what really matters.",
+      "I installed the AIOS while you were talking.",
+    ],
+    quotesWho: "Participantes de talleres y keynotes, 2026 (citas en su idioma original)",
     liveLabel: "en vivo desde GitHub",
     note: "Números públicos, leídos en la fuente, con fecha.",
   },
@@ -1928,8 +1946,16 @@ const pt: Content = {
       { n: "89", label: "estrelas no GitHub", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
       { n: "9.938", label: "downloads do AIOS Glass no Open VSX", asOf: "29 out 2026", href: "https://open-vsx.org/extension/the-aios/aios-glass" },
       { n: "15", label: "colaboradores", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
+      { n: "1.200+", label: "downloads do instalador do AIOS App", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "pt-BR",
+    quotes: [
+      "I went from deeply frustrated to amazed.",
+      "I installed it and it blew my mind compared to what I had.",
+      "Finally, [I] have my attention on what really matters.",
+      "I installed the AIOS while you were talking.",
+    ],
+    quotesWho: "Participantes de workshops e keynotes, 2026 (citações no idioma original)",
     liveLabel: "ao vivo do GitHub",
     note: "Números públicos, lidos na fonte, datados.",
   },

@@ -60,6 +60,12 @@ export function ProofFromPeople({ c }: { c: Content["people"] }) {
       <div className="pf-nums">
         {c.numbers.map((n) => <LiveStat key={n.label} {...n} liveLabel={c.liveLabel} numberLocale={c.numberLocale} />)}
       </div>
+      <figure className="pf-quotes">
+        {c.quotes.map((q) => (
+          <blockquote key={q}>“{q}”</blockquote>
+        ))}
+        <figcaption>{c.quotesWho}</figcaption>
+      </figure>
       <p className="pf-note">{c.note}</p>
     </div>
   );
