@@ -217,7 +217,7 @@ export type Content = {
     steps: CardT[]; setupBtn: string; prereqBtn: string;
   };
   /* ---- the small answer-blocks (LandingBlocks.tsx), each where its question comes up ---- */
-  wayIn: { h: H; routes: { k: string; t: string; lines: [string, string] }[]; cite: { pre: string; label: string; href: string }; close: string };          // end of 01
+  wayIn: { pre: string; label: string; post: string; href: string };   // 01, one line under the anatomy caption
   people: { eyebrow: string; numbers: { n: string; label: string; asOf: string; href: string; live?: "stars" }[]; numberLocale: string; quotes: string[]; liveLabel: string }; // end of 01
   writes: { h: string; b: string };                                                                     // 01, under the anatomy
   safe: { eyebrow: string; h: H; lede: string; facts: { t: string; b: string }[]; ladder: { pre: string; link: string; post: string }; honest: { pre: string; link: string; post: string } }; // 05
@@ -653,15 +653,7 @@ const en: Content = {
       },
     ],
   },
-  wayIn: {
-    h: ["Same destination. ", "A different way in", "."],
-    routes: [
-      { k: "the enterprise route", t: "Top-down.", lines: ["A program led by the top team, with consultants beside it.", "About 12 to 16 weeks to first value, around 100 data sources."] },
-      { k: "the AIOS", t: "One person.", lines: ["One hour, free, in files you own.", "The team joins when it sees it working."] },
-    ],
-    cite: { pre: "The enterprise figures: ", label: "McKinsey / QuantumBlack, The AI operating system, October 2026 ↗", href: MCKINSEY },
-    close: "Both end in a company that runs on its own context. Ours starts with you.",
-  },
+  wayIn: { pre: "Same destination as the enterprise route ", label: "McKinsey describes ↗", post: " (a top-down program, 12 to 16 weeks to first value), a different way in: one person, one hour, free, in files you own.", href: MCKINSEY },
   people: {
     eyebrow: "Proof from people",
     /* Public, verifiable, dated. Stars are re-read live in the browser; the rest state their date.
@@ -679,9 +671,7 @@ const en: Content = {
     quotes: [
       "I’ve been a Claude Code power user. Why is this so different?",
       "I do not remember having had two days with so much impact in terms of my thinking before.",
-      "Oh, thank you, I have a CFO now.",
       "In June, only drafts. From this month, I have a large amount of emails sent directly from the AIOS.",
-      "Right now we have 20, 30 percent of bookkeeping that is fully AI reconciled.",
       "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
       "My mindset is to tell, and now I’m starting to ask, and this is changing my game.",
       "It built something I didn’t ask for, and it’s amazing.",
@@ -1293,15 +1283,7 @@ const es: Content = {
       },
     ],
   },
-  wayIn: {
-    h: ["Mismo destino. ", "Otra forma de entrar", "."],
-    routes: [
-      { k: "la ruta empresarial", t: "De arriba hacia abajo.", lines: ["Un programa dirigido por el equipo directivo, con consultores al lado.", "De 12 a 16 semanas hasta el primer valor, alrededor de 100 fuentes de datos."] },
-      { k: "el AIOS", t: "Una persona.", lines: ["Una hora, gratis, en archivos que son tuyos.", "El equipo se suma cuando lo ve funcionar."] },
-    ],
-    cite: { pre: "Las cifras empresariales: ", label: "McKinsey / QuantumBlack, The AI operating system, octubre de 2026 ↗", href: MCKINSEY },
-    close: "Las dos terminan en una empresa que corre sobre su propio contexto. La nuestra empieza contigo.",
-  },
+  wayIn: { pre: "El mismo destino que la ruta empresarial que ", label: "describe McKinsey ↗", post: " (un programa de arriba hacia abajo, de 12 a 16 semanas para el primer resultado), por otra entrada: una persona, una hora, gratis, en archivos que son tuyos.", href: MCKINSEY },
   people: {
     eyebrow: "Prueba desde la gente",
     numbers: [
@@ -1314,9 +1296,7 @@ const es: Content = {
     quotes: [
       "I’ve been a Claude Code power user. Why is this so different?",
       "I do not remember having had two days with so much impact in terms of my thinking before.",
-      "Oh, thank you, I have a CFO now.",
       "In June, only drafts. From this month, I have a large amount of emails sent directly from the AIOS.",
-      "Right now we have 20, 30 percent of bookkeeping that is fully AI reconciled.",
       "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
       "My mindset is to tell, and now I’m starting to ask, and this is changing my game.",
       "It built something I didn’t ask for, and it’s amazing.",
@@ -1928,15 +1908,7 @@ const pt: Content = {
       },
     ],
   },
-  wayIn: {
-    h: ["Mesmo destino. ", "Outro jeito de entrar", "."],
-    routes: [
-      { k: "a rota corporativa", t: "De cima para baixo.", lines: ["Um programa liderado pelo time de cima, com consultores ao lado.", "De 12 a 16 semanas até o primeiro valor, cerca de 100 fontes de dados."] },
-      { k: "o AIOS", t: "Uma pessoa.", lines: ["Uma hora, grátis, em arquivos que são seus.", "O time entra quando vê funcionar."] },
-    ],
-    cite: { pre: "Os números corporativos: ", label: "McKinsey / QuantumBlack, The AI operating system, outubro de 2026 ↗", href: MCKINSEY },
-    close: "As duas terminam numa empresa que roda sobre o próprio contexto. A nossa começa com você.",
-  },
+  wayIn: { pre: "O mesmo destino da rota corporativa que ", label: "a McKinsey descreve ↗", post: " (um programa de cima para baixo, de 12 a 16 semanas até o primeiro resultado), por outra porta: uma pessoa, uma hora, grátis, em arquivos que são seus.", href: MCKINSEY },
   people: {
     eyebrow: "Prova vinda de pessoas",
     numbers: [
@@ -1949,9 +1921,7 @@ const pt: Content = {
     quotes: [
       "I’ve been a Claude Code power user. Why is this so different?",
       "I do not remember having had two days with so much impact in terms of my thinking before.",
-      "Oh, thank you, I have a CFO now.",
       "In June, only drafts. From this month, I have a large amount of emails sent directly from the AIOS.",
-      "Right now we have 20, 30 percent of bookkeeping that is fully AI reconciled.",
       "I’m not technical. I’m no CTO. AIOS helped me to put it into the website.",
       "My mindset is to tell, and now I’m starting to ask, and this is changing my game.",
       "It built something I didn’t ask for, and it’s amazing.",

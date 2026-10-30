@@ -33,7 +33,7 @@ import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
 import { RoleField } from "./RoleField";
 import { YourAios } from "./YourAios";
-import { WayIn, ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, CommunityLine } from "./LandingBlocks";
+import { ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, CommunityLine } from "./LandingBlocks";
 import type { RoleId } from "@/data/roles";
 import {
   HeroConstellation,
@@ -337,6 +337,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <Reveal className="graphic-frame" style={{ marginBottom: "3rem" }}>
               <OsAnatomy />
               <p className="graphic-caption">{c.arch.anatomyCaption}</p>
+              <p className="graphic-caption">{c.wayIn.pre}<a href={c.wayIn.href} target="_blank" rel="noreferrer" className="link-inline">{c.wayIn.label}</a>{c.wayIn.post}</p>
             </Reveal>
             <SystemWrites c={c.writes} />
 
@@ -350,7 +351,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               ))}
             </div>
 
-            <WayIn c={c.wayIn} />
           </div>
         </section>
 

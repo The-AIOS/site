@@ -1,8 +1,6 @@
 /* LandingBlocks — the small blocks that answer a visitor's question where it comes up:
  *
- *   WayIn               end of 01 · same destination, a different way in (the enterprise
- *                       route beside the AIOS; McKinsey cited as the source, never mocked)
- *   ProofFromPeople     00, after the track · the rooms it has been told in, and public dated numbers
+ *   ProofFromPeople     00, after the track · public dated numbers and what people said
  *   SystemWrites        01, under the anatomy · "do I have to write all these files?"
  *   SafeByConstruction  05, between the doors and the steps · "is it safe to give it access?"
  *   WhyGit              05, after the safe block · one line
@@ -20,25 +18,6 @@ const REPO = "https://github.com/The-AIOS/aios";
 
 function HL({ h }: { h: [string, string, string] }) {
   return <>{h[0]}<span className="accent">{h[1]}</span>{h[2]}</>;
-}
-
-export function WayIn({ c }: { c: Content["wayIn"] }) {
-  return (
-    <div className="wi">
-      <h3 className="display-md wi-h"><HL h={c.h} /></h3>
-      <div className="wi-cols">
-        {c.routes.map((r) => (
-          <div key={r.k} className="wi-col">
-            <span className="wi-k">{r.k}</span>
-            <p className="wi-t">{r.t}</p>
-            {r.lines.map((l) => <p key={l} className="wi-l">{l}</p>)}
-          </div>
-        ))}
-      </div>
-      <p className="wi-cite">{c.cite.pre}<a href={c.cite.href} target="_blank" rel="noreferrer" className="link-inline">{c.cite.label}</a></p>
-      <p className="wi-close">{c.close}</p>
-    </div>
-  );
 }
 
 export function ProofFromPeople({ c }: { c: Content["people"] }) {
