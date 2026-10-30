@@ -659,9 +659,9 @@ const en: Content = {
     roomsLabel: "Rooms it has been told in",
     rooms: [
       { where: "EO Monterrey", what: "The AI Moment", when: "June 2026" },
-      { where: "EO Boston · AI Day, Babson", what: "The Fortress", when: "September 2026" },
-      { where: "EO Reno Tahoe · Reno Startup Week", what: "Keynote and workshop", when: "September 2026" },
-      { where: "EO Barcelona", what: "Next Generation", when: "October 2026" },
+      { where: "EO Boston", what: "The Fortress", when: "September 2026" },
+      { where: "EO Reno Tahoe", what: "Keynote and workshop", when: "September 2026" },
+      { where: "EO Barcelona", what: "Workshop", when: "October 2026" },
     ],
     /* Public, verifiable, dated. Stars are re-read live in the browser; the rest state their date.
        App downloads count installer files only (.dmg .exe .AppImage .deb across all releases), never
@@ -670,14 +670,14 @@ const en: Content = {
        confidentiality, so never add a name, company, chapter or city to them. */
     numbers: [
       { n: "89", label: "GitHub stars", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
-      { n: "9,938", label: "AIOS Glass downloads on Open VSX", asOf: "29 Oct 2026", href: "https://open-vsx.org/extension/the-aios/aios-glass" },
+      { n: "23", label: "forks", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios/forks" },
       { n: "15", label: "contributors", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
       { n: "1,200+", label: "AIOS App installer downloads", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "en-US",
     quotes: [
       "I went from deeply frustrated to amazed.",
-      "I installed it and it blew my mind compared to what I had.",
+      "I installed it and it blew my mind compared to at least what I had, which was rubbish.",
       "Finally, [I] have my attention on what really matters.",
       "I installed the AIOS while you were talking.",
     ],
@@ -1301,20 +1301,20 @@ const es: Content = {
     roomsLabel: "Salas donde se ha contado",
     rooms: [
       { where: "EO Monterrey", what: "The AI Moment", when: "junio de 2026" },
-      { where: "EO Boston · AI Day, Babson", what: "The Fortress", when: "septiembre de 2026" },
-      { where: "EO Reno Tahoe · Reno Startup Week", what: "Keynote y taller", when: "septiembre de 2026" },
-      { where: "EO Barcelona", what: "Next Generation", when: "octubre de 2026" },
+      { where: "EO Boston", what: "The Fortress", when: "septiembre de 2026" },
+      { where: "EO Reno Tahoe", what: "Keynote y taller", when: "septiembre de 2026" },
+      { where: "EO Barcelona", what: "Taller", when: "octubre de 2026" },
     ],
     numbers: [
       { n: "89", label: "estrellas en GitHub", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
-      { n: "9,938", label: "descargas de AIOS Glass en Open VSX", asOf: "29 oct 2026", href: "https://open-vsx.org/extension/the-aios/aios-glass" },
+      { n: "23", label: "forks", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios/forks" },
       { n: "15", label: "colaboradores", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
       { n: "1,200+", label: "descargas del instalador de la AIOS App", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "es-MX",
     quotes: [
       "I went from deeply frustrated to amazed.",
-      "I installed it and it blew my mind compared to what I had.",
+      "I installed it and it blew my mind compared to at least what I had, which was rubbish.",
       "Finally, [I] have my attention on what really matters.",
       "I installed the AIOS while you were talking.",
     ],
@@ -1938,20 +1938,20 @@ const pt: Content = {
     roomsLabel: "Salas onde já foi contado",
     rooms: [
       { where: "EO Monterrey", what: "The AI Moment", when: "junho de 2026" },
-      { where: "EO Boston · AI Day, Babson", what: "The Fortress", when: "setembro de 2026" },
-      { where: "EO Reno Tahoe · Reno Startup Week", what: "Keynote e workshop", when: "setembro de 2026" },
-      { where: "EO Barcelona", what: "Next Generation", when: "outubro de 2026" },
+      { where: "EO Boston", what: "The Fortress", when: "setembro de 2026" },
+      { where: "EO Reno Tahoe", what: "Keynote e workshop", when: "setembro de 2026" },
+      { where: "EO Barcelona", what: "Workshop", when: "outubro de 2026" },
     ],
     numbers: [
       { n: "89", label: "estrelas no GitHub", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios", live: "stars" },
-      { n: "9.938", label: "downloads do AIOS Glass no Open VSX", asOf: "29 out 2026", href: "https://open-vsx.org/extension/the-aios/aios-glass" },
+      { n: "23", label: "forks", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios/forks" },
       { n: "15", label: "colaboradores", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios/graphs/contributors" },
       { n: "1.200+", label: "downloads do instalador do AIOS App", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "pt-BR",
     quotes: [
       "I went from deeply frustrated to amazed.",
-      "I installed it and it blew my mind compared to what I had.",
+      "I installed it and it blew my mind compared to at least what I had, which was rubbish.",
       "Finally, [I] have my attention on what really matters.",
       "I installed the AIOS while you were talking.",
     ],
