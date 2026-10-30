@@ -280,17 +280,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <strong style={{ ...INK, fontWeight: 600 }}>{c.hero.leadBold}</strong>
               {c.hero.leadRest}
             </p>
-            <p className="mono" style={{ background: "transparent", border: 0, padding: 0, color: "var(--color-accent)", fontSize: "0.9375rem", marginBottom: "1.75rem" }}>
+            <p className="mono" style={{ background: "transparent", border: 0, padding: 0, color: "var(--color-accent)", fontSize: "0.9375rem", marginBottom: "2rem" }}>
               {c.hero.tagline}
             </p>
-
-            {/* The sentence the visitor completes: "I'm a [ role ▾ ] — show me my AIOS."
-                A real combobox; picking a role opens that tab in section 00 and writes
-                #<role> into the URL. The vocabulary chip row that used to close the hero
-                is gone: with the field here the hero had four elements below the lede,
-                and the chips were a tour's vocabulary where the field now opens the tour
-                by role. */}
-            <RoleField copy={c.hero.field} labels={roleLabels} />
 
             {/* Animated install one-liner — the real CTA (command stays English). */}
             <div className="terminal" style={{ marginBottom: "1.75rem" }}>
@@ -301,9 +293,14 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               </span>
             </div>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+            {/* Two buttons and, beside them, the type-and-find field: the visitor types
+                their trade, suggestions appear as they type, Enter or a click opens that
+                role in section 00 and writes #<role> into the URL. The old vocabulary
+                chip row is gone. */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "stretch" }}>
               <a href="#what" className="btn-primary">{c.hero.ctaPrimary}</a>
               <GitHubLink href={REPO} surface="hero-primary" className="btn-secondary">{c.hero.ctaGithub}</GitHubLink>
+              <RoleField copy={c.hero.field} labels={roleLabels} />
             </div>
           </div>
         </section>

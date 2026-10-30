@@ -123,6 +123,14 @@ export const ROLE_KEYWORDS: Record<RoleId, string[]> = {
   ],
 };
 
+/* The two links in section 00's quiet October line. Sources, not prose, so they live here:
+   McKinsey's own page for the paper, and PTI's report (via The Federal) on CERT-In advisory
+   CIAD-2026-0049 — the #BlackOctober fact we cite. */
+export const MOMENT_LINKS = {
+  mckinsey: "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-ai-operating-system-a-new-way-for-ceos-to-run-the-enterprise",
+  blackOctober: "https://thefederal.com/category/news/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-data-259736",
+} as const;
+
 export function normalise(s: string): string {
   return s
     .normalize("NFD")

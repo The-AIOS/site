@@ -1,53 +1,44 @@
-/* RoleField — the hero's one sentence the visitor completes:
+/* RoleField — the hero's type-and-find field, beside "View on GitHub".
  *
- *     I'm a [ role ▾ ] — show me my AIOS.
+ * The visitor types their trade ("dentist", "abogada", "professora"); matches appear
+ * as they type in a plain suggestion list; Enter or a click opens that role in
+ * section 00. No chips, no chevron: it is a search box that knows nine answers. A real
+ * combobox (WAI-ARIA 1.2): the input owns `role="combobox"`, the list is the listbox,
+ * arrow keys move `aria-activedescendant`, Enter picks, Escape closes.
  *
- * A real combobox (WAI-ARIA 1.2 pattern): the input owns `role="combobox"`, the chip
- * cloud under it is the listbox, arrow keys move `aria-activedescendant`, Enter picks,
- * Escape closes. Typing maps free text — "dentist", "abogada", "maestra" — to the
- * nearest role through the plain keyword list in src/data/roles.ts; no match falls
- * back to Entrepreneur, so the field never says "no results". Picking a role writes
- * `#<role>` into the URL (shareable from a slide), tells section 00 to open that tab,
- * and scrolls there.
- *
- * Copy comes from CONTENT[locale].hero.field and CONTENT[locale].roles.items (labels);
- * nothing reader-facing is hard-coded here. */
+ * Free text maps through the keyword list in src/data/roles.ts; no match shows the
+ * fallback (Entrepreneur) as the one suggestion, so the field never says "no results".
+ * Picking writes `#<role>` into the URL (shareable from a slide), tells section 00 to
+ * open that role, and scrolls there. Copy comes from CONTENT[locale]. */
 
 "use client";
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { FALLBACK_ROLE, ROLE_ORDER, rankRoles, resolveRole, type RoleId } from "@/data/roles";
+import { FALLBACK_ROLE, rankRoles, resolveRole, type RoleId } from "@/data/roles";
 
 export const ROLE_EVENT = "aios:role";
 export const ROLE_SECTION_ID = "your-aios";
 
-export type RoleFieldCopy = {
-  pre: string; placeholder: string; post: string; go: string;
-  open: string; close: string; hint: string; fallbackNote: string;
-};
+export type RoleFieldCopy = { placeholder: string; go: string; label: string; fallbackNote: string };
 
 export function openRole(id: RoleId, scroll: boolean) {
   try { history.replaceState(null, "", `#${id}`); } catch { /* ignore */ }
   window.dispatchEvent(new CustomEvent(ROLE_EVENT, { detail: id }));
-  if (scroll) {
-    const target = document.getElementById(ROLE_SECTION_ID);
-    if (target) target.scrollIntoView({ block: "start" });
-  }
+  if (scroll) document.getElementById(ROLE_SECTION_ID)?.scrollIntoView({ block: "start" });
 }
 
 export function RoleField({ copy, labels }: { copy: RoleFieldCopy; labels: Record<RoleId, string> }) {
   const uid = useId();
   const listId = `${uid}-list`;
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
 
-  /* What the chip cloud shows: every role when the box is empty, the matches when
-     typing, and — when nothing matches — the fallback alone, marked as such. */
+  /* Suggestions appear only while typing. Nothing matching → the fallback, marked. */
   const options = useMemo<{ id: RoleId; fallback: boolean }[]>(() => {
-    const ranked = rankRoles(text);
+    if (!text.trim()) return [];
+    const ranked = rankRoles(text).slice(0, 5);
     if (ranked.length === 0) return [{ id: FALLBACK_ROLE, fallback: true }];
     return ranked.map((id) => ({ id, fallback: false }));
   }, [text]);
@@ -61,11 +52,9 @@ export function RoleField({ copy, labels }: { copy: RoleFieldCopy; labels: Recor
   }, [labels]);
 
   const submit = useCallback(() => {
-    const id = options[active]?.id ?? resolveRole(text, labels);
-    pick(id);
+    pick(options[active]?.id ?? resolveRole(text, labels));
   }, [options, active, text, labels, pick]);
 
-  /* click-outside closes the cloud */
   useEffect(() => {
     if (!open) return;
     const onDoc = (e: MouseEvent) => {
@@ -75,30 +64,27 @@ export function RoleField({ copy, labels }: { copy: RoleFieldCopy; labels: Recor
     return () => document.removeEventListener("mousedown", onDoc);
   }, [open]);
 
+  const listOpen = open && options.length > 0;
   const onKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
       case "ArrowDown":
-        e.preventDefault();
-        if (!open) setOpen(true);
-        else setActive((a) => (a + 1) % options.length);
+        if (options.length) { e.preventDefault(); setOpen(true); setActive((a) => (a + 1) % options.length); }
         break;
       case "ArrowUp":
-        e.preventDefault();
-        if (!open) setOpen(true);
-        else setActive((a) => (a - 1 + options.length) % options.length);
+        if (options.length) { e.preventDefault(); setOpen(true); setActive((a) => (a - 1 + options.length) % options.length); }
         break;
       case "Home":
-        if (open) { e.preventDefault(); setActive(0); }
+        if (listOpen) { e.preventDefault(); setActive(0); }
         break;
       case "End":
-        if (open) { e.preventDefault(); setActive(options.length - 1); }
+        if (listOpen) { e.preventDefault(); setActive(options.length - 1); }
         break;
       case "Enter":
         e.preventDefault();
         submit();
         break;
       case "Escape":
-        if (open) { e.preventDefault(); setOpen(false); }
+        if (listOpen) { e.preventDefault(); setOpen(false); }
         break;
       case "Tab":
         setOpen(false);
@@ -106,47 +92,33 @@ export function RoleField({ copy, labels }: { copy: RoleFieldCopy; labels: Recor
     }
   };
 
-  const activeId = open && options[active] ? `${uid}-opt-${options[active].id}` : undefined;
+  const activeId = listOpen && options[active] ? `${uid}-opt-${options[active].id}` : undefined;
 
   return (
     <div className="role-field" ref={rootRef}>
-      <div className="role-field-line">
-        <span className="rf-pre">{copy.pre}</span>
-        <span className="rf-box">
-          <input
-            ref={inputRef}
-            className="rf-input"
-            type="text"
-            role="combobox"
-            aria-expanded={open}
-            aria-controls={listId}
-            aria-autocomplete="list"
-            aria-activedescendant={activeId}
-            aria-label={`${copy.pre} ${copy.placeholder}`}
-            autoComplete="off"
-            spellCheck={false}
-            placeholder={copy.placeholder}
-            value={text}
-            onChange={(e) => { setText(e.target.value); setOpen(true); }}
-            onFocus={() => setOpen(true)}
-            onKeyDown={onKey}
-          />
-          <button
-            type="button"
-            className="rf-caret"
-            tabIndex={-1}
-            aria-label={open ? copy.close : copy.open}
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => { setOpen((o) => !o); inputRef.current?.focus(); }}
-          >
-            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </button>
-        </span>
-        <span className="rf-post">{copy.post}</span>
-        <button type="button" className="btn-primary rf-go" onClick={submit}>{copy.go}</button>
+      <div className="rf-box">
+        <input
+          className="rf-input"
+          type="text"
+          role="combobox"
+          aria-expanded={listOpen}
+          aria-controls={listId}
+          aria-autocomplete="list"
+          aria-activedescendant={activeId}
+          aria-label={copy.label}
+          autoComplete="off"
+          spellCheck={false}
+          placeholder={copy.placeholder}
+          value={text}
+          onChange={(e) => { setText(e.target.value); setOpen(true); }}
+          onFocus={() => setOpen(true)}
+          onKeyDown={onKey}
+        />
+        <button type="button" className="rf-go" aria-label={copy.go} onMouseDown={(e) => e.preventDefault()} onClick={submit}>
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h9M7.5 3.5L11 7l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </button>
       </div>
-
-      <ul id={listId} role="listbox" aria-label={copy.placeholder} className="rf-list" hidden={!open}>
+      <ul id={listId} role="listbox" aria-label={copy.label} className="rf-list" hidden={!listOpen}>
         {options.map((o, i) => (
           <li
             key={o.id}
@@ -158,15 +130,11 @@ export function RoleField({ copy, labels }: { copy: RoleFieldCopy; labels: Recor
             onClick={() => pick(o.id)}
             onMouseEnter={() => setActive(i)}
           >
-            {labels[o.id]}
+            <span>{labels[o.id]}</span>
             {o.fallback && <span className="rf-fallback">{copy.fallbackNote}</span>}
           </li>
         ))}
       </ul>
-      <p className="rf-hint">{copy.hint}</p>
     </div>
   );
 }
-
-/** Tab order, exported for the section so both surfaces agree. */
-export const ROLE_IDS: RoleId[] = ROLE_ORDER;

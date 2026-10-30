@@ -27,25 +27,35 @@ type Row = [string, string];
    are technical surfaces and stay English in every locale, like command names. */
 export type RoleStory = {
   id: RoleId;
-  label: string;        // the tab, and the chip in the hero field
+  label: string;        // the switcher entry, and the suggestion in the hero field
   you: string;          // "an entrepreneur" — used in sentences
-  painTitle: string; pain: string;
-  dayTitle: string; day: [string, string, string][];          // [when, title, body]
-  teamTitle: string; teamLede: string; team: [string, string, string][];  // [person, agent, what they do]
-  aios: string; forum: string; proof: string; why: string;
+  /* 01 · the pain: a title, the big typographic line as a [pre, accent, post] triple, one sentence */
+  painTitle: string; painBig: H; pain: string;
+  /* 02 · your day: a title, one sentence, three beats [when, title, one line] */
+  dayTitle: string; dayLede: string; day: [string, string, string][];
+  /* 03 · your team: a title, one sentence, the roster [person, agent, what they do] */
+  teamTitle: string; teamLede: string; team: [string, string, string][];
+  /* 04–06: one sentence each for this role; `why` is kept for the long form, unused on the track */
+  aios: string; forum: string; proof: string; why?: string;
+  /* 06 also carries the role's story, folded closed under the proof line */
   story?: { label: string; title: string; body: string; cite?: string };
   next: { cta: string; subject: string };   // the mailto, one subject per role
 };
 export type RolesContent = {
   eyebrow: string; h: H;
-  momentPre: string; momentBold: string; momentPost: string;   // the quiet opening line
-  tabsLabel: string;
+  /* The one quiet line: "October 2026: McKinsey told CEOs …, and #BlackOctober showed …".
+     The two named parts are links; their URLs live in src/data/roles.ts (MOMENT_LINKS). */
+  moment: { pre: string; mckinsey: string; mid: string; black: string; post: string };
+  switchLabel: string; tabsLabel: string; trackLabel: string; prev: string; next: string;
   steps: { pain: string; day: string; team: string; aios: string; forum: string; proof: string };
   know: string;                                                  // skills + hooks, in one plain line
-  aiosTitle: string; aiosLede: string; aiosEyebrow: string;
-  forumTitle: string; forumLede: string; forumEyebrow: string;
-  proofTitle: string; proofLede: string; proofEyebrow: string; whyEyebrow: string;
-  install: string; spec: string;
+  aiosTitle: string; aiosLede: string;
+  stack: [string, string, string][]; stackAlt: string;           // 04's visual: [kicker, title, line] × 3
+  forumTitle: string; forumLede: string;
+  room: { name: string; meta: string; live: string; msgs: [string, string, string, boolean, string?][] }; roomAlt: string; // 05's visual
+  proofTitle: string;
+  chain: [string, string, string, string]; before: string; after: string; chainNote: string; chainAlt: string; // 06's visual
+  spec: string;
   items: RoleStory[];
 };
 
@@ -127,12 +137,12 @@ export type Content = {
     eyebrowPre: string; eyebrowAccent: string; eyebrowPost: string;
     h: H; leadBold: string; leadRest: string; tagline: string;
     ctaPrimary: string; ctaGithub: string;
-    /* The sentence the visitor completes under the lede: "I'm a [ role ▾ ] — show me my
-       AIOS." The chip row that used to sit under the buttons is gone: the field is the
-       hero's third element and the chips were the vocabulary of a tour the field now
-       opens by role. `fallbackNote` is the small mono tag on the one option shown when
-       nothing matches (Entrepreneur, always), so the list never says "no results". */
-    field: { pre: string; placeholder: string; post: string; go: string; open: string; close: string; hint: string; fallbackNote: string };
+    /* The type-and-find field beside "View on GitHub": the visitor types their trade,
+       suggestions appear as they type, Enter or a click opens that role in section 00.
+       `label` is the accessible name; `fallbackNote` is the small mono tag on the one
+       suggestion shown when nothing matches (Entrepreneur, always), so the list never
+       says "no results". The chip row that used to close the hero is gone. */
+    field: { placeholder: string; go: string; label: string; fallbackNote: string };
   };
   /* Section 00, before 01. See RolesContent above. */
   roles: RolesContent;
@@ -302,36 +312,52 @@ const en: Content = {
     leadRest: " The AIOS turns AI into co-workers — a legal you, an accountant you, a marketing you, an engineering you. Orchestrated by you, governed by your intent, compounding every day.",
     tagline: "9 out of 10 people still prompt by hand. Stop prompting. Start orchestrating.",
     ctaPrimary: "Take the tour ↓", ctaGithub: "View on GitHub ↗",
-    field: { pre: "I’m a", placeholder: "role", post: "— show me my AIOS.", go: "Show me", open: "Show roles", close: "Hide roles", hint: "Type your trade in any language: dentist, abogada, professora…", fallbackNote: "the closest fit" },
+    field: { placeholder: "I’m a… dentist, abogada, professora", go: "Show me my AIOS", label: "Type your trade to find your AIOS", fallbackNote: "the closest fit" },
   },
   roles: {
     eyebrow: "Your AIOS",
     h: ["You already have ", "a team", "."],
-    momentPre: "October 2026. McKinsey told CEOs to run the company on an AI operating system. The same month, AI agents got into live systems through exposed keys and over-permissive roles, and nobody noticed until the model providers said so; security people are calling it ",
-    momentBold: "#BlackOctober",
-    momentPost: ". Agents now act. Nobody can prove what they were allowed to do. Pick who you are; the rest of this section is yours.",
+    moment: { pre: "October 2026: ", mckinsey: "McKinsey", mid: " told CEOs to run on an AI operating system, and ", black: "#BlackOctober", post: " showed why agents need proof." },
+    switchLabel: "I’m a",
     tabsLabel: "Pick your role",
+    trackLabel: "the story in six steps",
+    prev: "Previous step",
+    next: "Next step",
     steps: { pain: "the pain", day: "your day", team: "your team", aios: "the AIOS", forum: "Forum", proof: "the proof pair" },
-    know: "They load know-how when a task needs it (skills), and they run under rules you set (hooks): the floor reads who you are before anything else; the trust gate treats an email, a file or a web page as data, never an instruction; the permission gate decides what each one may touch. Anything that leaves your desk waits for your OK.",
+    know: "Skills load the know-how; hooks run the rules: the floor reads who you are first, the trust gate treats a file as data, never an instruction. Nothing leaves your desk without your OK.",
     aiosTitle: "The AIOS is where your team works",
     // consent pending: bootcamp attendee — until Chuy confirms it, this is our line, not a quotation.
-    aiosLede: "Not another second brain. It’s me, my brain amplified. Your context in plain files you own; a ritual in the morning and one at night; agents that read your ground before they act. Free for you, one hour to install, yours to keep.",
-    aiosEyebrow: "What it knows about you",
+    aiosLede: "Not another second brain. It’s me, my brain amplified. Free for you, one hour to install, yours to keep.",
+    stack: [
+      ["context", "What it knows about you", "Declared by you, observed over time, in plain files you own."],
+      ["rituals", "The loop that compounds", "/today in the morning, /close-day at night. Every session starts from the last."],
+      ["agents", "Your team", "Each reads your ground, each has the tools it needs, none has a key you didn’t give it."],
+    ],
+    stackAlt: "Three layers: context, rituals, agents.",
     forumTitle: "Your team meets their teams",
-    forumLede: "Forum is messaging for agents: shared spaces where your AI and other people’s AIs work together, each signed as its owner, end-to-end encrypted, the server blind.",
-    forumEyebrow: "Your Forum moment",
+    forumLede: "Shared spaces where your AI and other people’s AIs work together, each signed as its owner, end-to-end encrypted.",
+    room: {
+      name: "room · q4-plan", meta: "· 3 agents · verified", live: "live",
+      msgs: [
+        ["W", "Writer · did:you", "Draft v2 of the plan, with your co-founder’s numbers folded in.", false, "› mandate “q4-plan: read + comment” · receipt written"],
+        ["A", "Analyst · did:cofounder", "Checked. Two numbers moved since Monday; both flagged.", true, "› inside the mandate · receipt written"],
+      ],
+    },
+    roomAlt: "A Forum room: your writer agent and a co-founder’s analyst agent exchange a draft, each message signed, each with a receipt.",
     proofTitle: "Every action your team takes, signed",
-    proofLede: "What October was missing. Before an agent acts for you it carries a mandate: what it may do, until when, for whom. After, it leaves a receipt: what it did, under which mandate. Delegated further, a mandate can only narrow.",
-    proofEyebrow: "Your proof-pair moment",
-    whyEyebrow: "Why it matters for you",
-    install: "Install free",
+    chain: ["Human", "Mandate", "Agent", "Receipt"],
+    before: "BEFORE THE ACT", after: "AFTER THE ACT",
+    chainNote: "Delegated further, a mandate can only narrow. Never widen.",
+    chainAlt: "The proof pair: a human issues a mandate to an agent before the act; the agent acts; a signed receipt records what it did.",
     spec: "Read the proof-pair spec ↗",
     items: [
       {
         id: "entrepreneur", label: "Entrepreneur", you: "an entrepreneur",
         painTitle: "You run the business, and you are the business.",
+        painBig: ["One person. ", "Seven jobs", "."],
         pain: "Sales, delivery, invoices, the contract you haven’t read. From day one you have a technical cofounder, a lawyer, an accountant, someone finding buyers, someone writing the proposal and someone chasing the invoice.",
         dayTitle: "A day with your team",
+        dayLede: "What a day looks like once the seven are on it.",
         day: [
           ["morning", "The day, from your numbers", "/today opens with what is due, what is overdue, and the two calls that matter. Your accountant already updated the cash line."],
           ["day", "Your team works while you sell", "The cofounder ships the feature. The lawyer reads the new supplier contract. The lead generator leaves you four names and why."],
@@ -358,8 +384,10 @@ const en: Content = {
       {
         id: "ceo", label: "CEO", you: "a CEO",
         painTitle: "Meetings exist because information is slow.",
-        pain: "40% of large companies have scaled AI agents; 6% see the money. The gap is the system around the model and who owns the context. You already have the team that fixes that.",
+        painBig: ["40% scaled agents. ", "6% see the money", "."],
+        pain: "The gap is the system around the model and who owns the context. You already have the team that fixes that.",
         dayTitle: "A day with your team",
+        dayLede: "The day, as your team runs it.",
         day: [
           ["morning", "The day, planned from your ground", "/today reads your calendar, your mail and your projects. It already knows what you decided last week and who you owe an answer."],
           ["day", "Your team works in parallel", "The analyst reads the board pack. The chief of staff writes three briefs. The one who writes down the call holds the decision that is due."],
@@ -385,8 +413,10 @@ const en: Content = {
       {
         id: "exec", label: "Executive / manager", you: "an executive",
         painTitle: "Ten direct reports today. Forty tomorrow.",
+        painBig: ["Forty one-on-ones ", "a week", "."],
         pain: "McKinsey expects managers to go from ten or twelve reports to twenty or forty. Nobody gets forty one-on-ones a week; your team does the preparation.",
         dayTitle: "A day with your team",
+        dayLede: "Six minutes of prep, not Sunday night.",
         day: [
           ["morning", "Prep for every one-on-one", "Six minutes, not Sunday night. What each person said last time, what moved since, what you promised."],
           ["day", "Drafts leave as drafts", "Reports and replies written in your words, waiting for your signature. You read each one; that is the job."],
@@ -412,8 +442,10 @@ const en: Content = {
       {
         id: "lawyer", label: "Lawyer / consultant", you: "a lawyer or consultant",
         painTitle: "Your expertise lives in your head and in old files.",
-        pain: "Every matter starts by finding it again. Your team finds it first, from your own clause library and your own precedents, before any blank page.",
+        painBig: ["Every matter starts ", "from zero", "."],
+        pain: "Your team finds the expertise first, from your own clause library and your own precedents, before any blank page.",
         dayTitle: "A day with your team",
+        dayLede: "The matter, prepared before the call.",
         day: [
           ["morning", "Matter prep", "The file, the precedents you have used, the client’s last three emails. In front of you before the call."],
           ["day", "Review drafts and client memos", "Contract review against the clauses you negotiated before; memos in your voice, for your signature."],
@@ -439,8 +471,10 @@ const en: Content = {
       {
         id: "creator", label: "Creator / writer", you: "a writer",
         painTitle: "Ideas scattered across five apps. Publishing is a second job.",
+        painBig: ["Five apps. ", "One voice", "."],
         pain: "Your team takes the second job: the draft in your voice, the gate that flags what isn’t you, the calendar, the publisher.",
         dayTitle: "A day with your team",
+        dayLede: "From a note to a scheduled post, in your voice.",
         day: [
           ["morning", "Ideas, caught", "In your own words, where you will find them again, linked to what you already wrote."],
           ["day", "Drafting in your voice", "With your past posts as the reference. The gate flags the lines that are not you."],
@@ -466,8 +500,10 @@ const en: Content = {
       {
         id: "developer", label: "Developer", you: "a developer",
         painTitle: "Agents that forget by Monday, and keys sitting in .env.",
+        painBig: ["A key says who. ", "A mandate says what", "."],
         pain: "Your team remembers, and runs under rules you can read: the repo’s own contract loaded before the first prompt, a permission mode on every tool call, a mandate instead of a key.",
         dayTitle: "A day with your team",
+        dayLede: "Review, triage, docs, autonomous runs, inside the rules.",
         day: [
           ["morning", "Review with the repo’s rules loaded", "The reviewer reads CLAUDE.md and the last three reviews before the diff."],
           ["day", "Triage, docs, autonomous runs", "Bug triage, docs that match the code, runs that stay inside the permissions you set."],
@@ -493,8 +529,10 @@ const en: Content = {
       {
         id: "academic", label: "Academic / teacher", you: "a teacher",
         painTitle: "Grading, prep and research crowd out the thinking you were hired for.",
+        painBig: ["The hours go to prep, ", "not to thinking", "."],
         pain: "Your team takes the prep: the concept explained three ways, the quiz from the readings, the slides from your own notes, the feedback draft for you to finish.",
         dayTitle: "A day with your team",
+        dayLede: "Class prep from your own notes; feedback for you to finish.",
         day: [
           ["morning", "Class prep from your own notes", "Last term’s notes, the readings, the questions students actually asked. The hard concept, explained three ways."],
           ["day", "Research briefs and feedback drafts", "What is new on the topic since your notes; feedback on what they wrote, in your voice, for you to finish."],
@@ -519,8 +557,10 @@ const en: Content = {
       {
         id: "student", label: "Student", you: "a student",
         painTitle: "The fear that the jobs will disappear before you get one.",
-        pain: "You start with a team, not with a job: a tutor, a study partner, a mentor, and someone who asks what you actually want.",
+        painBig: ["Start with a team, ", "not a job", "."],
+        pain: "A tutor, a study partner, a mentor, and someone who asks what you actually want.",
         dayTitle: "A day with your team",
+        dayLede: "A plan, an explanation, a question about you.",
         day: [
           ["morning", "A study plan from what you have to learn", "This week’s material, your pace, the exam date. Not a generic schedule."],
           ["day", "Explanations three ways", "The concept until it clicks. And the career question you keep not asking, asked back to you."],
@@ -544,8 +584,10 @@ const en: Content = {
       {
         id: "teams", label: "Teams", you: "a team",
         painTitle: "One person has it. The team doesn’t. Yet.",
-        pain: "The person comes first and the company follows: one member runs it for a month, then a day in the room sets the team up with shared context, governance and everyone’s own agents.",
+        painBig: ["The person first. ", "The company follows", "."],
+        pain: "One member runs it for a month, then a day in the room sets the team up with shared context, governance and everyone’s own agents.",
         dayTitle: "How a team starts",
+        dayLede: "One person, then a day in the room, then the team space.",
         day: [
           ["month 1", "One person runs it", "Free. Their own context, their own team, every day. The company is not involved yet."],
           ["day 1", "A day in the room sets the team up", "Shared contexts, governance, each person’s own agents. With the files open."],
@@ -846,7 +888,7 @@ const es: Content = {
     leadRest: " The AIOS convierte la IA en compañeros de trabajo — un tú legal, un tú contable, un tú de marketing, un tú de ingeniería. Orquestados por ti, gobernados por tu intención, capitalizando cada día.",
     tagline: "Gana ancho de banda. Vuélvete agéntico.",
     ctaPrimary: "Haz el recorrido ↓", ctaGithub: "Ver en GitHub ↗",
-    field: { pre: "Soy", placeholder: "tu rol", post: "— muéstrame mi AIOS.", go: "Muéstrame", open: "Ver roles", close: "Ocultar roles", hint: "Escribe tu oficio en cualquier idioma: dentista, lawyer, professora…", fallbackNote: "lo más cercano" },
+    field: { placeholder: "Soy… dentista, lawyer, professora", go: "Muéstrame mi AIOS", label: "Escribe tu oficio para encontrar tu AIOS", fallbackNote: "lo más cercano" },
   },
   /* TODO(roles-es): EN placeholder so the branch builds for Chuy's localhost review today.
      The native LatAm-neutral (tú) version lands in the second commit on this branch,
@@ -1129,7 +1171,7 @@ const pt: Content = {
     leadRest: " The AIOS transforma a IA em colegas de trabalho — um você jurídico, um você contador, um você de marketing, um você de engenharia. Orquestrados por você, governados pela sua intenção, capitalizando todos os dias.",
     tagline: "Ganhe banda. Vá agêntico.",
     ctaPrimary: "Faça o tour ↓", ctaGithub: "Ver no GitHub ↗",
-    field: { pre: "Eu sou", placeholder: "seu papel", post: "— me mostre o meu AIOS.", go: "Me mostre", open: "Ver papéis", close: "Ocultar papéis", hint: "Digite sua profissão em qualquer idioma: dentista, lawyer, maestra…", fallbackNote: "o mais próximo" },
+    field: { placeholder: "Eu sou… dentista, lawyer, maestra", go: "Me mostre o meu AIOS", label: "Digite sua profissão para encontrar o seu AIOS", fallbackNote: "o mais próximo" },
   },
   /* TODO(roles-pt): EN placeholder so the branch builds for Chuy's localhost review today.
      The native PT-BR (você) version lands in the second commit on this branch, before
