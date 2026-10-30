@@ -15,10 +15,39 @@ import type { Locale } from "@/messages";
    keep serving a mac file in Portuguese. Announcement and roadmap CTAs point at the Releases
    page (correct on every OS); the actual per-platform choice is made by DownloadCTA at runtime. */
 import { RELEASES_PAGE } from "@/downloads";
+import type { RoleId } from "@/data/roles";
 
 type H = [string, string, string]; // [pre, accent, post]
 type CardT = { e?: string; t?: string; b: string; mono?: string };
 type Row = [string, string];
+
+/* Section 00 · Your AIOS — one story per role, told in six steps. The role ids, the tab
+   order and the free-text keyword map are machine-side and live in src/data/roles.ts;
+   everything a reader sees is here, per locale. Agent names (`lawyer`, `kdp-publisher`)
+   are technical surfaces and stay English in every locale, like command names. */
+export type RoleStory = {
+  id: RoleId;
+  label: string;        // the tab, and the chip in the hero field
+  you: string;          // "an entrepreneur" — used in sentences
+  painTitle: string; pain: string;
+  dayTitle: string; day: [string, string, string][];          // [when, title, body]
+  teamTitle: string; teamLede: string; team: [string, string, string][];  // [person, agent, what they do]
+  aios: string; forum: string; proof: string; why: string;
+  story?: { label: string; title: string; body: string; cite?: string };
+  next: { cta: string; subject: string };   // the mailto, one subject per role
+};
+export type RolesContent = {
+  eyebrow: string; h: H;
+  momentPre: string; momentBold: string; momentPost: string;   // the quiet opening line
+  tabsLabel: string;
+  steps: { pain: string; day: string; team: string; aios: string; forum: string; proof: string };
+  know: string;                                                  // skills + hooks, in one plain line
+  aiosTitle: string; aiosLede: string; aiosEyebrow: string;
+  forumTitle: string; forumLede: string; forumEyebrow: string;
+  proofTitle: string; proofLede: string; proofEyebrow: string; whyEyebrow: string;
+  install: string; spec: string;
+  items: RoleStory[];
+};
 
 export type Content = {
   nav: { href: string; label: string }[];
@@ -97,8 +126,16 @@ export type Content = {
     banner: { badge: string; text: string; rest: string; cta: string };
     eyebrowPre: string; eyebrowAccent: string; eyebrowPost: string;
     h: H; leadBold: string; leadRest: string; tagline: string;
-    ctaPrimary: string; ctaGithub: string; chips: string[];
+    ctaPrimary: string; ctaGithub: string;
+    /* The sentence the visitor completes under the lede: "I'm a [ role ▾ ] — show me my
+       AIOS." The chip row that used to sit under the buttons is gone: the field is the
+       hero's third element and the chips were the vocabulary of a tour the field now
+       opens by role. `fallbackNote` is the small mono tag on the one option shown when
+       nothing matches (Entrepreneur, always), so the list never says "no results". */
+    field: { pre: string; placeholder: string; post: string; go: string; open: string; close: string; hint: string; fallbackNote: string };
   };
+  /* Section 00, before 01. See RolesContent above. */
+  roles: RolesContent;
   what: {
     eyebrow: string; h: H; body1: string; body2Pre: string; body2Bold: string; body2Rest: string;
     principlesEyebrow: string; principles: CardT[]; pull: H;
@@ -166,10 +203,10 @@ export type Content = {
   meta: { title: string; description: string };
 };
 
-const NAV_HREFS = ["#what", "#why", "#how", "#roadmap", "#setup", "#glass", "#manual"];
+const NAV_HREFS = ["#your-aios", "#what", "#why", "#how", "#roadmap", "#setup", "#glass", "#manual"];
 
 const en: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["What", "Why", "How", "Where", "Setup", "Interface", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["You", "What", "Why", "How", "Where", "Setup", "Interface", "Manual"][i] })),
   getApp: "Get the app",
   downloads: {
     action: "Download",
@@ -265,7 +302,272 @@ const en: Content = {
     leadRest: " The AIOS turns AI into co-workers — a legal you, an accountant you, a marketing you, an engineering you. Orchestrated by you, governed by your intent, compounding every day.",
     tagline: "9 out of 10 people still prompt by hand. Stop prompting. Start orchestrating.",
     ctaPrimary: "Take the tour ↓", ctaGithub: "View on GitHub ↗",
-    chips: ["declared context", "observed context", "intent", "agents", "skills", "rituals"],
+    field: { pre: "I’m a", placeholder: "role", post: "— show me my AIOS.", go: "Show me", open: "Show roles", close: "Hide roles", hint: "Type your trade in any language: dentist, abogada, professora…", fallbackNote: "the closest fit" },
+  },
+  roles: {
+    eyebrow: "Your AIOS",
+    h: ["You already have ", "a team", "."],
+    momentPre: "October 2026. McKinsey told CEOs to run the company on an AI operating system. The same month, AI agents got into live systems through exposed keys and over-permissive roles, and nobody noticed until the model providers said so; security people are calling it ",
+    momentBold: "#BlackOctober",
+    momentPost: ". Agents now act. Nobody can prove what they were allowed to do. Pick who you are; the rest of this section is yours.",
+    tabsLabel: "Pick your role",
+    steps: { pain: "the pain", day: "your day", team: "your team", aios: "the AIOS", forum: "Forum", proof: "the proof pair" },
+    know: "They load know-how when a task needs it (skills), and they run under rules you set (hooks): the floor reads who you are before anything else; the trust gate treats an email, a file or a web page as data, never an instruction; the permission gate decides what each one may touch. Anything that leaves your desk waits for your OK.",
+    aiosTitle: "The AIOS is where your team works",
+    // consent pending: bootcamp attendee — until Chuy confirms it, this is our line, not a quotation.
+    aiosLede: "Not another second brain. It’s me, my brain amplified. Your context in plain files you own; a ritual in the morning and one at night; agents that read your ground before they act. Free for you, one hour to install, yours to keep.",
+    aiosEyebrow: "What it knows about you",
+    forumTitle: "Your team meets their teams",
+    forumLede: "Forum is messaging for agents: shared spaces where your AI and other people’s AIs work together, each signed as its owner, end-to-end encrypted, the server blind.",
+    forumEyebrow: "Your Forum moment",
+    proofTitle: "Every action your team takes, signed",
+    proofLede: "What October was missing. Before an agent acts for you it carries a mandate: what it may do, until when, for whom. After, it leaves a receipt: what it did, under which mandate. Delegated further, a mandate can only narrow.",
+    proofEyebrow: "Your proof-pair moment",
+    whyEyebrow: "Why it matters for you",
+    install: "Install free",
+    spec: "Read the proof-pair spec ↗",
+    items: [
+      {
+        id: "entrepreneur", label: "Entrepreneur", you: "an entrepreneur",
+        painTitle: "You run the business, and you are the business.",
+        pain: "Sales, delivery, invoices, the contract you haven’t read. From day one you have a technical cofounder, a lawyer, an accountant, someone finding buyers, someone writing the proposal and someone chasing the invoice.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "The day, from your numbers", "/today opens with what is due, what is overdue, and the two calls that matter. Your accountant already updated the cash line."],
+          ["day", "Your team works while you sell", "The cofounder ships the feature. The lawyer reads the new supplier contract. The lead generator leaves you four names and why."],
+          ["evening", "Invoices chased, pipeline true", "The invoice tracker drafts two follow-ups; the pipeline matches what happened today. /close-day writes the rest down."],
+        ],
+        teamTitle: "The seven you couldn’t hire",
+        teamLede: "Each one reads your business before it works, and nothing leaves your desk without your OK.",
+        team: [
+          ["A technical cofounder", "technical-cofounder", "Builds the product end to end: discovery, ship, handoff. The cofounder you could not afford to give equity."],
+          ["Your lawyer", "lawyer", "Reads the contract before you sign it. Flags the risk in plain words."],
+          ["Your accountant", "accountant", "Bookkeeping, cash flow, the tax question you were going to ask in April."],
+          ["The one who finds buyers", "lead-generator", "Takes the offer you already have and finds who should hear it, scored."],
+          ["The one who writes the proposal", "proposal-writer", "A tailored proposal, quote or scope of work from the client’s own note and your catalogue."],
+          ["The one who chases invoices", "invoice-tracker", "Pending, overdue, and the follow-up drafted in your tone."],
+          ["The one who keeps the pipeline honest", "crm-updater", "Syncs what actually happened, from meetings, mail and chat, into the pipeline."],
+        ],
+        aios: "As an entrepreneur, your context is the business: the offer, the clients, the numbers, the contracts. The AIOS holds it, and your team reads it before every task.",
+        forum: "Your team meets your clients’ teams in a verified room: a proposal goes in, questions come back, each side signed as who it says it is.",
+        proof: "Your lawyer, your accountant and your sales team act under mandates you set. Nothing gets sent, signed or paid without a receipt that says who did it and under what authority.",
+        why: "The first time an agent sends an invoice or signs off a quote, you will want to know exactly what it was allowed to do. The mandate says it before; the receipt proves it after.",
+        story: { label: "Illustrative", title: "A business of one, with a team of seven", body: "A consultant who sold, delivered and invoiced alone installed it on a Monday. By Friday the proposal went out from her own catalogue, the overdue invoice had a follow-up in her tone, and the supplier contract came back with one clause flagged. Nothing was sent that she had not read. What changed is that she stopped being the only one who knew where everything was." },
+        next: { cta: "Help me set up my team", subject: "Entrepreneur: set up my team" },
+      },
+      {
+        id: "ceo", label: "CEO", you: "a CEO",
+        painTitle: "Meetings exist because information is slow.",
+        pain: "40% of large companies have scaled AI agents; 6% see the money. The gap is the system around the model and who owns the context. You already have the team that fixes that.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "The day, planned from your ground", "/today reads your calendar, your mail and your projects. It already knows what you decided last week and who you owe an answer."],
+          ["day", "Your team works in parallel", "The analyst reads the board pack. The chief of staff writes three briefs. The one who writes down the call holds the decision that is due."],
+          ["evening", "Written down, not remembered", "/close-day records what you learned, what carried and why. Tomorrow starts from there."],
+        ],
+        teamTitle: "The office you never had to staff",
+        teamLede: "Each one walks in knowing the company, the people and the last decision.",
+        team: [
+          ["An analyst", "company-analyst", "Reads a company, a market or a competitor the way a good analyst would, from your own files first."],
+          ["A chief of staff", "meeting-prepper", "The brief before every room: who, what they said last time, what you owe them."],
+          ["Someone who writes down the call", "decision-journaler", "Options, what you would regret, and the reasoning, kept for the day you need it."],
+          ["A coach for the quarter", "okr-coach", "Sets, pressure-tests and scores the objectives, so the quarter stays honest."],
+          ["The outside view", "consultant", "Frameworks and a second opinion, on demand, without the retainer."],
+          ["Board updates", "report-drafter", "Status reports and board packs drafted from what actually happened this week."],
+        ],
+        aios: "As a CEO, the floor is the board pack you never have to re-explain. Your team walks in knowing the company, the people and the last decision.",
+        forum: "Your leadership’s teams share one space. The board pack assembles itself from each AIOS, and every part is signed by whoever’s agent wrote it.",
+        proof: "You decide what each member of your team may commit you to. Every action carries a receipt you can audit, so delegation stops being a feeling and becomes a record.",
+        why: "McKinsey ends its paper with a question for the CEO: which decisions can safely and reliably be delegated to AI agents? The mandate is your answer, written down. The receipt is how you check it later.",
+        story: { label: "Illustrative · a scenario McKinsey describes, rerun with your team", title: "Tuesday to Thursday", body: "McKinsey opens its paper with a scenario: on Tuesday a CEO learns regulators will cap margins on some products; by Thursday the lines of business have redesigned them inside the new rules. With your team it goes like this. Tuesday 8:00, you paste the draft rules and ask what is exposed; your analyst reads your own product files and answers by 8:20. Wednesday, each country head’s AIOS runs the same question on their numbers and posts the result in a shared room, signed. Thursday, every decision is recorded with a receipt, and the next regulation starts from this one.", cite: "McKinsey / QuantumBlack, The AI operating system, October 2026, pp. 2–3." },
+        next: { cta: "Talk to us about my top team", subject: "CEO: bring the AIOS to my top team" },
+      },
+      {
+        id: "exec", label: "Executive / manager", you: "an executive",
+        painTitle: "Ten direct reports today. Forty tomorrow.",
+        pain: "McKinsey expects managers to go from ten or twelve reports to twenty or forty. Nobody gets forty one-on-ones a week; your team does the preparation.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "Prep for every one-on-one", "Six minutes, not Sunday night. What each person said last time, what moved since, what you promised."],
+          ["day", "Drafts leave as drafts", "Reports and replies written in your words, waiting for your signature. You read each one; that is the job."],
+          ["evening", "Capture", "What you promised, to whom, by when. Nothing lives only in your head."],
+        ],
+        teamTitle: "The staff behind the manager",
+        teamLede: "They prepare, draft and keep the record; you read, decide and sign.",
+        team: [
+          ["A chief of staff", "meeting-prepper", "The brief before every one-on-one: what each person asked for last time, what moved since."],
+          ["Someone who writes the update", "report-drafter", "The weekly status and the leadership update, from this week’s notes, in your words."],
+          ["Someone who drafts the replies", "email-drafter", "Replies in your voice, sent by you."],
+          ["The one who keeps the pipeline honest", "crm-updater", "What actually happened, synced from meetings, mail and chat."],
+          ["A mentor", "growth-companion", "A real read on how you are doing, and a standing weekly session."],
+          ["A coach for the quarter", "okr-coach", "Sets, pressure-tests and scores the objectives."],
+        ],
+        aios: "As an executive, your context is the people: what each one asked, promised and needs. The AIOS holds it so your attention can.",
+        forum: "Your team’s AIs hand work to each other without a status meeting. Information moves on its own; you intervene where judgment is needed.",
+        proof: "Delegation that can only narrow down the chain. Nobody’s agent exceeds your authority, and nobody’s agent can widen the mandate it was given.",
+        why: "McKinsey’s second question is how to keep the organization from rebuilding layers of approval. A mandate is approval given once, in writing, with limits, and a receipt instead of a review meeting.",
+        story: { label: "Illustrative", title: "Eleven reports, six minutes", body: "A manager with eleven reports moved her preparation from Sunday night to a six-minute morning read. The one-on-ones got shorter and better, because each started from what the person had actually asked for last time. The drafts went out under her name because she read every one of them. Nothing was automated; the information just stopped being slow." },
+        next: { cta: "Talk to us about my team", subject: "Executive: bring the AIOS to my team" },
+      },
+      {
+        id: "lawyer", label: "Lawyer / consultant", you: "a lawyer or consultant",
+        painTitle: "Your expertise lives in your head and in old files.",
+        pain: "Every matter starts by finding it again. Your team finds it first, from your own clause library and your own precedents, before any blank page.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "Matter prep", "The file, the precedents you have used, the client’s last three emails. In front of you before the call."],
+          ["day", "Review drafts and client memos", "Contract review against the clauses you negotiated before; memos in your voice, for your signature."],
+          ["evening", "The matter log updates itself", "Time, decisions and open points, captured without a Friday afternoon."],
+        ],
+        teamTitle: "The firm inside the firm",
+        teamLede: "An associate, a compliance officer, a billing clerk. None of them bills you.",
+        team: [
+          ["An associate", "lawyer", "Legal review, contract analysis and risk, from your own clause library before any blank page."],
+          ["A compliance officer", "compliance-checker", "Reviews documents against the rules, with the flags dated."],
+          ["The one who writes the engagement letter", "proposal-writer", "Proposals, scopes of work and engagement letters from your template."],
+          ["A strategy partner", "consultant", "The outside view on the client’s problem, with frameworks."],
+          ["The billing clerk", "invoice-tracker", "Pending, overdue, and the follow-up drafted."],
+          ["Client correspondence", "email-drafter", "Replies in your voice, for your signature."],
+        ],
+        aios: "As a lawyer, your context is twenty years of matters. The AIOS reads them back to you, matter by matter, so the next one starts ahead.",
+        forum: "Your team and the client’s team exchange documents in a verified room. Each knows the other is who it says it is, and the server cannot read them.",
+        proof: "The mandate is your engagement letter for the agent. The receipt is the audit trail a regulator asks for, written as the work happened.",
+        why: "Privilege, scope and the record are the whole profession. A mandate scopes what the agent may touch; a receipt proves what it did. That is a file you can defend.",
+        story: { label: "Illustrative", title: "A two-partner firm, one Friday", body: "A two-partner firm installed it on a Friday afternoon. The next matter started from their own clause library instead of a blank page, and the first review draft was on the partner’s desk before the client call. Nothing left the firm that a partner had not read. What changed was where the expertise lived." },
+        next: { cta: "Talk to us about the firm", subject: "Lawyer or consultant: the AIOS for my firm" },
+      },
+      {
+        id: "creator", label: "Creator / writer", you: "a writer",
+        painTitle: "Ideas scattered across five apps. Publishing is a second job.",
+        pain: "Your team takes the second job: the draft in your voice, the gate that flags what isn’t you, the calendar, the publisher.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "Ideas, caught", "In your own words, where you will find them again, linked to what you already wrote."],
+          ["day", "Drafting in your voice", "With your past posts as the reference. The gate flags the lines that are not you."],
+          ["evening", "Scheduled, done", "Cross-linked, scheduled, the image attached. The second job gets smaller."],
+        ],
+        teamTitle: "The newsroom you never had",
+        teamLede: "A drafter, an editor, a publisher, a designer, and someone watching the mentions. You still press publish.",
+        team: [
+          ["A drafter who learns your voice", "content-writer", "Posts for LinkedIn, X or Substack, drafted from your notes, in your voice."],
+          ["The gate that flags what isn’t you", "voice-gate", "Checks the prose against your own voice baseline: density, bursts, the exposed lines. A skill, not an agent; it loads when a draft is ready."],
+          ["A publisher", "kdp-publisher", "Takes a finished book from files on disk to a live listing on Amazon."],
+          ["The one who builds the deck", "deck-builder", "The talk that goes with the book, end to end."],
+          ["An editor who runs the calendar", "content-scheduler", "Plans and queues what goes out, when."],
+          ["Someone watching the mentions", "brand-monitor", "Your name, your work, the market, filtered to what matters."],
+        ],
+        aios: "As a writer, your context is your voice: every post, every line you cut. The AIOS learns it, and the gate keeps the drafts honest.",
+        forum: "Co-write with another writer’s team in a shared space. Each keeps its own voice file; the draft carries both names.",
+        proof: "Signed provenance. Proof the work is yours, and which parts your team did, written as the work happened.",
+        why: "Readers will ask who wrote it. A receipt per draft is an answer you can show, not a disclaimer.",
+        story: { label: "The founder’s own", title: "Two books, written with the team", body: "Be A Plant and Sell Trust are both on Amazon, paperback and Kindle, since August 2026. I wrote them in my voice. The voice gate checked every chapter against my own baseline, two independent models ran a structural pass and a voice pass, and I locked each draft. Then the illustrations, then the KDP build: interior, epub, cover. Sell Trust went to KDP in one midnight run, seven days ahead of the deadline.", cite: "Be A Plant · Sell Trust · Amazon, August 2026" },
+        next: { cta: "Write to us", subject: "Creator: the AIOS for my writing" },
+      },
+      {
+        id: "developer", label: "Developer", you: "a developer",
+        painTitle: "Agents that forget by Monday, and keys sitting in .env.",
+        pain: "Your team remembers, and runs under rules you can read: the repo’s own contract loaded before the first prompt, a permission mode on every tool call, a mandate instead of a key.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "Review with the repo’s rules loaded", "The reviewer reads CLAUDE.md and the last three reviews before the diff."],
+          ["day", "Triage, docs, autonomous runs", "Bug triage, docs that match the code, runs that stay inside the permissions you set."],
+          ["evening", "The project note", "What changed, why, what is next. The next session starts from it."],
+        ],
+        teamTitle: "The engineering team of one",
+        teamLede: "A cofounder, a reviewer, a security engineer, triage, docs, and the one who makes the codebase smaller.",
+        team: [
+          ["A technical cofounder", "technical-cofounder", "Builds real products end to end, with you."],
+          ["A reviewer", "code-reviewer", "Correctness first, with the repo’s own rules loaded before the diff."],
+          ["A security engineer", "security-engineer", "Threat models, secrets management, the review that finds the key in the fixture."],
+          ["Triage", "bug-triager", "Duplicates, severity, owner."],
+          ["The one who keeps the docs honest", "code-documenter", "README, CLAUDE.md and inline docs that match the code."],
+          ["The one who makes it smaller", "refactor-engineer", "Reduces entropy: simplifies, unships dead code."],
+        ],
+        aios: "As a developer, your context is the repo’s contract: invariants, the rules that bite, how to run and test. The AIOS loads it before the first prompt.",
+        forum: "Agent-to-agent work across orgs over Forum. End-to-end encrypted, server-blind, each agent signed as its owner.",
+        proof: "Replace API keys with mandates. Scoped, short-lived, revocable, and narrowing on delegation. A key says who; a mandate says what, until when, and leaves a receipt.",
+        why: "October showed what a key in .env is: unbounded authority, found by an agent. A mandate is bounded authority with a record, verifiable by whoever the agent calls.",
+        story: { label: "Public source · Anthropic, AI Engineer Europe, May 2026", title: "Same model, same prompt, different scaffolding", body: "Anthropic’s own engineers showed it on stage. Same model, same prompt: the bare loop shipped a game whose controls did not respond; the run with a harness around it shipped a working game. In their words, “the difference between this output and the previous output is entirely just scaffolding.” The AIOS is that scaffolding, kept in your repo, run by rules you can read.", cite: "Ash Prabaker and Andrew Wilson, Build Agents That Run for Hours, at 31:08." },
+        next: { cta: "Read the proof-pair spec", subject: "Developer: contributing to the AIOS" },
+      },
+      {
+        id: "academic", label: "Academic / teacher", you: "a teacher",
+        painTitle: "Grading, prep and research crowd out the thinking you were hired for.",
+        pain: "Your team takes the prep: the concept explained three ways, the quiz from the readings, the slides from your own notes, the feedback draft for you to finish.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "Class prep from your own notes", "Last term’s notes, the readings, the questions students actually asked. The hard concept, explained three ways."],
+          ["day", "Research briefs and feedback drafts", "What is new on the topic since your notes; feedback on what they wrote, in your voice, for you to finish."],
+          ["evening", "What landed", "What worked in class, written down for next year, not lost by June."],
+        ],
+        teamTitle: "The department of one",
+        teamLede: "A teaching assistant, a reading partner, the one who builds the slides, the one who writes it up.",
+        team: [
+          ["A teaching assistant", "explainer", "The hard concept, three ways, for the student in front of you."],
+          ["A reading partner", "study-buddy", "Reads the source with you and keeps a study atlas per book."],
+          ["The one who builds the slides", "deck-builder", "A deck from your own notes, end to end."],
+          ["The one who writes it up", "content-writer", "Lecture notes and course posts, in your voice."],
+          ["The one who asks the students to reflect", "journal-prompter", "Reflection prompts from what the class actually did."],
+        ],
+        aios: "As a teacher, your context is every class you have taught. The AIOS keeps it, so the next one starts from the best version of the last.",
+        forum: "A shared space with co-teachers or a research group. Each team brings its owner’s notes to the room; none leaks them.",
+        proof: "Signed authorship. Which work the AI did, and under whose mandate. Academic integrity you can show, not assert.",
+        why: "The question in every faculty meeting this year is what the AI did and what the student did. A receipt answers it per piece of work, without a detector guessing.",
+        story: { label: "From the room · Next Generation, EO Barcelona, October 2026", title: "A room of sixteen-to-twenty-four-year-olds", body: "This month the founder taught a session for sixteen-to-twenty-four-year-olds in Barcelona, built from his own notes with his team the same morning. Asked for one word on how the session felt, the room answered with three: inspired, uncertain, future. The uncertainty is the honest part. The tool does not remove it; it gives a teacher the hours to meet it." },
+        next: { cta: "A workshop for my faculty", subject: "Teacher: the AIOS for my faculty" },
+      },
+      {
+        id: "student", label: "Student", you: "a student",
+        painTitle: "The fear that the jobs will disappear before you get one.",
+        pain: "You start with a team, not with a job: a tutor, a study partner, a mentor, and someone who asks what you actually want.",
+        dayTitle: "A day with your team",
+        day: [
+          ["morning", "A study plan from what you have to learn", "This week’s material, your pace, the exam date. Not a generic schedule."],
+          ["day", "Explanations three ways", "The concept until it clicks. And the career question you keep not asking, asked back to you."],
+          ["evening", "What stuck", "Written down, so tomorrow starts from it."],
+        ],
+        teamTitle: "The study group that shows up",
+        teamLede: "They explain, quiz and ask; the notes stay yours, on your machine.",
+        team: [
+          ["A tutor", "explainer", "The concept, three ways, until it clicks."],
+          ["A study partner", "study-buddy", "Questions and practice from your own course, no grades."],
+          ["Someone who asks about you", "journal-prompter", "One question about what you actually want, from what you did this week."],
+          ["A mentor", "growth-companion", "A real read on how you are doing, and a standing weekly session."],
+        ],
+        aios: "As a student, your context is what you are learning and who you are becoming. The AIOS keeps both, and neither belongs to a platform.",
+        forum: "Study groups with their teams. One shared space, each AI knows its owner’s notes, nobody copies anybody.",
+        proof: "A verified identity for your own team, from day one. Yours, not a platform’s. When your agent speaks for you, it can prove it.",
+        why: "The first job will ask what you can do with agents. Arriving with your own team, under your own identity, is the answer.",
+        story: { label: "From the room · Next Generation, EO Barcelona, October 2026", title: "The best tool to become anyone you want to become", body: "In Barcelona this month the founder told a room of sixteen-to-twenty-four-year-olds that AI is nothing but our best tool to become anyone we want to become. The tool serves the person; the person chooses who to become. Asked for one word, the room answered with three: inspired, uncertain, future." },
+        next: { cta: "Write to us", subject: "Student: getting started with the AIOS" },
+      },
+      {
+        id: "teams", label: "Teams", you: "a team",
+        painTitle: "One person has it. The team doesn’t. Yet.",
+        pain: "The person comes first and the company follows: one member runs it for a month, then a day in the room sets the team up with shared context, governance and everyone’s own agents.",
+        dayTitle: "How a team starts",
+        day: [
+          ["month 1", "One person runs it", "Free. Their own context, their own team, every day. The company is not involved yet."],
+          ["day 1", "A day in the room sets the team up", "Shared contexts, governance, each person’s own agents. With the files open."],
+          ["after", "The team space is the product", "Your teams meet in one room, signed. Work moves between them; the record writes itself."],
+        ],
+        teamTitle: "What a team adds",
+        teamLede: "Two layers of context, written governance, and a concierge for every new member.",
+        team: [
+          ["Shared context", "/company", "What the team knows together, kept apart from what each person keeps."],
+          ["Governance", "INTENT.md", "Who may do what, written down, enforced where the agents run."],
+          ["A concierge for every new member", "onboarding-aios", "Orients each person, checks the install, answers “am I on the latest?”"],
+          ["A way to report what is off", "aios-feedback", "A bug, a papercut, a doc that said one thing while the system did another."],
+          ["Everyone’s own team", "each member", "The same agents, each under its owner’s mandate, none above it."],
+        ],
+        aios: "For a team, the context is two layers: what each person keeps, and what the team shares. The AIOS keeps them apart, and lets every team read both.",
+        forum: "The team space is the product. Your teams meet in one room, each signed as its owner; the handoffs leave a record.",
+        proof: "Every action across the team signed and auditable. The mandate narrows down the chain and never widens; no agent outranks its owner.",
+        why: "A team is where delegation crosses people. That is exactly where a mandate and a receipt stop being nice and start being the thing that lets you trust the work.",
+        story: { label: "A pattern, not a name", title: "The first team that paid", body: "The first team that paid was a business owner who ran it himself for weeks, then brought his team. That is the order every time: the person first, the company follows. Nobody buys a change in how they think from a procurement process; one person tries it, and the team arrives behind them." },
+        next: { cta: "Let’s talk", subject: "Teams: let’s talk" },
+      },
+    ],
   },
   what: {
     eyebrow: "What it is", h: ["Your AI co-workers, ", "orchestrated", "."],
@@ -448,7 +750,7 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Interfaz", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Tú", "Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Interfaz", "Manual"][i] })),
   getApp: "Descargar la app",
   downloads: {
     action: "Descargar",
@@ -544,8 +846,12 @@ const es: Content = {
     leadRest: " The AIOS convierte la IA en compañeros de trabajo — un tú legal, un tú contable, un tú de marketing, un tú de ingeniería. Orquestados por ti, gobernados por tu intención, capitalizando cada día.",
     tagline: "Gana ancho de banda. Vuélvete agéntico.",
     ctaPrimary: "Haz el recorrido ↓", ctaGithub: "Ver en GitHub ↗",
-    chips: ["contexto declarado", "contexto observado", "intención", "agentes", "skills", "rituales"],
+    field: { pre: "Soy", placeholder: "tu rol", post: "— muéstrame mi AIOS.", go: "Muéstrame", open: "Ver roles", close: "Ocultar roles", hint: "Escribe tu oficio en cualquier idioma: dentista, lawyer, professora…", fallbackNote: "lo más cercano" },
   },
+  /* TODO(roles-es): EN placeholder so the branch builds for Chuy's localhost review today.
+     The native LatAm-neutral (tú) version lands in the second commit on this branch,
+     before anything merges. */
+  roles: en.roles,
   what: {
     eyebrow: "Qué es", h: ["Tus compañeros de IA, ", "orquestados", "."],
     body1: "Opera a cada compañero tú mismo y sé su orquestador — o deja que un compañero de IA dirija al resto como tu jefe de gabinete que nunca duerme.",
@@ -727,7 +1033,7 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["O quê", "Por quê", "Como", "Onde", "Configurar", "Interface", "Manual"][i] })),
+  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Você", "O quê", "Por quê", "Como", "Onde", "Configurar", "Interface", "Manual"][i] })),
   getApp: "Baixar o app",
   downloads: {
     action: "Baixar",
@@ -823,8 +1129,12 @@ const pt: Content = {
     leadRest: " The AIOS transforma a IA em colegas de trabalho — um você jurídico, um você contador, um você de marketing, um você de engenharia. Orquestrados por você, governados pela sua intenção, capitalizando todos os dias.",
     tagline: "Ganhe banda. Vá agêntico.",
     ctaPrimary: "Faça o tour ↓", ctaGithub: "Ver no GitHub ↗",
-    chips: ["contexto declarado", "contexto observado", "intenção", "agentes", "skills", "rituais"],
+    field: { pre: "Eu sou", placeholder: "seu papel", post: "— me mostre o meu AIOS.", go: "Me mostre", open: "Ver papéis", close: "Ocultar papéis", hint: "Digite sua profissão em qualquer idioma: dentista, lawyer, maestra…", fallbackNote: "o mais próximo" },
   },
+  /* TODO(roles-pt): EN placeholder so the branch builds for Chuy's localhost review today.
+     The native PT-BR (você) version lands in the second commit on this branch, before
+     anything merges. */
+  roles: en.roles,
   what: {
     eyebrow: "O que é", h: ["Seus colegas de IA, ", "orquestrados", "."],
     body1: "Opere cada colega você mesmo e seja o orquestrador deles — ou deixe um colega de IA conduzir o resto como seu chefe de gabinete que nunca dorme.",

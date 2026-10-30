@@ -31,6 +31,9 @@ import { ThemeToggle } from "./ThemeToggle";
 import { ManualEmbed, ManualDownload } from "./ManualEmbed";
 import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
+import { RoleField } from "./RoleField";
+import { YourAios } from "./YourAios";
+import type { RoleId } from "@/data/roles";
 import {
   HeroConstellation,
   CompoundTimeline,
@@ -210,6 +213,8 @@ function MMCard({ word, kind, title, mock, children }: { word: string; kind: str
 
 export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Locale }) {
   const c = CONTENT[locale];
+  /* The hero field shows the same labels as the section-00 tabs — one source. */
+  const roleLabels = Object.fromEntries(c.roles.items.map((r) => [r.id, r.label])) as Record<RoleId, string>;
 
   return (
     <>
@@ -275,9 +280,17 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <strong style={{ ...INK, fontWeight: 600 }}>{c.hero.leadBold}</strong>
               {c.hero.leadRest}
             </p>
-            <p className="mono" style={{ background: "transparent", border: 0, padding: 0, color: "var(--color-accent)", fontSize: "0.9375rem", marginBottom: "2rem" }}>
+            <p className="mono" style={{ background: "transparent", border: 0, padding: 0, color: "var(--color-accent)", fontSize: "0.9375rem", marginBottom: "1.75rem" }}>
               {c.hero.tagline}
             </p>
+
+            {/* The sentence the visitor completes: "I'm a [ role ▾ ] — show me my AIOS."
+                A real combobox; picking a role opens that tab in section 00 and writes
+                #<role> into the URL. The vocabulary chip row that used to close the hero
+                is gone: with the field here the hero had four elements below the lede,
+                and the chips were a tour's vocabulary where the field now opens the tour
+                by role. */}
+            <RoleField copy={c.hero.field} labels={roleLabels} />
 
             {/* Animated install one-liner — the real CTA (command stays English). */}
             <div className="terminal" style={{ marginBottom: "1.75rem" }}>
@@ -288,18 +301,15 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               </span>
             </div>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "2.5rem" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
               <a href="#what" className="btn-primary">{c.hero.ctaPrimary}</a>
               <GitHubLink href={REPO} surface="hero-primary" className="btn-secondary">{c.hero.ctaGithub}</GitHubLink>
             </div>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {c.hero.chips.map((chip) => (
-                <span key={chip} className="code-chip">{chip}</span>
-              ))}
-            </div>
           </div>
         </section>
+
+        {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
+        <YourAios c={c.roles} />
 
         {/* ============ 01 — WHAT ============ */}
         <section id="what" className="section">
