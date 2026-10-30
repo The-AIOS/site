@@ -1485,3 +1485,18 @@ export const CHANGELOG: { date: string; summary: string }[] = [
   },
   { date: "2026-06", summary: "First edition: 31 exemplars across 14 industries" },
 ];
+
+/* ---- Derived, shared by the index page and the landing card, so neither can drift from the data ---- */
+
+/** "Last updated": the newest per-entry `verified` date (ISO). */
+export const LAST_UPDATED: string = EXEMPLARS.map((e) => e.verified).sort().at(-1) ?? "";
+
+/** An ISO day as a long date in the reader's locale (en-US, es-MX, pt-BR). */
+export function formatDay(iso: string, locale = "en-US"): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+}
+
+/** How many exemplars sit at a given speed. */
+export function countBySpeed(speed: Speed): number {
+  return EXEMPLARS.filter((e) => e.speed === speed).length;
+}

@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 
 const REPO_API = "https://api.github.com/repos/The-AIOS/aios";
 
-export function LiveStat({ n, label, asOf, liveLabel, href, live }: {
-  n: string; label: string; asOf: string; liveLabel: string; href: string; live?: "stars";
+export function LiveStat({ n, label, asOf, liveLabel, href, live, numberLocale = "en-US" }: {
+  n: string; label: string; asOf: string; liveLabel: string; href: string; live?: "stars"; numberLocale?: string;
 }) {
   const [liveN, setLiveN] = useState<string | null>(null);
   useEffect(() => {
@@ -17,10 +17,10 @@ export function LiveStat({ n, label, asOf, liveLabel, href, live }: {
     const ctl = new AbortController();
     fetch(REPO_API, { signal: ctl.signal, headers: { Accept: "application/vnd.github+json" } })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (d && typeof d.stargazers_count === "number") setLiveN(d.stargazers_count.toLocaleString("en-US")); })
+      .then((d) => { if (d && typeof d.stargazers_count === "number") setLiveN(d.stargazers_count.toLocaleString(numberLocale)); })
       .catch(() => { /* offline or rate-limited: the dated figure stands */ });
     return () => ctl.abort();
-  }, [live]);
+  }, [live, numberLocale]);
   return (
     <a className="pf-num" href={href} target="_blank" rel="noreferrer">
       <span className="pf-n">{liveN ?? n}</span>

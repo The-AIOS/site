@@ -4,7 +4,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import DisruptionIndex from "@/components/DisruptionIndex";
 import DisruptionQuadrant from "@/components/DisruptionQuadrant";
 import EmergentOpportunities from "@/components/EmergentOpportunities";
-import { CHANGELOG, EXEMPLARS, SPEED_META, SPEED_ORDER } from "@/data/exemplars";
+import { CHANGELOG, EXEMPLARS, LAST_UPDATED, SPEED_META, SPEED_ORDER, formatDay } from "@/data/exemplars";
 import "./di.css";
 
 const TITLE = "The Disruption Index — industries ranked by the speed of AI disruption";
@@ -32,10 +32,7 @@ export const metadata: Metadata = {
 
 const industryCount = new Set(EXEMPLARS.map((e) => e.industry)).size;
 const goneCount = EXEMPLARS.filter((e) => e.speed === "gone").length;
-/* "Last updated" is derived from the newest per-entry `verified` date, so it can't drift from the data. */
-const lastUpdated = EXEMPLARS.map((e) => e.verified).sort().at(-1) ?? "";
-const formatDay = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+/* "Last updated" (LAST_UPDATED) and formatDay live in src/data/exemplars.ts, shared with the landing card. */
 const insulatedCount = EXEMPLARS.filter((e) => e.speed === "insulated").length;
 const countOf = (s: (typeof SPEED_ORDER)[number]) =>
   EXEMPLARS.filter((e) => e.speed === s).length;
@@ -94,7 +91,7 @@ export default function DisruptionIndexPage() {
           <div className="container">
             <p className="eyebrow">
               <span className="accent">●</span> The speed of AI disruption · live index · last updated{" "}
-              <time dateTime={lastUpdated}>{formatDay(lastUpdated)}</time>
+              <time dateTime={LAST_UPDATED}>{formatDay(LAST_UPDATED)}</time>
             </p>
             <h1 className="display-xl" style={{ marginTop: "1rem", maxWidth: "20ch" }}>
               Some industries already lost.{" "}

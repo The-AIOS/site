@@ -58,7 +58,7 @@ export function ProofFromPeople({ c }: { c: Content["people"] }) {
         ))}
       </ul>
       <div className="pf-nums">
-        {c.numbers.map((n) => <LiveStat key={n.label} {...n} liveLabel={c.liveLabel} />)}
+        {c.numbers.map((n) => <LiveStat key={n.label} {...n} liveLabel={c.liveLabel} numberLocale={c.numberLocale} />)}
       </div>
       <p className="pf-note">{c.note}</p>
     </div>

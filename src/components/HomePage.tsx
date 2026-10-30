@@ -51,9 +51,12 @@ import {
 } from "./deckGraphics";
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
+import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
 import { DownloadPill, DownloadPanel, LaunchStrip } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
+/* The reader's date locale per site locale (the Disruption Index card's "last updated"). */
+const DATE_LOCALE: Record<Locale, string> = { en: "en-US", es: "es-MX", pt: "pt-BR" };
 /* The version-less release URL: GitHub redirects it to the current asset, so this
    link never rots when we cut a new version. */
 /* Download URLs live in src/downloads.ts — one table, imported by every surface. This used to be
@@ -387,17 +390,23 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                   The <span className="accent">Disruption</span> Index
                 </h3>
                 <p className="body-text" style={{ margin: 0 }}>{c.why.diSub}</p>
+                {/* derived from the data, same helper as the index page */}
+                <p style={{ margin: "0.875rem 0 0", fontFamily: "var(--font-mono)", fontSize: "0.6875rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-ink-subtle)" }}>
+                  {c.why.diUpdated} · <time dateTime={LAST_UPDATED}>{formatDay(LAST_UPDATED, DATE_LOCALE[locale])}</time>
+                </p>
               </div>
               <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                {[
-                  ["already gone", "var(--color-accent)"],
-                  ["on the clock", "var(--color-ink-muted)"],
-                  ["reinventing", "var(--color-ink-muted)"],
-                  ["insulated", "var(--color-ink-subtle)"],
-                ].map(([label, color]) => (
+                {/* counts read from the data, so the card never disagrees with the index */}
+                {([
+                  ["gone", "already gone", "var(--color-accent)"],
+                  ["on-the-clock", "on the clock", "var(--color-ink-muted)"],
+                  ["reinventing", "reinventing", "var(--color-ink-muted)"],
+                  ["insulated", "insulated", "var(--color-ink-subtle)"],
+                ] as const).map(([speed, label, color]) => (
                   <div key={label} style={{ display: "flex", alignItems: "center", gap: "0.625rem", fontFamily: "var(--font-mono)", fontSize: "0.8125rem", color }}>
                     <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, flex: "0 0 auto" }} />
                     {label}
+                    <span style={{ marginLeft: "auto", color: "var(--color-ink-subtle)" }}>{countBySpeed(speed)}</span>
                   </div>
                 ))}
                 <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>/disruption-index</span>

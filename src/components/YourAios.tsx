@@ -109,7 +109,7 @@ function DayViz({ beats, learnK, alt }: { beats: [string, string, string][]; lea
 }
 
 /** 03 · your team: you in the middle, the people you couldn't hire connecting in. */
-function TeamViz({ team, alt }: { team: [string, string, string][]; alt: string }) {
+function TeamViz({ team, me, alt }: { team: [string, string, string][]; me: string; alt: string }) {
   const n = Math.min(team.length, 7);
   const cx = 160, cy = 100, R = 72;
   return (
@@ -128,7 +128,7 @@ function TeamViz({ team, alt }: { team: [string, string, string][]; alt: string 
         );
       })}
       <circle className="yv-float" cx={cx} cy={cy} r="20" fill={GLOW} stroke={ACC} strokeWidth="2" style={{ transformOrigin: `${cx}px ${cy}px` }} />
-      <text x={cx} y={cy + 4} textAnchor="middle" fontFamily={SANS} fontSize="11" fontWeight="700" fill={INK}>you</text>
+      <text x={cx} y={cy + 4} textAnchor="middle" fontFamily={SANS} fontSize="11" fontWeight="700" fill={INK}>{me}</text>
     </svg>
   );
 }
@@ -262,7 +262,7 @@ function RoleFrames({ r, c }: { r: RoleStory; c: RolesContent }) {
           <li className="is-learn"><span>{c.learn.k}</span>{c.learn.t}</li>
         </ul>
       </Frame>
-      <Frame n={3} label={s.team} title={r.teamTitle} visual={<TeamViz team={r.team} alt={c.alts.team} />}>
+      <Frame n={3} label={s.team} title={r.teamTitle} visual={<TeamViz team={r.team} me={c.me} alt={c.alts.team} />}>
         <p>{r.teamLede}</p>
         <ul className="yo-chips" aria-label={s.team}>
           {r.team.map((m) => <li key={m[1]} title={m[2]}><b>{m[0]}</b><code>{m[1]}</code></li>)}
