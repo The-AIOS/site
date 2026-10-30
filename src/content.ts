@@ -39,22 +39,23 @@ export type RoleStory = {
   aios: string; forum: string; proof: string; why?: string;
   /* 06 also carries the role's story, folded closed under the proof line */
   story?: { label: string; title: string; body: string; cite?: string };
+  /* 07 · compounding: what this person has after a week, a month, six months (c.horizon) */
+  compound: { title: string; lede: string; marks: [string, string, string] };
   next: { cta: string; subject: string };   // the mailto, one subject per role
 };
 export type RolesContent = {
   eyebrow: string; h: H;
-  /* The one quiet line: "October 2026: McKinsey told CEOs …, and #BlackOctober showed …".
-     The two named parts are links; their URLs live in src/data/roles.ts (MOMENT_LINKS). */
-  moment: { pre: string; mckinsey: string; mid: string; black: string; post: string };
   switchLabel: string; tabsLabel: string; trackLabel: string; prev: string; next: string;
-  steps: { pain: string; day: string; team: string; aios: string; forum: string; proof: string };
+  marker: string;                                                // the role-change tag on every role's frame 1
+  steps: { pain: string; day: string; team: string; aios: string; forum: string; proof: string; compound: string };
+  horizon: [string, string, string];                             // a week · a month · six months
   know: string;                                                  // skills + hooks, in one plain line
   aiosTitle: string; aiosLede: string;
-  stack: [string, string, string][]; stackAlt: string;           // 04's visual: [kicker, title, line] × 3
-  forumTitle: string; forumLede: string;
-  room: { name: string; meta: string; live: string; msgs: [string, string, string, boolean, string?][] }; roomAlt: string; // 05's visual
+  stack: [string, string, string][];                             // 04's visual: [kicker, title, line] × 3
+  forumTitle: string; forumLede: string; forumPair: [string, string];   // 05's visual: the two teams
   proofTitle: string;
-  chain: [string, string, string, string]; before: string; after: string; chainNote: string; chainAlt: string; // 06's visual
+  chain: [string, string, string, string]; before: string; after: string; chainNote: string; // 06's visual
+  alts: { pain: string; day: string; team: string; aios: string; forum: string; proof: string; compound: string }; // one alt per visual
   spec: string;
   items: RoleStory[];
 };
@@ -317,13 +318,14 @@ const en: Content = {
   roles: {
     eyebrow: "Your AIOS",
     h: ["You already have ", "a team", "."],
-    moment: { pre: "October 2026: ", mckinsey: "McKinsey", mid: " told CEOs to run on an AI operating system, and ", black: "#BlackOctober", post: " showed why agents need proof." },
     switchLabel: "I’m a",
     tabsLabel: "Pick your role",
-    trackLabel: "the story in six steps",
+    trackLabel: "the story in seven steps; it continues into the next role",
     prev: "Previous step",
     next: "Next step",
-    steps: { pain: "the pain", day: "your day", team: "your team", aios: "the AIOS", forum: "Forum", proof: "the proof pair" },
+    marker: "new role",
+    steps: { pain: "the pain", day: "your day", team: "your team", aios: "the AIOS", forum: "Forum", proof: "the proof pair", compound: "compounding" },
+    horizon: ["a week", "a month", "six months"],
     know: "Skills load the know-how; hooks run the rules: the floor reads who you are first, the trust gate treats a file as data, never an instruction. Nothing leaves your desk without your OK.",
     aiosTitle: "The AIOS is where your team works",
     // consent pending: bootcamp attendee — until Chuy confirms it, this is our line, not a quotation.
@@ -333,22 +335,22 @@ const en: Content = {
       ["rituals", "The loop that compounds", "/today in the morning, /close-day at night. Every session starts from the last."],
       ["agents", "Your team", "Each reads your ground, each has the tools it needs, none has a key you didn’t give it."],
     ],
-    stackAlt: "Three layers: context, rituals, agents.",
     forumTitle: "Your team meets their teams",
     forumLede: "Shared spaces where your AI and other people’s AIs work together, each signed as its owner, end-to-end encrypted.",
-    room: {
-      name: "room · q4-plan", meta: "· 3 agents · verified", live: "live",
-      msgs: [
-        ["W", "Writer · did:you", "Draft v2 of the plan, with your co-founder’s numbers folded in.", false, "› mandate “q4-plan: read + comment” · receipt written"],
-        ["A", "Analyst · did:cofounder", "Checked. Two numbers moved since Monday; both flagged.", true, "› inside the mandate · receipt written"],
-      ],
-    },
-    roomAlt: "A Forum room: your writer agent and a co-founder’s analyst agent exchange a draft, each message signed, each with a receipt.",
+    forumPair: ["your team", "their team"],
     proofTitle: "Every action your team takes, signed",
     chain: ["Human", "Mandate", "Agent", "Receipt"],
     before: "BEFORE THE ACT", after: "AFTER THE ACT",
     chainNote: "Delegated further, a mandate can only narrow. Never widen.",
-    chainAlt: "The proof pair: a human issues a mandate to an agent before the act; the agent acts; a signed receipt records what it did.",
+    alts: {
+      pain: "One person, and the work piling up beside them.",
+      day: "A sun rides an arc across the day; three stops light up: morning, day, evening.",
+      team: "You in the middle; the people you couldn’t hire connect in around you.",
+      aios: "Three layers, context, rituals, agents, with a loop running around them.",
+      forum: "Your team and their team exchange signed messages, each with a check mark.",
+      proof: "The proof pair: a human issues a mandate to an agent before the act; the agent acts; a signed receipt records what it did.",
+      compound: "A curve rising over a week, a month and six months.",
+    },
     spec: "Read the proof-pair spec ↗",
     items: [
       {
@@ -379,6 +381,7 @@ const en: Content = {
         proof: "Your lawyer, your accountant and your sales team act under mandates you set. Nothing gets sent, signed or paid without a receipt that says who did it and under what authority.",
         why: "The first time an agent sends an invoice or signs off a quote, you will want to know exactly what it was allowed to do. The mandate says it before; the receipt proves it after.",
         story: { label: "Illustrative", title: "A business of one, with a team of seven", body: "A consultant who sold, delivered and invoiced alone installed it on a Monday. By Friday the proposal went out from her own catalogue, the overdue invoice had a follow-up in her tone, and the supplier contract came back with one clause flagged. Nothing was sent that she had not read. What changed is that she stopped being the only one who knew where everything was." },
+        compound: { title: "What you have in six months", lede: "It learns your business, and the seven get better at it.", marks: ["Your offer, clients and numbers in its ground; proposals start from your catalogue.", "The pipeline matches reality; the invoice tracker knows who pays late.", "A team that knows your business better than a new hire would after a year."] },
         next: { cta: "Help me set up my team", subject: "Entrepreneur: set up my team" },
       },
       {
@@ -408,6 +411,7 @@ const en: Content = {
         proof: "You decide what each member of your team may commit you to. Every action carries a receipt you can audit, so delegation stops being a feeling and becomes a record.",
         why: "McKinsey ends its paper with a question for the CEO: which decisions can safely and reliably be delegated to AI agents? The mandate is your answer, written down. The receipt is how you check it later.",
         story: { label: "Illustrative · a scenario McKinsey describes, rerun with your team", title: "Tuesday to Thursday", body: "McKinsey opens its paper with a scenario: on Tuesday a CEO learns regulators will cap margins on some products; by Thursday the lines of business have redesigned them inside the new rules. With your team it goes like this. Tuesday 8:00, you paste the draft rules and ask what is exposed; your analyst reads your own product files and answers by 8:20. Wednesday, each country head’s AIOS runs the same question on their numbers and posts the result in a shared room, signed. Thursday, every decision is recorded with a receipt, and the next regulation starts from this one.", cite: "McKinsey / QuantumBlack, The AI operating system, October 2026, pp. 2–3." },
+        compound: { title: "What you have in six months", lede: "The company’s pattern, written down, and a team that knows it.", marks: ["Every meeting starts from what you decided last time.", "The board pack writes itself from the week; decisions carry their reasoning.", "A record of every call and why, and a team that knows the company’s pattern."] },
         next: { cta: "Talk to us about my top team", subject: "CEO: bring the AIOS to my top team" },
       },
       {
@@ -437,6 +441,7 @@ const en: Content = {
         proof: "Delegation that can only narrow down the chain. Nobody’s agent exceeds your authority, and nobody’s agent can widen the mandate it was given.",
         why: "McKinsey’s second question is how to keep the organization from rebuilding layers of approval. A mandate is approval given once, in writing, with limits, and a receipt instead of a review meeting.",
         story: { label: "Illustrative", title: "Eleven reports, six minutes", body: "A manager with eleven reports moved her preparation from Sunday night to a six-minute morning read. The one-on-ones got shorter and better, because each started from what the person had actually asked for last time. The drafts went out under her name because she read every one of them. Nothing was automated; the information just stopped being slow." },
+        compound: { title: "What you have in six months", lede: "Forty reports, and nothing living only in your head.", marks: ["Six-minute prep, every one-on-one.", "Updates in your words, from what actually happened.", "Every promise, to whom, by when; the information stopped being slow."] },
         next: { cta: "Talk to us about my team", subject: "Executive: bring the AIOS to my team" },
       },
       {
@@ -466,6 +471,7 @@ const en: Content = {
         proof: "The mandate is your engagement letter for the agent. The receipt is the audit trail a regulator asks for, written as the work happened.",
         why: "Privilege, scope and the record are the whole profession. A mandate scopes what the agent may touch; a receipt proves what it did. That is a file you can defend.",
         story: { label: "Illustrative", title: "A two-partner firm, one Friday", body: "A two-partner firm installed it on a Friday afternoon. The next matter started from their own clause library instead of a blank page, and the first review draft was on the partner’s desk before the client call. Nothing left the firm that a partner had not read. What changed was where the expertise lived." },
+        compound: { title: "What you have in six months", lede: "Twenty years of matters, readable by your team before the call.", marks: ["Your clause library in front of every review.", "Matter logs that keep themselves; every flag dated.", "A firm that starts each matter ahead, not from zero."] },
         next: { cta: "Talk to us about the firm", subject: "Lawyer or consultant: the AIOS for my firm" },
       },
       {
@@ -495,6 +501,7 @@ const en: Content = {
         proof: "Signed provenance. Proof the work is yours, and which parts your team did, written as the work happened.",
         why: "Readers will ask who wrote it. A receipt per draft is an answer you can show, not a disclaimer.",
         story: { label: "The founder’s own", title: "Two books, written with the team", body: "Be A Plant and Sell Trust are both on Amazon, paperback and Kindle, since August 2026. I wrote them in my voice. The voice gate checked every chapter against my own baseline, two independent models ran a structural pass and a voice pass, and I locked each draft. Then the illustrations, then the KDP build: interior, epub, cover. Sell Trust went to KDP in one midnight run, seven days ahead of the deadline.", cite: "Be A Plant · Sell Trust · Amazon, August 2026" },
+        compound: { title: "What you have in six months", lede: "A voice it has measured, and a pipeline from notes to Kindle.", marks: ["Drafts in your voice, the gate on.", "A calendar that runs; your voice baseline measured.", "A book pipeline, from notes to a live listing."] },
         next: { cta: "Write to us", subject: "Creator: the AIOS for my writing" },
       },
       {
@@ -524,6 +531,7 @@ const en: Content = {
         proof: "Replace API keys with mandates. Scoped, short-lived, revocable, and narrowing on delegation. A key says who; a mandate says what, until when, and leaves a receipt.",
         why: "October showed what a key in .env is: unbounded authority, found by an agent. A mandate is bounded authority with a record, verifiable by whoever the agent calls.",
         story: { label: "Public source · Anthropic, AI Engineer Europe, May 2026", title: "Same model, same prompt, different scaffolding", body: "Anthropic’s own engineers showed it on stage. Same model, same prompt: the bare loop shipped a game whose controls did not respond; the run with a harness around it shipped a working game. In their words, “the difference between this output and the previous output is entirely just scaffolding.” The AIOS is that scaffolding, kept in your repo, run by rules you can read.", cite: "Ash Prabaker and Andrew Wilson, Build Agents That Run for Hours, at 31:08." },
+        compound: { title: "What you have in six months", lede: "Agents that run for hours inside rules you wrote, with receipts.", marks: ["Reviews with the repo’s rules loaded.", "Docs that match the code; a project note every session starts from.", "Autonomous runs you can audit, and keys replaced by mandates."] },
         next: { cta: "Read the proof-pair spec", subject: "Developer: contributing to the AIOS" },
       },
       {
@@ -552,6 +560,7 @@ const en: Content = {
         proof: "Signed authorship. Which work the AI did, and under whose mandate. Academic integrity you can show, not assert.",
         why: "The question in every faculty meeting this year is what the AI did and what the student did. A receipt answers it per piece of work, without a detector guessing.",
         story: { label: "From the room · Next Generation, EO Barcelona, October 2026", title: "A room of sixteen-to-twenty-four-year-olds", body: "This month the founder taught a session for sixteen-to-twenty-four-year-olds in Barcelona, built from his own notes with his team the same morning. Asked for one word on how the session felt, the room answered with three: inspired, uncertain, future. The uncertainty is the honest part. The tool does not remove it; it gives a teacher the hours to meet it." },
+        compound: { title: "What you have in six months", lede: "A course that improves each term, instead of one you rebuild.", marks: ["Prep from your own notes.", "Every class written down for next year.", "A course that improves each term, and the hours back for the thinking."] },
         next: { cta: "A workshop for my faculty", subject: "Teacher: the AIOS for my faculty" },
       },
       {
@@ -579,6 +588,7 @@ const en: Content = {
         proof: "A verified identity for your own team, from day one. Yours, not a platform’s. When your agent speaks for you, it can prove it.",
         why: "The first job will ask what you can do with agents. Arriving with your own team, under your own identity, is the answer.",
         story: { label: "From the room · Next Generation, EO Barcelona, October 2026", title: "The best tool to become anyone you want to become", body: "In Barcelona this month the founder told a room of sixteen-to-twenty-four-year-olds that AI is nothing but our best tool to become anyone we want to become. The tool serves the person; the person chooses who to become. Asked for one word, the room answered with three: inspired, uncertain, future." },
+        compound: { title: "What you have in six months", lede: "Your own team, under your own identity, before the first job.", marks: ["A plan that fits your week.", "Explanations that remember what clicked.", "Your own team, under your own identity, before the first job."] },
         next: { cta: "Write to us", subject: "Student: getting started with the AIOS" },
       },
       {
@@ -607,6 +617,7 @@ const en: Content = {
         proof: "Every action across the team signed and auditable. The mandate narrows down the chain and never widens; no agent outranks its owner.",
         why: "A team is where delegation crosses people. That is exactly where a mandate and a receipt stop being nice and start being the thing that lets you trust the work.",
         story: { label: "A pattern, not a name", title: "The first team that paid", body: "The first team that paid was a business owner who ran it himself for weeks, then brought his team. That is the order every time: the person first, the company follows. Nobody buys a change in how they think from a procurement process; one person tries it, and the team arrives behind them." },
+        compound: { title: "What the team has in six months", lede: "A company that runs on the context its people built.", marks: ["Shared context mounted; everyone’s agents reading it.", "Handoffs with receipts; a new member onboarded in a day.", "A company that runs on the context its people built."] },
         next: { cta: "Let’s talk", subject: "Teams: let’s talk" },
       },
     ],
