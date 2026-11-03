@@ -54,6 +54,7 @@ import { CONTENT } from "@/content";
 import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
 import { LANE_META, countByLane, STANDARDS_LAST_CHECKED, type Lane } from "@/data/standards";
 import { STANDARDS_COPY, STANDARDS_PATHS } from "@/data/standards-copy";
+import { DI_COPY, DI_PATHS } from "@/data/di-copy";
 import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
@@ -285,7 +286,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
             {/* Animated install one-liner — the real CTA (command stays English). */}
             <div className="terminal" style={{ marginBottom: "1.75rem" }}>
-              <span className="t-comment"># get started, tell claude:</span>
+              <span className="t-comment"># already in Claude Code? tell it:</span>
               <span className="t-cmdline">
                 <span className="t-prompt">›</span>
                 <span className="t-typed">{SETUP_LINE}</span>
@@ -385,7 +386,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <p className="pullquote-lg" style={{ marginBottom: "2.5rem" }}><HL h={c.why.pull} /></p>
 
             {/* The Disruption Index — evidence of the urgency. Its own route. */}
-            <a href="/disruption-index" className="manual-card" style={{ textDecoration: "none", alignItems: "center" }}>
+            <a href={DI_PATHS[locale]} className="manual-card" style={{ textDecoration: "none", alignItems: "center" }}>
               <div>
                 <div className="card-eyebrow" style={{ marginBottom: "0.75rem" }}>{c.why.diLabel}</div>
                 <h3 className="display-md" style={{ marginBottom: "0.75rem" }}>
@@ -400,18 +401,18 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
                 {/* counts read from the data, so the card never disagrees with the index */}
                 {([
-                  ["gone", "already gone", "var(--color-accent)"],
-                  ["on-the-clock", "on the clock", "var(--color-ink-muted)"],
-                  ["reinventing", "reinventing", "var(--color-ink-muted)"],
-                  ["insulated", "insulated", "var(--color-ink-subtle)"],
-                ] as const).map(([speed, label, color]) => (
+                  ["gone", "var(--color-accent)"],
+                  ["on-the-clock", "var(--color-ink-muted)"],
+                  ["reinventing", "var(--color-ink-muted)"],
+                  ["insulated", "var(--color-ink-subtle)"],
+                ] as const).map(([speed, color]) => [speed, DI_COPY[locale].speed[speed].label.toLowerCase(), color] as const).map(([speed, label, color]) => (
                   <div key={label} style={{ display: "flex", alignItems: "center", gap: "0.625rem", fontFamily: "var(--font-mono)", fontSize: "0.8125rem", color }}>
                     <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, flex: "0 0 auto" }} />
                     {label}
                     <span style={{ marginLeft: "auto", color: "var(--color-ink-subtle)" }}>{countBySpeed(speed)}</span>
                   </div>
                 ))}
-                <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>/disruption-index</span>
+                <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>{DI_PATHS[locale]}</span>
               </div>
             </a>
 
@@ -901,7 +902,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
             <FooterCol title={c.footer.narrative}>
               <a href="#manual" className="footer-link">{c.footer.manualLink}</a>
-              <a href="/disruption-index" className="footer-link">The Disruption Index</a>
+              <a href={DI_PATHS[locale]} className="footer-link">The Disruption Index</a>
               <a href={STANDARDS_PATHS[locale]} className="footer-link">{c.why.stdFooter}</a>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="footer-link">{c.footer.amplifier}</SubstackLink>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="footer-link">{c.footer.agenticCulture}</SubstackLink>
