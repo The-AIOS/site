@@ -9,11 +9,12 @@
 // Hashes are ABSTRACT glyph blocks — deliberately not realistic, no fabricated
 // data. prefers-reduced-motion renders the fully-resolved final state.
 import { useEffect, useRef } from "react";
+import type { StandardsCopy } from "@/data/standards-copy/types";
 
 const CYCLE = 1500;
 const LEAD = 260;
 
-export default function ReceiptChain() {
+export default function ReceiptChain({ copy }: { copy: StandardsCopy["receipt"] }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -111,33 +112,33 @@ export default function ReceiptChain() {
     <div className="rcl" ref={ref} data-rcl>
       <div className="rcl-cap">
         <span className="rcl-flow">
-          <span className="rcl-f1">mandate</span>
+          <span className="rcl-f1">{copy.flow[0]}</span>
           &nbsp;→&nbsp;
-          <span className="rcl-f2">action</span>
+          <span className="rcl-f2">{copy.flow[1]}</span>
           &nbsp;→&nbsp;
-          <span className="rcl-f3">receipt</span>
+          <span className="rcl-f3">{copy.flow[2]}</span>
         </span>
         <button className="rcl-replay" type="button">
-          ↻ replay
+          {copy.replay}
         </button>
       </div>
 
       <div
         className="rcl-stage"
         role="img"
-        aria-label="A mandate credential travels from issuer to agent; each action the agent takes stamps a signed receipt onto a growing hash chain. Three receipts link up; the finished chain glows."
+        aria-label={copy.aria}
       >
         <div className="rcl-toprow">
           <div className="rcl-node rcl-node-issuer">
             <span className="rcl-nodec">
               <span className="rcl-idot" />
             </span>
-            <span className="rcl-nodelabel">Issuer</span>
+            <span className="rcl-nodelabel">{copy.issuer}</span>
           </div>
           <div className="rcl-track">
             <span className="rcl-rail" />
             <div className="rcl-mandate">
-              <span className="rcl-mtitle">Mandate</span>
+              <span className="rcl-mtitle">{copy.mandate}</span>
               <span className="rcl-mglyph">▘▞▚▗</span>
             </div>
           </div>
@@ -145,7 +146,7 @@ export default function ReceiptChain() {
             <span className="rcl-nodec">
               <span className="rcl-amark" />
             </span>
-            <span className="rcl-nodelabel">Agent</span>
+            <span className="rcl-nodelabel">{copy.agent}</span>
           </div>
         </div>
 
@@ -155,7 +156,7 @@ export default function ReceiptChain() {
             <svg className="rcl-bolt" viewBox="0 0 12 14" aria-hidden="true">
               <path d="M6.8 1 L2.2 8 H5.4 L4.6 13 L9.8 5.6 H6.2 Z" />
             </svg>
-            <span>Action</span>
+            <span>{copy.action}</span>
           </span>
         </div>
 
@@ -166,7 +167,7 @@ export default function ReceiptChain() {
                 <path d="M2.7 6.3 L5 8.6 L9.3 3.6" pathLength={1} />
               </svg>
             </span>
-            <span className="rcl-rtitle">Receipt</span>
+            <span className="rcl-rtitle">{copy.receipt}</span>
             <span className="rcl-rhash">▚▞▖▝</span>
             <span className="rcl-rprev">‹ ····</span>
           </div>
@@ -182,7 +183,7 @@ export default function ReceiptChain() {
                 <path d="M2.7 6.3 L5 8.6 L9.3 3.6" pathLength={1} />
               </svg>
             </span>
-            <span className="rcl-rtitle">Receipt</span>
+            <span className="rcl-rtitle">{copy.receipt}</span>
             <span className="rcl-rhash">▞▚▝▘</span>
             <span className="rcl-rprev">‹ ▚▞▖▝</span>
           </div>
@@ -198,7 +199,7 @@ export default function ReceiptChain() {
                 <path d="M2.7 6.3 L5 8.6 L9.3 3.6" pathLength={1} />
               </svg>
             </span>
-            <span className="rcl-rtitle">Receipt</span>
+            <span className="rcl-rtitle">{copy.receipt}</span>
             <span className="rcl-rhash">▖▚▞▗</span>
             <span className="rcl-rprev">‹ ▞▚▝▘</span>
           </div>
@@ -210,7 +211,7 @@ export default function ReceiptChain() {
           <span className="rcl-capcheck" aria-hidden="true">
             ✓
           </span>{" "}
-          <span>Every action, provably traced</span>
+          <span>{copy.caption}</span>
         </div>
       </div>
     </div>

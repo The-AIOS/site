@@ -44,7 +44,7 @@ export type MarketSolution = {
 // Six solutions, what they do, where they stop. Four are integration points,
 // one is a source-of-technique, and one is a true same-layer rival — the tally
 // that grounds the "4 of 6 are not rivals" finding.
-export const MARKET_MAP: MarketSolution[] = [
+export const MARKET_MAP = [
   {
     id: "aauth",
     name: "AAuth",
@@ -101,12 +101,16 @@ export const MARKET_MAP: MarketSolution[] = [
       "Operational substrate, not an identity or authority layer.",
     note: "Integration point — not a rival.",
   },
-];
+] as const satisfies readonly MarketSolution[];
+
+export type MarketId = (typeof MARKET_MAP)[number]["id"];
 
 // The unoccupied combination: the specific set of properties no solution above
 // assembles at once. The first four are the differentiators; the last three are
 // table stakes the better solutions already share.
-export const LANE_CRITERIA: { label: string; detail: string; unique?: boolean }[] = [
+export type LaneCriterion = { label: string; detail: string; unique?: boolean };
+// A fixed-length tuple, so each locale's translated criteria line up one-to-one.
+export const LANE_CRITERIA: [LaneCriterion, LaneCriterion, LaneCriterion, LaneCriterion, LaneCriterion] = [
   {
     label: "Person-rooted",
     detail:
