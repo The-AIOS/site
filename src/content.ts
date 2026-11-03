@@ -150,7 +150,9 @@ export type Content = {
     banner: { badge: string; text: string; rest: string; cta: string };
     eyebrowPre: string; eyebrowAccent: string; eyebrowPost: string;
     h: H; leadBold: string; leadRest: string; tagline: string;
-    ctaPrimary: string; ctaGithub: string;
+    /* ctaPrimary is the App download (platform-aware, via DownloadPill). The tour it used to be
+       stays reachable as ctaTour, a secondary link under the buttons. */
+    ctaPrimary: string; ctaGithub: string; ctaTour: string;
     /* The type-and-find field beside "View on GitHub": the visitor types their trade,
        suggestions appear as they type, Enter or a click opens that role in section 00.
        `label` is the accessible name; `fallbackNote` is the small mono tag on the one
@@ -339,7 +341,7 @@ const en: Content = {
     leadBold: "AI as a team, not a tool.",
     leadRest: " The AIOS turns AI into co-workers — a legal you, an accountant you, a marketing you, an engineering you. Orchestrated by you, governed by your intent, compounding every day.",
     tagline: "9 out of 10 people still prompt by hand. Stop prompting. Start orchestrating.",
-    ctaPrimary: "Take the tour ↓", ctaGithub: "View on GitHub ↗",
+    ctaPrimary: "Get the app", ctaGithub: "View on GitHub ↗", ctaTour: "or take the tour ↓",
     field: { placeholder: "I’m a… dentist, abogada, professora", go: "Show me my AIOS", label: "Type your trade to find your AIOS", fallbackNote: "the closest fit" },
   },
   roles: {
@@ -980,7 +982,7 @@ const es: Content = {
     leadBold: "IA como un equipo, no una herramienta.",
     leadRest: " The AIOS convierte la IA en compañeros de trabajo — un tú legal, un tú contable, un tú de marketing, un tú de ingeniería. Orquestados por ti, gobernados por tu intención, capitalizando cada día.",
     tagline: "Gana ancho de banda. Vuélvete agéntico.",
-    ctaPrimary: "Haz el recorrido ↓", ctaGithub: "Ver en GitHub ↗",
+    ctaPrimary: "Descargar la app", ctaGithub: "Ver en GitHub ↗", ctaTour: "o haz el recorrido ↓",
     field: { placeholder: "Soy… dentista, lawyer, professora", go: "Muéstrame mi AIOS", label: "Escribe tu oficio para encontrar tu AIOS", fallbackNote: "lo más cercano" },
   },
   roles: {
@@ -1607,7 +1609,7 @@ const pt: Content = {
     leadBold: "IA como um time, não uma ferramenta.",
     leadRest: " The AIOS transforma a IA em colegas de trabalho — um você jurídico, um você contador, um você de marketing, um você de engenharia. Orquestrados por você, governados pela sua intenção, capitalizando todos os dias.",
     tagline: "Ganhe banda. Vá agêntico.",
-    ctaPrimary: "Faça o tour ↓", ctaGithub: "Ver no GitHub ↗",
+    ctaPrimary: "Baixar o app", ctaGithub: "Ver no GitHub ↗", ctaTour: "ou faça o tour ↓",
     field: { placeholder: "Eu sou… dentista, lawyer, maestra", go: "Me mostre o meu AIOS", label: "Digite sua profissão para encontrar o seu AIOS", fallbackNote: "o mais próximo" },
   },
   roles: {

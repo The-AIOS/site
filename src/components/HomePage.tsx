@@ -295,10 +295,18 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 role in section 00 and writes #<role> into the URL. The old vocabulary
                 chip row is gone. */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "stretch" }}>
-              <a href="#what" className="btn-primary">{c.hero.ctaPrimary}</a>
+              {/* The primary button is the App download, platform-aware. Wrapped so the Windows
+                  "unsigned" note DownloadPill renders sits under the button, not as a row item. */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                <DownloadPill copy={c.downloads} label={c.hero.ctaPrimary} className="btn-primary" />
+              </div>
               <GitHubLink href={REPO} surface="hero-primary" className="btn-secondary">{c.hero.ctaGithub}</GitHubLink>
               <RoleField copy={c.hero.field} labels={roleLabels} />
             </div>
+            {/* The tour was the primary button; it stays one click away as a secondary link. */}
+            <p style={{ margin: "0.875rem 0 0", fontSize: "0.9375rem" }}>
+              <a href="#what" className="footer-link">{c.hero.ctaTour}</a>
+            </p>
           </div>
         </section>
 
