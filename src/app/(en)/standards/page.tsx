@@ -7,6 +7,8 @@ import EmptyLane from "@/components/standards/EmptyLane";
 import {
   STANDARDS,
   STATUS_META,
+  LANE_META,
+  type Lane,
   PULSE_INDEX,
   PULSE_HEADLINE,
   PULSE_STAGE_META,
@@ -21,7 +23,7 @@ import "./standards.css";
 
 const TITLE = "Agentic Standards — the scene, mapped";
 const DESCRIPTION =
-  "Agents are getting identities, mandates, and receipts. The standards making delegation provable — AP2, ERC-8004, W3C VCs, SD-JWT, OID4VC, DIDComm, C2PA — mapped, with the Proof Pair open spec at the center.";
+  "Agents are getting identities, mandates, and receipts. The standards making delegation provable — W3C VCs, ERC-8004, SD-JWT, OID4VC, AP2, Verifiable Intent, x402, C2PA and a zero-knowledge lane — mapped and sourced, with the Proof Pair open spec at the center.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -600,14 +602,32 @@ export default function StandardsPage() {
               <span className="accent">●</span> The scene — {STANDARDS.length} rails,
               one direction
             </p>
+            {(Object.keys(LANE_META) as Lane[]).map((lane) => {
+              const rails = STANDARDS.filter((s) => s.lane === lane);
+              if (rails.length === 0) return null;
+              return (
+            <div key={lane} style={{ marginBottom: "2.25rem" }}>
+            <h3
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.25rem",
+                letterSpacing: "-0.02em",
+                margin: "0 0 0.25rem",
+              }}
+            >
+              {LANE_META[lane].label}
+            </h3>
+            <p style={{ margin: "0 0 1rem", fontSize: "0.9375rem", color: "var(--color-ink-muted)" }}>
+              {LANE_META[lane].question}
+            </p>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))",
                 gap: "1rem",
               }}
             >
-              {STANDARDS.map((s) => {
+              {rails.map((s) => {
                 const meta = STATUS_META[s.status];
                 return (
                   <article key={s.id} style={card}>
@@ -619,7 +639,7 @@ export default function StandardsPage() {
                         gap: "0.75rem",
                       }}
                     >
-                      <h3
+                      <h4
                         style={{
                           fontFamily: "var(--font-display)",
                           fontSize: "1.05rem",
@@ -628,7 +648,7 @@ export default function StandardsPage() {
                         }}
                       >
                         {s.name}
-                      </h3>
+                      </h4>
                       <span
                         style={{
                           display: "inline-flex",
@@ -680,10 +700,20 @@ export default function StandardsPage() {
                       </span>
                       <span style={{ color: "var(--color-ink-muted)" }}>{s.relation}</span>
                     </p>
+                    <p style={{ margin: "auto 0 0", fontSize: "0.75rem", color: "var(--color-ink-subtle)" }}>
+                      Source:{" "}
+                      <a href={s.source.url} target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>
+                        {s.source.label}
+                      </a>{" "}
+                      · checked {s.source.checked}
+                    </p>
                   </article>
                 );
               })}
             </div>
+            </div>
+              );
+            })}
           </div>
         </section>
 
