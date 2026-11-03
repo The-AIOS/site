@@ -68,7 +68,9 @@ export type StandardEntry = {
   measured?: Measured; // optional, source-gated — see note above
 };
 
-export const STANDARDS: StandardEntry[] = [
+// `as const satisfies` keeps every id a literal, so the ES/PT copy can be keyed by
+// RailId and a missing translation fails the build (src/data/standards-copy/).
+export const STANDARDS = [
   {
     id: "ap2",
     name: "AP2 — Agent Payments Protocol",
@@ -279,7 +281,14 @@ export const STANDARDS: StandardEntry[] = [
       checked: "2026-11-02",
     },
   },
-];
+] as const satisfies readonly StandardEntry[];
+
+export type RailId = (typeof STANDARDS)[number]["id"];
+
+/* For the landing card: derived, so it can never disagree with the page. */
+export const countByLane = (lane: Lane): number => STANDARDS.filter((s) => s.lane === lane).length;
+/** The most recent date any rail's status was verified (YYYY-MM-DD sorts as text). */
+export const STANDARDS_LAST_CHECKED: string = STANDARDS.map((s) => s.source.checked).sort().at(-1) ?? "";
 
 // ---------------------------------------------------------------------------
 // Agentic Pulse — the measured-reality index.
@@ -313,7 +322,7 @@ export type PulseEntry = {
   source: string; // inline citation — no row ships without one
 };
 
-export const PULSE_INDEX: PulseEntry[] = [
+export const PULSE_INDEX = [
   {
     id: "payments-volume-gap",
     subject: "An agent-payments protocol (unnamed in source)",
@@ -388,7 +397,9 @@ export const PULSE_INDEX: PulseEntry[] = [
     isFloor: true,
     source: "Public pricing (Cognition / Devin).",
   },
-];
+] as const satisfies readonly PulseEntry[];
+
+export type PulseId = (typeof PULSE_INDEX)[number]["id"];
 
 // Two demand-side figures + one ceiling figure that frame the whole index —
 // rendered as a header stat strip, not table rows (they are category-wide, not

@@ -10,10 +10,11 @@
 // differentiators no one else combines. A quiet caption resolves last.
 // prefers-reduced-motion renders the fully-resolved final state.
 import { useEffect, useRef } from "react";
+import type { StandardsCopy } from "@/data/standards-copy/types";
 
 const STEP = 300; // ms between competitor-box reveals
 
-export default function EmptyLane() {
+export default function EmptyLane({ copy }: { copy: StandardsCopy["emptyLane"] }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -99,75 +100,75 @@ export default function EmptyLane() {
         <span className="eml-legend">
           <span className="eml-lg">
             <span className="eml-sw eml-sw-r" aria-hidden="true" />
-            <span>rival</span>
+            <span>{copy.legend.rival}</span>
           </span>
           <span className="eml-lg">
             <span className="eml-sw eml-sw-i" aria-hidden="true" />
-            <span>integration point</span>
+            <span>{copy.legend.integration}</span>
           </span>
           <span className="eml-lg">
             <span className="eml-sw eml-sw-w" aria-hidden="true" />
-            <span>adjacent / watch</span>
+            <span>{copy.legend.watch}</span>
           </span>
         </span>
         <button className="eml-replay" type="button">
-          ↻ replay
+          {copy.replay}
         </button>
       </div>
 
       <div
         className="eml-stage"
         role="img"
-        aria-label="A three-by-three map of the agent-identity landscape. Eight boxes fill one by one — AAuth the one same-layer rival, then the integration points Entra Agent ID, agentgateway, kagent, agent-substrate and MCP-auth, plus the adjacent patterns PIC and passkeys. The center box stays empty, then pulses awake as the open lane with four differentiators no one else combines: person-root, offline-verify, cross-org, gov-anchored. The one lane still open."
+        aria-label={copy.aria}
       >
         <div className="eml-grid">
           <div className="eml-box eml-r">
             <span className="eml-name">AAuth</span>
-            <span className="eml-role">rival · DNS-root · 0 prod</span>
+            <span className="eml-role">{copy.roles.aauth}</span>
           </div>
           <div className="eml-box eml-i">
             <span className="eml-name">Entra Agent ID</span>
-            <span className="eml-role">intra-org issuer</span>
+            <span className="eml-role">{copy.roles.entra}</span>
           </div>
           <div className="eml-box eml-w">
             <span className="eml-name">PIC</span>
-            <span className="eml-role">attenuation pattern</span>
+            <span className="eml-role">{copy.roles.pic}</span>
           </div>
           <div className="eml-box eml-i">
             <span className="eml-name">agentgateway</span>
-            <span className="eml-role">enforcement layer</span>
+            <span className="eml-role">{copy.roles.agentgateway}</span>
           </div>
           <div className="eml-us">
-            <span className="eml-ustag">open lane</span>
+            <span className="eml-ustag">{copy.openLane}</span>
             <span className="eml-chips">
-              <span className="eml-chip">person-root</span>
-              <span className="eml-chip">offline-verify</span>
-              <span className="eml-chip">cross-org</span>
-              <span className="eml-chip">gov-anchored</span>
+              <span className="eml-chip">{copy.chips[0]}</span>
+              <span className="eml-chip">{copy.chips[1]}</span>
+              <span className="eml-chip">{copy.chips[2]}</span>
+              <span className="eml-chip">{copy.chips[3]}</span>
             </span>
           </div>
           <div className="eml-box eml-i">
             <span className="eml-name">kagent</span>
-            <span className="eml-role">runtime</span>
+            <span className="eml-role">{copy.roles.kagent}</span>
           </div>
           <div className="eml-box eml-i">
             <span className="eml-name">agent-substrate</span>
-            <span className="eml-role">runtime</span>
+            <span className="eml-role">{copy.roles.substrate}</span>
           </div>
           <div className="eml-box eml-i">
             <span className="eml-name">MCP-auth</span>
-            <span className="eml-role">OAuth 2.1 render target</span>
+            <span className="eml-role">{copy.roles.mcpAuth}</span>
           </div>
           <div className="eml-box eml-w">
             <span className="eml-name">passkeys</span>
-            <span className="eml-role">adjacent pattern</span>
+            <span className="eml-role">{copy.roles.passkeys}</span>
           </div>
         </div>
       </div>
 
       <div className="eml-foot">
         <div className="eml-caption">
-          <span className="eml-capsq" aria-hidden="true" /> <span>The one lane still open.</span>
+          <span className="eml-capsq" aria-hidden="true" /> <span>{copy.caption}</span>
         </div>
       </div>
     </div>

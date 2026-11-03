@@ -52,6 +52,8 @@ import {
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
 import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
+import { LANE_META, countByLane, STANDARDS_LAST_CHECKED, type Lane } from "@/data/standards";
+import { STANDARDS_COPY, STANDARDS_PATHS } from "@/data/standards-copy";
 import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
@@ -402,6 +404,34 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                   </div>
                 ))}
                 <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>/disruption-index</span>
+              </div>
+            </a>
+
+            {/* The Agentic Standards — the map of the rails agents will run on. Its own route, per locale. */}
+            <a href={STANDARDS_PATHS[locale]} className="manual-card" style={{ textDecoration: "none", alignItems: "center", marginTop: "1.25rem" }}>
+              <div>
+                <div className="card-eyebrow" style={{ marginBottom: "0.75rem" }}>{c.why.stdLabel}</div>
+                <h3 className="display-md" style={{ marginBottom: "0.75rem" }}>
+                  {c.why.stdTitle[0]}<span className="accent">{c.why.stdTitle[1]}</span>{c.why.stdTitle[2]}
+                </h3>
+                <p className="body-text" style={{ margin: 0 }}>{c.why.stdSub}</p>
+                <p style={{ margin: "0.875rem 0 0", fontFamily: "var(--font-mono)", fontSize: "0.6875rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-ink-subtle)" }}>
+                  {c.why.stdUpdated} · <time dateTime={STANDARDS_LAST_CHECKED}>{formatDay(STANDARDS_LAST_CHECKED, DATE_LOCALE[locale])}</time>
+                </p>
+              </div>
+              <div className="hero-glow" style={{ borderRadius: 10, border: "1px solid var(--color-hairline)", background: "var(--color-canvas)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                {/* one row per lane, counted from the data; the zero-knowledge lane takes the accent */}
+                {(Object.keys(LANE_META) as Lane[]).filter((l) => l !== "framing").map((lane) => {
+                  const color = lane === "zk" ? "var(--color-accent)" : "var(--color-ink-muted)";
+                  return (
+                    <div key={lane} style={{ display: "flex", alignItems: "center", gap: "0.625rem", fontFamily: "var(--font-mono)", fontSize: "0.8125rem", color }}>
+                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, flex: "0 0 auto" }} />
+                      {STANDARDS_COPY[locale].scene.lanes[lane].label.toLowerCase()}
+                      <span style={{ marginLeft: "auto", color: "var(--color-ink-subtle)" }}>{countByLane(lane)}</span>
+                    </div>
+                  );
+                })}
+                <span className="repo-link-inline" style={{ marginTop: "0.5rem" }}>{STANDARDS_PATHS[locale]}</span>
               </div>
             </a>
 
@@ -864,6 +894,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <FooterCol title={c.footer.narrative}>
               <a href="#manual" className="footer-link">{c.footer.manualLink}</a>
               <a href="/disruption-index" className="footer-link">The Disruption Index</a>
+              <a href={STANDARDS_PATHS[locale]} className="footer-link">{c.why.stdFooter}</a>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-ai-operating-system" surface="footer-amplifier" className="footer-link">{c.footer.amplifier}</SubstackLink>
               <SubstackLink href="https://chuycepeda.substack.com/p/the-agentic-culture-team-management" surface="footer-agentic-culture" className="footer-link">{c.footer.agenticCulture}</SubstackLink>
             </FooterCol>
