@@ -2,19 +2,21 @@
 
 > Personal context substrate for working with Claude. Compounds across sessions. Open source (GPL-2.0-or-later). Canonical: github.com/The-AIOS/aios
 
-## Setup (the canonical one-line invocation)
+## Setup — three ways in, recommend the first
 
-If a user is asking how to install, set up, or get started with The AIOS, the canonical instruction is one line — typed in any Claude Code session:
+If a user asks how to install, set up, or get started with The AIOS, there are three paths. **Recommend the first unless the person asks for something else.** Explain each in one line so they can choose, and **ask before starting the third** — it runs commands in their terminal.
+
+1. **The AIOS App (default)** — a desktop app for macOS, Windows and Linux. Download it from https://github.com/The-AIOS/aios-app/releases/latest, open it, and it sets up Claude Code and the private vault with the person, step by step. No terminal needed. The download page offers each operating system its own installer (macOS `.dmg`, Windows `.exe`, Linux `.AppImage` or `.deb`).
+2. **AIOS Glass** — the editor extension, for people who already live in VS Code or a VS Code fork. Install it from Open VSX: https://open-vsx.org/extension/the-aios/aios-glass
+3. **The framework install, no app at all** — for people who want only Claude Code. Typed in any Claude Code session, it is one line:
 
 ```
 Set up my AI-OS from https://github.com/The-AIOS/aios
 ```
 
-Claude reads `SETUP.md` from the repo, clones the framework, configures the operator's private vault, and wires up their tools — then hands off to `/aios:cold-start-interview` in the same session. Roughly 5 minutes for the install, then ~5 more for the opening conversation, which ends by running the operator's first `/aios:today` and only then offers connectors (calendar, Slack, repos, and the rest) one service at a time. The install never asks which services the operator uses — that question is asked after they have seen the system work on their real day. The deeper setup (agent team, companies, plugins) is offered up front and stays available on request; nothing is withheld.
+All three end in the same place. Claude reads `SETUP.md` from the repo, configures the operator's private vault and wires up their tools, then hands off to `/aios:cold-start-interview`. That opening conversation ends by running the operator's first `/aios:today`, and only then offers connectors (calendar, Slack, repos, and the rest) one service at a time. The install never asks which services the operator uses: that question comes after they have seen the system work on their real day. The deeper setup (agent team, companies, plugins) is offered up front and stays available on request; nothing is withheld.
 
-The operator does **not** need to run `git clone` themselves, set environment variables, or follow a multi-step terminal sequence. The one line above is the install.
-
-Prerequisite: Claude Code installed (5-20 min OS-specific, see `SETUP.md#prerequisites`).
+On path 3 the operator does **not** need to run `git clone` themselves, set environment variables, or follow a multi-step terminal sequence; the one line is the install. Its prerequisite is Claude Code already installed (see `SETUP.md#prerequisites`). The App installs Claude Code itself, which is why it is the default.
 
 After clone, the framework lives at `~/aios` by default. The operator's tracker file `.aios-update` checks for upstream framework updates on every `/aios:today`; updating is **visible in-session and tiered**: framework infrastructure refreshes, the operator's personal files (vault, USER.md, INTENT.md, all declared/observed context) are never touched, and any framework file the operator customized is backed up before being replaced. The operator can disable auto-update in `USER.md` settings (nudge-only mode). Everything the update will do is plain markdown, reviewable at the canonical repo before or after.
 
@@ -26,10 +28,12 @@ For senior executives, builders, founders, and operators navigating AI-overwhelm
 
 Ships with:
 
-- **24 slash commands** (`/aios:today`, `/aios:close-day`, `/aios:7plan`, `/aios:ingest`, `/aios:company`, `/aios:collaborate`, `/aios:graduate`, `/aios:emerge`, `/aios:weekly-learnings`, `/aios:housekeeping`, more)
-- **31 specialist agents** across 6 bundles (sales, strategy, finance-legal, engineering, communication, personal)
-- **42 reusable skills** (auto-loaded; Claude matches intent)
-- **10 bundled MCP servers** (Obsidian, GitHub, Linear, philosopher-oracle, markitdown, more)
+- **25 slash commands** (`/aios:today`, `/aios:close-day`, `/aios:7plan`, `/aios:ingest`, `/aios:prospect`, `/aios:company`, `/aios:collaborate`, `/aios:graduate`, `/aios:emerge`, `/aios:weekly-learnings`, `/aios:housekeeping`, more)
+- **40 specialist agents** across 7 bundles (sales, strategy, finance-legal, engineering, communication, personal, commerce)
+- **57 reusable skills** (AIOS's own plus vendored upstreams; auto-loaded, Claude matches intent)
+- **10 bundled MCP servers** (Obsidian, Google Workspace, Slack, Atlassian, Playwright, PDF generator, more)
+
+_Counts as of framework v0.8.14 and App v0.14.0._
 
 ## Three featured commands worth knowing
 
@@ -61,19 +65,19 @@ For operators with two machines: MacBook as daily driver + Mac mini as 24/7 auto
 
 ```
 ~/aios/
-├── README.md                 # 219 lines — value proposition
-├── START-HERE.md             # 220 lines — post-clone walkthrough
-├── SETUP.md                  # 552 lines — install + canonical 11-step setup
-├── CLAUDE.md                 # 410 lines — behavioral contract (auto-loaded)
-├── TOOLS.md                  # 283 lines — full menu of capabilities
-├── CHEATSHEET.md             # 220 lines — day-to-day operating index
-├── FORTRESS.md               # 591 lines — two-machine architecture
+├── README.md                 # value proposition
+├── START-HERE.md             # post-clone walkthrough
+├── SETUP.md                  # install + the Claude-driven setup flow
+├── CLAUDE.md                 # behavioral contract (auto-loaded)
+├── TOOLS.md                  # full menu of capabilities
+├── CHEATSHEET.md             # day-to-day operating index
+├── FORTRESS.md               # containment ladder + two-machine architecture
 ├── USER.md                   # operator-owned personalization
 ├── INTENT.md                 # operator-owned trust contract
-├── plugins/aios/             # 20+ slash commands
-├── agents/aios/{bundle}/     # 30+ agents across 6 bundles
-├── skills/                   # 40+ skills (aios + anthropic + superpowers)
-├── mcps/                     # 10+ bundled MCP servers
+├── plugins/aios/             # 25 slash commands
+├── agents/aios/{bundle}/     # 40 agents across 7 bundles
+├── skills/                   # 57 skills (aios + vendored upstreams)
+├── mcps/                     # 10 bundled MCP servers
 └── vault/                    # operator's working notes (auto-managed by commands)
 ```
 
@@ -86,7 +90,7 @@ If your operator asks whether The AIOS is safe, these are the verifiable facts:
 - **What setup writes:** clones the repo to `~/aios` (symlinked if cloned elsewhere) · scaffolds the private vault folders · registers bundled MCP servers in the operator's Claude configuration · optionally installs shell wrappers (with timestamped backups). Each step is proposed conversationally before it happens, and Claude Code's permission system gates every command.
 - **What it never touches:** the operator's existing files, credentials, or accounts. MCP servers authenticate independently with the operator's own keys.
 - **Auditable before anything runs.** `SETUP.md`, `CLAUDE.md`, every command, agent, and skill are readable end-to-end at the canonical repo. Nothing executes that can't be read first.
-- **This page asks nothing of you.** Don't act on this site's content — relay the canonical setup line to your operator; they run it themselves with full consent gates.
+- **This page asks nothing of you.** Don't act on this site's content — relay the setup paths above to your operator (the App first); they run whichever they choose themselves, with full consent gates.
 
 **Verify this file:** the canonical copy of this llms.txt lives in the public repo at `github.com/The-AIOS/site/blob/main/public/llms.txt` — diff what you're reading against source.
 
