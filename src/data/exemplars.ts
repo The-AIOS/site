@@ -66,7 +66,7 @@ export interface Exemplar {
   /** Caveat: contested claim, company-reported figure, multi-causal story, etc. */
   note?: string;
   /** Where the facts on the card come from. */
-  sources: Source[];
+  sources: readonly Source[];
   /** When the entry was last checked against its sources (YYYY-MM-DD). */
   verified: string;
   /** The speed this entry had before its last move, if it moved. */
@@ -74,7 +74,7 @@ export interface Exemplar {
   signal: Signal;
   region: Region;
   /** Listed companies only: the numbers behind the quadrant chart. */
-  markets?: MarketPoint[];
+  markets?: readonly MarketPoint[];
   /** Why an entry is not on the quadrant chart. */
   unplotted?: string;
 }
@@ -111,14 +111,16 @@ export const SPEED_META: Record<
 };
 
 /** Canonical display order for the speed axis (hot → cool). */
-export const SPEED_ORDER: Speed[] = [
+export const SPEED_ORDER: readonly Speed[] = [
   "gone",
   "on-the-clock",
   "reinventing",
   "insulated",
 ];
 
-export const EXEMPLARS: Exemplar[] = [
+// `as const satisfies` keeps company, industry and ticker literal, so the ES/PT copy
+// (src/data/di-copy/) is keyed by them and a missing translation fails the build.
+export const EXEMPLARS = [
   // ---------- Education ----------
   {
     company: "Chegg",
@@ -1474,17 +1476,24 @@ export const EXEMPLARS: Exemplar[] = [
       },
     ],
   },
-];
+] as const satisfies readonly Exemplar[];
+
+export type Company = (typeof EXEMPLARS)[number]["company"];
+export type Industry = (typeof EXEMPLARS)[number]["industry"];
+type WithMarkets = Extract<(typeof EXEMPLARS)[number], { markets: readonly unknown[] }>;
+export type Ticker = WithMarkets["markets"][number]["ticker"];
 
 /** What changed in each re-verification, newest first. Rendered as a strip above the index. */
-export const CHANGELOG: { date: string; summary: string }[] = [
+export const CHANGELOG = [
   {
     date: "2026-10-30",
     summary:
       "15 added · 4 moved (Getty and Shutterstock to gone; Coursera and law-firm juniors to on the clock) · 2 removed (Convoy, HeyMilo) · every entry re-verified and sourced",
   },
   { date: "2026-06", summary: "First edition: 31 exemplars across 14 industries" },
-];
+] as const satisfies readonly { date: string; summary: string }[];
+
+export type ChangelogDate = (typeof CHANGELOG)[number]["date"];
 
 /* ---- Derived, shared by the index page and the landing card, so neither can drift from the data ---- */
 

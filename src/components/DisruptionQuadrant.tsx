@@ -1,65 +1,20 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  EXEMPLARS,
-  type Exemplar,
-  type MarketPoint,
-  type Response,
-} from "@/data/exemplars";
+import { type Exemplar, type Response } from "@/data/exemplars";
 import { findInIndex } from "@/components/DisruptionIndex";
+import { dotsOf, quadrantCounts, type Dot } from "@/data/quadrant";
+import { fill, type QuadrantClientCopy } from "@/data/di-copy/client";
 
 /* The quadrant: every listed company in the index, placed by two measured
  * numbers since ChatGPT's launch (30 Nov 2022).
  *   X = revenue change (real disruption: shrinking ← → growing)
  *   Y = share-price change (market fear: punished ↓ ↑ rewarded)
  * Both axes are log-ratio scales, so −50% and +100% sit the same distance
- * from zero — a halving and a doubling are the same size of move. */
+ * from zero — a halving and a doubling are the same size of move.
+ * `items` arrive localized from the server; `copy` carries every string. */
 
-type Quadrant = "gone" | "priced" | "credit" | "reinventing";
-
-const QUADRANT_META: Record<Quadrant, { label: string; blurb: string }> = {
-  gone: {
-    label: "Already gone",
-    blurb: "Revenue shrinking, market value punished.",
-  },
-  priced: {
-    label: "Priced for disruption",
-    blurb: "Revenue still growing, market value punished: the fear is ahead of the numbers.",
-  },
-  credit: {
-    label: "Restructuring credit",
-    blurb: "Revenue shrinking, market value rewarded.",
-  },
-  reinventing: {
-    label: "Reinventing",
-    blurb: "Revenue growing, market value rewarded.",
-  },
-};
-
-const RESPONSE_META: Record<Response, { label: string; title: string }> = {
-  reinventing: {
-    label: "Reinventing",
-    title: "A shipped AI product or pricing model at the core of the business.",
-  },
-  restructuring: {
-    label: "Restructuring",
-    title: "Documented cuts, a forced sale, a merger, or bankruptcy since 2022.",
-  },
-  none: {
-    label: "No documented response",
-    title: "No response documented in our sources.",
-  },
-};
-
-interface Dot {
-  key: string;
-  exemplar: Exemplar;
-  m: MarketPoint;
-  rev: number; // fractional change, e.g. -0.51
-  price: number;
-  quadrant: Quadrant;
-}
+type C = QuadrantClientCopy;
 
 const pct = (r: number) => {
   const v = Math.round(r * 100);
@@ -72,6 +27,7 @@ function revenueSymbol(currency: string) {
   return "$";
 }
 
+/* Figures keep one number format in every locale, so no value changes shape between languages. */
 function formatRevenue(millions: number, currency: string) {
   const sym = revenueSymbol(currency);
   return millions >= 1000
@@ -85,35 +41,22 @@ function formatPrice(v: number, currency: string) {
   return `${sym}${v.toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
 }
 
-function formatDate(iso: string) {
+function formatDate(iso: string, locale: string) {
   const [y, m, d] = iso.split("-").map(Number);
-  const month = new Date(Date.UTC(y, m - 1, d)).toLocaleString("en-US", {
+  const month = new Date(Date.UTC(y, m - 1, d)).toLocaleString(locale, {
     month: "short",
     timeZone: "UTC",
   });
   return `${d} ${month} ${y}`;
 }
 
-function quadrantOf(rev: number, price: number): Quadrant {
-  if (rev < 0) return price < 0 ? "gone" : "credit";
-  return price < 0 ? "priced" : "reinventing";
+function unplottedOf(items: readonly Exemplar[], fallback: string) {
+  return items.filter((e) => !e.markets?.length).reduce<Record<string, string[]>>((acc, e) => {
+    const why = e.unplotted ?? fallback;
+    (acc[why] ??= []).push(e.company);
+    return acc;
+  }, {});
 }
-
-const DOTS: Dot[] = EXEMPLARS.flatMap((e) =>
-  (e.markets ?? []).map((m) => {
-    const rev = m.revenueNow / m.revenueBase - 1;
-    const price = m.priceNow / m.priceBase - 1;
-    return { key: m.ticker, exemplar: e, m, rev, price, quadrant: quadrantOf(rev, price) };
-  })
-);
-
-const UNPLOTTED = EXEMPLARS.filter((e) => !e.markets?.length).reduce<
-  Record<string, string[]>
->((acc, e) => {
-  const why = e.unplotted ?? "No public numbers.";
-  (acc[why] ??= []).push(e.company);
-  return acc;
-}, {});
 
 /* ---------- geometry ---------- */
 const W = 760;
@@ -135,7 +78,7 @@ const sy = (r: number) =>
 /* Greedy label placement: try right, left, above, below each dot and take the
  * first spot that collides with no other dot or already-placed label. */
 type Anchor = "start" | "end" | "middle";
-const LABELS: Record<string, { x: number; y: number; anchor: Anchor }> = (() => {
+function labelsOf(DOTS: readonly Dot[]): Record<string, { x: number; y: number; anchor: Anchor }> {
   const CH = 6.2; // approx. width of one 10px mono glyph
   const LH = 10;
   const boxes: { x0: number; y0: number; x1: number; y1: number }[] = DOTS.map((d) => {
@@ -171,7 +114,7 @@ const LABELS: Record<string, { x: number; y: number; anchor: Anchor }> = (() => 
     out[d.key] = pick;
   }
   return out;
-})();
+}
 
 function Mark({ response, x, y, active }: { response: Response; x: number; y: number; active: boolean }) {
   const r = active ? 8 : 6;
@@ -197,7 +140,7 @@ function Mark({ response, x, y, active }: { response: Response; x: number; y: nu
   );
 }
 
-function Tooltip({ d, onClose, pinned }: { d: Dot; onClose: () => void; pinned: boolean }) {
+function Tooltip({ d, onClose, pinned, c }: { d: Dot; onClose: () => void; pinned: boolean; c: C }) {
   const { m, exemplar: e } = d;
   return (
     <div className="dq-tip-inner">
@@ -209,52 +152,55 @@ function Tooltip({ d, onClose, pinned }: { d: Dot; onClose: () => void; pinned: 
           </span>
         </div>
         {pinned && (
-          <button className="dq-tip-close" onClick={onClose} aria-label="Close details">
+          <button className="dq-tip-close" onClick={onClose} aria-label={c.ui.closeDetails}>
             ×
           </button>
         )}
       </div>
-      <p className="dq-tip-quadrant">{QUADRANT_META[d.quadrant].label}</p>
-      <p className="dq-tip-blurb">{QUADRANT_META[d.quadrant].blurb}</p>
+      <p className="dq-tip-quadrant">{c.ui.meta[d.quadrant].label}</p>
+      <p className="dq-tip-blurb">{c.ui.meta[d.quadrant].blurb}</p>
       <dl>
-        <dt>Revenue</dt>
+        <dt>{c.ui.revenue}</dt>
         <dd>
           {formatRevenue(m.revenueBase, m.currency)} <span className="dq-tip-period">{m.revenueBasePeriod}</span>{" "}
           → {formatRevenue(m.revenueNow, m.currency)}{" "}
           <span className="dq-tip-period">{m.revenueNowPeriod}</span>{" "}
           <b>{pct(d.rev)}</b>
         </dd>
-        <dt>Share price</dt>
+        <dt>{c.ui.sharePrice}</dt>
         <dd>
           {formatPrice(m.priceBase, m.currency)}{" "}
-          <span className="dq-tip-period">{formatDate(m.priceBaseDate)}</span> →{" "}
+          <span className="dq-tip-period">{formatDate(m.priceBaseDate, c.dateLocale)}</span> →{" "}
           {formatPrice(m.priceNow, m.currency)}{" "}
-          <span className="dq-tip-period">{formatDate(m.priceNowDate)}</span> <b>{pct(d.price)}</b>
+          <span className="dq-tip-period">{formatDate(m.priceNowDate, c.dateLocale)}</span> <b>{pct(d.price)}</b>
         </dd>
-        <dt>Response</dt>
+        <dt>{c.ui.response}</dt>
         <dd>
-          {RESPONSE_META[m.response].label}: {m.responseWhy}
+          {c.ui.responses[m.response].label}: {m.responseWhy}
         </dd>
       </dl>
       {m.caveat && <p className="dq-tip-caveat">{m.caveat}</p>}
       <p className="dq-tip-sources">
-        Sources:{" "}
+        {c.ui.sourcesLead}{" "}
         <a href={m.revenueSource.url} target="_blank" rel="noopener noreferrer">
-          revenue ({m.revenueSource.label})
+          {c.ui.revenueSource} ({m.revenueSource.label})
         </a>{" "}
         ·{" "}
         <a href={m.priceSource.url} target="_blank" rel="noopener noreferrer">
-          price ({m.priceSource.label})
+          {c.ui.priceSource} ({m.priceSource.label})
         </a>
       </p>
       <button type="button" className="dq-tip-card" onClick={() => findInIndex(e.company)}>
-        Show {e.company} in the index →
+        {fill(c.ui.showInIndex, { company: e.company })}
       </button>
     </div>
   );
 }
 
-export default function DisruptionQuadrant() {
+export default function DisruptionQuadrant({ items, copy: c }: { items: Exemplar[]; copy: C }) {
+  const DOTS = useMemo(() => dotsOf(items), [items]);
+  const LABELS = useMemo(() => labelsOf(DOTS), [DOTS]);
+  const UNPLOTTED = useMemo(() => unplottedOf(items, c.ui.unplottedDefault), [items, c]);
   const [hover, setHover] = useState<string | null>(null);
   const [pinned, setPinned] = useState<string | null>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -277,11 +223,7 @@ export default function DisruptionQuadrant() {
     };
   }, [pinned]);
 
-  const counts = useMemo(() => {
-    const c: Record<Quadrant, number> = { gone: 0, priced: 0, credit: 0, reinventing: 0 };
-    for (const d of DOTS) c[d.quadrant]++;
-    return c;
-  }, []);
+  const counts = useMemo(() => quadrantCounts(DOTS), [DOTS]);
 
   const x0 = sx(0);
   const y0 = sy(0);
@@ -299,25 +241,19 @@ export default function DisruptionQuadrant() {
     <section className="dq" aria-labelledby="dq-title">
       <div className="container">
         <p className="eyebrow">
-          <span className="accent">●</span> Since ChatGPT launched · 30 Nov 2022 → Oct 2026
+          <span className="accent">●</span> {c.eyebrow}
         </p>
         <h2 id="dq-title" className="dq-title">
-          Growing revenue didn&apos;t save them.{" "}
-          <span className="accent">The market priced the disruption first.</span>
+          {c.title}
         </h2>
-        <p className="dq-lede">
-          Every listed company in the index, placed by two measured numbers since ChatGPT&apos;s
-          launch: how its <b>revenue</b> changed (real disruption) and how its{" "}
-          <b>share price</b> changed (market fear). <b>{counts.priced}</b> of {DOTS.length} still grew
-          revenue and were punished anyway. Hover, tap, or tab to a dot.
-        </p>
+        <p className="dq-lede">{c.lede}</p>
 
         <div className="dq-figure" ref={wrapRef}>
           <svg
             viewBox={`0 0 ${W} ${H}`}
             className="dq-svg"
             role="group"
-            aria-label="Quadrant chart: revenue change versus share-price change since 30 November 2022"
+            aria-label={c.ui.chartAria}
           >
             {/* quadrant fills */}
             <rect x={PAD.l} y={y0} width={x0 - PAD.l} height={H - PAD.b - y0} className="dq-q dq-q-gone" />
@@ -343,7 +279,7 @@ export default function DisruptionQuadrant() {
 
             {/* axis titles */}
             <text x={(PAD.l + W - PAD.r) / 2} y={H - 8} className="dq-axis-title" textAnchor="middle">
-              Revenue change · shrinking ← → growing
+              {c.ui.xAxis}
             </text>
             <text
               x={14}
@@ -352,21 +288,21 @@ export default function DisruptionQuadrant() {
               textAnchor="middle"
               transform={`rotate(-90 14 ${(PAD.t + H - PAD.b) / 2})`}
             >
-              Share price · punished ↓ ↑ rewarded
+              {c.ui.yAxis}
             </text>
 
             {/* quadrant labels */}
             <text x={PAD.l + 10} y={H - PAD.b - 12} className="dq-qlabel">
-              {QUADRANT_META.gone.label} · {counts.gone}
+              {c.ui.meta.gone.label} · {counts.gone}
             </text>
             <text x={W - PAD.r - 10} y={H - PAD.b - 12} className="dq-qlabel dq-qlabel-hot" textAnchor="end">
-              {QUADRANT_META.priced.label} · {counts.priced}
+              {c.ui.meta.priced.label} · {counts.priced}
             </text>
             <text x={PAD.l + 10} y={PAD.t + 16} className="dq-qlabel">
-              {QUADRANT_META.credit.label} · {counts.credit}
+              {c.ui.meta.credit.label} · {counts.credit}
             </text>
             <text x={W - PAD.r - 10} y={PAD.t + 16} className="dq-qlabel" textAnchor="end">
-              {QUADRANT_META.reinventing.label} · {counts.reinventing}
+              {c.ui.meta.reinventing.label} · {counts.reinventing}
             </text>
 
             {/* dots */}
@@ -382,9 +318,14 @@ export default function DisruptionQuadrant() {
                   tabIndex={0}
                   role="button"
                   aria-pressed={pinned === d.key}
-                  aria-label={`${d.m.name} (${d.m.ticker}): revenue ${pct(d.rev)}, share price ${pct(
-                    d.price
-                  )} since 30 Nov 2022. ${QUADRANT_META[d.quadrant].label}. ${RESPONSE_META[d.m.response].label}.`}
+                  aria-label={fill(c.ui.dotAria, {
+                    name: d.m.name,
+                    ticker: d.m.ticker,
+                    rev: pct(d.rev),
+                    price: pct(d.price),
+                    quadrant: c.ui.meta[d.quadrant].label,
+                    response: c.ui.responses[d.m.response].label,
+                  })}
                   onMouseEnter={() => setHover(d.key)}
                   onMouseLeave={() => setHover((h) => (h === d.key ? null : h))}
                   onFocus={() => setHover(d.key)}
@@ -419,48 +360,38 @@ export default function DisruptionQuadrant() {
               data-flip-y={tipFlipY}
               style={tipStyle}
               role={pinned ? "dialog" : "tooltip"}
-              aria-label={`${active.m.name} details`}
+              aria-label={fill(c.ui.detailsAria, { name: active.m.name })}
             >
-              <Tooltip d={active} pinned={pinned === active.key} onClose={() => setPinned(null)} />
+              <Tooltip d={active} pinned={pinned === active.key} onClose={() => setPinned(null)} c={c} />
             </div>
           )}
         </div>
 
-        <div className="dq-legend" aria-label="Legend">
-          {(Object.keys(RESPONSE_META) as Response[]).map((r) => (
-            <span key={r} className="dq-legend-item" title={RESPONSE_META[r].title}>
+        <div className="dq-legend" aria-label={c.ui.legend}>
+          {(Object.keys(c.ui.responses) as Response[]).map((r) => (
+            <span key={r} className="dq-legend-item" title={c.ui.responses[r].title}>
               <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
                 <Mark response={r} x={7} y={7} active={false} />
               </svg>
-              {RESPONSE_META[r].label}
+              {c.ui.responses[r].label}
             </span>
           ))}
         </div>
 
-        <p className="dq-method">
-          <b>How to read it.</b> Baseline: closing share price on 30 Nov 2022, the day ChatGPT launched,
-          against the latest close (29 Oct 2026); revenue for the fiscal year containing that date
-          against the latest full fiscal year reported. Prices are split-adjusted and exclude dividends;
-          revenue is in each company&apos;s reporting currency. Both axes are log scales, so a halving and
-          a doubling sit the same distance from zero. Marker shape is the company&apos;s response:{" "}
-          <b>restructuring</b> (documented cuts, a forced sale, a merger, or bankruptcy) wins over{" "}
-          <b>reinventing</b> (a shipped AI product or pricing model at the core of the business); everything
-          else is <b>no documented response</b>. Only companies with public numbers are plotted: missing
-          stays missing.
-        </p>
+        <p className="dq-method">{c.method}</p>
 
         <details className="dq-table-wrap">
-          <summary>The chart as a table, with sources</summary>
+          <summary>{c.ui.tableSummary}</summary>
           <div className="dq-table-scroll">
             <table className="dq-table">
               <thead>
                 <tr>
-                  <th scope="col">Company</th>
-                  <th scope="col">Revenue</th>
-                  <th scope="col">Share price</th>
-                  <th scope="col">Quadrant</th>
-                  <th scope="col">Response</th>
-                  <th scope="col">Sources</th>
+                  <th scope="col">{c.ui.th.company}</th>
+                  <th scope="col">{c.ui.th.revenue}</th>
+                  <th scope="col">{c.ui.th.sharePrice}</th>
+                  <th scope="col">{c.ui.th.quadrant}</th>
+                  <th scope="col">{c.ui.th.response}</th>
+                  <th scope="col">{c.ui.th.sources}</th>
                 </tr>
               </thead>
               <tbody>
@@ -483,15 +414,15 @@ export default function DisruptionQuadrant() {
                         {formatPrice(d.m.priceBase, d.m.currency)} → {formatPrice(d.m.priceNow, d.m.currency)}{" "}
                         <b>{pct(d.price)}</b>
                       </td>
-                      <td>{QUADRANT_META[d.quadrant].label}</td>
-                      <td>{RESPONSE_META[d.m.response].label}</td>
+                      <td>{c.ui.meta[d.quadrant].label}</td>
+                      <td>{c.ui.responses[d.m.response].label}</td>
                       <td>
                         <a href={d.m.revenueSource.url} target="_blank" rel="noopener noreferrer">
-                          Revenue
+                          {c.ui.revenueLink}
                         </a>{" "}
                         ·{" "}
                         <a href={d.m.priceSource.url} target="_blank" rel="noopener noreferrer">
-                          Price
+                          {c.ui.priceLink}
                         </a>
                       </td>
                     </tr>
@@ -502,7 +433,7 @@ export default function DisruptionQuadrant() {
         </details>
 
         <div className="dq-unplotted">
-          <h3>Not plotted, and why</h3>
+          <h3>{c.ui.unplottedTitle}</h3>
           <ul>
             {Object.entries(UNPLOTTED).map(([why, names]) => (
               <li key={why}>
