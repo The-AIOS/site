@@ -26,7 +26,7 @@ export function LiveStat({ n, label, asOf, liveLabel, href, live, numberLocale =
       <span className="pf-n">{liveN ?? n}</span>
       <span className="pf-txt">
         <span className="pf-l">{label}</span>
-        <span className="pf-as">{liveN ? liveLabel : asOf}</span>
+        {(liveN ? liveLabel : asOf) && <span className="pf-as">{liveN ? liveLabel : asOf}</span>}
       </span>
     </a>
   );

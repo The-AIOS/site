@@ -673,12 +673,14 @@ const en: Content = {
   people: {
     eyebrow: "Proof from people",
     /* Public, verifiable, dated. Stars are re-read live in the browser; the rest state their date.
-       App downloads count installer files only (.dmg .exe .AppImage .deb across all releases), never
-       update checks, so they are labelled downloads, not users. Nothing in this block is estimated.
+       App downloads = installer files (.dmg .exe .AppImage .deb) + Mac auto-update downloads (.zip),
+       summed across all releases from the GitHub Releases API; never the .yml update manifests (those
+       are update CHECKS, tens of thousands). An auto-update is an existing install fetching a new
+       version, so the label says downloads, not people. Nothing in this block is estimated.
        Quotes: anonymized by Chuy's decision (2026-10-30); several were said under EO forum
        confidentiality, so never add a name, company, chapter or city to them. */
     numbers: [
-      { n: "1,200+", label: "AIOS App installer downloads", asOf: "30 Oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
+      { n: "2,700+", label: "AIOS App downloads, zero marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "en-US",
     quotes: [
@@ -801,7 +803,7 @@ const en: Content = {
   },
   glass: {
     eyebrow: "Glass", h: ["Two graphical ", "front doors", "."],
-    appBold: "The AIOS App", appRest: " is the standalone surface: the panel, real terminals, a vault explorer and one-click rituals in a signed, notarized Mac app — four guided steps from nothing installed to a working AIOS.",
+    appBold: "The AIOS App", appRest: " is the standalone surface: the panel, real terminals, a vault explorer and one-click rituals in a desktop app for macOS, Windows and Linux (signed and notarized on Mac) — four guided steps from nothing installed to a working AIOS.",
     bodyBold: "AIOS Glass", bodyRest: " runs inside VS Code and Google Antigravity: slash commands become buttons, arguments become forms, spawn becomes a click. Non-developers operate their full AIOS without ever typing a command.",
     appCaption: "The AIOS App — standalone, signed, notarized.",
     glassCaption: "AIOS Glass — inside VS Code and Antigravity.",
@@ -1310,7 +1312,7 @@ const es: Content = {
   people: {
     eyebrow: "Prueba desde la gente",
     numbers: [
-      { n: "1,200+", label: "descargas del instalador de la AIOS App", asOf: "30 oct 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
+      { n: "2,700+", label: "descargas de la AIOS App, sin marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "es-MX",
     quotes: [
@@ -1433,7 +1435,7 @@ const es: Content = {
   },
   glass: {
     eyebrow: "Glass", h: ["Dos puertas de entrada ", "gráficas", "."],
-    appBold: "La AIOS App", appRest: " es la superficie independiente: el panel, terminales reales, explorador del vault y rituales a un clic en una app de Mac firmada y notarizada — cuatro pasos guiados desde cero hasta un AIOS funcionando.",
+    appBold: "La AIOS App", appRest: " es la superficie independiente: el panel, terminales reales, explorador del vault y rituales a un clic en una app de escritorio para macOS, Windows y Linux (firmada y notarizada en Mac) — cuatro pasos guiados desde cero hasta un AIOS funcionando.",
     bodyBold: "AIOS Glass", bodyRest: " corre dentro de VS Code y Google Antigravity: los slash commands se vuelven botones, los argumentos se vuelven formularios, spawn se vuelve un clic. Los no-desarrolladores operan todo su AIOS sin escribir un solo comando.",
     appCaption: "La AIOS App — independiente, firmada y notarizada.",
     glassCaption: "AIOS Glass — dentro de VS Code y Antigravity.",
@@ -1942,7 +1944,7 @@ const pt: Content = {
   people: {
     eyebrow: "Prova vinda de pessoas",
     numbers: [
-      { n: "1.200+", label: "downloads do instalador do AIOS App", asOf: "30 out 2026", href: "https://github.com/The-AIOS/aios-app/releases" },
+      { n: "2.700+", label: "downloads do AIOS App, sem marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "pt-BR",
     quotes: [
@@ -2065,7 +2067,7 @@ const pt: Content = {
   },
   glass: {
     eyebrow: "Glass", h: ["Duas portas de entrada ", "gráficas", "."],
-    appBold: "O AIOS App", appRest: " é a superfície independente: o painel, terminais reais, explorador do vault e rituais a um clique num app de Mac assinado e notarizado — quatro passos guiados do zero até um AIOS funcionando.",
+    appBold: "O AIOS App", appRest: " é a superfície independente: o painel, terminais reais, explorador do vault e rituais a um clique num app de desktop para macOS, Windows e Linux (assinado e notarizado no Mac) — quatro passos guiados do zero até um AIOS funcionando.",
     bodyBold: "AIOS Glass", bodyRest: " roda dentro do VS Code e do Google Antigravity: os slash commands viram botões, os argumentos viram formulários, spawn vira um clique. Não-desenvolvedores operam todo o seu AIOS sem digitar um único comando.",
     appCaption: "O AIOS App — independente, assinado e notarizado.",
     glassCaption: "AIOS Glass — dentro do VS Code e do Antigravity.",
