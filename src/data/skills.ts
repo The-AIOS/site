@@ -1398,7 +1398,7 @@ export const SKILLS_PATHS: Record<Locale, string> = { en: "/climb", es: "/es/cli
  * surfaced by a search engine. hreflang only between the three /climb pages. */
 export function skillsMetadata(locale: Locale): Metadata {
   const { title, description } = SKILLS[locale].meta;
-  const url = `https://the-aios.com${SKILLS_PATHS[locale]}`;
+  const url = `https://www.the-aios.com${SKILLS_PATHS[locale]}`;
   return {
     title,
     description,
@@ -1406,9 +1406,9 @@ export function skillsMetadata(locale: Locale): Metadata {
     alternates: {
       canonical: url,
       languages: {
-        en: "https://the-aios.com/climb",
-        es: "https://the-aios.com/es/climb",
-        "pt-BR": "https://the-aios.com/pt/climb",
+        en: "https://www.the-aios.com/climb",
+        es: "https://www.the-aios.com/es/climb",
+        "pt-BR": "https://www.the-aios.com/pt/climb",
       },
     },
     openGraph: { title, description, url, type: "website", images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "The AIOS" }] },

@@ -9,8 +9,8 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: `${TITLE} — The AIOS`,
   description: DESCRIPTION,
-  alternates: { canonical: "https://the-aios.com/terms" },
-  openGraph: { title: `${TITLE} — The AIOS`, description: DESCRIPTION, url: "https://the-aios.com/terms" },
+  alternates: { canonical: "https://www.the-aios.com/terms" },
+  openGraph: { title: `${TITLE} — The AIOS`, description: DESCRIPTION, url: "https://www.the-aios.com/terms" },
 };
 
 export default function Terms() {

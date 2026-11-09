@@ -185,7 +185,7 @@ export const INSTALL_PATHS: Record<Locale, string> = { en: "/install", es: "/es/
  * surfaced by a search engine. hreflang only between the three /install pages. */
 export function installMetadata(locale: Locale): Metadata {
   const { title, description } = INSTALL[locale].meta;
-  const url = `https://the-aios.com${INSTALL_PATHS[locale]}`;
+  const url = `https://www.the-aios.com${INSTALL_PATHS[locale]}`;
   return {
     title,
     description,
@@ -193,9 +193,9 @@ export function installMetadata(locale: Locale): Metadata {
     alternates: {
       canonical: url,
       languages: {
-        en: "https://the-aios.com/install",
-        es: "https://the-aios.com/es/install",
-        "pt-BR": "https://the-aios.com/pt/install",
+        en: "https://www.the-aios.com/install",
+        es: "https://www.the-aios.com/es/install",
+        "pt-BR": "https://www.the-aios.com/pt/install",
       },
     },
     openGraph: { title, description, url, type: "website", images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "The AIOS" }] },

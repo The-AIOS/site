@@ -14,7 +14,7 @@ import "./di.css";
 /* /disruption-index, /es/disruption-index, /pt/disruption-index — one layout, three
    copies. Structure and figures come from src/data/exemplars.ts; strings from DI_COPY. */
 
-const ABS = "https://the-aios.com";
+const ABS = "https://www.the-aios.com";
 
 export function disruptionIndexMetadata(locale: Locale): Metadata {
   const t = DI_COPY[locale];
