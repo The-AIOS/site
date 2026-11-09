@@ -23,7 +23,7 @@ import "./standards.css";
    Structure (ids, statuses, lanes, colours, source URLs and check dates) comes from
    the data files; every string comes from STANDARDS_COPY[locale]. */
 
-const ABS = "https://the-aios.com";
+const ABS = "https://www.the-aios.com";
 
 export function standardsMetadata(locale: Locale): Metadata {
   const t = STANDARDS_COPY[locale];

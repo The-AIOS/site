@@ -9,8 +9,8 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: `${TITLE} — The AIOS`,
   description: DESCRIPTION,
-  alternates: { canonical: "https://the-aios.com/privacy" },
-  openGraph: { title: `${TITLE} — The AIOS`, description: DESCRIPTION, url: "https://the-aios.com/privacy" },
+  alternates: { canonical: "https://www.the-aios.com/privacy" },
+  openGraph: { title: `${TITLE} — The AIOS`, description: DESCRIPTION, url: "https://www.the-aios.com/privacy" },
 };
 
 export default function Privacy() {
