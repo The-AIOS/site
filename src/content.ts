@@ -680,7 +680,7 @@ const en: Content = {
        Quotes: anonymized by Chuy's decision (2026-10-30); several were said under EO forum
        confidentiality, so never add a name, company, chapter or city to them. */
     numbers: [
-      { n: "2,700+", label: "AIOS App downloads, zero marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
+      { n: "3,000+", label: "AIOS App downloads, zero marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "en-US",
     quotes: [
@@ -1312,7 +1312,7 @@ const es: Content = {
   people: {
     eyebrow: "Prueba desde la gente",
     numbers: [
-      { n: "2,700+", label: "descargas de la AIOS App, sin marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
+      { n: "3,000+", label: "descargas de la AIOS App, sin marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "es-MX",
     quotes: [
@@ -1944,7 +1944,7 @@ const pt: Content = {
   people: {
     eyebrow: "Prova vinda de pessoas",
     numbers: [
-      { n: "2.700+", label: "downloads do AIOS App, sem marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
+      { n: "3.000+", label: "downloads do AIOS App, sem marketing", asOf: "", href: "https://github.com/The-AIOS/aios-app/releases" },
     ],
     numberLocale: "pt-BR",
     quotes: [
