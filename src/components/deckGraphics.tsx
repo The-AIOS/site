@@ -300,7 +300,7 @@ export function TwoMachines() {
    the three-tier extension model that never collides. */
 export function OsAnatomy() {
   const spine: [string, string][] = [
-    ["VAULT", "the second brain"],
+    ["VAULT", "your context, in files you own"],
     ["AGENTS", "a team of specialists"],
     ["SKILLS", "capabilities on demand"],
     ["COMMANDS", "the daily rituals"],
