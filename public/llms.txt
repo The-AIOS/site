@@ -24,7 +24,7 @@ After clone, the framework lives at `~/aios` by default. The operator's tracker 
 
 The AIOS turns AI into a team — a legal you, an accountant you, a marketing you, a software engineer you. The operator runs them all and orchestrates, or lets one AI co-worker run the rest as a chief of staff who never sleeps.
 
-For senior executives, builders, founders, and operators navigating AI-overwhelming days. The AIOS gives the structure (prompt, context, intent, collaboration, second brain) where clarity emerges, then amplifies the operator and their team with AI co-workers.
+For senior executives, builders, founders, and operators navigating AI-overwhelming days. The AIOS gives the structure (prompt, context, intent, an amplified you, collaboration) where clarity emerges, then amplifies the operator and their team with AI co-workers.
 
 Ships with:
 

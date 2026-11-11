@@ -714,7 +714,7 @@ const en: Content = {
     body1: "Run every co-worker yourself and be their orchestrator — or let one AI co-worker run the rest as your chief of staff who never sleeps.",
     body2Pre: "Built for anyone navigating AI-overwhelming days — ",
     body2Bold: "senior executives, builders, founders, operators",
-    body2Rest: ". AI alone multiplies confusion. The AIOS gives you the structure — prompt, context, intent, collaboration, a second brain — where clarity emerges. So you make the most of AI without losing what makes you irreplaceable, and without IP/PII risk.",
+    body2Rest: ". AI alone multiplies confusion. The AIOS gives you the structure — prompt, context, intent, an amplified you, collaboration — where clarity emerges. So you make the most of AI without losing what makes you irreplaceable, and without IP/PII risk.",
     principlesEyebrow: "Four principles, all load-bearing",
     principles: [
       { t: "Amplify intelligence, not artificial", b: "Human + AI beats human alone or AI alone." },
@@ -1346,7 +1346,7 @@ const es: Content = {
     body1: "Opera a cada compañero tú mismo y sé su orquestador — o deja que un compañero de IA dirija al resto como tu jefe de gabinete que nunca duerme.",
     body2Pre: "Hecho para cualquiera que navega días saturados de IA — ",
     body2Bold: "altos ejecutivos, builders, fundadores, operadores",
-    body2Rest: ". La IA por sí sola multiplica la confusión. The AIOS te da la estructura — prompt, contexto, intención, colaboración, un segundo cerebro — donde emerge la claridad. Aprovechas la IA al máximo sin perder lo que te hace irremplazable, y sin riesgo de IP/PII.",
+    body2Rest: ". La IA por sí sola multiplica la confusión. The AIOS te da la estructura — prompt, contexto, intención, un tú amplificado, colaboración — donde emerge la claridad. Aprovechas la IA al máximo sin perder lo que te hace irremplazable, y sin riesgo de IP/PII.",
     principlesEyebrow: "Cuatro principios, todos esenciales",
     principles: [
       { t: "Amplifica la inteligencia, no lo artificial", b: "Humano + IA supera al humano solo o a la IA sola." },
@@ -1978,7 +1978,7 @@ const pt: Content = {
     body1: "Opere cada colega você mesmo e seja o orquestrador deles — ou deixe um colega de IA conduzir o resto como seu chefe de gabinete que nunca dorme.",
     body2Pre: "Feito para qualquer um que navega dias sobrecarregados de IA — ",
     body2Bold: "altos executivos, builders, fundadores, operadores",
-    body2Rest: ". A IA sozinha multiplica a confusão. The AIOS te dá a estrutura — prompt, contexto, intenção, colaboração, um segundo cérebro — onde a clareza emerge. Você aproveita a IA ao máximo sem perder o que te torna insubstituível, e sem risco de IP/PII.",
+    body2Rest: ". A IA sozinha multiplica a confusão. The AIOS te dá a estrutura — prompt, contexto, intenção, um você amplificado, colaboração — onde a clareza emerge. Você aproveita a IA ao máximo sem perder o que te torna insubstituível, e sem risco de IP/PII.",
     principlesEyebrow: "Quatro princípios, todos essenciais",
     principles: [
       { t: "Amplifique a inteligência, não o artificial", b: "Humano + IA supera o humano sozinho ou a IA sozinha." },
