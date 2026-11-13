@@ -218,7 +218,6 @@ export const EXEMPLARS = [
       { label: "Coursera Q3 2026 shareholder letter (SEC)", url: "https://www.sec.gov/Archives/edgar/data/0001651562/000165156226000068/cour-20260930xshareholde.htm" },
     ],
     verified: "2026-11-13",
-    was: "reinventing",
     signal: "revenue",
     region: "US",
     markets: [
@@ -348,7 +347,6 @@ export const EXEMPLARS = [
       { label: "Octus: prepackaged Chapter 11 filed", url: "https://octus.com/resources/articles/update-1-getty-images-files-for-prepackaged-chapter-11/" },
     ],
     verified: "2026-11-13",
-    was: "on-the-clock",
     signal: "market",
     region: "US",
     markets: [
@@ -390,7 +388,6 @@ export const EXEMPLARS = [
       { label: "Leadership change, Oct 2026 (SEC)", url: "https://www.sec.gov/Archives/edgar/data/0001549346/000114036126041191/ef20084541_ex99-1.htm" },
     ],
     verified: "2026-11-13",
-    was: "reinventing",
     signal: "revenue",
     region: "US",
     markets: [
@@ -679,7 +676,6 @@ export const EXEMPLARS = [
       { label: "Best Law Firms, Nov 2026 (counter-evidence)", url: "https://www.bestlawfirms.com/articles/big-law-partner-hiring-first-year-classes-shrinking/8616" },
     ],
     verified: "2026-11-13",
-    was: "insulated",
     signal: "jobs",
     region: "US",
     unplotted: "A category, not one listed company.",
