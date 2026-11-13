@@ -69,7 +69,7 @@ export const en: DICopy = {
       </>
     ),
     kept: "Curated, not crowd-fed. Kept current by AIOS research agents — itself an example of the speed it describes.",
-    first: "First researched June 2026; every entry re-verified 30 Oct 2026.",
+    first: "First researched June 2026; every entry re-verified 13 Nov 2026.",
   },
 
   speed: Object.fromEntries(
@@ -156,7 +156,7 @@ export const en: DICopy = {
     method: (
       <>
         <b>How to read it.</b> Baseline: closing share price on 30 Nov 2022, the day ChatGPT launched, against the
-        latest close (29 Oct 2026); revenue for the fiscal year containing that date against the latest full fiscal
+        latest close (12 Nov 2026); revenue for the fiscal year containing that date against the latest full fiscal
         year reported. Prices are split-adjusted and exclude dividends; revenue is in each company&apos;s reporting
         currency. Both axes are log scales, so a halving and a doubling sit the same distance from zero. Marker shape
         is the company&apos;s response: <b>restructuring</b> (documented cuts, a forced sale, a merger, or
