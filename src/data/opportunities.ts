@@ -33,13 +33,21 @@ export const OPPORTUNITIES = [
       "Prove what code and which model actually ran, instead of trusting that the package you installed is the one its maintainers published.",
     evidence: [
       {
-        text: "On 21 Oct a poisoned LiteLLM release (1.107.0), a widely used open-source gateway to AI models, was live on PyPI for about two hours. It stole credentials and secrets from the environment of the machines that installed it. Earlier releases and the official source were clean.",
+        text: "On 21 Oct a poisoned LiteLLM release (1.107.0), a widely used open-source gateway to AI models, was live on PyPI and Docker for about two hours. It stole credentials and secrets from the machines that installed it. The official source was clean: the build came from a lookalike fork, and the project's own release pipeline signed and published it.",
         links: [
           { label: "LiteLLM incident report", url: "https://docs.litellm.ai/blog/security-incident-oct-21-2026" },
+          { label: "LiteLLM root-cause analysis", url: "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain" },
           {
             label: "Microsoft Security analysis",
             url: "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
           },
+        ],
+      },
+      {
+        text: "On 9 Nov NEAR AI disclosed that an attacker used a flaw in SGLang, an open-source engine for serving AI models, to run code on one of its inference servers. Requests on that server, including some in its confidential mode, may have been visible. Its report notes that hardware isolation does not protect against a flaw in the software running inside it.",
+        links: [
+          { label: "NEAR AI incident report", url: "https://near.ai/blog/security-incident-report-sglang-vulnerability" },
+          { label: "Decrypt", url: "https://decrypt.co/382965/near-ai-breach-exposes-user-details-data-ai-agents" },
         ],
       },
       {
@@ -71,9 +79,9 @@ export const OPPORTUNITIES = [
         ],
       },
       {
-        text: "In October, the developer platform Railway told users to revoke their secrets after an attacker reached encrypted environment variables; its preliminary report says the aim was AI-provider API keys. Researchers have documented stolen keys running up AI compute bills since 2024 (“LLMjacking”).",
+        text: "In October an attacker reached encrypted environment variables at the developer platform Railway. Its final report (10 Nov) says AI-provider API keys were the primary target and estimates unauthorized spend on the stolen keys at about $740,000. Researchers have documented stolen keys running up AI compute bills since 2024 (“LLMjacking”).",
         links: [
-          { label: "Railway preliminary report", url: "https://blog.railway.com/p/preliminary-report-october-security-incident" },
+          { label: "Railway incident report", url: "https://blog.railway.com/p/incident-report-october-security-incident" },
           {
             label: "TechCrunch",
             url: "https://techcrunch.com/2026/10/22/developer-platform-railway-urges-all-users-to-revoke-secret-keys-after-cyberattack/",
@@ -165,7 +173,7 @@ export const OPPORTUNITIES = [
 export type OpportunityId = (typeof OPPORTUNITIES)[number]["n"];
 
 export const LEFT_OUT = [
-  "“Automated, multi-agent hacks running up thousands of dollars in stolen API compute credits” as a #BlackOctober event: the abuse of stolen AI keys is documented, but we found no source for this incident or a dollar figure.",
+  "“Automated, multi-agent hacks running up thousands of dollars in stolen API compute credits” as a #BlackOctober event: the abuse of stolen AI keys is documented, but we found no source for this incident; the one dollar figure we found (Railway's estimate of about $740,000) is for stolen keys, not multi-agent hacks.",
   "Real-time deepfakes bypassing MFA as part of #BlackOctober: the trend is real (above), the link to October is not sourced.",
   "eMudhra's weak keys as a failure of AI-generated code: the company's own statement says otherwise.",
 ] as const;

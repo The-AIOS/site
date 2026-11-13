@@ -30,6 +30,8 @@ export const es: DICopy = {
   },
   changelogLabel: "Historial de cambios del índice",
   changelog: {
+    "2026-11-13":
+      "4 añadidas (Fiverr, CI&T, Fin, pilotos de aerolínea) · 2 correcciones (fuentes del análisis de Wall Street; RELX y Wolters Kluwer ahora marcadas como reinventándose) · resultados de Q3 incorporados · precios al 12 de nov. · todas las entradas reverificadas",
     "2026-10-30":
       "15 añadidas · 4 movidas (Getty y Shutterstock a desaparecidas; Coursera y los abogados júnior a reloj corriendo) · 2 retiradas (Convoy, HeyMilo) · todas las entradas reverificadas y con fuentes",
     "2026-06": "Primera edición: 31 casos en 14 industrias",
@@ -45,7 +47,7 @@ export const es: DICopy = {
       </>
     ),
     kept: "Curado, no colaborativo. Lo mantienen al día los agentes de investigación de AIOS, que son en sí mismos un ejemplo de la velocidad que describe.",
-    first: "Primera investigación en junio de 2026; todas las entradas reverificadas el 30 de octubre de 2026.",
+    first: "Primera investigación en junio de 2026; todas las entradas reverificadas el 13 de noviembre de 2026.",
   },
 
   speed: {
@@ -106,6 +108,8 @@ export const es: DICopy = {
     Healthcare: "Salud",
     Music: "Música",
     Travel: "Viajes",
+    "Freelance Marketplaces": "Marketplaces de freelancers",
+    Aviation: "Aviación",
   },
 
   exemplars: {
@@ -116,7 +120,7 @@ export const es: DICopy = {
         "El foso de Chegg era una biblioteca de pago con soluciones de libros de texto y preguntas y respuestas a demanda. ChatGPT respondía las mismas preguntas gratis, al instante y sin suscripción: el valor por el que Chegg cobraba se volvió una mercancía de la noche a la mañana.",
       date: "Desde mayo de 2023 (la acción cayó ~48% en un día, el 2 de mayo de 2023)",
       note:
-        "Se cita a menudo como la primera empresa pública que culpó formalmente a la IA por daños a sus ingresos. Su propio “CheggMate”, impulsado por OpenAI, no logró frenar la pérdida. En oct. de 2025 recortó ~45% de su personal citando las “nuevas realidades de la IA”; en Q2 2026 los ingresos cayeron ~51% año contra año, y en julio de 2026 recibió un aviso del NYSE por cotizar por debajo de US$1.",
+        "Se cita a menudo como la primera empresa pública que culpó formalmente a la IA por daños a sus ingresos. Su propio “CheggMate”, impulsado por OpenAI, no logró frenar la pérdida. En oct. de 2025 recortó ~45% de su personal citando las “nuevas realidades de la IA”. En julio de 2026 recibió un aviso del NYSE por cotizar por debajo de US$1. En Q3 2026 los ingresos cayeron 40% año contra año, a US$46.5 millones; ya pagó su deuda y se está reposicionando alrededor de una plataforma de empleabilidad. Su CEO: “La IA golpeó duro nuestro negocio”.",
     },
     Duolingo: {
       story:
@@ -125,7 +129,7 @@ export const es: DICopy = {
         "Oraciones, traducciones y revisión de errores que antes necesitaban contratistas humanos ahora se pueden generar y verificar con LLMs, así que Duolingo reconstruyó su producción de contenido alrededor de la IA y recortó puestos de contratistas.",
       date: "Finales de 2023–2024",
       note:
-        "Recortó ~10% de su fuerza de trabajo contratista (traductores y redactores, los más afectados) a partir de finales de 2023; después el CEO emitió un memo “AI-first”. Una empresa que se reinventa y que también desplazó trabajadores: considera ambas lecturas. A mediados de 2026 los usuarios seguían creciendo (usuarios activos diarios +23% en Q2) mientras la acción había caído con fuerza por el temor a que los tutores de IA de propósito general compitan directamente.",
+        "Recortó ~10% de su fuerza de trabajo contratista (traductores y redactores, los más afectados) a partir de finales de 2023; después el CEO emitió un memo “AI-first”. Una empresa que se reinventa y que también desplazó trabajadores: considera ambas lecturas. Para Q3 2026 los usuarios seguían creciendo (usuarios activos diarios +29%, a 64.9M) y estaba extendiendo su función AI Video Call a todos los suscriptores del nivel más alto, mientras la acción había caído con fuerza por el temor a que los tutores de IA de propósito general compitan directamente.",
     },
     Coursera: {
       story:
@@ -143,7 +147,7 @@ export const es: DICopy = {
         "El contenido genérico de listas y quizzes perdió su escasez en cuanto la IA pudo generarlo gratis. BuzzFeed cerró su división de noticias ganadora del Pulitzer, pivotó a contenido con IA y siguió perdiendo audiencia y anunciantes.",
       date: "2023 (giro a la IA en enero de 2023; BuzzFeed News cerró en abril de 2023)",
       note:
-        "Reveló una “duda sustancial” sobre su capacidad de seguir como negocio en marcha (2025, repetida en 2026); en mayo de 2026 Allen Family Digital compró ~52% del control por US$120 millones, seguido de un recorte de ~35% de la plantilla. La caída tiene varias causas (el colapso de la publicidad digital): la IA fue la apuesta fallida para el rescate, no la única causa de su muerte.",
+        "Reveló una “duda sustancial” sobre su capacidad de seguir como negocio en marcha (2025, repetida en 2026); en mayo de 2026 Allen Family Digital compró ~52% del control por US$120 millones, seguido de un recorte de ~35% de la plantilla. Los ingresos de Q3 2026 cayeron 44% año contra año, a US$26 millones, y la empresa aplazó su perspectiva financiera. La caída tiene varias causas (el colapso de la publicidad digital): la IA fue la apuesta fallida para el rescate, no la única causa de su muerte.",
     },
     DeepL: {
       story:
@@ -152,7 +156,7 @@ export const es: DICopy = {
         "DeepL logró una calidad de traducción automática neuronal que los profesionales calificaron por encima de Google Translate y la vendió como producto B2B, quedándose con el mercado de traducción empresarial que antes tenían los incumbentes y las agencias humanas.",
       date: "2023–2024 (levantó US$300 millones con una valuación de ~US$2 mil millones, mayo de 2024)",
       note:
-        "Reportó ~US$185 millones de ARR en 2024, frente a ~US$141 millones en 2023. Bloomberg reportó que exploraba una salida a bolsa en EE. UU. con una valuación de hasta ~US$5 mil millones (oct. de 2025); en junio de 2026 compró Mixhalo para entrar a la traducción de voz en eventos en vivo.",
+        "Reportó ~US$185 millones de ARR en 2024, frente a ~US$141 millones en 2023. Bloomberg reportó que exploraba una salida a bolsa en EE. UU. con una valuación de hasta ~US$5 mil millones (oct. de 2025). En mayo de 2026 anunció recortes de unos 250 empleos (~25% del personal), con el argumento de que la IA exige “equipos más pequeños con mayor impacto”; en junio de 2026 compró Mixhalo para entrar a la traducción de voz en eventos en vivo. Incluso el disruptor se está reorganizando alrededor de la IA.",
       unplotted: "Empresa privada: sin ingresos ni valor de mercado públicos.",
     },
     "Human translation & localization workforce": {
@@ -176,12 +180,12 @@ export const es: DICopy = {
     },
     Shutterstock: {
       story:
-        "Vendió su biblioteca como datos de entrenamiento para IA e integró la generación en su plataforma; luego los ingresos por datos se encogieron junto con el negocio principal, la fusión que debía salvarla se vino abajo y el dividendo se suspendió.",
+        "Vendió su biblioteca como datos de entrenamiento para IA e integró la generación en su plataforma; luego los ingresos por datos se desplomaron, la fusión que debía salvarla fracasó y el dividendo se suspendió.",
       changed:
         "Convirtió su archivo de imágenes en una nueva fuente de ingresos al licenciarlo a laboratorios de IA para entrenar modelos, e integró generación de texto a imagen para sus clientes, con un fondo para compensar a sus colaboradores.",
       date: "2022–2023 (alianza con OpenAI ampliada en 2023); revisión estratégica en 2026",
       note:
-        "El licenciamiento de IA y datos llegó a sumar unos US$100 millones o más al año. En Q2 2026 los ingresos totales cayeron 17%, el segmento de datos cayó 16% y registró un deterioro de crédito mercantil de US$163 millones; la fusión con Getty se vino abajo en julio, el dividendo se suspendió para priorizar la reducción de deuda y el fundador volvió como CEO en octubre en medio de una revisión estratégica. Sigue operando: “desaparecida” describe el foso, no a la empresa.",
+        "El licenciamiento de IA y datos llegó a sumar unos US$100 millones o más al año. En Q3 2026 ese segmento de datos cayó 76% año contra año, los ingresos totales cayeron 33% y los deterioros de crédito mercantil sumaron US$377 millones en lo que va del año. La fusión con Getty se vino abajo en julio, el dividendo se suspendió para priorizar la reducción de deuda y el fundador volvió como CEO en octubre. Sigue operando: “desaparecida” describe el foso, no a la empresa.",
     },
     "Cursor (Anysphere)": {
       story:
@@ -226,7 +230,7 @@ export const es: DICopy = {
       story:
         "La dueña de la categoría lanzó rápido su propia IA generativa y aun así vio su acción recortarse con fuerza, porque el mercado dudó de que la IA protegiera su foso de suscripciones.",
       changed:
-        "El foso de Adobe era un casi monopolio de las herramientas creativas profesionales. Integró Firefly en Photoshop e Illustrator para defenderlo, pero la generación convertida en mercancía y los rivales nativos de IA (Figma, Canva) pusieron en duda sus precios premium.",
+        "El foso de Adobe era un casi monopolio de las herramientas creativas profesionales. Integró Firefly en Photoshop e Illustrator para defenderlo, y en nov. de 2026 convirtió Firefly en un estudio impulsado por agentes que también ofrece modelos de IA rivales. Pero la generación convertida en mercancía y los rivales nativos de IA (Figma, Canva) pusieron en duda sus precios premium.",
       date: "Firefly lanzado en marzo de 2023; la acción cayó ~40% hasta un mínimo a mediados de 2026 y se recuperó en parte para oct. de 2026",
       note:
         "La adopción y la fecha de lanzamiento de Firefly son sólidas. La caída de la acción es verificable; atribuirla específicamente al miedo a la IA es la narrativa de consenso, pero no el único factor. Se defiende con fuerza: “reloj corriendo”, no “desaparecida”. Ingresos récord y un ARR de IA que crece rápido (según la empresa, Q3 FY26) no han restaurado su múltiplo.",
@@ -268,7 +272,7 @@ export const es: DICopy = {
         "CoCounsel de Casetext, un asistente impulsado por GPT-4 para investigación, revisión de documentos y preparación de deposiciones, demostró que la IA generativa podía comprimir horas de trabajo de un asociado a minutos. Thomson Reuters lo adquirió para defender su franquicia Westlaw.",
       date: "Adquisición anunciada en junio de 2023; CoCounsel Legal agéntico lanzado en agosto de 2026",
       note:
-        "En agosto de 2026 lanzó un CoCounsel Legal agéntico que, según la empresa, usan “un millón de profesionales”. Las cifras de uso y de crecimiento del segmento legal las reporta la empresa. Sus acciones cayeron ~16% el 3 de febrero de 2026, cuando un laboratorio de IA lanzó un plug-in legal para su asistente: la reinvención es real, y también la duda del mercado.",
+        "En agosto de 2026 lanzó un CoCounsel Legal agéntico que, según la empresa, usan “un millón de profesionales”. En Q3 2026 los ingresos de su segmento Legal Professionals crecieron 9%, algo que atribuye en parte a CoCounsel Legal, y elevó su perspectiva para el año completo (nov. de 2026). Las cifras de uso y de crecimiento las reporta la empresa. Sus acciones cayeron ~16% el 3 de febrero de 2026, cuando un laboratorio de IA lanzó un plug-in legal para su asistente: la reinvención es real, y también la duda del mercado.",
     },
     "Law-firm junior associates & paralegals": {
       story:
@@ -277,7 +281,7 @@ export const es: DICopy = {
         "La revisión de documentos, los primeros borradores de contratos y la investigación se automatizan cada vez más, pero las reglas contra el ejercicio no autorizado, la responsabilidad por mala práctica y la ABA Formal Opinion 512 (2024) mantienen a un humano con licencia en el proceso. El cambio visible está en la contratación: el ingreso de abogados de primer año en los grandes despachos cayó 7.5% en 2025, y dos tercios de los despachos grandes encuestados esperan menos abogados de primer año para 2028.",
       date: "2024–2026 (ABA Op. 512 emitida en 2024; contratación de primer año a la baja desde el máximo de 2024)",
       note:
-        "Se movió desde “aisladas” en oct. de 2026: la capa del juicio con licencia sigue en pie, pero la cantera de formación se está erosionando a la vista. Datos de contratación de NALP y de una encuesta de Citi a 57 despachos. Hay evidencia en contra: algunos despachos están ampliando sus programas de verano, y no todos los observadores culpan todavía a la IA.",
+        "Se movió desde “aisladas” en oct. de 2026: la capa del juicio con licencia sigue en pie, pero la cantera de formación se está erosionando a la vista. Datos de contratación de NALP y de una encuesta de Citi a 57 despachos. Hay evidencia en contra: algunos despachos están ampliando sus programas de verano, las horas facturables de la industria todavía subían a inicios de 2026 y, a nov. de 2026, no se había reportado ningún despacho que recortara abogados de primer año específicamente por la IA.",
       unplotted: "Una categoría, no una empresa listada.",
     },
     "JPMorgan COiN (Contract Intelligence)": {
@@ -292,12 +296,12 @@ export const es: DICopy = {
     },
     "Wall Street sell-side equity research": {
       story:
-        "La paga de los analistas bajó y sus filas se adelgazaron mientras la IA, la inversión pasiva y la separación de costos apretaban a las mesas de análisis.",
+        "Las mesas de análisis se están adelgazando: cientos de analistas de nivel medio se han ido desde 2023 mientras la IA, la inversión pasiva y la separación de costos apretaban el negocio.",
       changed:
         "La IA ya redacta los modelos, resúmenes y análisis preliminares que antes producían los analistas júnior; sumado a la separación de costos de MiFID II y al giro hacia la inversión pasiva, el caso económico para tener grandes equipos de análisis se derrumbó.",
-      date: "Reportado en enero de 2025; tendencia en formación en 2023–2026",
+      date: "Tendencia en formación en 2023–2026; pronóstico de empleos bancarios de Bloomberg Intelligence, enero de 2025",
       note:
-        "Bloomberg Intelligence proyectó que los bancos podrían recortar hasta ~200,000 empleos en 3–5 años. La IA es una de varias fuerzas que se suman, no la única causa.",
+        "Substantive Research contabiliza 736 analistas de nivel medio que salieron del mercado entre 2023 y 2026, y dice que 70% de los gestores de activos que encuestó espera que el análisis rutinario de “mantenimiento” pase a generarse con IA. Por separado, Bloomberg Intelligence proyectó (enero de 2025) que los bancos globales podrían recortar hasta ~200,000 empleos en 3–5 años, sobre todo en back office y middle office, no en análisis. La IA es una de varias fuerzas que se suman, no la única causa.",
       unplotted: "Una categoría, no una empresa listada.",
     },
     "Big Four audit & tax (Deloitte, EY, KPMG, PwC)": {
@@ -324,9 +328,9 @@ export const es: DICopy = {
         "La plataforma en la que viven los reclutadores lanzó un agente de IA que automatiza la búsqueda, la clasificación y el contacto de candidatos que definían el trabajo del reclutador.",
       changed:
         "Hiring Assistant redacta descripciones de puestos, identifica y clasifica candidatos, gestiona preguntas y respuestas por InMail y hace un primer filtro de aspirantes; LinkedIn estima que reduce ~70% el tiempo administrativo del reclutador, lo que pone la búsqueda rutinaria bajo presión del propio incumbente.",
-      date: "Lanzamiento limitado en oct. de 2024; disponible globalmente en inglés en sept. de 2025; la contratación agéntica superó una tasa anualizada de US$450 millones en abril de 2026",
+      date: "Lanzamiento limitado en oct. de 2024; disponible globalmente en inglés en sept. de 2025; la contratación agéntica superó una tasa anualizada de US$450 millones en abril de 2026; Hiring Assistant 2 en despliegue desde nov. de 2026",
       note:
-        "La cifra de 70% de reducción administrativa es una estimación de la propia LinkedIn, igual que su reporte de que los productos de contratación agéntica superaron una tasa anualizada de ingresos de US$450 millones (abril de 2026). El incumbente monetiza al agente; la presión cae sobre los reclutadores.",
+        "La cifra de 70% de reducción administrativa es una estimación de la propia LinkedIn, igual que su reporte de que los productos de contratación agéntica superaron una tasa anualizada de ingresos de US$450 millones (abril de 2026). LinkedIn también dice que más de 20,000 empresas los usan (sept. de 2026). El incumbente monetiza al agente; la presión cae sobre los reclutadores.",
       unplotted: "Un producto o unidad dentro de una empresa listada más grande.",
     },
     "Jasper AI": {
@@ -356,7 +360,7 @@ export const es: DICopy = {
         "Uber Freight lanzó una red de más de 30 agentes de IA basada en LLMs que se encargan de precios, calificación de confiabilidad de transportistas y reservas: el trabajo cognitivo rutinario que justificaba los márgenes de los corredores tradicionales.",
       date: "2024–2025 (despliegue de agentes)",
       note:
-        "La disrupción está visiblemente en marcha pero sin resolverse; Uber Freight creció 25% en reservas brutas en Q2 2026 pero seguía en pérdidas, así que la economía no está definida.",
+        "La disrupción está visiblemente en marcha pero sin resolverse; Uber Freight creció 35% en reservas brutas en Q3 2026 pero seguía en pérdidas, así que la economía no está definida.",
       unplotted: "Un producto o unidad dentro de una empresa listada más grande.",
     },
     "Rev (Rev.com / Reverb)": {
@@ -393,8 +397,8 @@ export const es: DICopy = {
       story:
         "El marketplace más grande de América Latina ya deja que un asistente de IA resuelva la mayoría de las dudas de sus clientes fintech sin un humano.",
       changed:
-        "El asistente de IA de Mercado Pago atendió más de 9M de consultas en Q4 2025 y resolvió 87% sin un operador humano; para Q2 2026 la IA resolvía por sí sola más de la mitad de las solicitudes del Portal de Ayuda. Un negocio que crece ~50% al año ya no tiene que hacer crecer su personal de soporte al mismo ritmo.",
-      date: "Asistente lanzado en oct. de 2025; Q4 2025 → Q2 2026",
+        "El asistente de IA de Mercado Pago atendió más de 9M de consultas en Q4 2025 y resolvió 87% sin un operador humano; para Q2 2026 la IA resolvía por sí sola más de la mitad de las solicitudes del Portal de Ayuda. En Q3 2026 la empresa dijo que unas 7,000 personas de soporte atienden un volumen que de otro modo requeriría varias veces esa cifra, y su asistente sostuvo 19M de conversaciones solo en septiembre.",
+      date: "Asistente lanzado en oct. de 2025; Q4 2025 → Q3 2026",
       note:
         "Todas las cifras son afirmaciones de la empresa en cartas a accionistas presentadas ante la SEC. Un incumbente que se reinventa, no una empresa desplazada. La primera reinvención latinoamericana del índice.",
     },
@@ -403,16 +407,16 @@ export const es: DICopy = {
         "Los gigantes que rentan agentes humanos por hora ven sus ingresos volverse negativos y registran deterioros por miles de millones a medida que la IA de sus clientes empieza a contestar el teléfono.",
       changed:
         "Los centros de contacto tercerizados venden horas de agente a escala. Los agentes de IA resuelven de principio a fin los contactos rutinarios, así que el volumen y el poder de fijar precios se encogen. Ambas firmas se reposicionan como operadores de “IA más humanos” mientras sus líneas centrales declinan.",
-      date: "Mar. de 2024 (TP −23% en un día tras los resultados de la IA de Klarna) → 2026 (ingresos comparables de TP a la baja; deterioro de crédito mercantil de US$1.05 mil millones en Concentrix, sept. de 2026)",
+      date: "Mar. de 2024 (TP −23% en un día tras los resultados de la IA de Klarna) → 2026 (ingresos comparables de TP a la baja, perspectiva para 2026 recortada en nov. de 2026; deterioro de crédito mercantil de US$1.05 mil millones en Concentrix, sept. de 2026)",
       note:
-        "Varias causas. Concentrix vincula su deterioro con el precio de su acción y su perspectiva débil con las prioridades de sus clientes, no con la IA por nombre; Teleperformance también menciona la deslocalización y otros lastres. Ambas reportan un crecimiento rápido en sus propias líneas de IA (según las empresas). Defenderse y pivotar, no colapsar.",
+        "Varias causas. Concentrix vincula su deterioro con el precio de su acción y su perspectiva débil con las prioridades de sus clientes, no con la IA por nombre. Teleperformance culpa a una caída más rápida de Trust & Safety, que vincula con la automatización y la deslocalización, además de vientos en contra más amplios en la industria. Ambas reportan un crecimiento rápido en sus propias líneas de IA (según las empresas). Defenderse y pivotar, no colapsar.",
     },
     "Philippine BPO industry": {
       story:
         "La capital mundial de los call centers sigue sumando empleos, mientras revisa en silencio los pronósticos de crecimiento sobre los que se construyó su economía.",
       changed:
-        "Alrededor de 1.7M de filipinos trabajan en centros de contacto y en outsourcing de procesos de negocio, haciendo el soporte guionizado, la captura de datos y el procesamiento de documentos que la IA generativa automatiza primero. La plantilla aún creció en 2025, pero el organismo de la industria está revisando a mitad de ciclo las metas de su hoja de ruta.",
-      date: "2025–2026 (hoja de ruta de la industria en revisión, junio de 2026)",
+        "Alrededor de 1.7M de filipinos trabajan en centros de contacto y en outsourcing de procesos de negocio, haciendo el soporte guionizado, la captura de datos y el procesamiento de documentos que la IA generativa automatiza primero. La plantilla aún creció en 2025, pero en julio de 2026 el organismo de la industria redujo su perspectiva de crecimiento, citando la IA y la geopolítica.",
+      date: "2025–2026 (perspectiva de la industria reducida, julio de 2026)",
       note:
         "La plantilla creció ~4% hasta 1.68M en 2025 (cifra de la asociación de la industria). Los pronósticos de desplazamiento más grandes que circulan son proyecciones, no pérdidas observadas. Un caso del sector, como la entrada de TI en la India.",
       unplotted: "Una categoría, no una empresa listada.",
@@ -433,7 +437,7 @@ export const es: DICopy = {
         "El foso era contenido legal y profesional propietario envuelto en software de flujo de trabajo de pago. Un agente que revisa documentos, clasifica contratos y señala riesgos dentro de un asistente de propósito general amenaza con quedarse con el flujo de trabajo, dejando el contenido como un insumo en lugar de ser el producto.",
       date: "Desplome del 3 de febrero de 2026",
       note:
-        "Caídas reportadas en un día de aproximadamente 13–14% cada una (Thomson Reuters cayó ~16% ese mismo día); las cifras exactas varían según la bolsa y la medición. Una revaluación del riesgo, todavía no ingresos perdidos. Lo que produce el plug-in aún requiere revisión de un abogado.",
+        "Caídas reportadas en un día de aproximadamente 13–14% cada una (Thomson Reuters cayó ~16% ese mismo día); las cifras exactas varían según la bolsa y la medición. Una revaluación del riesgo, todavía no ingresos perdidos: en los primeros nueve meses de 2026 la división legal de RELX creció 10% y Legal & Regulatory de Wolters Kluwer creció 5%, y ambas mantuvieron sus perspectivas para el año completo. Lo que produce el plug-in aún requiere revisión de un abogado.",
     },
     Accenture: {
       story:
@@ -451,7 +455,7 @@ export const es: DICopy = {
         "Gartner vende investigación sindicada y acceso a analistas: criterio empaquetado que es, en buena medida, una síntesis de lo que se puede saber. Las herramientas de investigación con IA producen esa síntesis a demanda, y los presupuestos de TI se están redirigiendo a proyectos de IA, así que las renovaciones de asesoría humana están bajo presión.",
       date: "2025 (la acción se redujo a la mitad) → 3 de febrero de 2026 (las acciones cayeron más de 20% por su guía para 2026)",
       note:
-        "La dirección culpó a ciclos de compra más largos y al escrutinio de presupuestos, no a la IA por nombre; el vínculo con la IA es la narrativa de los inversionistas. Las cifras de la caída en un día no coinciden (21–31%) según la medición.",
+        "La dirección culpó a ciclos de compra más largos y al escrutinio de presupuestos, no a la IA por nombre; el vínculo con la IA es la narrativa de los inversionistas. Las cifras de la caída en un día no coinciden (21–31%) según la medición. En Q3 2026 el valor de contratos creció 2.5% (sin efecto cambiario) y Gartner elevó su perspectiva para el año completo: crecimiento lento, no declive.",
     },
     Salesforce: {
       story:
@@ -477,7 +481,7 @@ export const es: DICopy = {
         "El mostrador de respuestas de internet para programadores vio caer ~78% sus preguntas nuevas en un año, porque los desarrolladores empezaron a preguntarle a la IA dentro de su editor.",
       changed:
         "Su foso era un efecto de red: la gente preguntaba, los expertos respondían y los buscadores mandaban tráfico. Los asistentes de programación con IA ahora responden dentro del editor, así que se secó el flujo de preguntas que alimentaba el ciclo. La empresa está pivotando hacia el licenciamiento de datos y versiones empresariales privadas.",
-      date: "Dic. de 2025: 3,862 preguntas mensuales, −78% año contra año (máximo de más de 200,000 al mes en 2014)",
+      date: "Julio de 2026: unas 1,400 preguntas nuevas al mes, −78% año contra año (máximo de 207,000 al mes en marzo de 2014)",
       note:
         "La caída es anterior a ChatGPT y refleja en parte la cultura de la comunidad; la IA la aceleró. El negocio se reinventa mientras la comunidad colapsa: “reloj corriendo” para la empresa, casi “desaparecida” para el foro.",
       unplotted: "Propiedad de Prosus: sin ingresos ni valor de mercado propios.",
@@ -497,7 +501,7 @@ export const es: DICopy = {
         "Un escriba ambiental de IA que escucha la conversación entre médico y paciente y redacta la nota se está extendiendo por los sistemas de salud más grandes de EE. UU.",
       changed:
         "La documentación clínica consumía horas del tiempo de los médicos cada día y alimentaba el agotamiento. Abridge convierte la propia conversación en notas estructuradas y facturables dentro del expediente clínico, desplazando a los escribas humanos y al dictado.",
-      date: "Serie E en junio de 2025 (US$300 millones con una valuación de US$5.3 mil millones); más de 300 sistemas de salud reportados en 2026",
+      date: "Serie E en junio de 2025 (US$300 millones con una valuación de US$5.3 mil millones) → extensión de US$316 millones en abril de 2026 con la misma valuación; más de 300 sistemas de salud reportados en 2026",
       note:
         "El número de sistemas de salud lo reporta la empresa. Los proveedores de expedientes clínicos electrónicos que lanzan sus propios escribas son el principal riesgo competitivo. Los médicos siguen firmando cada nota.",
       unplotted: "Empresa privada: sin ingresos ni valor de mercado públicos.",
@@ -525,10 +529,54 @@ export const es: DICopy = {
       story:
         "Las agencias de viajes en línea superaron las expectativas de resultados y aun así se desplomaron, porque los inversionistas temen que la próxima reserva empiece con un agente de IA y no con una caja de búsqueda.",
       changed:
-        "Las OTAs dominan la parte alta del embudo de viajes y cobran comisión a los hoteles por la demanda. Los agentes de compra que reservan en nombre del viajero podrían quedarse con ese embudo. Booking mantiene su distancia de los agentes de terceros; Expedia se está conectando a ellos. Apuestas opuestas ante la misma amenaza.",
-      date: "Feb. de 2026 (Booking cayó tras superar expectativas en el cuarto trimestre) → sept. de 2026 (ambas a la baja ~17–18% en un mes tras el lanzamiento de un nuevo agente de compras)",
+        "Las OTAs dominan la parte alta del embudo de viajes y cobran comisión a los hoteles por la demanda. Los agentes de compra que reservan en nombre del viajero podrían quedarse con ese embudo. Expedia se conectó pronto a los nuevos agentes. Booking dejó fuera a Booking.com, permitió que su marca asiática Agoda se sumara en Singapur y Japón, y está probando su propio agente de viajes con IA. Apuestas distintas ante la misma amenaza.",
+      date: "Feb. de 2026 (Booking cayó tras superar expectativas en Q4) → sept. de 2026 (ambas a la baja ~17–18% en un mes tras el lanzamiento de un nuevo agente de compras) → nov. de 2026 (ambas superaron expectativas en reservas de Q3)",
       note:
-        "Booking dice que los asistentes de IA generan muy por debajo de 1% de las noches de habitación (cifra de la empresa). La amenaza ya está descontada en las acciones, pero todavía no es visible en los resultados. Las cifras de movimiento de las acciones vienen de medios financieros secundarios.",
+        "Booking dice que las referencias desde modelos de IA están muy por debajo de 1% de las noches de habitación de Booking.com; Expedia dice que el tráfico de agentes es pequeño pero con alta intención de compra (ambas, declaraciones de las empresas, Q3 2026). La amenaza ya está descontada en las acciones, pero todavía no es visible en los resultados: en Q3 2026 las reservas brutas subieron 10% en Booking y 11% en Expedia. Las cifras de movimiento de las acciones vienen de medios financieros secundarios.",
+    },
+    Fiverr: {
+      story:
+        "Un marketplace de pequeños trabajos freelance perdió una cuarta parte de sus compradores en un año, y dice que el paso de la búsqueda a la IA es la razón.",
+      changed:
+        "Fiverr vendía tareas pequeñas y bien definidas (un logo, una traducción, una entrada de blog) y encontraba a sus compradores a través de la búsqueda de Google. La IA ahora hace muchas de esas tareas directamente, y los compradores que le preguntan a un asistente de IA nunca llegan a una página de resultados. Fiverr recortó cerca de 30% de su personal en sept. de 2025 para volverse “AI-first” y se está moviendo hacia proyectos más grandes y gestionados.",
+      date:
+        "Sept. de 2025 (despido de 30%) → oct. de 2026 (ingresos de Q3 −15.8%, compradores activos −25.8%)",
+      note:
+        "Los ingresos de Q3 2026 fueron de US$90.9 millones, 15.8% menos año contra año; los ingresos del marketplace cayeron 24.7% y los compradores activos anuales bajaron a 2.4M desde 3.3M. Fiverr prevé que los ingresos de Q4 caigan 20–25% y dice que “el paso de la búsqueda al descubrimiento impulsado por IA” provocará una caída más pronunciada de lo que esperaba. Su segmento de servicios creció 3.4%. El vínculo causal con la IA es la explicación de la propia empresa.",
+    },
+    "CI&T": {
+      story:
+        "Una empresa brasileña de servicios de TI hace crecer sus ingresos más rápido que su plantilla vendiendo trabajo hecho con IA en contratos basados en valor, en lugar de horas facturables.",
+      changed:
+        "El outsourcing de TI cobraba por hora-persona, así que las herramientas de programación con IA amenazaban directamente sus ingresos. CI&T construyó su propia plataforma de entrega con IA (CI&T FLOW) y movió a sus clientes a precios basados en valor. Los ingresos crecieron mientras la plantilla se mantuvo estable. La misma presión empuja a Globant y a la TI india en la dirección contraria.",
+      date:
+        "2025–2026 (crecimiento de dos dígitos hasta Q3 2026, reportado en nov. de 2026)",
+      note:
+        "Los ingresos de Q3 2026 fueron de US$146.3 millones, 14.9% más (11.2% a tipo de cambio constante), con una plantilla promedio estable año contra año e ingresos por empleado 9.9% más altos. La empresa dice que los modelos comerciales basados en valor y CI&T FLOW permiten que sus ingresos crezcan más rápido que su equipo (afirmación de la empresa). El comunicado no desglosa los ingresos de IA, así que cuánto del crecimiento explica la IA es el encuadre de la propia empresa.",
+    },
+    "Fin (formerly Intercom)": {
+      story:
+        "Una empresa de software de mesa de ayuda con 15 años de historia tomó el nombre de su agente de IA y luego acordó venderse a Salesforce por unos US$3.6 mil millones.",
+      changed:
+        "El software de mesa de ayuda se cobraba por asiento de agente de soporte. Una vez que un agente de IA podía resolver la mayoría de los tickets, un negocio construido sobre asientos se encogería a medida que su propio producto funcionara. Intercom hizo del agente el negocio: cobró Fin por resolución, cambió el nombre de la empresa a Fin en mayo de 2026 y dejó “Intercom” solo como el nombre de la mesa de ayuda.",
+      date:
+        "Fin lanzado en 2023 → cambio de nombre en mayo de 2026 → acuerdo con Salesforce firmado en junio de 2026",
+      note:
+        "Salesforce dice que Fin tiene más de 30,000 clientes empresariales y resuelve en promedio 76% del volumen de soporte sin un humano (cifras de la empresa). Se esperaba que la operación cerrara en el trimestre fiscal Q4 2027 de Salesforce, sujeta a los reguladores; no hemos confirmado que haya cerrado. Las cifras de ARR de Fin varían según el medio y se dejan fuera. Compárala con Sierra, que nació nativa de IA; Fin es un incumbente que se convirtió en una.",
+      unplotted:
+        "Empresa privada en proceso de adquisición por Salesforce: sin ingresos ni valor de mercado públicos.",
+    },
+    "Airline pilots": {
+      story:
+        "El regulador europeo de seguridad aérea estudió volar aviones de pasajeros con un solo piloto en la cabina y concluyó que todavía no se puede demostrar que sea tan seguro como volar con dos.",
+      changed:
+        "La automatización de la cabina lleva décadas avanzando, y los fabricantes exploraron permitir que un piloto descanse durante el crucero mientras el software vigila al otro. Las reglas fijan el tamaño de la tripulación, no la tecnología. La investigación de EASA concluyó que un nivel de seguridad equivalente “no puede demostrarse de forma suficiente” con las cabinas actuales, así que el requisito de dos pilotos se mantiene.",
+      date:
+        "Estudio de EASA 2022–2025; conclusión en junio de 2025",
+      note:
+        "Aislados por regulación, del tipo más claro: una agencia de seguridad, no el mercado, decide el tamaño de la tripulación. EASA dice que un cambio futuro requeriría “cabinas inteligentes” que vigilen al piloto y respalden automáticamente a la aeronave. La automatización en juego es más amplia que la IA generativa, así que esto pone a prueba la columna de “aisladas” más que ser una historia pura de IA.",
+      unplotted:
+        "Una profesión, no una empresa listada.",
     },
   },
 
@@ -569,8 +617,8 @@ export const es: DICopy = {
       responseWhy: "Recorta ~15% de sus puestos de funciones corporativas para 2030",
       caveat: "Un banco: el ingreso operativo sustituye a los ingresos. Ingresos en USD; precio de la acción en peniques.",
     },
-    REL: { responseWhy: "Sin reposicionamiento hacia la IA documentado en nuestras fuentes" },
-    WKL: { responseWhy: "Sin reposicionamiento hacia la IA documentado en nuestras fuentes" },
+    REL: { responseWhy: "Vende herramientas de investigación con IA dentro de sus productos legales y de analítica" },
+    WKL: { responseWhy: "Lanza módulos de IA y agénticos en su software de salud, impuestos y legal" },
     ACN: { responseWhy: "Vende la transformación con IA como su línea de crecimiento" },
     IT: { responseWhy: "Sin reposicionamiento hacia la IA documentado en nuestras fuentes" },
     CRM: {
@@ -579,10 +627,18 @@ export const es: DICopy = {
     },
     UMG: { responseWhy: "Llegó a un acuerdo con un generador de música con IA y licenció su catálogo" },
     BKNG: {
-      responseWhy: "Mantiene su distancia de los agentes de IA de terceros para proteger su tráfico directo",
+      responseWhy: "Mantiene a Booking.com fuera de los agentes de IA de terceros; Agoda se sumó a uno en Asia",
       caveat: "Precio base ajustado por el split 25:1 de abril de 2026.",
     },
     EXPE: { responseWhy: "Conecta su inventario a agentes de compra con IA" },
+    FVRR: {
+      responseWhy: "Recortó ~30% de su personal (sept. de 2025) para volverse “AI-first”",
+      caveat: "Los ingresos anuales aún crecieron en FY2025; la caída de 2026 está en los resultados trimestrales, todavía no en un año fiscal completo.",
+    },
+    CINT: {
+      responseWhy: "Vende trabajo hecho con IA a través de su propia plataforma en contratos basados en valor",
+      caveat: "CI&T reportaba en reales brasileños en años anteriores; ambas cifras de ingresos son la serie en dólares estadounidenses de la fuente de datos.",
+    },
   },
 
   index: {
@@ -649,7 +705,7 @@ export const es: DICopy = {
     method: (
       <>
         <b>Cómo leerla.</b> Base: el precio de cierre de la acción el 30 nov. 2022, el día que se lanzó ChatGPT,
-        frente al cierre más reciente (29 oct. 2026); los ingresos del año fiscal que contiene esa fecha frente al
+        frente al cierre más reciente (12 nov. 2026); los ingresos del año fiscal que contiene esa fecha frente al
         último año fiscal completo reportado. Los precios están ajustados por splits y excluyen dividendos; los
         ingresos están en la moneda en la que reporta cada empresa. Ambos ejes son logarítmicos, así que reducirse a
         la mitad y duplicarse quedan a la misma distancia del cero. La forma del marcador es la respuesta de la
@@ -720,7 +776,8 @@ export const es: DICopy = {
         thesis:
           "Demostrar qué código y qué modelo se ejecutaron realmente, en lugar de confiar en que el paquete que instalaste es el que publicaron sus mantenedores.",
         evidence: [
-          "El 21 de octubre, una versión envenenada de LiteLLM (1.107.0), un gateway de código abierto muy usado para acceder a modelos de IA, estuvo disponible en PyPI durante unas dos horas. Robó credenciales y secretos del entorno de las máquinas que la instalaron. Las versiones anteriores y el código fuente oficial estaban limpios.",
+          "El 21 de octubre, una versión envenenada de LiteLLM (1.107.0), un gateway de código abierto muy usado para acceder a modelos de IA, estuvo disponible en PyPI y Docker durante unas dos horas. Robó credenciales y secretos de las máquinas que la instalaron. El código fuente oficial estaba limpio: la compilación salió de un fork que imitaba al original, y el propio pipeline de publicación del proyecto la firmó y la publicó.",
+          "El 9 de noviembre, NEAR AI reveló que un atacante usó una falla en SGLang, un motor de código abierto para servir modelos de IA, para ejecutar código en uno de sus servidores de inferencia. Las solicitudes en ese servidor, incluidas algunas en su modo confidencial, pudieron quedar expuestas. Su reporte señala que el aislamiento por hardware no protege contra una falla en el software que corre dentro.",
           "Las herramientas ya existen: la firma de modelos de OpenSSF, construida sobre Sigstore, firma modelos de la misma forma en que el código abierto firma software.",
         ],
         inTheIndex:
@@ -733,7 +790,7 @@ export const es: DICopy = {
           "Una API key dice quién la tiene, no qué se le permitió hacer a un agente. Vincula cada agente a una persona responsable con un mandato firmado y acotado antes de que actúe, y con un recibo verificable después.",
         evidence: [
           "El CERT-In de la India emitió el 15 de octubre un aviso crítico, “AI Agents as Attack Vectors”: agentes llegaron a sistemas en producción de organizaciones indias mediante credenciales expuestas y permisos demasiado amplios, y las organizaciones no lo detectaron por su cuenta.",
-          "En octubre, la plataforma para desarrolladores Railway pidió a sus usuarios revocar sus secretos después de que un atacante alcanzó variables de entorno cifradas; su reporte preliminar dice que el objetivo eran las API keys de proveedores de IA. Desde 2024, investigadores han documentado llaves robadas que disparan facturas de cómputo de IA (“LLMjacking”).",
+          "En octubre, un atacante alcanzó variables de entorno cifradas en la plataforma para desarrolladores Railway. Su reporte final (10 de noviembre) dice que las API keys de proveedores de IA eran el objetivo principal y estima en unos $740,000 dólares el gasto no autorizado con las llaves robadas. Desde 2024, investigadores han documentado llaves robadas que disparan facturas de cómputo de IA (“LLMjacking”).",
           "Los organismos de estándares ya trabajan en ello: el proyecto del NCCoE de NIST sobre identidad y autorización de software y agentes de IA, y el Top 10 de OWASP para aplicaciones agénticas.",
         ],
         inTheIndex:
@@ -766,7 +823,7 @@ export const es: DICopy = {
       },
     },
     leftOut: [
-      "“Hackeos automatizados con múltiples agentes que acumulan miles de dólares en créditos de cómputo de API robados” como un evento de #BlackOctober: el abuso de llaves de IA robadas está documentado, pero no encontramos una fuente para este incidente ni una cifra en dólares.",
+      "“Hackeos automatizados con múltiples agentes que acumulan miles de dólares en créditos de cómputo de API robados” como un evento de #BlackOctober: el abuso de llaves de IA robadas está documentado, pero no encontramos una fuente para este incidente; la única cifra en dólares que encontramos (la estimación de Railway, unos $740,000 dólares) es de llaves robadas, no de hackeos con múltiples agentes.",
       "Deepfakes en tiempo real que evaden la MFA como parte de #BlackOctober: la tendencia es real (arriba), pero el vínculo con octubre no tiene fuente.",
       "Las llaves débiles de eMudhra como una falla de código generado por IA: la propia declaración de la empresa dice lo contrario.",
     ],
