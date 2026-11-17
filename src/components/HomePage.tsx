@@ -17,6 +17,7 @@
  * /llms.txt link in footer, the AI-affordance block, the back-cover moment.
  */
 
+import { TeamsBand } from "@/components/TeamsBand";
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 import { GitHubLink } from "./GitHubLink";
@@ -312,6 +313,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             </p>
           </div>
         </section>
+
+        {/* ============ Teams band: one sentence → a team (AIOS 0.8.19) ============ */}
+        <TeamsBand t={c.teams} />
 
         {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
         <YourAios

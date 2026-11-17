@@ -229,6 +229,16 @@ export type Content = {
   safe: { eyebrow: string; h: H; lede: string; facts: { t: string; b: string }[]; ladder: { pre: string; link: string; post: string }; honest: { pre: string; link: string; post: string } }; // 05
   whyGit: { k: string; b: string };                                                                     // 05, one line
   community: { pre: string; link: string; href: string };                                              // 00, after the sign-off
+  /* The teams band under the hero: one sentence becomes a team (AIOS 0.8.19). Session handles
+     (bakery-lead…) stay English in every locale, like commands. `ask` is the visitor's sentence,
+     typed in by the animation; screen readers always get it whole. */
+  teams: {
+    h: H; sub: string;
+    you: string; ask: string; approve: string; group: string;
+    /* The folded team: one card that says how many agents and what they are doing. */
+    stack: { count: string; doing: string };
+    members: { handle: string; role: string; does: string; img: string; alt: string }[];
+  };
   back: { h: H; lede: string };
   footer: {
     tagline: string; license: string;
@@ -709,6 +719,16 @@ const en: Content = {
   whyGit: { k: "Why GitHub?", b: "AI moves fast. Git is your undo button: every change kept, nothing ever lost." },
 
   community: { pre: "People are building theirs in the open. ", link: "Join the Discord ↗", href: DISCORD },
+  teams: {
+    h: ["One sentence. ", "A whole team.", ""], sub: "Describe your project. Approve the crew. They get to work.",
+    you: "You", ask: "I want to open a small bakery.", approve: "Approve", group: "bakery-launch · 3 agents",
+    stack: { count: "3 agents", doing: "building your bakery" },
+    members: [
+      { handle: "bakery-lead", role: "Chief of staff", does: "Owns the 90-day plan", img: "/teams/lead.webp", alt: "A friendly robot holding a 90-day plan" },
+      { handle: "bakery-market", role: "Market researcher", does: "Maps the neighborhood", img: "/teams/market.webp", alt: "A curious robot with a magnifying glass" },
+      { handle: "bakery-books", role: "Accountant", does: "Builds the budget", img: "/teams/books.webp", alt: "A calm robot with a calculator" },
+    ],
+  },
   what: {
     eyebrow: "What it is", h: ["Your AI co-workers, ", "orchestrated", "."],
     body1: "Run every co-worker yourself and be their orchestrator — or let one AI co-worker run the rest as your chief of staff who never sleeps.",
@@ -1341,6 +1361,16 @@ const es: Content = {
   whyGit: { k: "¿Por qué GitHub?", b: "La IA se mueve rápido. Git es tu botón de deshacer: cada cambio guardado, nada se pierde jamás." },
 
   community: { pre: "Hay gente armando el suyo en abierto. ", link: "Únete al Discord ↗", href: DISCORD },
+  teams: {
+    h: ["Una frase. ", "Un equipo completo.", ""], sub: "Describe tu proyecto. Aprueba al equipo. Se ponen a trabajar.",
+    you: "Tú", ask: "Quiero abrir una pequeña panadería.", approve: "Aprobar", group: "bakery-launch · 3 agentes",
+    stack: { count: "3 agentes", doing: "armando tu panadería" },
+    members: [
+      { handle: "bakery-lead", role: "Jefa de gabinete", does: "Lleva el plan de 90 días", img: "/teams/lead.webp", alt: "Un robot amable con un plan de 90 días" },
+      { handle: "bakery-market", role: "Investigador de mercado", does: "Mapea el barrio", img: "/teams/market.webp", alt: "Un robot curioso con una lupa" },
+      { handle: "bakery-books", role: "Contadora", does: "Arma el presupuesto", img: "/teams/books.webp", alt: "Un robot tranquilo con una calculadora" },
+    ],
+  },
   what: {
     eyebrow: "Qué es", h: ["Tus compañeros de IA, ", "orquestados", "."],
     body1: "Opera a cada compañero tú mismo y sé su orquestador — o deja que un compañero de IA dirija al resto como tu jefe de gabinete que nunca duerme.",
@@ -1973,6 +2003,16 @@ const pt: Content = {
   whyGit: { k: "Por que GitHub?", b: "A IA anda rápido. O Git é o seu botão de desfazer: cada mudança guardada, nada se perde nunca." },
 
   community: { pre: "Tem gente montando o seu em aberto. ", link: "Entre no Discord ↗", href: DISCORD },
+  teams: {
+    h: ["Uma frase. ", "Um time inteiro.", ""], sub: "Descreva seu projeto. Aprove a equipe. Eles começam a trabalhar.",
+    you: "Você", ask: "Quero abrir uma pequena padaria.", approve: "Aprovar", group: "bakery-launch · 3 agentes",
+    stack: { count: "3 agentes", doing: "montando sua padaria" },
+    members: [
+      { handle: "bakery-lead", role: "Chefe de gabinete", does: "Cuida do plano de 90 dias", img: "/teams/lead.webp", alt: "Um robô simpático com um plano de 90 dias" },
+      { handle: "bakery-market", role: "Pesquisador de mercado", does: "Mapeia o bairro", img: "/teams/market.webp", alt: "Um robô curioso com uma lupa" },
+      { handle: "bakery-books", role: "Contadora", does: "Monta o orçamento", img: "/teams/books.webp", alt: "Um robô tranquilo com uma calculadora" },
+    ],
+  },
   what: {
     eyebrow: "O que é", h: ["Seus colegas de IA, ", "orquestrados", "."],
     body1: "Opere cada colega você mesmo e seja o orquestrador deles — ou deixe um colega de IA conduzir o resto como seu chefe de gabinete que nunca dorme.",
