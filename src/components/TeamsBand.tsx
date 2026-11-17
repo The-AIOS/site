@@ -22,6 +22,8 @@ export function TeamsBand({ t }: { t: T }) {
   const root = useRef<HTMLElement>(null);
   const [phase, setPhase] = useState(DONE);
   const [typed, setTyped] = useState(t.ask.length);
+  // The team pill folds the crew into itself and opens it back out.
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     const el = root.current;
@@ -93,12 +95,23 @@ export function TeamsBand({ t }: { t: T }) {
 
           <div className="teams-link teams-link-2" aria-hidden="true" />
 
-          <div className="teams-team">
-            <div className="teams-group">
+          <div className="teams-team" data-open={open}>
+            <button
+              type="button"
+              className="teams-group"
+              aria-expanded={open}
+              aria-controls="teams-cards"
+              disabled={phase < 3}
+              onClick={() => setOpen((o) => !o)}
+            >
               <span className="teams-dot" />
               {t.group}
-            </div>
-            <ul className="teams-cards">
+              <svg className="teams-chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M3 4.5l3 3 3-3" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div className="teams-cards-wrap">
+            <ul className="teams-cards" id="teams-cards">
               {t.members.map((m, i) => (
                 <li key={m.handle} className={`teams-card${i === 0 ? " is-lead" : ""}`} data-n={i + 4}>
                   <div className="teams-tab">
@@ -116,6 +129,7 @@ export function TeamsBand({ t }: { t: T }) {
                 </li>
               ))}
             </ul>
+            </div>
           </div>
         </div>
       </div>

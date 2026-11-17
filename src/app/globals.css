@@ -1487,3 +1487,26 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
   .teams-link, .teams-approve, .teams-group, .teams-card { transition: none; }
   .teams-caret { animation: none; }
 }
+
+/* Teams band: the pill is a button that folds the crew into itself (right to
+   left) and opens it back out (left to right). The row collapses with the
+   grid 1fr → 0fr trick so the height animates without measuring. */
+.teams-group { font: inherit; font-family: var(--font-mono); font-size: 0.75rem; cursor: pointer; transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s ease, box-shadow 0.2s ease; }
+.teams-group:hover { background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface-1)); }
+.teams-group:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.teams-group:disabled { cursor: default; }
+.teams-chev { margin-left: 0.15rem; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.teams-team[data-open="false"] .teams-chev { transform: rotate(-90deg); }
+.teams-cards-wrap { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.teams-cards-wrap > .teams-cards { min-height: 0; overflow: hidden; padding: 2px; margin: -2px; }
+.teams-team[data-open="false"] .teams-cards-wrap { grid-template-rows: 0fr; transition-delay: 0.18s; }
+.teams-band .teams-team[data-open="false"] .teams-card { opacity: 0; transform: translate(-1.25rem, -0.75rem) scale(0.9); }
+.teams-band .teams-team[data-open="false"] .teams-card:nth-child(3) { transition-delay: 0s; }
+.teams-band .teams-team[data-open="false"] .teams-card:nth-child(2) { transition-delay: 0.07s; }
+.teams-band .teams-team[data-open="false"] .teams-card:nth-child(1) { transition-delay: 0.14s; }
+.teams-band .teams-team[data-open="true"] .teams-card:nth-child(1) { transition-delay: 0.12s; }
+.teams-band .teams-team[data-open="true"] .teams-card:nth-child(2) { transition-delay: 0.2s; }
+.teams-band .teams-team[data-open="true"] .teams-card:nth-child(3) { transition-delay: 0.28s; }
+@media (prefers-reduced-motion: reduce) {
+  .teams-cards-wrap, .teams-chev, .teams-band .teams-team .teams-card { transition: none !important; }
+}
