@@ -61,9 +61,6 @@ export function TeamsBand({ t }: { t: T }) {
   return (
     <section ref={root} className="section teams-band" data-phase={phase} aria-labelledby="teams-h">
       <div className="container">
-        <div className="eyebrow" style={{ marginBottom: "1rem" }}>
-          {t.eyebrow}
-        </div>
         <h2 id="teams-h" className="display-lg" style={{ marginBottom: "1rem" }}>
           {pre}
           <span className="accent">{accent}</span>
