@@ -722,8 +722,8 @@ const en: Content = {
     you: "You", ask: "I want to open a small bakery.", approve: "Approve", group: "bakery-launch · 3 agents",
     members: [
       { handle: "bakery-lead", role: "Chief of staff", does: "Owns the 90-day plan", img: "/teams/lead.webp", alt: "A friendly robot holding a 90-day plan" },
-      { handle: "bakery-market", role: "Market researcher", does: "Maps the neighborhood", img: "/teams/market.webp", alt: "A curious robot with a magnifying glass and a map" },
-      { handle: "bakery-books", role: "Accountant", does: "Builds the budget", img: "/teams/books.webp", alt: "A calm robot with a calculator and a stack of coins" },
+      { handle: "bakery-market", role: "Market researcher", does: "Maps the neighborhood", img: "/teams/market.webp", alt: "A curious robot with a magnifying glass" },
+      { handle: "bakery-books", role: "Accountant", does: "Builds the budget", img: "/teams/books.webp", alt: "A calm robot with a calculator" },
     ],
   },
   what: {
@@ -1363,8 +1363,8 @@ const es: Content = {
     you: "Tú", ask: "Quiero abrir una pequeña panadería.", approve: "Aprobar", group: "bakery-launch · 3 agentes",
     members: [
       { handle: "bakery-lead", role: "Jefa de gabinete", does: "Lleva el plan de 90 días", img: "/teams/lead.webp", alt: "Un robot amable con un plan de 90 días" },
-      { handle: "bakery-market", role: "Investigador de mercado", does: "Mapea el barrio", img: "/teams/market.webp", alt: "Un robot curioso con una lupa y un mapa" },
-      { handle: "bakery-books", role: "Contadora", does: "Arma el presupuesto", img: "/teams/books.webp", alt: "Un robot tranquilo con una calculadora y una pila de monedas" },
+      { handle: "bakery-market", role: "Investigador de mercado", does: "Mapea el barrio", img: "/teams/market.webp", alt: "Un robot curioso con una lupa" },
+      { handle: "bakery-books", role: "Contadora", does: "Arma el presupuesto", img: "/teams/books.webp", alt: "Un robot tranquilo con una calculadora" },
     ],
   },
   what: {
@@ -2004,8 +2004,8 @@ const pt: Content = {
     you: "Você", ask: "Quero abrir uma pequena padaria.", approve: "Aprovar", group: "bakery-launch · 3 agentes",
     members: [
       { handle: "bakery-lead", role: "Chefe de gabinete", does: "Cuida do plano de 90 dias", img: "/teams/lead.webp", alt: "Um robô simpático com um plano de 90 dias" },
-      { handle: "bakery-market", role: "Pesquisador de mercado", does: "Mapeia o bairro", img: "/teams/market.webp", alt: "Um robô curioso com uma lupa e um mapa" },
-      { handle: "bakery-books", role: "Contadora", does: "Monta o orçamento", img: "/teams/books.webp", alt: "Um robô tranquilo com uma calculadora e uma pilha de moedas" },
+      { handle: "bakery-market", role: "Pesquisador de mercado", does: "Mapeia o bairro", img: "/teams/market.webp", alt: "Um robô curioso com uma lupa" },
+      { handle: "bakery-books", role: "Contadora", does: "Monta o orçamento", img: "/teams/books.webp", alt: "Um robô tranquilo com uma calculadora" },
     ],
   },
   what: {

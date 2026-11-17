@@ -1445,9 +1445,9 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 .teams-card.is-lead { border: 2px solid var(--color-accent); }
 .teams-tab { display: flex; align-items: center; gap: 0.45rem; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--color-hairline); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .teams-prompt { color: var(--color-ink-subtle); font-weight: 500; }
-/* The robots are rendered on a warm studio ground: the panel takes that colour and the image fills it, in both themes. */
-.teams-fig { background: #ebd8c0; height: 11.5rem; overflow: hidden; }
-.teams-fig img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+/* The robots are line art drawn for a light ground: they keep a warm light panel in both themes. */
+.teams-fig { background: #f4f2ee; height: 11.5rem; display: flex; align-items: flex-end; justify-content: center; padding-top: 0.75rem; }
+.teams-fig img { height: 100%; width: auto; max-width: 88%; object-fit: contain; }
 .teams-role { padding: 0.6rem 0.75rem 0.75rem; border-top: 1px solid var(--color-hairline); }
 .teams-role b { display: block; font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em; color: var(--color-ink); }
 .teams-role span { font-size: 0.8125rem; color: var(--color-ink-subtle); }
@@ -1479,7 +1479,8 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
   .teams-cards { grid-template-columns: minmax(0, 1fr); }
   .teams-card { flex-direction: row; align-items: stretch; }
   .teams-tab { display: none; }
-  .teams-fig { height: 5.5rem; width: 5.5rem; flex: none; }
+  .teams-fig { height: 5.5rem; width: 5.5rem; flex: none; padding-top: 0.4rem; }
+  .teams-fig img { max-width: 92%; }
   .teams-role { border-top: 0; border-left: 1px solid var(--color-hairline); display: flex; flex-direction: column; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
