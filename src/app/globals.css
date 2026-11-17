@@ -1420,3 +1420,70 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 /* A smaller pullquote: with two surface paragraphs above it, this line is the rule
    they share rather than the section's headline claim. */
 .pullquote-sm { font-size: 0.9375rem; line-height: 1.55; padding-left: 18px; }
+
+/* ============================================================
+   Teams band (under the hero): one sentence → Approve → a team.
+   data-phase on the section drives every step: 0 idle · 1 typing ·
+   2 approved · 3 group · 4–6 members. The server render is phase 6
+   (finished); reduced motion stays there and nothing moves.
+   ============================================================ */
+.teams-band { border-bottom: 1px solid var(--color-hairline); }
+.teams-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.teams-flow { display: grid; grid-template-columns: minmax(0, 15rem) 2.5rem auto 2.5rem minmax(0, 1fr); align-items: center; gap: 0; }
+.teams-ask { background: var(--color-surface-1); border: 1px solid var(--color-hairline); border-radius: 12px; padding: 1.1rem 1.25rem 1.25rem; }
+.teams-label { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-subtle); }
+.teams-sentence { margin: 0.5rem 0 0; font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.22; color: var(--color-ink); min-height: 3.35em; }
+.teams-caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -0.12em; background: var(--color-accent); animation: teams-blink 1s steps(1) infinite; }
+@keyframes teams-blink { 50% { opacity: 0; } }
+.teams-link { height: 2px; background: var(--color-accent); transform-origin: left center; transform: scaleX(0); transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.teams-approve { display: inline-flex; align-items: center; gap: 0.45rem; justify-self: center; font-weight: 700; font-size: 0.9375rem; padding: 0.55rem 1rem; border-radius: 999px; border: 1.5px solid var(--color-accent); color: var(--color-accent); background: transparent; transition: background 0.3s ease, color 0.3s ease, box-shadow 0.5s ease; }
+.teams-team { min-width: 0; }
+.teams-group { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--color-accent); border: 1.5px solid var(--color-accent); border-radius: 999px; padding: 0.3rem 0.75rem; background: var(--color-surface-1); margin-bottom: 0.75rem; opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.teams-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); flex: none; }
+.teams-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+.teams-card { background: var(--color-surface-1); border: 1px solid var(--color-hairline); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; opacity: 0; transform: translateY(14px) scale(0.98); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.teams-card.is-lead { border: 2px solid var(--color-accent); }
+.teams-tab { display: flex; align-items: center; gap: 0.45rem; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--color-hairline); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.teams-prompt { color: var(--color-ink-subtle); font-weight: 500; }
+/* The illustrations are line art drawn for a light ground: they keep a warm light panel in both themes. */
+.teams-fig { background: #f4f2ee; height: 11.5rem; display: flex; align-items: flex-end; justify-content: center; padding-top: 0.75rem; }
+.teams-fig img { height: 100%; width: auto; max-width: 88%; object-fit: contain; }
+.teams-role { padding: 0.6rem 0.75rem 0.75rem; border-top: 1px solid var(--color-hairline); }
+.teams-role b { display: block; font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em; color: var(--color-ink); }
+.teams-role span { font-size: 0.8125rem; color: var(--color-ink-subtle); }
+
+.teams-band[data-phase="2"] .teams-link-1, .teams-band[data-phase="3"] .teams-link-1, .teams-band[data-phase="4"] .teams-link-1,
+.teams-band[data-phase="5"] .teams-link-1, .teams-band[data-phase="6"] .teams-link-1 { transform: scaleX(1); }
+.teams-band[data-phase="2"] .teams-approve, .teams-band[data-phase="3"] .teams-approve, .teams-band[data-phase="4"] .teams-approve,
+.teams-band[data-phase="5"] .teams-approve, .teams-band[data-phase="6"] .teams-approve { background: var(--color-accent); color: #fff; box-shadow: 0 0 0 7px var(--color-accent-glow); }
+.teams-band[data-phase="3"] .teams-link-2, .teams-band[data-phase="4"] .teams-link-2,
+.teams-band[data-phase="5"] .teams-link-2, .teams-band[data-phase="6"] .teams-link-2 { transform: scaleX(1); }
+.teams-band[data-phase="3"] .teams-group, .teams-band[data-phase="4"] .teams-group,
+.teams-band[data-phase="5"] .teams-group, .teams-band[data-phase="6"] .teams-group { opacity: 1; transform: none; }
+.teams-band[data-phase="4"] .teams-card[data-n="4"],
+.teams-band[data-phase="5"] .teams-card[data-n="4"], .teams-band[data-phase="5"] .teams-card[data-n="5"],
+.teams-band[data-phase="6"] .teams-card { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  .teams-flow { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+  .teams-ask { width: 100%; max-width: 26rem; }
+  .teams-link { width: 2px; height: 1.75rem; margin-left: 2rem; transform-origin: center top; transform: scaleY(0); }
+  .teams-band[data-phase="2"] .teams-link-1, .teams-band[data-phase="3"] .teams-link-1, .teams-band[data-phase="4"] .teams-link-1,
+  .teams-band[data-phase="5"] .teams-link-1, .teams-band[data-phase="6"] .teams-link-1,
+  .teams-band[data-phase="3"] .teams-link-2, .teams-band[data-phase="4"] .teams-link-2,
+  .teams-band[data-phase="5"] .teams-link-2, .teams-band[data-phase="6"] .teams-link-2 { transform: scaleY(1); }
+  .teams-approve { justify-self: start; }
+  .teams-team { width: 100%; }
+}
+@media (max-width: 560px) {
+  .teams-cards { grid-template-columns: minmax(0, 1fr); }
+  .teams-card { flex-direction: row; align-items: stretch; }
+  .teams-tab { display: none; }
+  .teams-fig { height: 5.5rem; width: 5.5rem; flex: none; padding-top: 0.4rem; }
+  .teams-fig img { max-width: 92%; }
+  .teams-role { border-top: 0; border-left: 1px solid var(--color-hairline); display: flex; flex-direction: column; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .teams-link, .teams-approve, .teams-group, .teams-card { transition: none; }
+  .teams-caret { animation: none; }
+}
