@@ -12,17 +12,18 @@
  * the finished state (no JS, no motion: still complete); the client rewinds to the start only
  * when motion is allowed, and `prefers-reduced-motion` keeps the finished state with no motion. */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { Content } from "@/content";
 
 type T = Content["teams"];
-const DONE = 6; // phases: 0 idle · 1 typing · 2 approved · 3 group · 4–6 members
+const DONE = 4; // phases: 0 idle · 1 typing · 2 approved · 3 team arrives folded · 4 unfolds
 
 export function TeamsBand({ t }: { t: T }) {
   const root = useRef<HTMLElement>(null);
   const [phase, setPhase] = useState(DONE);
   const [typed, setTyped] = useState(t.ask.length);
-  // The team pill folds the crew into itself and opens it back out.
+  // Folded (false) or unfolded (true), like a tab group in the App: the intro arrives folded and
+  // unfolds; afterwards the pill folds and unfolds it again.
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export function TeamsBand({ t }: { t: T }) {
 
     setPhase(0);
     setTyped(0);
+    setOpen(false);
     const timers: number[] = [];
     const at = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
 
@@ -47,7 +49,10 @@ export function TeamsBand({ t }: { t: T }) {
         let tEnd = start + t.ask.length * per + 350;
         at(tEnd, () => setPhase(2));
         at((tEnd += 750), () => setPhase(3));
-        for (const p of [4, 5, 6]) at((tEnd += 380), () => setPhase(p));
+        at((tEnd += 1400), () => {
+          setPhase(4);
+          setOpen(true);
+        });
       },
       { threshold: 0.35 },
     );
@@ -101,7 +106,7 @@ export function TeamsBand({ t }: { t: T }) {
               className="teams-group"
               aria-expanded={open}
               aria-controls="teams-cards"
-              disabled={phase < 3}
+              disabled={phase < DONE}
               onClick={() => setOpen((o) => !o)}
             >
               <span className="teams-dot" />
@@ -110,10 +115,25 @@ export function TeamsBand({ t }: { t: T }) {
                 <path d="M3 4.5l3 3 3-3" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-            <div className="teams-cards-wrap">
             <ul className="teams-cards" id="teams-cards">
+              <li className="teams-stack" aria-hidden={open}>
+                <div className="teams-stack-faces" aria-hidden="true">
+                  {t.members.map((m) => (
+                    <span key={m.handle} style={{ backgroundImage: `url(${m.img})` }} />
+                  ))}
+                </div>
+                <div>
+                  <b>{t.stack.count}</b>
+                  <p>{t.stack.doing}</p>
+                </div>
+              </li>
               {t.members.map((m, i) => (
-                <li key={m.handle} className={`teams-card${i === 0 ? " is-lead" : ""}`} data-n={i + 4}>
+                <li
+                  key={m.handle}
+                  className={`teams-card${i === 0 ? " is-lead" : ""}`}
+                  style={{ "--i": i } as CSSProperties}
+                  aria-hidden={!open && i > 0}
+                >
                   <div className="teams-tab">
                     <span className="teams-dot" />
                     <span className="teams-prompt" aria-hidden="true">&gt;_</span> {m.handle}
@@ -129,7 +149,6 @@ export function TeamsBand({ t }: { t: T }) {
                 </li>
               ))}
             </ul>
-            </div>
           </div>
         </div>
       </div>

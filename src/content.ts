@@ -235,6 +235,8 @@ export type Content = {
   teams: {
     h: H; sub: string;
     you: string; ask: string; approve: string; group: string;
+    /* The folded team: one card that says how many agents and what they are doing. */
+    stack: { count: string; doing: string };
     members: { handle: string; role: string; does: string; img: string; alt: string }[];
   };
   back: { h: H; lede: string };
@@ -720,6 +722,7 @@ const en: Content = {
   teams: {
     h: ["One sentence. ", "A whole team.", ""], sub: "Describe your project. Approve the crew. They get to work.",
     you: "You", ask: "I want to open a small bakery.", approve: "Approve", group: "bakery-launch · 3 agents",
+    stack: { count: "3 agents", doing: "building your bakery" },
     members: [
       { handle: "bakery-lead", role: "Chief of staff", does: "Owns the 90-day plan", img: "/teams/lead.webp", alt: "A friendly robot holding a 90-day plan" },
       { handle: "bakery-market", role: "Market researcher", does: "Maps the neighborhood", img: "/teams/market.webp", alt: "A curious robot with a magnifying glass" },
@@ -1361,6 +1364,7 @@ const es: Content = {
   teams: {
     h: ["Una frase. ", "Un equipo completo.", ""], sub: "Describe tu proyecto. Aprueba al equipo. Se ponen a trabajar.",
     you: "Tú", ask: "Quiero abrir una pequeña panadería.", approve: "Aprobar", group: "bakery-launch · 3 agentes",
+    stack: { count: "3 agentes", doing: "armando tu panadería" },
     members: [
       { handle: "bakery-lead", role: "Jefa de gabinete", does: "Lleva el plan de 90 días", img: "/teams/lead.webp", alt: "Un robot amable con un plan de 90 días" },
       { handle: "bakery-market", role: "Investigador de mercado", does: "Mapea el barrio", img: "/teams/market.webp", alt: "Un robot curioso con una lupa" },
@@ -2002,6 +2006,7 @@ const pt: Content = {
   teams: {
     h: ["Uma frase. ", "Um time inteiro.", ""], sub: "Descreva seu projeto. Aprove a equipe. Eles começam a trabalhar.",
     you: "Você", ask: "Quero abrir uma pequena padaria.", approve: "Aprovar", group: "bakery-launch · 3 agentes",
+    stack: { count: "3 agentes", doing: "montando sua padaria" },
     members: [
       { handle: "bakery-lead", role: "Chefe de gabinete", does: "Cuida do plano de 90 dias", img: "/teams/lead.webp", alt: "Um robô simpático com um plano de 90 dias" },
       { handle: "bakery-market", role: "Pesquisador de mercado", does: "Mapeia o bairro", img: "/teams/market.webp", alt: "Um robô curioso com uma lupa" },

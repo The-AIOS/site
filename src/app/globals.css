@@ -1423,9 +1423,11 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 
 /* ============================================================
    Teams band (under the hero): one sentence → Approve → a team.
-   data-phase on the section drives every step: 0 idle · 1 typing ·
-   2 approved · 3 group · 4–6 members. The server render is phase 6
-   (finished); reduced motion stays there and nothing moves.
+   data-phase on the section drives the intro: 0 idle · 1 typing ·
+   2 approved · 3 the team arrives folded into one card · 4 it unfolds.
+   data-open on .teams-team says folded (false) or unfolded (true), so the
+   pill can fold and unfold it again, like a tab group in the App.
+   The server render is phase 4, unfolded; reduced motion stays there.
    ============================================================ */
 .teams-band { border-bottom: 1px solid var(--color-hairline); }
 .teams-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -1437,12 +1439,26 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 @keyframes teams-blink { 50% { opacity: 0; } }
 .teams-link { height: 2px; background: var(--color-accent); transform-origin: left center; transform: scaleX(0); transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .teams-approve { display: inline-flex; align-items: center; gap: 0.45rem; justify-self: center; font-weight: 700; font-size: 0.9375rem; padding: 0.55rem 1rem; border-radius: 999px; border: 1.5px solid var(--color-accent); color: var(--color-accent); background: transparent; transition: background 0.3s ease, color 0.3s ease, box-shadow 0.5s ease; }
-.teams-team { min-width: 0; }
-.teams-group { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--color-accent); border: 1.5px solid var(--color-accent); border-radius: 999px; padding: 0.3rem 0.75rem; background: var(--color-surface-1); margin-bottom: 0.75rem; opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.teams-team { min-width: 0; opacity: 0; transform: translateY(8px); transition: opacity 0.45s ease, transform 0.45s ease; }
 .teams-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); flex: none; }
-.teams-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
-.teams-card { background: var(--color-surface-1); border: 1px solid var(--color-hairline); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; opacity: 0; transform: translateY(14px) scale(0.98); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+/* The pill: a button that folds and unfolds the crew. */
+.teams-group { display: inline-flex; align-items: center; gap: 0.5rem; font: inherit; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--color-accent); border: 1.5px solid var(--color-accent); border-radius: 999px; padding: 0.3rem 0.75rem; background: var(--color-surface-1); margin-bottom: 0.75rem; cursor: pointer; transition: background 0.2s ease; }
+.teams-group:hover { background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface-1)); }
+.teams-group:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.teams-group:disabled { cursor: default; }
+.teams-chev { margin-left: 0.15rem; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.teams-team[data-open="false"] .teams-chev { transform: rotate(-90deg); }
+
+/* The crew. Unfolded: three cards in a row. Folded: every card slides under
+   the first, stacked a little behind it, and a summary card sits on top. */
+.teams-cards { list-style: none; margin: 0; padding: 0; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+.teams-card { --shift: calc(-1 * var(--i) * (100% + 0.75rem)); background: var(--color-surface-1); border: 1px solid var(--color-hairline); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; position: relative; z-index: calc(3 - var(--i)); transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease; transition-delay: calc(var(--i) * 0.09s); }
 .teams-card.is-lead { border: 2px solid var(--color-accent); }
+.teams-team[data-open="false"] .teams-card { transform: translate(calc(var(--shift) + var(--i) * 9px), calc(var(--i) * -7px)) scale(calc(1 - var(--i) * 0.045)); transition-delay: calc((2 - var(--i)) * 0.06s); }
+/* Folded, the cards behind the first show only their frames, like stacked tabs. */
+.teams-card > * { transition: opacity 0.25s ease; }
+.teams-team[data-open="false"] .teams-card:not(:nth-child(2)) > * { opacity: 0; }
 .teams-tab { display: flex; align-items: center; gap: 0.45rem; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--color-hairline); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .teams-prompt { color: var(--color-ink-subtle); font-weight: 500; }
 /* The robots are line art drawn for a light ground: they keep a warm light panel in both themes. */
@@ -1452,61 +1468,44 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 .teams-role b { display: block; font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em; color: var(--color-ink); }
 .teams-role span { font-size: 0.8125rem; color: var(--color-ink-subtle); }
 
-.teams-band[data-phase="2"] .teams-link-1, .teams-band[data-phase="3"] .teams-link-1, .teams-band[data-phase="4"] .teams-link-1,
-.teams-band[data-phase="5"] .teams-link-1, .teams-band[data-phase="6"] .teams-link-1 { transform: scaleX(1); }
-.teams-band[data-phase="2"] .teams-approve, .teams-band[data-phase="3"] .teams-approve, .teams-band[data-phase="4"] .teams-approve,
-.teams-band[data-phase="5"] .teams-approve, .teams-band[data-phase="6"] .teams-approve { background: var(--color-accent); color: #fff; box-shadow: 0 0 0 7px var(--color-accent-glow); }
-.teams-band[data-phase="3"] .teams-link-2, .teams-band[data-phase="4"] .teams-link-2,
-.teams-band[data-phase="5"] .teams-link-2, .teams-band[data-phase="6"] .teams-link-2 { transform: scaleX(1); }
-.teams-band[data-phase="3"] .teams-group, .teams-band[data-phase="4"] .teams-group,
-.teams-band[data-phase="5"] .teams-group, .teams-band[data-phase="6"] .teams-group { opacity: 1; transform: none; }
-.teams-band[data-phase="4"] .teams-card[data-n="4"],
-.teams-band[data-phase="5"] .teams-card[data-n="4"], .teams-band[data-phase="5"] .teams-card[data-n="5"],
-.teams-band[data-phase="6"] .teams-card { opacity: 1; transform: none; }
+/* The summary card shown while folded: "3 agents · building your bakery". */
+.teams-stack { position: absolute; left: 0; top: 0; bottom: 0; width: calc((100% - 1.5rem) / 3); z-index: 5; background: var(--color-surface-1); border: 2px solid var(--color-accent); border-radius: 12px; display: flex; flex-direction: column; justify-content: center; gap: 0.6rem; padding: 1rem; opacity: 0; transform: scale(0.97); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+.teams-team[data-open="false"] .teams-stack { opacity: 1; transform: none; transition-delay: 0.35s; }
+.teams-stack-faces { display: flex; }
+.teams-stack-faces span { width: 2.6rem; height: 2.6rem; border-radius: 50%; background: #f4f2ee 50% 4% / 150% auto no-repeat; border: 2px solid var(--color-surface-1); margin-left: -0.6rem; box-shadow: 0 0 0 1px var(--color-hairline); }
+.teams-stack-faces span:first-child { margin-left: 0; }
+.teams-stack b { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; color: var(--color-ink); }
+.teams-stack p { margin: 0; font-size: 0.9375rem; color: var(--color-ink-muted); line-height: 1.35; }
+
+/* Intro phases. */
+.teams-band[data-phase="2"] .teams-link-1, .teams-band[data-phase="3"] .teams-link-1, .teams-band[data-phase="4"] .teams-link-1 { transform: scaleX(1); }
+.teams-band[data-phase="2"] .teams-approve, .teams-band[data-phase="3"] .teams-approve, .teams-band[data-phase="4"] .teams-approve { background: var(--color-accent); color: #fff; box-shadow: 0 0 0 7px var(--color-accent-glow); }
+.teams-band[data-phase="3"] .teams-link-2, .teams-band[data-phase="4"] .teams-link-2 { transform: scaleX(1); }
+.teams-band[data-phase="3"] .teams-team, .teams-band[data-phase="4"] .teams-team { opacity: 1; transform: none; }
 
 @media (max-width: 900px) {
   .teams-flow { grid-template-columns: minmax(0, 1fr); justify-items: start; }
   .teams-ask { width: 100%; max-width: 26rem; }
   .teams-link { width: 2px; height: 1.75rem; margin-left: 2rem; transform-origin: center top; transform: scaleY(0); }
   .teams-band[data-phase="2"] .teams-link-1, .teams-band[data-phase="3"] .teams-link-1, .teams-band[data-phase="4"] .teams-link-1,
-  .teams-band[data-phase="5"] .teams-link-1, .teams-band[data-phase="6"] .teams-link-1,
-  .teams-band[data-phase="3"] .teams-link-2, .teams-band[data-phase="4"] .teams-link-2,
-  .teams-band[data-phase="5"] .teams-link-2, .teams-band[data-phase="6"] .teams-link-2 { transform: scaleY(1); }
+  .teams-band[data-phase="3"] .teams-link-2, .teams-band[data-phase="4"] .teams-link-2 { transform: scaleY(1); }
   .teams-approve { justify-self: start; }
   .teams-team { width: 100%; }
 }
+/* Phones: the crew is a column, so it folds vertically, into the first row. */
 @media (max-width: 560px) {
   .teams-cards { grid-template-columns: minmax(0, 1fr); }
-  .teams-card { flex-direction: row; align-items: stretch; }
+  .teams-card { --shift: calc(-1 * var(--i) * (100% + 0.75rem)); flex-direction: row; align-items: stretch; }
+  .teams-team[data-open="false"] .teams-card { transform: translate(calc(var(--i) * 7px), calc(var(--shift) + var(--i) * -6px)) scale(calc(1 - var(--i) * 0.04)); }
   .teams-tab { display: none; }
   .teams-fig { height: 5.5rem; width: 5.5rem; flex: none; padding-top: 0.4rem; }
   .teams-fig img { max-width: 92%; }
   .teams-role { border-top: 0; border-left: 1px solid var(--color-hairline); display: flex; flex-direction: column; justify-content: center; }
+  .teams-stack { width: 100%; bottom: auto; height: calc(5.5rem + 4px); flex-direction: row; align-items: center; justify-content: flex-start; padding: 0.75rem 1rem; }
+  .teams-stack b { font-size: 1.125rem; }
+  .teams-stack p { font-size: 0.8125rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .teams-link, .teams-approve, .teams-group, .teams-card { transition: none; }
+  .teams-link, .teams-approve, .teams-team, .teams-card, .teams-stack, .teams-chev { transition: none !important; }
   .teams-caret { animation: none; }
-}
-
-/* Teams band: the pill is a button that folds the crew into itself (right to
-   left) and opens it back out (left to right). The row collapses with the
-   grid 1fr → 0fr trick so the height animates without measuring. */
-.teams-group { font: inherit; font-family: var(--font-mono); font-size: 0.75rem; cursor: pointer; transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s ease, box-shadow 0.2s ease; }
-.teams-group:hover { background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface-1)); }
-.teams-group:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
-.teams-group:disabled { cursor: default; }
-.teams-chev { margin-left: 0.15rem; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.teams-team[data-open="false"] .teams-chev { transform: rotate(-90deg); }
-.teams-cards-wrap { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.teams-cards-wrap > .teams-cards { min-height: 0; overflow: hidden; padding: 2px; margin: -2px; }
-.teams-team[data-open="false"] .teams-cards-wrap { grid-template-rows: 0fr; transition-delay: 0.18s; }
-.teams-band .teams-team[data-open="false"] .teams-card { opacity: 0; transform: translate(-1.25rem, -0.75rem) scale(0.9); }
-.teams-band .teams-team[data-open="false"] .teams-card:nth-child(3) { transition-delay: 0s; }
-.teams-band .teams-team[data-open="false"] .teams-card:nth-child(2) { transition-delay: 0.07s; }
-.teams-band .teams-team[data-open="false"] .teams-card:nth-child(1) { transition-delay: 0.14s; }
-.teams-band .teams-team[data-open="true"] .teams-card:nth-child(1) { transition-delay: 0.12s; }
-.teams-band .teams-team[data-open="true"] .teams-card:nth-child(2) { transition-delay: 0.2s; }
-.teams-band .teams-team[data-open="true"] .teams-card:nth-child(3) { transition-delay: 0.28s; }
-@media (prefers-reduced-motion: reduce) {
-  .teams-cards-wrap, .teams-chev, .teams-band .teams-team .teams-card { transition: none !important; }
 }
