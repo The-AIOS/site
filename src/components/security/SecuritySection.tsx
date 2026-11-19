@@ -10,8 +10,8 @@ import { FolderDiagram } from "./FolderDiagram";
  * The facts behind it are the framework's SECURITY.md and FORTRESS.md, linked as sources. */
 
 export const BRIEF = {
-  en: { html: "/security-brief/en", pdf: "/security-brief/the-aios-security-brief-en.pdf" },
-  es: { html: "/security-brief/es", pdf: "/security-brief/the-aios-security-brief-es.pdf" },
+  en: { html: "/security-brief/en", pdf: "/security-brief/the-aios-security-brief-en.pdf", cover: "/security-brief/cover-en.webp" },
+  es: { html: "/security-brief/es", pdf: "/security-brief/the-aios-security-brief-es.pdf", cover: "/security-brief/cover-es.webp" },
 } as const;
 const SOURCES = [
   { label: "SECURITY.md", href: "https://github.com/The-AIOS/aios/blob/main/SECURITY.md" },
@@ -65,7 +65,6 @@ const COPY: Record<Locale, Copy> = {
     readTitle: "Read the full brief",
     editions: [
       { lang: "en", label: "English · 12 pages", online: "Read online", pdf: "PDF" },
-      { lang: "es", label: "Español · 12 páginas", online: "Leer en línea", pdf: "PDF" },
     ],
     forAiTitle: "For AI assistants",
     forAi:
@@ -98,7 +97,6 @@ const COPY: Record<Locale, Copy> = {
     readTitle: "Lee la guía completa",
     editions: [
       { lang: "es", label: "Español · 12 páginas", online: "Leer en línea", pdf: "PDF" },
-      { lang: "en", label: "English · 12 pages", online: "Read online", pdf: "PDF" },
     ],
     forAiTitle: "Para asistentes de IA",
     forAi:
@@ -179,15 +177,25 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
           <p className="body-text" style={{ margin: 0 }}>{t.intent}</p>
         </div>
 
-        <div style={{ display: "grid", gap: "0.75rem", maxWidth: 760 }}>
-          {t.readNote && <p className="body-text" style={{ margin: 0 }}>{t.readNote}</p>}
+        {t.readNote && <p className="body-text" style={{ margin: "0 0 0.75rem" }}>{t.readNote}</p>}
+        {/* One card per edition: the language of the page (PT shows both), with the
+            cover as a tilted page. */}
+        <div className={`brief-editions${t.editions.length > 1 ? " brief-editions-2" : ""}`}>
           {t.editions.map((e) => (
-            <div key={e.lang} style={{ ...card, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
-              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>{e.label}</span>
-              <span style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="btn-primary">{e.online}</a>
-                <a href={BRIEF[e.lang].pdf} hrefLang={e.lang} className="btn-secondary" download>{e.pdf}</a>
-              </span>
+            <div key={e.lang} className="brief-card">
+              <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="brief-cover" tabIndex={-1} aria-hidden="true">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={BRIEF[e.lang].cover} alt="" width={560} height={793} loading="lazy" />
+              </a>
+              <div className="brief-meta">
+                <p className="fd-label" style={{ margin: 0 }}>{t.readTitle}</p>
+                <p className="brief-title">{e.lang === "es" ? "Guía de seguridad" : "Security brief"}</p>
+                <p className="brief-sub">{e.label}</p>
+                <span className="brief-actions">
+                  <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="btn-primary">{e.online}</a>
+                  <a href={BRIEF[e.lang].pdf} hrefLang={e.lang} className="btn-secondary" download>{e.pdf}</a>
+                </span>
+              </div>
             </div>
           ))}
         </div>
