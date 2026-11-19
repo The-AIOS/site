@@ -254,7 +254,7 @@ export type Content = {
 
 /* Five plain items: what a visitor finds, not question words. Why and the roadmap stay on the
    page; Glass sits under Get started's section. "Learn" groups the reading. */
-const nav = (labels: [string, string, string, string, string], learn: [string, string, string, string], prefix: "" | "/es" | "/pt") => [
+const nav = (labels: [string, string, string, string, string], learn: [string, string, string], prefix: "" | "/es" | "/pt") => [
   { href: "#your-aios", label: labels[0] },
   { href: "#how", label: labels[1] },
   { href: "#security", label: labels[2] },
@@ -267,13 +267,12 @@ const nav = (labels: [string, string, string, string, string], learn: [string, s
       { href: `${prefix}/disruption-index`, label: learn[1] },
       { href: `${prefix}/standards`, label: learn[2] },
       // The full brief: English and Spanish editions exist; Portuguese readers get the English one.
-      { href: prefix === "/es" ? "/security-brief/es" : "/security-brief/en", label: learn[3] },
     ],
   },
 ];
 
 const en: Content = {
-  nav: nav(["Your AIOS", "How it works", "Security", "Get started", "Learn"], ["The Operating Manual", "The Disruption Index", "The Agentic Standards", "The Security Brief"], ""),
+  nav: nav(["Your AIOS", "How it works", "Security", "Get started", "Learn"], ["The Operating Manual", "The Disruption Index", "The Agentic Standards"], ""),
   getApp: "Get the app",
   downloads: {
     action: "Download",
@@ -931,7 +930,7 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: nav(["Tu AIOS", "Cómo funciona", "Seguridad", "Empieza", "Aprende"], ["El manual operativo", "The Disruption Index", "Los estándares agénticos", "La guía de seguridad"], "/es"),
+  nav: nav(["Tu AIOS", "Cómo funciona", "Seguridad", "Empieza", "Aprende"], ["El manual operativo", "The Disruption Index", "Los estándares agénticos"], "/es"),
   getApp: "Descargar la app",
   downloads: {
     action: "Descargar",
@@ -1573,7 +1572,7 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: nav(["Seu AIOS", "Como funciona", "Segurança", "Comece", "Aprenda"], ["O manual operacional", "The Disruption Index", "Os padrões agênticos", "O guia de segurança"], "/pt"),
+  nav: nav(["Seu AIOS", "Como funciona", "Segurança", "Comece", "Aprenda"], ["O manual operacional", "The Disruption Index", "Os padrões agênticos"], "/pt"),
   getApp: "Baixar o app",
   downloads: {
     action: "Baixar",
