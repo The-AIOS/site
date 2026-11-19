@@ -11,7 +11,7 @@ export const dynamic = "force-static";
 
 const BASE = "https://www.the-aios.com";
 
-const LOCALIZED = ["", "/standards", "/disruption-index"];
+const LOCALIZED = ["", "/security", "/standards", "/disruption-index"];
 const PREFIXES = ["", "/es", "/pt"];
 const EN_ONLY = ["/privacy", "/terms"];
 
@@ -21,5 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     PREFIXES.map((prefix) => ({ url: `${BASE}${prefix}${path || (prefix ? "" : "/")}` })),
   );
   const enOnly = EN_ONLY.map((path) => ({ url: `${BASE}${path}` }));
-  return [...localized, ...enOnly];
+  // The full security brief, as clean single-language HTML (EN and ES editions).
+  const brief = ["/security-brief/en", "/security-brief/es"].map((path) => ({ url: `${BASE}${path}` }));
+  return [...localized, ...brief, ...enOnly];
 }

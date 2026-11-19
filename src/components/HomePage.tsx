@@ -18,6 +18,9 @@
  */
 
 import { TeamsBand } from "@/components/TeamsBand";
+import { SECURITY_PATHS } from "@/components/security/SecurityPage";
+
+const SECURITY_LABEL = { en: "Security brief", es: "Guía de seguridad", pt: "Guia de segurança" } as const;
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 import { GitHubLink } from "./GitHubLink";
@@ -902,6 +905,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={ORG} surface="footer-org" className="footer-link">GitHub · The-AIOS</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/SETUP.md`} surface="footer-setup" className="footer-link">SETUP.md</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/FORTRESS.md`} surface="fortress-section" className="footer-link">FORTRESS.md</GitHubLink>
+              <a href={SECURITY_PATHS[locale]} className="footer-link">{SECURITY_LABEL[locale]}</a>
             </FooterCol>
 
             <FooterCol title={c.footer.narrative}>
