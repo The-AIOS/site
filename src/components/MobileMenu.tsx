@@ -10,7 +10,7 @@ import { Logo } from "./Logo";
 import type { Locale } from "@/messages";
 import { DownloadPill, type DownloadCopy } from "@/components/DownloadCTA";
 
-export type NavItem = { href: string; label: string; children?: { href: string; label: string }[] };
+export type NavItem = { href: string; label: string; children?: { href: string; label: string; external?: boolean }[] };
 
 export function MobileMenu({
   items,
@@ -98,7 +98,7 @@ export function MobileMenu({
                 <div key={item.label} className="mm-group">
                   <span className="mm-group-label">{item.label}</span>
                   {item.children.map((ch) => (
-                    <a key={ch.href} href={ch.href} onClick={() => setOpen(false)}>
+                    <a key={ch.href} href={ch.href} onClick={() => setOpen(false)} {...(ch.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
                       {ch.label}
                     </a>
                   ))}

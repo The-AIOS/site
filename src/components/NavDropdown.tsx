@@ -6,7 +6,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function NavDropdown({ label, items }: { label: string; items: { href: string; label: string }[] }) {
+export function NavDropdown({ label, items }: { label: string; items: { href: string; label: string; external?: boolean }[] }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 
@@ -30,7 +30,7 @@ export function NavDropdown({ label, items }: { label: string; items: { href: st
       {open && (
         <div className="nav-dd-panel" role="menu">
           {items.map((i) => (
-            <a key={i.href} href={i.href} role="menuitem" onClick={() => setOpen(false)}>{i.label}</a>
+            <a key={i.href} href={i.href} role="menuitem" onClick={() => setOpen(false)} {...(i.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{i.label}</a>
           ))}
         </div>
       )}

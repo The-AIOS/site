@@ -75,7 +75,7 @@ export type RolesContent = {
 export type Content = {
   /* The header menu. An item with `children` renders as a small dropdown (desktop) or a
      labelled group (mobile drawer). */
-  nav: { href: string; label: string; children?: { href: string; label: string }[] }[];
+  nav: { href: string; label: string; children?: { href: string; label: string; external?: boolean }[] }[];
   /* The header's app CTA. Sits beside the GitHub icon — the two doors,
      source and binary, in the order people actually want them. */
   getApp: string;
@@ -264,7 +264,8 @@ const nav = (labels: [string, string, string, string, string], learn: [string, s
       { href: "#manual", label: learn[0] },
       { href: `${prefix}/disruption-index`, label: learn[1] },
       { href: `${prefix}/standards`, label: learn[2] },
-      // The full brief: English and Spanish editions exist; Portuguese readers get the English one.
+      // Its own site, so it opens in a new tab. A product name: same in every language.
+      { href: "https://forum.the-aios.com", label: "The Agentic Forum ↗", external: true },
     ],
   },
 ];
