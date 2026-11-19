@@ -73,7 +73,9 @@ export type RolesContent = {
 };
 
 export type Content = {
-  nav: { href: string; label: string }[];
+  /* The header menu. An item with `children` renders as a small dropdown (desktop) or a
+     labelled group (mobile drawer). */
+  nav: { href: string; label: string; children?: { href: string; label: string }[] }[];
   /* The header's app CTA. Sits beside the GitHub icon — the two doors,
      source and binary, in the order people actually want them. */
   getApp: string;
@@ -250,10 +252,27 @@ export type Content = {
   meta: { title: string; description: string };
 };
 
-const NAV_HREFS = ["#your-aios", "#what", "#why", "#how", "#roadmap", "#setup", "#glass", "#manual"];
+/* Five plain items: what a visitor finds, not question words. Why and the roadmap stay on the
+   page; Glass sits under Get started's section. "Learn" groups the reading. */
+const nav = (labels: [string, string, string, string, string], learn: [string, string, string, string], prefix: "" | "/es" | "/pt") => [
+  { href: "#your-aios", label: labels[0] },
+  { href: "#what", label: labels[1] },
+  { href: "#security", label: labels[2] },
+  { href: "#setup", label: labels[3] },
+  {
+    href: "#manual",
+    label: labels[4],
+    children: [
+      { href: "#manual", label: learn[0] },
+      { href: `${prefix}/disruption-index`, label: learn[1] },
+      { href: `${prefix}/standards`, label: learn[2] },
+      { href: `${prefix}/security`, label: learn[3] },
+    ],
+  },
+];
 
 const en: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["You", "What", "Why", "How", "Where", "Setup", "Interface", "Manual"][i] })),
+  nav: nav(["Your AIOS", "How it works", "Security", "Get started", "Learn"], ["The Operating Manual", "The Disruption Index", "The Agentic Standards", "The security brief"], ""),
   getApp: "Get the app",
   downloads: {
     action: "Download",
@@ -911,7 +930,7 @@ const en: Content = {
 };
 
 const es: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Tú", "Qué", "Por qué", "Cómo", "Dónde", "Configurar", "Interfaz", "Manual"][i] })),
+  nav: nav(["Tu AIOS", "Cómo funciona", "Seguridad", "Empieza", "Aprende"], ["El manual operativo", "The Disruption Index", "Los estándares agénticos", "La guía de seguridad"], "/es"),
   getApp: "Descargar la app",
   downloads: {
     action: "Descargar",
@@ -1553,7 +1572,7 @@ const es: Content = {
 };
 
 const pt: Content = {
-  nav: NAV_HREFS.map((href, i) => ({ href, label: ["Você", "O quê", "Por quê", "Como", "Onde", "Configurar", "Interface", "Manual"][i] })),
+  nav: nav(["Seu AIOS", "Como funciona", "Segurança", "Comece", "Aprenda"], ["O manual operacional", "The Disruption Index", "Os padrões agênticos", "O guia de segurança"], "/pt"),
   getApp: "Baixar o app",
   downloads: {
     action: "Baixar",

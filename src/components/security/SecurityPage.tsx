@@ -296,3 +296,71 @@ export function SecurityPage({ locale }: { locale: Locale }) {
     </div>
   );
 }
+
+/* The landing's Security section: the same copy as /security, condensed. The section label
+ * (numbered like its neighbours) is passed in by the home page. */
+const SECTION_MORE: Record<Locale, { more: string; sources: string }> = {
+  en: { more: "The whole answer, on one page →", sources: "Sources" },
+  es: { more: "La respuesta completa, en una página →", sources: "Fuentes" },
+  pt: { more: "A resposta completa, em uma página →", sources: "Fontes" },
+};
+
+export function SecuritySection({ locale, label }: { locale: Locale; label: React.ReactNode }) {
+  const t = COPY[locale];
+  const m = SECTION_MORE[locale];
+  return (
+    <section id="security" className="section">
+      <div className="container">
+        {label}
+        <h2 className="display-lg" style={{ marginBottom: "0.75rem" }}>{t.h1}</h2>
+        <p className="display-md" style={{ color: "var(--color-accent)", marginBottom: "1.25rem" }}>{t.sub}</p>
+        <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{t.intro}</p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(200px, 100%), 1fr))", gap: "0.75rem", marginBottom: "2rem" }}>
+          {t.short.map(([head, tail]) => (
+            <div key={head} style={card}>
+              <p style={{ margin: 0, fontWeight: 700, color: "var(--color-ink)", lineHeight: 1.3 }}>{head}</p>
+              <p style={{ margin: "0.35rem 0 0", color: "var(--color-ink-muted)", fontSize: "0.9375rem" }}>{tail}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="section-grid" style={{ marginBottom: "2rem" }}>
+          <div>
+            <h3 className="display-md" style={{ marginBottom: "0.5rem" }}>{t.folderTitle}</h3>
+            <p className="body-text" style={{ margin: 0 }}>{t.folder}</p>
+          </div>
+          <div>
+            <h3 className="display-md" style={{ marginBottom: "0.5rem" }}>{t.intentTitle}</h3>
+            <p className="body-text" style={{ margin: 0 }}>{t.intent}</p>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gap: "0.75rem", maxWidth: 760 }}>
+          {t.readNote && <p className="body-text" style={{ margin: 0 }}>{t.readNote}</p>}
+          {t.editions.map((e) => (
+            <div key={e.lang} style={{ ...card, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
+              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>{e.label}</span>
+              <span style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="btn-primary">{e.online}</a>
+                <a href={BRIEF[e.lang].pdf} hrefLang={e.lang} className="btn-secondary" download>{e.pdf}</a>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <p className="pullquote" style={{ marginTop: "1.75rem" }}>{t.trust}</p>
+        <p className="body-text" style={{ marginTop: "1rem", fontSize: "0.9375rem" }}>
+          <a href={SECURITY_PATHS[locale]} className="link-inline">{m.more}</a>
+          <span style={{ color: "var(--color-ink-subtle)" }}> · {m.sources}: </span>
+          {SOURCES.map((s, i) => (
+            <span key={s.href}>
+              {i > 0 && <span style={{ color: "var(--color-ink-subtle)" }}> · </span>}
+              <a href={s.href} className="link-inline" target="_blank" rel="noreferrer">{s.label}</a>
+            </span>
+          ))}
+        </p>
+      </div>
+    </section>
+  );
+}

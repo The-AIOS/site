@@ -18,9 +18,12 @@
  */
 
 import { TeamsBand } from "@/components/TeamsBand";
-import { SECURITY_PATHS } from "@/components/security/SecurityPage";
+import { SECURITY_PATHS, SecuritySection } from "@/components/security/SecurityPage";
+import { NavDropdown } from "@/components/NavDropdown";
 
-const SECURITY_LABEL = { en: "Security brief", es: "Guía de seguridad", pt: "Guia de segurança" } as const;
+const SECURITY_LABEL = { en: "Security", es: "Seguridad", pt: "Segurança" } as const;
+const SECURITY_FOOTER = { en: "Security brief", es: "Guía de seguridad", pt: "Guia de segurança" } as const;
+const SECURITY_JUMP = { en: "Is it safe? The short answer, and the brief →", es: "¿Es seguro? La respuesta corta, y la guía →", pt: "É seguro? A resposta curta, e o guia →" } as const;
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 import { GitHubLink } from "./GitHubLink";
@@ -238,11 +241,15 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
           </a>
 
           <nav className="nav-desktop" style={{ alignItems: "center", gap: "1.375rem" }}>
-            {c.nav.map((item) => (
-              <a key={item.href} href={item.href} className="caption" style={{ color: "var(--color-ink-muted)", textDecoration: "none", letterSpacing: "0.02em", textTransform: "none", fontSize: "0.875rem" }}>
-                {item.label}
-              </a>
-            ))}
+            {c.nav.map((item) =>
+              item.children ? (
+                <NavDropdown key={item.label} label={item.label} items={item.children} />
+              ) : (
+                <a key={item.href} href={item.href} className="caption" style={{ color: "var(--color-ink-muted)", textDecoration: "none", letterSpacing: "0.02em", textTransform: "none", fontSize: "0.875rem" }}>
+                  {item.label}
+                </a>
+              ),
+            )}
             {/* Source and binary, in that order: the icon is for people who came
                 to read the code, the pill for people who came to use it. Wrapped
                 so the pair sits closer to each other than to the nav links. */}
@@ -665,6 +672,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <strong style={INK}>{c.containment.body1Bold}</strong>
               {c.containment.body1Post}
             </p>
+            <p className="body-text" style={{ marginBottom: "1rem" }}>
+              <a href="#security" className="link-inline">{SECURITY_JUMP[locale]}</a>
+            </p>
             <Reveal className="graphic-frame" style={{ marginBottom: "1.5rem" }}>
               <TwoMachines />
               <p className="graphic-caption">{c.containment.caption}</p>
@@ -722,10 +732,13 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
           </div>
         </section>
 
-        {/* ============ 05 — MANUAL (setup story + the artifact) ============ */}
+        {/* ============ 05 — SECURITY ("is it safe?", right before the install) ============ */}
+        <SecuritySection locale={locale} label={<SectionLabel num="05">{SECURITY_LABEL[locale]}</SectionLabel>} />
+
+        {/* ============ 06 — SETUP (setup story + the artifact) ============ */}
         <section id="setup" className="section">
           <div className="container">
-            <SectionLabel num="05">{c.setup.eyebrow}</SectionLabel>
+            <SectionLabel num="06">{c.setup.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.setup.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.setup.intro}</p>
 
@@ -788,7 +801,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         {/* ============ 06 — GLASS: THE INTERFACE ============ */}
         <section id="glass" className="section hero-glow">
           <div className="container">
-            <SectionLabel num="06">{c.how.subGlass}</SectionLabel>
+            <SectionLabel num="07">{c.how.subGlass}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.glass.h} /></h2>
 
             {/* Movement 1 — the two surfaces, each with its own mockup.
@@ -851,7 +864,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         {/* ============ 07 — THE MANUAL (the artifact) ============ */}
         <section id="manual" className="section">
           <div className="container">
-            <SectionLabel num="07">{c.manual.eyebrow}</SectionLabel>
+            <SectionLabel num="08">{c.manual.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1rem", maxWidth: "22ch" }}><HL h={c.manual.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.manual.body}</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", marginBottom: "2rem" }}>
@@ -905,7 +918,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={ORG} surface="footer-org" className="footer-link">GitHub · The-AIOS</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/SETUP.md`} surface="footer-setup" className="footer-link">SETUP.md</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/FORTRESS.md`} surface="fortress-section" className="footer-link">FORTRESS.md</GitHubLink>
-              <a href={SECURITY_PATHS[locale]} className="footer-link">{SECURITY_LABEL[locale]}</a>
+              <a href={SECURITY_PATHS[locale]} className="footer-link">{SECURITY_FOOTER[locale]}</a>
             </FooterCol>
 
             <FooterCol title={c.footer.narrative}>

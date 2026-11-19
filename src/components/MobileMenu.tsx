@@ -10,7 +10,7 @@ import { Logo } from "./Logo";
 import type { Locale } from "@/messages";
 import { DownloadPill, type DownloadCopy } from "@/components/DownloadCTA";
 
-export type NavItem = { href: string; label: string };
+export type NavItem = { href: string; label: string; children?: { href: string; label: string }[] };
 
 export function MobileMenu({
   items,
@@ -91,11 +91,22 @@ export function MobileMenu({
           </header>
 
           <nav>
-            {items.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
-                {item.label}
-              </a>
-            ))}
+            {items.map((item) =>
+              item.children ? (
+                <div key={item.label} className="mm-group">
+                  <span className="mm-group-label">{item.label}</span>
+                  {item.children.map((ch) => (
+                    <a key={ch.href} href={ch.href} onClick={() => setOpen(false)}>
+                      {ch.label}
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
+                  {item.label}
+                </a>
+              ),
+            )}
             {/* Identical pair to the desktop header — coral GitHub square, then the
                 app pill — so the drawer isn't a different set of controls. */}
             <span className="nav-actions">
