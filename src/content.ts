@@ -256,7 +256,7 @@ export type Content = {
    page; Glass sits under Get started's section. "Learn" groups the reading. */
 const nav = (labels: [string, string, string, string, string], learn: [string, string, string, string], prefix: "" | "/es" | "/pt") => [
   { href: "#your-aios", label: labels[0] },
-  { href: "#what", label: labels[1] },
+  { href: "#how", label: labels[1] },
   { href: "#security", label: labels[2] },
   { href: "#setup", label: labels[3] },
   {

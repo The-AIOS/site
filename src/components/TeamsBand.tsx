@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 /* The teams band under the hero (AIOS 0.8.19): one sentence becomes a team.
  *
  * The motion is a story in three beats, played once when the band scrolls into view:
@@ -18,7 +20,9 @@ import type { Content } from "@/content";
 type T = Content["teams"];
 const DONE = 4; // phases: 0 idle · 1 typing · 2 approved · 3 team arrives folded · 4 unfolds
 
-export function TeamsBand({ t }: { t: T }) {
+/** `embedded`: rendered inside another section (How it works) instead of as its own band:
+ * no section wrapper or container, and an h3 instead of an h2. */
+export function TeamsBand({ t, embedded = false }: { t: T; embedded?: boolean }) {
   const root = useRef<HTMLElement>(null);
   const [phase, setPhase] = useState(DONE);
   const [typed, setTyped] = useState(t.ask.length);
@@ -64,15 +68,18 @@ export function TeamsBand({ t }: { t: T }) {
   }, [t.ask]);
 
   const [pre, accent, post] = t.h;
+  const Wrap = (embedded ? "div" : "section") as "section";
+  const Inner = embedded ? Fragmentish : "div";
+  const Heading = embedded ? "h3" : "h2";
 
   return (
-    <section ref={root} className="section teams-band" data-phase={phase} aria-labelledby="teams-h">
-      <div className="container">
-        <h2 id="teams-h" className="display-lg" style={{ marginBottom: "1rem" }}>
+    <Wrap ref={root} className={`teams-band${embedded ? " teams-embedded" : " section"}`} data-phase={phase} aria-labelledby="teams-h">
+      <Inner {...(embedded ? {} : { className: "container" })}>
+        <Heading id="teams-h" className={embedded ? "display-md" : "display-lg"} style={{ marginBottom: "1rem" }}>
           {pre}
           <span className="accent">{accent}</span>
           {post}
-        </h2>
+        </Heading>
         <p className="lede" style={{ maxWidth: "52ch", marginBottom: "2.5rem" }}>
           {t.sub}
         </p>
@@ -151,7 +158,12 @@ export function TeamsBand({ t }: { t: T }) {
             </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </Inner>
+    </Wrap>
   );
+}
+
+/* A wrapper that renders only its children (the embedded band needs no inner container). */
+function Fragmentish({ children }: { children?: React.ReactNode }) {
+  return <>{children}</>;
 }

@@ -325,7 +325,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         </section>
 
         {/* ============ Teams band: one sentence → a team (AIOS 0.8.19) ============ */}
-        <TeamsBand t={c.teams} />
 
         {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
         <YourAios
@@ -484,6 +483,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <SectionLabel num="03">{c.how.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.how.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch" }}>{c.how.intro}</p>
+
+            {/* — One sentence, a whole team: the first thing that shows how it works (AIOS 0.8.19) — */}
+            <TeamsBand t={c.teams} embedded />
 
             {/* — The three words: session / agent / skill — */}
             <SubLabel>{c.how.subModel}</SubLabel>

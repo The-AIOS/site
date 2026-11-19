@@ -1523,3 +1523,5 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 /* Mobile drawer: a labelled group for an item with children. */
 .mm-group { display: flex; flex-direction: column; }
 .mm-group-label { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-subtle); padding: 0.75rem 0 0.25rem; }
+/* The teams band inside How it works: no band chrome, just spacing around it. */
+.teams-band.teams-embedded { margin: 2.75rem 0 3rem; padding: 2rem 0 0; border-top: 1px solid var(--color-hairline); border-bottom: 0; }
