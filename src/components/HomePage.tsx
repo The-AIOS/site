@@ -18,11 +18,12 @@
  */
 
 import { TeamsBand } from "@/components/TeamsBand";
-import { SECURITY_PATHS, SecuritySection } from "@/components/security/SecurityPage";
+import { BRIEF, SecuritySection } from "@/components/security/SecuritySection";
 import { NavDropdown } from "@/components/NavDropdown";
 
 const SECURITY_LABEL = { en: "Security", es: "Seguridad", pt: "Segurança" } as const;
-const SECURITY_FOOTER = { en: "Security brief", es: "Guía de seguridad", pt: "Guia de segurança" } as const;
+const SECURITY_FOOTER = { en: "The Security Brief", es: "La guía de seguridad", pt: "O guia de segurança" } as const;
+const BRIEF_FOR = { en: BRIEF.en.html, es: BRIEF.es.html, pt: BRIEF.en.html } as const;
 const SECURITY_JUMP = { en: "Is it safe? The short answer, and the brief →", es: "¿Es seguro? La respuesta corta, y la guía →", pt: "É seguro? A resposta curta, e o guia →" } as const;
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
@@ -920,7 +921,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={ORG} surface="footer-org" className="footer-link">GitHub · The-AIOS</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/SETUP.md`} surface="footer-setup" className="footer-link">SETUP.md</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/FORTRESS.md`} surface="fortress-section" className="footer-link">FORTRESS.md</GitHubLink>
-              <a href={SECURITY_PATHS[locale]} className="footer-link">{SECURITY_FOOTER[locale]}</a>
+              <a href={BRIEF_FOR[locale]} className="footer-link">{SECURITY_FOOTER[locale]}</a>
             </FooterCol>
 
             <FooterCol title={c.footer.narrative}>

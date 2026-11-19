@@ -1,19 +1,14 @@
-import type { Metadata } from "next";
-import { Logo } from "@/components/Logo";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { LOCALE_LABELS, LOCALE_PATHS, LOCALES, type Locale } from "@/messages";
+import type { Locale } from "@/messages";
 
-/* /security, /es/security, /pt/security — the front door to the AIOS security brief.
+/* The landing's Security section (#security): the front door to the AIOS security brief.
  *
  * Goal: when someone asks an AI "look at the-aios.com and tell me how safe the AIOS is",
- * the AI lands here (llms.txt sends it here first) and reads the brief instead of guessing.
- * The words on this page are the brief's own (EN and ES quote it; PT translates it). The full
- * brief lives as clean single-language HTML and text PDFs under /security-brief/. The facts
- * behind it are the framework's SECURITY.md and FORTRESS.md, linked as sources. */
+ * the AI lands here (llms.txt sends it to #security and to the brief) and reads the brief
+ * instead of guessing. The words are the brief's own (EN and ES quote it; PT translates it).
+ * The full brief lives as clean single-language HTML and text PDFs under /security-brief/.
+ * The facts behind it are the framework's SECURITY.md and FORTRESS.md, linked as sources. */
 
-const ABS = "https://www.the-aios.com";
-export const SECURITY_PATHS: Record<Locale, string> = { en: "/security", es: "/es/security", pt: "/pt/security" };
-const BRIEF = {
+export const BRIEF = {
   en: { html: "/security-brief/en", pdf: "/security-brief/the-aios-security-brief-en.pdf" },
   es: { html: "/security-brief/es", pdf: "/security-brief/the-aios-security-brief-es.pdf" },
 } as const;
@@ -158,151 +153,14 @@ const COPY: Record<Locale, Copy> = {
   },
 };
 
-export function securityMetadata(locale: Locale): Metadata {
-  const t = COPY[locale];
-  const url = `${ABS}${SECURITY_PATHS[locale]}`;
-  return {
-    title: t.meta.title,
-    description: t.meta.description,
-    alternates: {
-      canonical: url,
-      languages: {
-        en: `${ABS}${SECURITY_PATHS.en}`,
-        es: `${ABS}${SECURITY_PATHS.es}`,
-        "pt-BR": `${ABS}${SECURITY_PATHS.pt}`,
-        "x-default": `${ABS}${SECURITY_PATHS.en}`,
-      },
-    },
-    openGraph: {
-      title: t.meta.title,
-      description: t.meta.description,
-      type: "article",
-      url,
-      images: [{ url: "/og-image.jpg", width: 1344, height: 768, alt: t.meta.title }],
-    },
-    twitter: { card: "summary_large_image", title: t.meta.title, description: t.meta.description, images: ["/og-image.jpg"] },
-  };
-}
-
-const section: React.CSSProperties = { borderBottom: "1px solid var(--color-hairline)", padding: "clamp(2.25rem, 5vw, 3.25rem) 0" };
-const h2: React.CSSProperties = { fontFamily: "var(--font-display)", fontSize: "clamp(1.35rem, 2.6vw, 1.75rem)", letterSpacing: "-0.025em", margin: "0 0 1rem", color: "var(--color-ink)" };
 const card: React.CSSProperties = { border: "1px solid var(--color-hairline)", borderRadius: 14, padding: "1.25rem 1.25rem 1.1rem", background: "var(--color-surface-1)" };
-
-export function SecurityPage({ locale }: { locale: Locale }) {
-  const t = COPY[locale];
-  const home = LOCALE_PATHS[locale];
-  const next = LOCALES[(LOCALES.indexOf(locale) + 1) % LOCALES.length];
-
-  return (
-    <div>
-      <header className="site-header">
-        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
-          <a href={home} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
-            <Logo size={20} />
-            The AIOS
-          </a>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <a href={home} className="footer-link" style={{ fontSize: "0.875rem" }}>{t.back}</a>
-            {/* Plain <a>, never next/link: each locale is its own root layout. */}
-            <a
-              href={SECURITY_PATHS[next]}
-              hrefLang={next}
-              className="icon-btn"
-              aria-label={`Language: ${LOCALE_LABELS[locale].label} — switch to ${LOCALE_LABELS[next].label}`}
-              title={`Switch to ${LOCALE_LABELS[next].label}`}
-              style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.03em", color: "var(--color-ink)", textDecoration: "none" }}
-            >
-              {LOCALE_LABELS[locale].code}
-            </a>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
-
-      <main>
-        <section className="hero-glow" style={{ borderBottom: "1px solid var(--color-hairline)", padding: "clamp(3.5rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 3.5rem)" }}>
-          <div className="container" style={{ maxWidth: 860 }}>
-            <p className="eyebrow"><span className="accent">●</span> {t.eyebrow}</p>
-            <h1 className="display-xl" style={{ marginTop: "1rem" }}>{t.h1}</h1>
-            <p className="display-md" style={{ marginTop: "0.75rem", color: "var(--color-accent)" }}>{t.sub}</p>
-            <p className="lede" style={{ maxWidth: "62ch", marginTop: "1.25rem" }}>{t.intro}</p>
-          </div>
-        </section>
-
-        <section style={section}>
-          <div className="container" style={{ maxWidth: 860 }}>
-            <h2 style={h2}>{t.shortTitle}</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(190px, 100%), 1fr))", gap: "0.75rem" }}>
-              {t.short.map(([head, tail]) => (
-                <div key={head} style={card}>
-                  <p style={{ margin: 0, fontWeight: 700, color: "var(--color-ink)", lineHeight: 1.3 }}>{head}</p>
-                  <p style={{ margin: "0.35rem 0 0", color: "var(--color-ink-muted)", fontSize: "0.9375rem" }}>{tail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section style={section}>
-          <div className="container" style={{ maxWidth: 860, display: "grid", gap: "2rem" }}>
-            <div>
-              <h2 style={h2}>{t.folderTitle}</h2>
-              <p className="body-text" style={{ margin: 0 }}>{t.folder}</p>
-            </div>
-            <div>
-              <h2 style={h2}>{t.intentTitle}</h2>
-              <p className="body-text" style={{ margin: 0 }}>{t.intent}</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="brief" style={section}>
-          <div className="container" style={{ maxWidth: 860 }}>
-            <h2 style={h2}>{t.readTitle}</h2>
-            {t.readNote && <p className="body-text" style={{ margin: "0 0 1rem" }}>{t.readNote}</p>}
-            <div style={{ display: "grid", gap: "0.75rem" }}>
-              {t.editions.map((e) => (
-                <div key={e.lang} style={{ ...card, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
-                  <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>{e.label}</span>
-                  <span style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                    <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="btn-primary">{e.online}</a>
-                    <a href={BRIEF[e.lang].pdf} hrefLang={e.lang} className="btn-secondary" download>{e.pdf}</a>
-                  </span>
-                </div>
-              ))}
-            </div>
-            <p className="pullquote" style={{ marginTop: "1.75rem" }}>{t.trust}</p>
-          </div>
-        </section>
-
-        <section style={section}>
-          <div className="container" style={{ maxWidth: 860, display: "grid", gap: "2rem" }}>
-            <div>
-              <h2 style={h2}>{t.forAiTitle}</h2>
-              <p className="body-text" style={{ margin: 0 }}>{t.forAi}</p>
-            </div>
-            <div>
-              <h2 style={h2}>{t.sourcesTitle}</h2>
-              <p className="body-text" style={{ margin: "0 0 0.75rem" }}>{t.sourcesNote}</p>
-              <ul style={{ margin: 0, paddingLeft: "1.1rem", display: "grid", gap: "0.35rem" }}>
-                {SOURCES.map((s) => (
-                  <li key={s.href}><a href={s.href} className="link-inline" target="_blank" rel="noreferrer">{s.label}</a></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-  );
-}
 
 /* The landing's Security section: the same copy as /security, condensed. The section label
  * (numbered like its neighbours) is passed in by the home page. */
-const SECTION_MORE: Record<Locale, { more: string; sources: string }> = {
-  en: { more: "The whole answer, on one page →", sources: "Sources" },
-  es: { more: "La respuesta completa, en una página →", sources: "Fuentes" },
-  pt: { more: "A resposta completa, em uma página →", sources: "Fontes" },
+const SECTION_MORE: Record<Locale, { sources: string }> = {
+  en: { sources: "Sources" },
+  es: { sources: "Fuentes" },
+  pt: { sources: "Fontes" },
 };
 
 export function SecuritySection({ locale, label }: { locale: Locale; label: React.ReactNode }) {
@@ -351,8 +209,7 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
 
         <p className="pullquote" style={{ marginTop: "1.75rem" }}>{t.trust}</p>
         <p className="body-text" style={{ marginTop: "1rem", fontSize: "0.9375rem" }}>
-          <a href={SECURITY_PATHS[locale]} className="link-inline">{m.more}</a>
-          <span style={{ color: "var(--color-ink-subtle)" }}> · {m.sources}: </span>
+          <span style={{ color: "var(--color-ink-subtle)" }}>{m.sources}: </span>
           {SOURCES.map((s, i) => (
             <span key={s.href}>
               {i > 0 && <span style={{ color: "var(--color-ink-subtle)" }}> · </span>}

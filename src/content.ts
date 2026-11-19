@@ -266,13 +266,14 @@ const nav = (labels: [string, string, string, string, string], learn: [string, s
       { href: "#manual", label: learn[0] },
       { href: `${prefix}/disruption-index`, label: learn[1] },
       { href: `${prefix}/standards`, label: learn[2] },
-      { href: `${prefix}/security`, label: learn[3] },
+      // The full brief: English and Spanish editions exist; Portuguese readers get the English one.
+      { href: prefix === "/es" ? "/security-brief/es" : "/security-brief/en", label: learn[3] },
     ],
   },
 ];
 
 const en: Content = {
-  nav: nav(["Your AIOS", "How it works", "Security", "Get started", "Learn"], ["The Operating Manual", "The Disruption Index", "The Agentic Standards", "The security brief"], ""),
+  nav: nav(["Your AIOS", "How it works", "Security", "Get started", "Learn"], ["The Operating Manual", "The Disruption Index", "The Agentic Standards", "The Security Brief"], ""),
   getApp: "Get the app",
   downloads: {
     action: "Download",

@@ -11,7 +11,7 @@ export const dynamic = "force-static";
 
 const BASE = "https://www.the-aios.com";
 
-const LOCALIZED = ["", "/security", "/standards", "/disruption-index"];
+const LOCALIZED = ["", "/standards", "/disruption-index"];
 const PREFIXES = ["", "/es", "/pt"];
 const EN_ONLY = ["/privacy", "/terms"];
 
