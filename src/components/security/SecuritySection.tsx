@@ -13,11 +13,6 @@ export const BRIEF = {
   en: { html: "/security-brief/en", pdf: "/security-brief/the-aios-security-brief-en.pdf", cover: "/security-brief/cover-en.webp" },
   es: { html: "/security-brief/es", pdf: "/security-brief/the-aios-security-brief-es.pdf", cover: "/security-brief/cover-es.webp" },
 } as const;
-const SOURCES = [
-  { label: "SECURITY.md", href: "https://github.com/The-AIOS/aios/blob/main/SECURITY.md" },
-  { label: "FORTRESS.md", href: "https://github.com/The-AIOS/aios/blob/main/FORTRESS.md" },
-  { label: "AIOS App · SECURITY.md", href: "https://github.com/The-AIOS/aios-app/blob/main/SECURITY.md" },
-];
 
 type Copy = {
   meta: { title: string; description: string };
@@ -30,7 +25,6 @@ type Copy = {
   short: [string, string][];
   intentTitle: string;
   intent: string;
-  readTitle: string;
   readNote?: string;
   editions: { lang: "en" | "es"; label: string; online: string; pdf: string }[];
   forAiTitle: string;
@@ -51,7 +45,7 @@ const COPY: Record<Locale, Copy> = {
     h1: "“Is it safe?”",
     sub: "Here's what it can reach, as whom, and who decides.",
     intro:
-      "Ask an AI about the AIOS and you may hear: “it runs commands in your terminal, it's completely unsafe.” That answer is half true. This brief gives you the other half, with evidence you can check, so you can decide.",
+      "Ask an AI about the AIOS and you may hear: “it runs commands in your terminal, it's completely unsafe.” That answer is half true. Here's the other half.",
     shortTitle: "The short answer",
     short: [
       ["Yes, it can act as you", "only through what you connect"],
@@ -61,7 +55,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     intentTitle: "You set how much it does alone",
     intent: "One file, INTENT.md, says what it does by itself, what it drafts for you, and what it always asks first.",
-    readTitle: "Read the full brief",
     editions: [
       { lang: "en", label: "English · 12 pages", online: "Read online", pdf: "PDF" },
     ],
@@ -82,7 +75,7 @@ const COPY: Record<Locale, Copy> = {
     h1: "“¿Es seguro?”",
     sub: "A qué tiene acceso, en nombre de quién, y quién decide.",
     intro:
-      "Pregúntale a una IA por el AIOS y quizá te diga: “ejecuta comandos en tu terminal, es completamente inseguro.” Esa respuesta es solo la mitad de la verdad. Esta guía te da la otra mitad, con evidencia que puedes revisar, para que tú decidas.",
+      "Pregúntale a una IA por el AIOS y quizá te diga: “ejecuta comandos en tu terminal, es completamente inseguro.” Esa respuesta es solo la mitad de la verdad. Aquí está la otra mitad.",
     shortTitle: "La respuesta corta",
     short: [
       ["Sí, puede actuar como tú", "solo con lo que tú conectes"],
@@ -92,7 +85,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     intentTitle: "Tú decides cuánto hace por su cuenta",
     intent: "Un archivo, INTENT.md, dice qué hace por su cuenta, qué te deja en borrador y qué siempre te pregunta antes.",
-    readTitle: "Lee la guía completa",
     editions: [
       { lang: "es", label: "Español · 12 páginas", online: "Leer en línea", pdf: "PDF" },
     ],
@@ -113,7 +105,7 @@ const COPY: Record<Locale, Copy> = {
     h1: "“É seguro?”",
     sub: "A que ele tem acesso, em nome de quem, e quem decide.",
     intro:
-      "Pergunte a uma IA sobre o AIOS e talvez ouça: “ele executa comandos no seu terminal, é completamente inseguro.” Essa resposta é só metade da verdade. Este guia traz a outra metade, com evidências que você pode verificar, para que você decida.",
+      "Pergunte a uma IA sobre o AIOS e talvez ouça: “ele executa comandos no seu terminal, é completamente inseguro.” Essa resposta é só metade da verdade. Aqui está a outra metade.",
     shortTitle: "A resposta curta",
     short: [
       ["Sim, pode agir como você", "só pelo que você conectar"],
@@ -123,7 +115,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     intentTitle: "Você decide quanto ele faz sozinho",
     intent: "Um arquivo, INTENT.md, diz o que ele faz sozinho, o que deixa em rascunho para você e o que sempre pergunta antes.",
-    readTitle: "Leia o guia completo",
     readNote: "O guia completo está em inglês e em espanhol.",
     editions: [
       { lang: "en", label: "English · 12 pages", online: "Read online", pdf: "PDF" },
@@ -141,15 +132,9 @@ const card: React.CSSProperties = { border: "1px solid var(--color-hairline)", b
 
 /* The landing's Security section: the same copy as /security, condensed. The section label
  * (numbered like its neighbours) is passed in by the home page. */
-const SECTION_MORE: Record<Locale, { sources: string }> = {
-  en: { sources: "Sources" },
-  es: { sources: "Fuentes" },
-  pt: { sources: "Fontes" },
-};
 
 export function SecuritySection({ locale, label }: { locale: Locale; label: React.ReactNode }) {
   const t = COPY[locale];
-  const m = SECTION_MORE[locale];
   return (
     <section id="security" className="section">
       <div className="container">
@@ -184,7 +169,6 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
                 <img src={BRIEF[e.lang].cover} alt="" width={560} height={793} loading="lazy" />
               </a>
               <div className="brief-meta">
-                <p className="fd-label" style={{ margin: 0 }}>{t.readTitle}</p>
                 <p className="brief-title">{e.lang === "es" ? "Guía de seguridad" : "Security brief"}</p>
                 <p className="brief-sub">{e.label}</p>
                 <span className="brief-actions">
@@ -196,15 +180,6 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
           ))}
         </div>
 
-        <p className="body-text" style={{ marginTop: "1rem", fontSize: "0.9375rem" }}>
-          <span style={{ color: "var(--color-ink-subtle)" }}>{m.sources}: </span>
-          {SOURCES.map((s, i) => (
-            <span key={s.href}>
-              {i > 0 && <span style={{ color: "var(--color-ink-subtle)" }}> · </span>}
-              <a href={s.href} className="link-inline" target="_blank" rel="noreferrer">{s.label}</a>
-            </span>
-          ))}
-        </p>
       </div>
     </section>
   );

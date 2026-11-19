@@ -679,7 +679,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               })}
             </Reveal>
 
-            <p className="caption" style={{ textTransform: "none", letterSpacing: 0 }}>{c.roadmap.note}</p>
           </div>
         </section>
 
@@ -704,8 +703,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                   outcome — so the two doors read as equals. The only difference is
                   what fills the third slot: a command, or the absence of one. */}
               {c.setup.paths.map((p) => (
-                <div key={p.pill} className="card path-card">
-                  <span className="tag-pill" style={{ alignSelf: "flex-start", marginBottom: "0.875rem" }}>{p.pill}</span>
+                <div key={p.q} className="card path-card">
+                  {/* Only the app door carries a pill (Recommended); the other keeps an
+                      invisible one so both questions line up side by side. */}
+                  <span className={`tag-pill${p.pill ? "" : " path-pill-spacer"}`} aria-hidden={!p.pill || undefined} style={{ alignSelf: "flex-start", marginBottom: "0.875rem" }}>{p.pill ?? "·"}</span>
                   <h4 className="path-q">{p.q}</h4>
                   <p className="path-b">{p.b}</p>
                   {/* The panel content is wrapped so the panel itself can be a centring
@@ -727,8 +728,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               ))}
             </Reveal>
 
-            {/* What happens next — true of both doors, so it sits below both. */}
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{c.setup.step1Body}</p>
 
             {/* the question a visitor has right here: is it safe to give it access? */}
             <SafeByConstruction c={c.safe} />

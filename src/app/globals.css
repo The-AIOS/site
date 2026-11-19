@@ -1579,3 +1579,5 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
   .hooks-grid { grid-template-columns: minmax(0, 1fr); }
   .hooks-grid li:nth-last-child(2) { border-bottom: 1px solid var(--color-hairline); }
 }
+.path-pill-spacer { visibility: hidden; }
+@media (max-width: 720px) { .path-pill-spacer { display: none; } }

@@ -24,11 +24,11 @@ const D: Record<Locale, D> = {
     body: "Everything lives here, as plain-text files you can open and read. The AIOS has no server of its own and no telemetry.",
     links: [
       { title: "Your Claude account", body: "Does the thinking. What a session reads is handled here, like any Claude chat." },
-      { title: "Your private GitHub", body: "A backup of every change, in your own account." },
+      { title: "Your private GitHub", body: "A backup of every change, and the update check." },
       { title: "Tools you connect", body: "Calendar, Gmail, Slack… one by one. ", strong: "Off until you connect them.", optional: true },
     ],
-    footStrong: "That is everything it talks to over the internet:",
-    foot: "your Claude account, GitHub (your backup and the update check), and only the tools you connect. Nothing runs in the background unless you add it.",
+    footStrong: "That is everything it talks to over the internet.",
+    foot: "Nothing runs in the background unless you add it.",
   },
   es: {
     label: "Una carpeta, no un servicio",
@@ -36,11 +36,11 @@ const D: Record<Locale, D> = {
     body: "Todo vive aquí, en archivos de texto que puedes abrir y leer. El AIOS no tiene servidor propio ni telemetría.",
     links: [
       { title: "Tu cuenta de Claude", body: "Es quien piensa. Lo que lee una sesión se procesa aquí, como cualquier conversación con Claude." },
-      { title: "Tu GitHub privado", body: "Un respaldo de cada cambio, en tu propia cuenta." },
+      { title: "Tu GitHub privado", body: "Un respaldo de cada cambio, y la revisión de actualizaciones." },
       { title: "Herramientas que conectes", body: "Calendario, Gmail, Slack… una por una. ", strong: "Apagadas hasta que las conectes.", optional: true },
     ],
-    footStrong: "Es todo con lo que se comunica por internet:",
-    foot: "tu cuenta de Claude, GitHub (tu respaldo y la revisión de actualizaciones) y solo las herramientas que conectes. Nada corre en segundo plano a menos que tú lo agregues.",
+    footStrong: "Es todo con lo que se comunica por internet.",
+    foot: "Nada corre en segundo plano a menos que tú lo agregues.",
   },
   pt: {
     label: "Uma pasta, não um serviço",
@@ -48,11 +48,11 @@ const D: Record<Locale, D> = {
     body: "Tudo fica aqui, em arquivos de texto que você pode abrir e ler. O AIOS não tem servidor próprio nem telemetria.",
     links: [
       { title: "Sua conta do Claude", body: "É quem pensa. O que uma sessão lê é processado aqui, como em qualquer conversa com o Claude." },
-      { title: "Seu GitHub privado", body: "Um backup de cada mudança, na sua própria conta." },
+      { title: "Seu GitHub privado", body: "Um backup de cada mudança, e a verificação de atualizações." },
       { title: "Ferramentas que você conectar", body: "Agenda, Gmail, Slack… uma por uma. ", strong: "Desligadas até você conectar.", optional: true },
     ],
-    footStrong: "Isso é tudo com que ele se comunica pela internet:",
-    foot: "sua conta do Claude, o GitHub (seu backup e a verificação de atualizações) e só as ferramentas que você conectar. Nada roda em segundo plano a menos que você adicione.",
+    footStrong: "Isso é tudo com que ele se comunica pela internet.",
+    foot: "Nada roda em segundo plano a menos que você adicione.",
   },
 };
 

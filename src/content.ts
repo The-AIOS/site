@@ -131,7 +131,6 @@ export type Content = {
        dial: "live" has shipped and is public · "soon" is built but not yet open ·
        "wip" is being built in the open and you can watch. */
     items: (CardT & { ribbon?: string; tone?: "live" | "soon" | "wip"; href?: string; cta?: string })[];
-    note: string;
   };
   /* Act 5 — Manual: the Step 0 / Step 1 setup story. */
   setup: {
@@ -143,8 +142,7 @@ export type Content = {
     /* Both doors take the same three beats — who it's for, how it works, and the
        action itself — a coral panel that copies the line, or one that downloads the
        app. There is no separate CTA button: the panel IS the call to action. */
-    paths: { pill: string; q: string; b: string; cmd?: { copy: string; copied: string }; note?: string; dl?: string; href?: string }[];
-    step1Body: string;
+    paths: { pill?: string; q: string; b: string; cmd?: { copy: string; copied: string }; note?: string; dl?: string; href?: string }[];
     learnable: string;
   };
   hero: {
@@ -342,7 +340,6 @@ const en: Content = {
       { e: "Sovereign engine", t: "An engine no one can switch off", b: "Open-weights models like GLM-5.2 now reach near-frontier quality you can download and run yourself — offline, air-gapped, on your own metal. The sovereign fallback stops being a downgrade." },
       { e: "Corporate controls", t: "Governed agents at company scale", b: "Encrypted-at-rest context, per-agent scoped read-grants, audit trails, and verifiable agent identity — INTENT as policy, cryptographically enforced. The admin layer for running a fleet inside an org." },
     ],
-    note: "Direction, not dated promises — and never a feature we can’t already point at in the work.",
   },
   setup: {
     eyebrow: "Set it up",
@@ -351,19 +348,17 @@ const en: Content = {
     pathsLabel: "Pick your door",
     paths: [
       {
-        pill: "for the tech-savvy",
         q: "Already familiar with an IDE like VSCode?",
         b: "Copy this into any Claude Code session. It clones the framework, installs everything you need including the AIOS Glass extension, and asks your consent at every step.",
         cmd: { copy: "Copy", copied: "Copied ✓" },
         href: "https://open-vsx.org/extension/the-aios/aios-glass",
       },
       {
-        pill: "Everyone, including the tech-savvy",
+        pill: "Recommended",
         q: "Already familiar with AI apps like Claude.app?",
         b: "Download the app and follow its four guided steps, including the “Set up my AI-OS from https://github.com/The-AIOS/aios” done for you. Same powerful terminals, less intimidating.",
       },
     ],
-    step1Body: "Claude reads SETUP.md and walks every choice — each step asks your consent.",
     learnable: "Everything else is learnable from inside — ask your AIOS what it can do, and it shows you.",
   },
   hero: {
@@ -1000,7 +995,6 @@ const es: Content = {
       { e: "Motor soberano", t: "Un motor que nadie puede apagar", b: "Modelos de pesos abiertos como GLM-5.2 ya alcanzan calidad casi-frontera que puedes descargar y correr tú mismo — offline, aislado, en tu propio hardware. El respaldo soberano deja de ser un downgrade." },
       { e: "Controles corporativos", t: "Agentes gobernados a escala de empresa", b: "Contexto cifrado en reposo, permisos de lectura por agente, trazas de auditoría e identidad de agente verificable — INTENT como política, aplicada criptográficamente. La capa de administración para correr una flota dentro de una organización." },
     ],
-    note: "Dirección, no promesas con fecha — y nunca una función que no podamos ya señalar en el trabajo.",
   },
   setup: {
     eyebrow: "Configúralo",
@@ -1009,19 +1003,17 @@ const es: Content = {
     pathsLabel: "Elige tu puerta",
     paths: [
       {
-        pill: "para perfiles técnicos",
         q: "¿Ya conoces un IDE como VSCode?",
         b: "Copia esto en cualquier sesión de Claude Code. Clona el framework, instala todo lo que necesitas incluyendo la extensión AIOS Glass, y pide tu consentimiento en cada paso.",
         cmd: { copy: "Copiar", copied: "Copiado ✓" },
         href: "https://open-vsx.org/extension/the-aios/aios-glass",
       },
       {
-        pill: "Todos, incluidos los perfiles técnicos",
+        pill: "Recomendado",
         q: "¿Ya conoces apps de IA como Claude.app?",
         b: "Descarga la app y sigue sus cuatro pasos guiados, incluyendo el “Set up my AI-OS from https://github.com/The-AIOS/aios” que hace por ti. Las mismas terminales potentes, menos intimidantes.",
       },
     ],
-    step1Body: "Claude lee SETUP.md y guía cada decisión — cada paso pide tu consentimiento.",
     learnable: "Todo lo demás se aprende desde adentro — pregúntale a tu AIOS qué puede hacer, y te lo muestra.",
   },
   hero: {
@@ -1642,7 +1634,6 @@ const pt: Content = {
       { e: "Motor soberano", t: "Um motor que ninguém pode desligar", b: "Modelos de pesos abertos como o GLM-5.2 já alcançam qualidade quase-fronteira que você pode baixar e rodar sozinho — offline, isolado, no seu próprio hardware. O fallback soberano deixa de ser um downgrade." },
       { e: "Controles corporativos", t: "Agentes governados em escala de empresa", b: "Contexto criptografado em repouso, permissões de leitura por agente, trilhas de auditoria e identidade de agente verificável — INTENT como política, aplicada criptograficamente. A camada de administração para rodar uma frota dentro de uma organização." },
     ],
-    note: "Direção, não promessas com data — e nunca uma função que não possamos já apontar no trabalho.",
   },
   setup: {
     eyebrow: "Configure",
@@ -1651,19 +1642,17 @@ const pt: Content = {
     pathsLabel: "Escolha sua porta",
     paths: [
       {
-        pill: "para perfis técnicos",
         q: "Já conhece um IDE como o VSCode?",
         b: "Copie isto em qualquer sessão do Claude Code. Ele clona o framework, instala tudo o que você precisa incluindo a extensão AIOS Glass, e pede seu consentimento em cada passo.",
         cmd: { copy: "Copiar", copied: "Copiado ✓" },
         href: "https://open-vsx.org/extension/the-aios/aios-glass",
       },
       {
-        pill: "Todos, incluindo os perfis técnicos",
+        pill: "Recomendado",
         q: "Já conhece apps de IA como o Claude.app?",
         b: "Baixe o app e siga seus quatro passos guiados, incluindo o “Set up my AI-OS from https://github.com/The-AIOS/aios” que ele faz por você. Os mesmos terminais poderosos, menos intimidadores.",
       },
     ],
-    step1Body: "O Claude lê o SETUP.md e guia cada decisão — cada passo pede seu consentimento.",
     learnable: "Todo o resto se aprende por dentro — pergunte ao seu AIOS o que ele pode fazer, e ele te mostra.",
   },
   hero: {
