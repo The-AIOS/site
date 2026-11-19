@@ -3,6 +3,7 @@
  * that says that is all. Same wording as the brief (EN/ES); PT translated from it. */
 
 import type { Locale } from "@/messages";
+import { HooksCard } from "./HooksCard";
 
 type Link = { title: string; body: string; strong?: string; optional?: boolean };
 type D = {
@@ -82,6 +83,7 @@ export function FolderDiagram({ locale }: { locale: Locale }) {
         </ul>
       </div>
       <p className="fd-foot"><strong>{d.footStrong}</strong> {d.foot}</p>
+      <HooksCard locale={locale} />
     </figure>
   );
 }

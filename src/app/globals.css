@@ -1568,10 +1568,9 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 @media (prefers-reduced-motion: reduce) { .brief-cover img { transition: none; } }
 @media (max-width: 480px) { .brief-card { gap: 1.25rem; padding: 1.25rem; } .brief-cover { width: 96px; } }
 
-/* Security section: the brief's "every hook it installs" card, above the edition card. */
-.hooks-card { max-width: 640px; margin-bottom: 0.875rem; padding: 1.25rem 1.5rem; border: 1px solid var(--color-hairline); border-radius: 16px; background: var(--color-surface-1); }
-.hooks-card .fd-label { margin: 0 0 0.5rem; }
-.hooks-card-wide { max-width: none; }
+/* Security section: the hooks, inside "A folder, not a service" under its footer line. */
+.fd-hooks { margin-top: 1rem; padding-top: 0.875rem; border-top: 1px dashed var(--color-hairline); }
+.fd-hooks .fd-label { margin: 0 0 0.375rem; }
 .hooks-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 1.5rem; }
 .hooks-grid li { padding: 0.45rem 0; border-bottom: 1px solid var(--color-hairline); font-size: 0.875rem; line-height: 1.45; color: var(--color-ink-muted); }
 .hooks-grid li:nth-last-child(-n+2) { border-bottom: 0; }

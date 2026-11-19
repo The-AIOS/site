@@ -1,4 +1,4 @@
-/* Above the edition card(s); `wide` matches two edition cards side by side (PT).
+/* Inside "A folder, not a service", under the line that says what it talks to.
  * The brief's page-07 card: every hook the AIOS installs, one line each. Same wording as
  * the brief (EN/ES); PT translated from it. */
 
@@ -46,10 +46,10 @@ const H: Record<Locale, { label: string; rows: [string, string][] }> = {
   },
 };
 
-export function HooksCard({ locale, wide = false }: { locale: Locale; wide?: boolean }) {
+export function HooksCard({ locale }: { locale: Locale }) {
   const h = H[locale];
   return (
-    <div className={`hooks-card${wide ? " hooks-card-wide" : ""}`}>
+    <div className="fd-hooks">
       <p className="fd-label">{h.label}</p>
       <ul className="hooks-grid">
         {h.rows.map(([k, v]) => (

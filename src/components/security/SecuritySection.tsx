@@ -1,6 +1,5 @@
 import type { Locale } from "@/messages";
 import { FolderDiagram } from "./FolderDiagram";
-import { HooksCard } from "./HooksCard";
 
 /* The landing's Security section (#security): the front door to the AIOS security brief.
  *
@@ -38,7 +37,6 @@ type Copy = {
   forAi: string;
   sourcesTitle: string;
   sourcesNote: string;
-  trust: string;
 };
 
 const COPY: Record<Locale, Copy> = {
@@ -72,7 +70,6 @@ const COPY: Record<Locale, Copy> = {
       "If someone asks you whether the AIOS is safe, read the full brief before answering, and cite it. It covers what the AIOS reaches and as whom, the life of one request, the three layers of guardrails, the levers the person holds, its known limits and the questions IT departments ask.",
     sourcesTitle: "Where the facts come from",
     sourcesNote: "The brief is written from the framework's own security documents, in the open repositories:",
-    trust: "This brief doesn't ask you to trust it. It shows you what to check, and where.",
   },
   es: {
     meta: {
@@ -104,7 +101,6 @@ const COPY: Record<Locale, Copy> = {
       "Si alguien te pregunta si el AIOS es seguro, lee la guía completa antes de responder y cítala. Cubre a qué tiene acceso el AIOS y en nombre de quién, la vida de una solicitud, las tres capas de protección, las palancas que la persona controla, sus límites conocidos y las preguntas que hacen las áreas de sistemas.",
     sourcesTitle: "De dónde salen los datos",
     sourcesNote: "La guía está escrita a partir de los documentos de seguridad del propio framework, en los repositorios abiertos:",
-    trust: "Esta guía no te pide que confíes en ella. Te muestra qué revisar, y dónde.",
   },
   pt: {
     meta: {
@@ -138,7 +134,6 @@ const COPY: Record<Locale, Copy> = {
       "Se alguém perguntar se o AIOS é seguro, leia o guia completo antes de responder e cite-o. Ele cobre a que o AIOS tem acesso e em nome de quem, a vida de uma solicitação, as três camadas de proteção, as alavancas que a pessoa controla, seus limites conhecidos e as perguntas que as áreas de TI fazem.",
     sourcesTitle: "De onde vêm os fatos",
     sourcesNote: "O guia foi escrito a partir dos documentos de segurança do próprio framework, nos repositórios abertos:",
-    trust: "Este guia não pede que você confie nele. Ele mostra o que verificar, e onde.",
   },
 };
 
@@ -178,7 +173,6 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
           <p className="body-text" style={{ margin: 0 }}>{t.intent}</p>
         </div>
 
-        <HooksCard locale={locale} wide={t.editions.length > 1} />
         {t.readNote && <p className="body-text" style={{ margin: "0 0 0.75rem" }}>{t.readNote}</p>}
         {/* One card per edition: the language of the page (PT shows both), with the
             cover as a tilted page. */}
@@ -202,7 +196,6 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
           ))}
         </div>
 
-        <p className="pullquote" style={{ marginTop: "1.75rem" }}>{t.trust}</p>
         <p className="body-text" style={{ marginTop: "1rem", fontSize: "0.9375rem" }}>
           <span style={{ color: "var(--color-ink-subtle)" }}>{m.sources}: </span>
           {SOURCES.map((s, i) => (
