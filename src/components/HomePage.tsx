@@ -17,9 +17,9 @@
  * /llms.txt link in footer, the AI-affordance block, the back-cover moment.
  */
 
+import { SiteHeader } from "@/components/SiteHeader";
 import { TeamsBand } from "@/components/TeamsBand";
 import { BRIEF, SecuritySection } from "@/components/security/SecuritySection";
-import { NavDropdown } from "@/components/NavDropdown";
 
 const SECURITY_LABEL = { en: "Security", es: "Seguridad", pt: "Segurança" } as const;
 const SECURITY_FOOTER = { en: "The Security Brief", es: "La guía de seguridad", pt: "O guia de segurança" } as const;
@@ -28,14 +28,11 @@ const SECURITY_JUMP = { en: "Is it safe? The short answer, and the brief →", e
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 import { GitHubLink } from "./GitHubLink";
-import { GitHubMark } from "./GitHubMark";
 import { CopyPanel } from "./CopyPanel";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
 import { SubstackLink } from "./SubstackLink";
-import { LocaleSwitcher } from "./LocaleSwitcher";
 import { MobileMenu } from "./MobileMenu";
 import { Reveal } from "./Reveal";
-import { ThemeToggle } from "./ThemeToggle";
 import { ManualEmbed, ManualDownload } from "./ManualEmbed";
 import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
@@ -43,20 +40,7 @@ import { RoleField } from "./RoleField";
 import { YourAios, ProofViz } from "./YourAios";
 import { ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, CommunityLine } from "./LandingBlocks";
 import type { RoleId } from "@/data/roles";
-import {
-  HeroConstellation,
-  CompoundTimeline,
-  RitualLoop,
-  TrustLadder,
-  OrchestratorShift,
-  TwoMachines,
-  OsAnatomy,
-  AppWindow,
-  GlassWorkspace,
-  CommandBusFlow,
-  TeamMount,
-  SkillsBeam,
-} from "./deckGraphics";
+import { HeroConstellation, CompoundTimeline, RitualLoop, TrustLadder, OrchestratorShift, TwoMachines, OsAnatomy, AppWindow, GlassWorkspace, CommandBusFlow, TeamMount, SkillsBeam } from "./deckGraphics";
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
 import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
@@ -233,42 +217,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
   return (
     <>
-      {/* ============ Header ============ */}
-      <header className="site-header">
-        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
-          <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
-            <Logo size={20} />
-            The AIOS
-          </a>
-
-          <nav className="nav-desktop" style={{ alignItems: "center", gap: "1.375rem" }}>
-            {c.nav.map((item) =>
-              item.children ? (
-                <NavDropdown key={item.label} label={item.label} items={item.children} />
-              ) : (
-                <a key={item.href} href={item.href} className="caption" style={{ color: "var(--color-ink-muted)", textDecoration: "none", letterSpacing: "0.02em", textTransform: "none", fontSize: "0.875rem" }}>
-                  {item.label}
-                </a>
-              ),
-            )}
-            {/* Source and binary, in that order: the icon is for people who came
-                to read the code, the pill for people who came to use it. Wrapped
-                so the pair sits closer to each other than to the nav links. */}
-            <span className="nav-actions">
-              <GitHubLink href={REPO} surface="nav-desktop" className="nav-icon-btn" ariaLabel="GitHub">
-                <GitHubMark size={18} />
-              </GitHubLink>
-              <DownloadPill copy={c.downloads} label={c.getApp} className="nav-cta" />
-            </span>
-            <LocaleSwitcher current={locale} />
-            <ThemeToggle />
-          </nav>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <MobileMenu items={c.nav} githubLabel="GitHub ↗" appLabel={c.getApp} downloads={c.downloads} locale={locale} />
-          </div>
-        </div>
-      </header>
+      <SiteHeader locale={locale} landing />
 
       <main>
         <span id="top" aria-hidden="true" />

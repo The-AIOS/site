@@ -1,4 +1,5 @@
 import type { Locale } from "@/messages";
+import { FolderDiagram } from "./FolderDiagram";
 
 /* The landing's Security section (#security): the front door to the AIOS security brief.
  *
@@ -27,8 +28,6 @@ type Copy = {
   intro: string;
   shortTitle: string;
   short: [string, string][];
-  folderTitle: string;
-  folder: string;
   intentTitle: string;
   intent: string;
   readTitle: string;
@@ -61,9 +60,6 @@ const COPY: Record<Locale, Copy> = {
       ["It thinks in your Claude account", "like any Claude chat"],
       ["Everything else is a file you own", "readable and undoable"],
     ],
-    folderTitle: "A folder, not a service",
-    folder:
-      "Everything lives on your computer, as plain-text files you can open and read. The AIOS has no server of its own and no telemetry. That is everything it talks to over the internet: your Claude account, GitHub (your backup and the update check), and only the tools you connect. Nothing runs in the background unless you add it.",
     intentTitle: "You set how much it does alone",
     intent: "One file, INTENT.md, says what it does by itself, what it drafts for you, and what it always asks first.",
     readTitle: "Read the full brief",
@@ -97,9 +93,6 @@ const COPY: Record<Locale, Copy> = {
       ["Piensa en tu cuenta de Claude", "como cualquier conversación con Claude"],
       ["Todo lo demás es un archivo tuyo", "legible y reversible"],
     ],
-    folderTitle: "Una carpeta, no un servicio",
-    folder:
-      "Todo vive en tu computadora, en archivos de texto que puedes abrir y leer. El AIOS no tiene servidor propio ni telemetría. Es todo con lo que se comunica por internet: tu cuenta de Claude, GitHub (tu respaldo y la revisión de actualizaciones) y solo las herramientas que conectes. Nada corre en segundo plano a menos que tú lo agregues.",
     intentTitle: "Tú decides cuánto hace por su cuenta",
     intent: "Un archivo, INTENT.md, dice qué hace por su cuenta, qué te deja en borrador y qué siempre te pregunta antes.",
     readTitle: "Lee la guía completa",
@@ -133,9 +126,6 @@ const COPY: Record<Locale, Copy> = {
       ["Pensa na sua conta do Claude", "como qualquer conversa com o Claude"],
       ["Todo o resto é um arquivo seu", "legível e reversível"],
     ],
-    folderTitle: "Uma pasta, não um serviço",
-    folder:
-      "Tudo fica no seu computador, em arquivos de texto que você pode abrir e ler. O AIOS não tem servidor próprio nem telemetria. Isso é tudo com que ele se comunica pela internet: sua conta do Claude, o GitHub (seu backup e a verificação de atualizações) e só as ferramentas que você conectar. Nada roda em segundo plano a menos que você adicione.",
     intentTitle: "Você decide quanto ele faz sozinho",
     intent: "Um arquivo, INTENT.md, diz o que ele faz sozinho, o que deixa em rascunho para você e o que sempre pergunta antes.",
     readTitle: "Leia o guia completo",
@@ -183,15 +173,10 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
           ))}
         </div>
 
-        <div className="section-grid" style={{ marginBottom: "2rem" }}>
-          <div>
-            <h3 className="display-md" style={{ marginBottom: "0.5rem" }}>{t.folderTitle}</h3>
-            <p className="body-text" style={{ margin: 0 }}>{t.folder}</p>
-          </div>
-          <div>
-            <h3 className="display-md" style={{ marginBottom: "0.5rem" }}>{t.intentTitle}</h3>
-            <p className="body-text" style={{ margin: 0 }}>{t.intent}</p>
-          </div>
+        <FolderDiagram locale={locale} />
+        <div style={{ ...card, marginBottom: "2rem" }}>
+          <p className="fd-label" style={{ marginBottom: "0.4rem" }}>{t.intentTitle}</p>
+          <p className="body-text" style={{ margin: 0 }}>{t.intent}</p>
         </div>
 
         <div style={{ display: "grid", gap: "0.75rem", maxWidth: 760 }}>

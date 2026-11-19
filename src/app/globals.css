@@ -1525,3 +1525,30 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 .mm-group-label { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-subtle); padding: 0.75rem 0 0.25rem; }
 /* The teams band inside How it works: no band chrome, just spacing around it. */
 .teams-band.teams-embedded { margin: 2.75rem 0 3rem; padding: 2rem 0 0; border-top: 1px solid var(--color-hairline); border-bottom: 0; }
+
+/* Security section: "A folder, not a service" (the brief's page-2 diagram). */
+.fd { margin: 0 0 1rem; padding: 1.25rem; border: 1px solid var(--color-hairline); border-radius: 16px; background: var(--color-surface-1); }
+.fd-label { font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.875rem; font-weight: 600; }
+.fd-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.75rem 1rem; align-items: stretch; }
+.fd-computer { border: 1.5px solid var(--color-accent); border-radius: 12px; padding: 1.25rem; background: linear-gradient(180deg, var(--color-accent-glow), transparent 70%); display: flex; flex-direction: column; justify-content: center; }
+.fd-kicker { margin: 0; font-weight: 600; color: var(--color-ink); }
+.fd-path { margin: 0.25rem 0 0.75rem; font-family: var(--font-mono, ui-monospace, monospace); font-size: 1.5rem; font-weight: 600; color: var(--color-accent); }
+.fd-body { margin: 0 0 0.875rem; color: var(--color-ink-muted); font-size: 0.9375rem; line-height: 1.5; }
+.fd-files { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.fd-files li { font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 6px; background: var(--color-surface-2); border: 1px solid var(--color-hairline); color: var(--color-ink-muted); }
+.fd-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
+.fd-link-row { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 0.75rem; }
+.fd-arrow { color: var(--color-accent); font-size: 1.5rem; line-height: 1; }
+.fd-link { border: 1px solid var(--color-hairline); border-radius: 12px; padding: 0.75rem 1rem; background: var(--color-surface-1); }
+.fd-link-optional { border-style: dashed; }
+.fd-link-title { margin: 0; font-weight: 600; color: var(--color-ink); }
+.fd-link-body { margin: 0.2rem 0 0; color: var(--color-ink-muted); font-size: 0.875rem; line-height: 1.45; }
+.fd-link-body strong { color: var(--color-ink); font-weight: 600; }
+.fd-foot { margin: 1rem 0 0; padding-top: 0.875rem; border-top: 1px dashed var(--color-hairline); color: var(--color-ink-muted); font-size: 0.9375rem; line-height: 1.5; }
+.fd-foot strong { color: var(--color-ink); }
+@media (max-width: 720px) {
+  .fd-grid { grid-template-columns: minmax(0, 1fr); }
+  .fd-links { padding-left: 1.25rem; border-left: 1.5px solid var(--color-accent); margin-left: 1.25rem; }
+  .fd-link-row { grid-template-columns: minmax(0, 1fr); }
+  .fd-arrow { display: none; }
+}

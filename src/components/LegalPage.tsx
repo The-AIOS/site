@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { Logo } from "@/components/Logo";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteHeader } from "@/components/SiteHeader";
 
 /**
  * Shell for the legal pages. Deliberately plain: these exist to be READ — by an
@@ -20,35 +19,7 @@ export function LegalPage({
 }) {
   return (
     <div>
-      <header className="site-header">
-        <div
-          className="container"
-          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}
-        >
-          <a
-            href="/"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              color: "var(--color-ink)",
-              textDecoration: "none",
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: "1rem",
-              letterSpacing: "-0.025em",
-            }}
-          >
-            <Logo size={20} />
-            The AIOS
-          </a>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <a href="/privacy" className="footer-link" style={{ fontSize: "0.875rem" }}>Privacy</a>
-            <a href="/terms" className="footer-link" style={{ fontSize: "0.875rem" }}>Terms</a>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <SiteHeader locale="en" />
 
       <main>
         <section

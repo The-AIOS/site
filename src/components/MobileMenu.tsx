@@ -18,12 +18,14 @@ export function MobileMenu({
   appLabel,
   downloads,
   locale,
+  paths,
 }: {
   items: NavItem[];
   githubLabel: string;
   appLabel: string;
   downloads: DownloadCopy;
   locale: Locale;
+  paths?: Record<Locale, string>;
 }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -127,7 +129,7 @@ export function MobileMenu({
 
           <div className="mm-footer">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <LocaleSwitcher current={locale} />
+              <LocaleSwitcher current={locale} paths={paths} />
               <ThemeToggle />
             </div>
             <span className="caption" style={{ color: "var(--color-ink-subtle)" }}>

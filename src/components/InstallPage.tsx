@@ -1,5 +1,4 @@
-import { Logo } from "@/components/Logo";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteHeader } from "@/components/SiteHeader";
 import { CopyBlock } from "@/components/CopyBlock";
 import { DownloadPanel } from "@/components/DownloadCTA";
 import { SETUP_LINE } from "@/components/HomePage";
@@ -28,30 +27,7 @@ export function InstallPage({ locale }: { locale: Locale }) {
 
   return (
     <div>
-      <header className="site-header">
-        <div
-          className="container"
-          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}
-        >
-          <a href={home} className="sk-brand">
-            <Logo size={20} />
-            The AIOS
-          </a>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            {/* Plain <a>, never next/link — see LocaleSwitcher for the crash it prevents. */}
-            <a
-              href={INSTALL_PATHS[next]}
-              hrefLang={next}
-              className="icon-btn sk-locale"
-              aria-label={`Language: ${LOCALE_LABELS[locale].label} — switch to ${LOCALE_LABELS[next].label}`}
-              title={`Switch to ${LOCALE_LABELS[next].label}`}
-            >
-              {LOCALE_LABELS[locale].code}
-            </a>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <SiteHeader locale={locale} paths={INSTALL_PATHS} />
 
       <main>
         <section className="hero-glow sk-hero">
