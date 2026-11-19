@@ -1,5 +1,6 @@
 import type { Locale } from "@/messages";
 import { FolderDiagram } from "./FolderDiagram";
+import { HooksCard } from "./HooksCard";
 
 /* The landing's Security section (#security): the front door to the AIOS security brief.
  *
@@ -177,6 +178,7 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
           <p className="body-text" style={{ margin: 0 }}>{t.intent}</p>
         </div>
 
+        <HooksCard locale={locale} wide={t.editions.length > 1} />
         {t.readNote && <p className="body-text" style={{ margin: "0 0 0.75rem" }}>{t.readNote}</p>}
         {/* One card per edition: the language of the page (PT shows both), with the
             cover as a tilted page. */}
