@@ -17,6 +17,7 @@
  * /llms.txt link in footer, the AI-affordance block, the back-cover moment.
  */
 
+import { SetupDoors } from "@/components/SetupDoors";
 import { SiteHeader } from "@/components/SiteHeader";
 import { TeamsBand } from "@/components/TeamsBand";
 import { SecuritySection } from "@/components/security/SecuritySection";
@@ -27,7 +28,6 @@ const SECURITY_JUMP = { en: "Is it safe? The short answer, and the brief →", e
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 import { GitHubLink } from "./GitHubLink";
-import { CopyPanel } from "./CopyPanel";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
 import { SubstackLink } from "./SubstackLink";
 import { MobileMenu } from "./MobileMenu";
@@ -46,7 +46,7 @@ import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
 import { LANE_META, countByLane, STANDARDS_LAST_CHECKED, type Lane } from "@/data/standards";
 import { STANDARDS_COPY, STANDARDS_PATHS } from "@/data/standards-copy";
 import { DI_COPY, DI_PATHS } from "@/data/di-copy";
-import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
+import { DownloadPill } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
 /* The reader's date locale per site locale (the Disruption Index card's "last updated"). */
@@ -698,34 +698,8 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 whose whole point is that you never open one. */}
             <div className="path-fork" aria-hidden="true"><span /><span className="path-fork-label">{c.setup.pathsLabel}</span><span /></div>
 
-            <Reveal className="reveal-cards" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
-              {/* Both cards render the identical three beats — question, install,
-                  outcome — so the two doors read as equals. The only difference is
-                  what fills the third slot: a command, or the absence of one. */}
-              {c.setup.paths.map((p) => (
-                <div key={p.q} className="card path-card">
-                  {/* Only the app door carries a pill (Recommended); the other keeps an
-                      invisible one so both questions line up side by side. */}
-                  <span className={`tag-pill${p.pill ? "" : " path-pill-spacer"}`} aria-hidden={!p.pill || undefined} style={{ alignSelf: "flex-start", marginBottom: "0.875rem" }}>{p.pill ?? "·"}</span>
-                  <h4 className="path-q">{p.q}</h4>
-                  <p className="path-b">{p.b}</p>
-                  {/* The panel content is wrapped so the panel itself can be a centring
-                      flex box — it stretches to absorb the height difference between the
-                      two cards, which is what keeps the gap above it equal to the gap
-                      below it in both. */}
-                  {/* The panel IS the action — no separate CTA below it. */}
-                  {p.cmd ? (
-                    <CopyPanel text={SETUP_LINE} label={p.cmd.copy} done={p.cmd.copied}>
-                      › {SETUP_LINE}
-                    </CopyPanel>
-                  ) : (
-                    /* The app door follows the visitor's OS, and always keeps a route to the
-                       other platforms — a sniff picks the default, it does not take the choice
-                       away. Its label and note come from c.downloads, not from p.dl/p.note. */
-                    <DownloadPanel copy={c.downloads} />
-                  )}
-                </div>
-              ))}
+            <Reveal className="reveal-cards" style={{ marginBottom: "2.5rem" }}>
+              <SetupDoors locale={locale} paths={c.setup.paths} line={SETUP_LINE} downloads={c.downloads} />
             </Reveal>
 
 
