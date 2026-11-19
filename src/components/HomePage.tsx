@@ -266,10 +266,6 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={REPO} surface="hero-primary" className="btn-secondary">{c.hero.ctaGithub}</GitHubLink>
               <RoleField copy={c.hero.field} labels={roleLabels} />
             </div>
-            {/* The tour was the primary button; it stays one click away as a secondary link. */}
-            <p style={{ margin: "0.875rem 0 0", fontSize: "0.9375rem" }}>
-              <a href="#what" className="footer-link">{c.hero.ctaTour}</a>
-            </p>
           </div>
         </section>
 
