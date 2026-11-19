@@ -3,7 +3,18 @@
 <meta charset="UTF-8">
 <title>The AIOS — Guía de seguridad</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Static OFL fonts bundled in fonts/ (variable web fonts print as Type3) */
+@font-face{font-family:'Inter';font-weight:400;font-style:normal;src:url('fonts/inter-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:500;font-style:normal;src:url('fonts/inter-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:600;font-style:normal;src:url('fonts/inter-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:700;font-style:normal;src:url('fonts/inter-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:800;font-style:normal;src:url('fonts/inter-latin-800-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:400;font-style:italic;src:url('fonts/inter-latin-400-italic.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-weight:500;font-style:italic;src:url('fonts/inter-latin-500-italic.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-weight:400;src:url('fonts/JetBrainsMono-Regular.ttf') format('truetype')}
+@font-face{font-family:'JetBrains Mono';font-weight:500;src:url('fonts/JetBrainsMono-Medium.ttf') format('truetype')}
+@font-face{font-family:'JetBrains Mono';font-weight:600;src:url('fonts/JetBrainsMono-SemiBold.ttf') format('truetype')}
+
 /* The-AIOS brand, light edition (tokens from the manual's dark→light map) */
 :root{
   --canvas:#f7f7f5; --surface-1:#ffffff; --surface-2:#f1f1ee; --hairline:#e3e3de;
@@ -541,7 +552,7 @@ table.who tr:last-child td{border-bottom:0}
     </div>
     <div class="grid2">
       <div class="card"><div class="card-eyebrow"><span lang="es">Lee las fuentes</span></div><p><span lang="es">SECURITY.md · FORTRESS.md · GLOSSARY.md en <span class="mono">github.com/The-AIOS/aios</span>. O pídele a tu AIOS que te las explique.</span></p></div>
-      <div class="card"><div class="card-eyebrow"><span lang="es">¿Encontraste una vulnerabilidad?</span></div><p><span lang="es">Por favor no abras un issue público. Repórtala en privado por <span class="mono">github.com/The-AIOS/.github</span> → SECURITY.md, el único canal para todos los repos del AIOS, incluida la app.</span></p></div>
+      <div class="card"><div class="card-eyebrow"><span lang="es">¿Encontraste una vulnerabilidad?</span></div><p><span lang="es">Por favor no abras un issue público. Repórtala en privado por <span class="mono">github.com/The-AIOS/.github</span> › SECURITY.md, el único canal para todos los repos del AIOS, incluida la app.</span></p></div>
     </div>
   </div>
   <div class="page-footer"><span lang="es">Vigente al commit 16f9341 · noviembre de 2026 · código abierto</span><span>12</span></div>
