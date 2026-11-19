@@ -1509,3 +1509,120 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
   .teams-link, .teams-approve, .teams-team, .teams-card, .teams-stack, .teams-chev { transition: none !important; }
   .teams-caret { animation: none; }
 }
+
+/* Header dropdown ("Learn"): a button styled like the nav links, a small panel under it. */
+.nav-dd { position: relative; }
+.nav-dd-btn { display: inline-flex; align-items: center; gap: 0.3rem; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 0.875rem; letter-spacing: 0.02em; color: var(--color-ink-muted); }
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: var(--color-ink); }
+.nav-dd-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 4px; }
+.nav-dd-chev { transition: transform 0.2s ease; }
+.nav-dd-btn[aria-expanded="true"] .nav-dd-chev { transform: rotate(180deg); }
+.nav-dd-panel { position: absolute; top: calc(100% + 0.75rem); left: -0.75rem; min-width: 15rem; display: flex; flex-direction: column; padding: 0.4rem; background: var(--color-surface-1); border: 1px solid var(--color-hairline); border-radius: 10px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); z-index: 60; }
+.nav-dd-panel a { padding: 0.55rem 0.7rem; border-radius: 6px; font-size: 0.875rem; color: var(--color-ink-muted); text-decoration: none; }
+.nav-dd-panel a:hover, .nav-dd-panel a:focus-visible { background: var(--color-surface-2); color: var(--color-ink); outline: none; }
+/* Mobile drawer: a labelled group for an item with children. */
+.mm-group { display: flex; flex-direction: column; }
+.mm-group-label { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-subtle); padding: 0.75rem 0 0.25rem; }
+/* The teams band inside How it works: no band chrome, just spacing around it. */
+.teams-band.teams-embedded { margin: 2.75rem 0 3rem; padding: 2rem 0 0; border-top: 1px solid var(--color-hairline); border-bottom: 0; }
+
+/* Security section: "A folder, not a service" (the brief's page-2 diagram). */
+.fd { margin: 0 0 1rem; padding: 1.25rem; border: 1px solid var(--color-hairline); border-radius: 16px; background: var(--color-surface-1); }
+.fd-label { font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.875rem; font-weight: 600; }
+.fd-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.75rem 1rem; align-items: stretch; }
+.fd-computer { border: 1.5px solid var(--color-accent); border-radius: 12px; padding: 1.25rem; background: linear-gradient(180deg, var(--color-accent-glow), transparent 70%); display: flex; flex-direction: column; justify-content: center; }
+.fd-kicker { margin: 0; font-weight: 600; color: var(--color-ink); }
+.fd-path { margin: 0.25rem 0 0.75rem; font-family: var(--font-mono, ui-monospace, monospace); font-size: 1.5rem; font-weight: 600; color: var(--color-accent); }
+.fd-body { margin: 0 0 0.875rem; color: var(--color-ink-muted); font-size: 0.9375rem; line-height: 1.5; }
+.fd-files { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.fd-files li { font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 6px; background: var(--color-surface-2); border: 1px solid var(--color-hairline); color: var(--color-ink-muted); }
+.fd-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
+.fd-link-row { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 0.75rem; }
+.fd-arrow { color: var(--color-accent); font-size: 1.5rem; line-height: 1; }
+.fd-link { border: 1px solid var(--color-hairline); border-radius: 12px; padding: 0.75rem 1rem; background: var(--color-surface-1); }
+.fd-link-optional { border-style: dashed; }
+.fd-link-title { margin: 0; font-weight: 600; color: var(--color-ink); }
+.fd-link-body { margin: 0.2rem 0 0; color: var(--color-ink-muted); font-size: 0.875rem; line-height: 1.45; }
+.fd-link-body strong { color: var(--color-ink); font-weight: 600; }
+.fd-foot { margin: 1rem 0 0; padding-top: 0.875rem; border-top: 1px dashed var(--color-hairline); color: var(--color-ink-muted); font-size: 0.9375rem; line-height: 1.5; }
+.fd-foot strong { color: var(--color-ink); }
+@media (max-width: 720px) {
+  .fd-grid { grid-template-columns: minmax(0, 1fr); }
+  .fd-links { padding-left: 1.25rem; border-left: 1.5px solid var(--color-accent); margin-left: 1.25rem; }
+  .fd-link-row { grid-template-columns: minmax(0, 1fr); }
+  .fd-arrow { display: none; }
+}
+
+/* Security section: the brief's edition card(s), cover as a tilted page. */
+.brief-editions { display: grid; gap: 0.875rem; max-width: 640px; }
+.brief-editions-2 { max-width: none; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); }
+.brief-card { display: flex; align-items: center; gap: 1.75rem; padding: 1.5rem 1.75rem; border: 1px solid var(--color-hairline); border-radius: 16px; background: linear-gradient(135deg, var(--color-accent-glow), transparent 55%), var(--color-surface-1); overflow: hidden; }
+.brief-cover { flex: 0 0 auto; width: 132px; perspective: 900px; display: block; }
+.brief-cover img { display: block; width: 100%; height: auto; border-radius: 3px; transform: rotateY(24deg) rotateX(6deg) rotateZ(-2deg); transform-origin: left center;
+  box-shadow: 1px 1px 0 var(--color-hairline), 4px 4px 0 -1px #e9e9e5, 7px 7px 0 -2px #dcdcd6, 18px 24px 36px rgba(0,0,0,0.38); transition: transform 0.35s ease; }
+.brief-card:hover .brief-cover img { transform: rotateY(10deg) rotateX(3deg) rotateZ(-1deg); }
+.brief-meta { min-width: 0; }
+.brief-title { margin: 0.35rem 0 0.15rem; font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; letter-spacing: -0.02em; color: var(--color-ink); }
+.brief-sub { margin: 0 0 1rem; color: var(--color-ink-muted); font-size: 0.9375rem; }
+.brief-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+@media (prefers-reduced-motion: reduce) { .brief-cover img { transition: none; } }
+@media (max-width: 480px) { .brief-card { gap: 1.25rem; padding: 1.25rem; } .brief-cover { width: 96px; } }
+
+/* Security section: the hooks, inside "A folder, not a service" under its footer line. */
+.fd-hooks { margin-top: 1rem; padding-top: 0.875rem; border-top: 1px dashed var(--color-hairline); }
+.fd-hooks .fd-label { margin: 0 0 0.375rem; }
+.hooks-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 1.5rem; }
+.hooks-grid li { padding: 0.45rem 0; border-bottom: 1px solid var(--color-hairline); font-size: 0.875rem; line-height: 1.45; color: var(--color-ink-muted); }
+.hooks-grid li:nth-last-child(-n+2) { border-bottom: 0; }
+.hooks-grid b { color: var(--color-ink); font-weight: 600; }
+@media (max-width: 600px) {
+  .hooks-grid { grid-template-columns: minmax(0, 1fr); }
+  .hooks-grid li:nth-last-child(2) { border-bottom: 1px solid var(--color-hairline); }
+}
+
+/* ── Pick your door ─────────────────────────────────────────────────────────────────────
+   Two cards, one shape: a picture of what you will see, the question, the body, actions.
+   The pictures share a height so the questions line up. Accent only on the Recommended
+   card's edge and its primary button — no coral slabs. */
+.doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 1rem; }
+.door { display: flex; flex-direction: column; border: 1px solid var(--color-hairline); border-radius: 16px; background: var(--color-surface-1); overflow: hidden; }
+.door-recommended { border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-hairline)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent) 20%, transparent), 0 18px 48px -24px var(--color-accent-glow); }
+.door-stage { height: 212px; padding: 1.5rem 1.25rem 0; display: flex; align-items: flex-start; justify-content: center; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 0%, var(--color-surface-3), var(--color-surface-2) 70%); border-bottom: 1px solid var(--color-hairline); }
+.door-recommended .door-stage { background: radial-gradient(120% 90% at 50% 0%, var(--color-accent-glow), var(--color-surface-2) 72%); }
+.door-text { padding: 1.25rem 1.5rem 0; }
+.door-pill { display: inline-block; margin-bottom: 0.75rem; }
+.door-pill-spacer { visibility: hidden; }
+.door .path-q { margin: 0 0 0.5rem; }
+.door-b { margin: 0; color: var(--color-ink-muted); font-size: 0.9375rem; line-height: 1.55; }
+.door-actions { margin-top: auto; padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.door-btn { padding: 0.55rem 0.95rem !important; font-size: 0.875rem !important; }
+.door-line { flex: 1 1 220px; min-width: 0; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-muted); padding: 0.6rem 0.75rem; border: 1px solid var(--color-hairline); border-radius: 8px; background: var(--color-surface-2); overflow-wrap: anywhere; }
+
+/* the little windows */
+.dw { width: 100%; max-width: 380px; border: 1px solid var(--color-hairline); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--color-canvas); box-shadow: 0 -6px 30px -12px rgba(0,0,0,0.35); overflow: hidden; min-height: 230px; }
+.dw-bar { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--color-hairline); background: var(--color-surface-1); }
+.dw-dots { display: inline-flex; gap: 5px; }
+.dw-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-surface-3); border: 1px solid var(--color-hairline); }
+.dw-title { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-ink-subtle); }
+.dw-body { padding: 0.75rem 0.9rem 0.9rem; }
+.dw-body p { margin: 0; }
+.dw-mono { font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.75; color: var(--color-ink-muted); }
+.dw-cmd { color: var(--color-ink); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.dw-prompt { color: var(--color-accent); }
+.dw-dim { color: var(--color-ink-subtle); }
+.dw-ok { display: inline-flex; vertical-align: -1px; color: #3fb950; }
+.dw-ask { color: var(--color-ink); }
+.dw-caret { display: inline-block; width: 6px; height: 0.95em; margin-left: 4px; vertical-align: -2px; background: var(--color-accent); animation: dw-blink 1.1s steps(1) infinite; }
+@keyframes dw-blink { 50% { opacity: 0; } }
+.dw-steps { list-style: none; margin: 0 0 0.75rem; padding: 0; display: grid; gap: 0.4rem; }
+.dw-steps li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8125rem; color: var(--color-ink-subtle); }
+.dw-steps li.active { color: var(--color-ink); font-weight: 600; }
+.dw-step-mark { flex: 0 0 auto; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.6875rem; font-weight: 700; border: 1px solid var(--color-hairline); background: var(--color-surface-2); }
+.dw-steps li.done .dw-step-mark { color: #3fb950; border-color: color-mix(in srgb, #3fb950 45%, var(--color-hairline)); }
+.dw-steps li.active .dw-step-mark { color: #fff; background: var(--color-accent); border-color: var(--color-accent); }
+.dw-progress { height: 4px; border-radius: 999px; background: var(--color-surface-3); overflow: hidden; margin-bottom: 0.4rem; }
+.dw-progress span { display: block; height: 100%; width: 78%; background: var(--color-accent); border-radius: inherit; }
+.dw-small { font-size: 0.6875rem; }
+@media (prefers-reduced-motion: reduce) { .dw-caret { animation: none; } }
+@media (max-width: 720px) { .door-pill-spacer { display: none; } .door-stage { height: 196px; } }

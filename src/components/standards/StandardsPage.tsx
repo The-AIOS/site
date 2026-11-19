@@ -1,18 +1,9 @@
 import type { Metadata } from "next";
-import { Logo } from "@/components/Logo";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteHeader } from "@/components/SiteHeader";
 import { PulseLine } from "@/components/standards/PulseLine";
 import ReceiptChain from "@/components/standards/ReceiptChain";
 import EmptyLane from "@/components/standards/EmptyLane";
-import {
-  STANDARDS,
-  STATUS_META,
-  LANE_META,
-  type Lane,
-  PULSE_INDEX,
-  PULSE_HEADLINE,
-  PULSE_STAGE_META,
-} from "@/data/standards";
+import { STANDARDS, STATUS_META, LANE_META, type Lane, PULSE_INDEX, PULSE_HEADLINE, PULSE_STAGE_META } from "@/data/standards";
 import { MARKET_MAP, RELATIONSHIP_META, LANE_CRITERIA } from "@/data/marketMap";
 import { STANDARDS_COPY, STANDARDS_PATHS } from "@/data/standards-copy";
 import type { StandardsCopy } from "@/data/standards-copy/types";
@@ -182,51 +173,7 @@ export function StandardsPage({ locale }: { locale: Locale }) {
   return (
     <div className="std-root">
       {/* ---------- Header (site chrome) ---------- */}
-      <header className="site-header">
-        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
-          <a
-            href={home}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              color: "var(--color-ink)",
-              textDecoration: "none",
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: "1rem",
-              letterSpacing: "-0.025em",
-            }}
-          >
-            <Logo size={20} />
-            The AIOS
-          </a>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <a href={home} className="footer-link" style={{ fontSize: "0.875rem" }}>
-              {t.nav.back}
-            </a>
-            {/* Plain <a>, never next/link: each locale is its own root layout (see LocaleSwitcher). */}
-            <a
-              href={STANDARDS_PATHS[next]}
-              hrefLang={next}
-              className="icon-btn"
-              aria-label={`Language: ${LOCALE_LABELS[locale].label} — switch to ${LOCALE_LABELS[next].label}`}
-              title={`Switch to ${LOCALE_LABELS[next].label}`}
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.72rem",
-                fontWeight: 600,
-                letterSpacing: "0.03em",
-                color: "var(--color-ink)",
-                textDecoration: "none",
-              }}
-            >
-              {LOCALE_LABELS[locale].code}
-            </a>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <SiteHeader locale={locale} paths={STANDARDS_PATHS} />
 
       <main>
         {/* ---------- Hero ---------- */}

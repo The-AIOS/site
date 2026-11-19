@@ -17,18 +17,21 @@
  * /llms.txt link in footer, the AI-affordance block, the back-cover moment.
  */
 
+import { SetupDoors } from "@/components/SetupDoors";
+import { SiteHeader } from "@/components/SiteHeader";
 import { TeamsBand } from "@/components/TeamsBand";
+import { SecuritySection } from "@/components/security/SecuritySection";
+
+const SECURITY_LABEL = { en: "Security", es: "Seguridad", pt: "Segurança" } as const;
+const SECURITY_FOOTER = { en: "Security", es: "Seguridad", pt: "Segurança" } as const;
+const SECURITY_JUMP = { en: "Is it safe? The short answer, and the brief →", es: "¿Es seguro? La respuesta corta, y la guía →", pt: "É seguro? A resposta curta, e o guia →" } as const;
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
 import { GitHubLink } from "./GitHubLink";
-import { GitHubMark } from "./GitHubMark";
-import { CopyPanel } from "./CopyPanel";
 import { RepoLink, RepoFolderLink } from "./RepoLink";
 import { SubstackLink } from "./SubstackLink";
-import { LocaleSwitcher } from "./LocaleSwitcher";
 import { MobileMenu } from "./MobileMenu";
 import { Reveal } from "./Reveal";
-import { ThemeToggle } from "./ThemeToggle";
 import { ManualEmbed, ManualDownload } from "./ManualEmbed";
 import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
@@ -36,27 +39,14 @@ import { RoleField } from "./RoleField";
 import { YourAios, ProofViz } from "./YourAios";
 import { ProofFromPeople, SystemWrites, SafeByConstruction, WhyGit, CommunityLine } from "./LandingBlocks";
 import type { RoleId } from "@/data/roles";
-import {
-  HeroConstellation,
-  CompoundTimeline,
-  RitualLoop,
-  TrustLadder,
-  OrchestratorShift,
-  TwoMachines,
-  OsAnatomy,
-  AppWindow,
-  GlassWorkspace,
-  CommandBusFlow,
-  TeamMount,
-  SkillsBeam,
-} from "./deckGraphics";
+import { HeroConstellation, CompoundTimeline, RitualLoop, TrustLadder, OrchestratorShift, TwoMachines, OsAnatomy, AppWindow, GlassWorkspace, CommandBusFlow, TeamMount, SkillsBeam } from "./deckGraphics";
 import type { Locale } from "@/messages";
 import { CONTENT } from "@/content";
 import { LAST_UPDATED, countBySpeed, formatDay } from "@/data/exemplars";
 import { LANE_META, countByLane, STANDARDS_LAST_CHECKED, type Lane } from "@/data/standards";
 import { STANDARDS_COPY, STANDARDS_PATHS } from "@/data/standards-copy";
 import { DI_COPY, DI_PATHS } from "@/data/di-copy";
-import { DownloadPill, DownloadPanel } from "@/components/DownloadCTA";
+import { DownloadPill } from "@/components/DownloadCTA";
 
 const REPO = "https://github.com/The-AIOS/aios";
 /* The reader's date locale per site locale (the Disruption Index card's "last updated"). */
@@ -226,38 +216,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
 
   return (
     <>
-      {/* ============ Header ============ */}
-      <header className="site-header">
-        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
-          <a href="#top" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-ink)", textDecoration: "none", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.025em" }}>
-            <Logo size={20} />
-            The AIOS
-          </a>
-
-          <nav className="nav-desktop" style={{ alignItems: "center", gap: "1.375rem" }}>
-            {c.nav.map((item) => (
-              <a key={item.href} href={item.href} className="caption" style={{ color: "var(--color-ink-muted)", textDecoration: "none", letterSpacing: "0.02em", textTransform: "none", fontSize: "0.875rem" }}>
-                {item.label}
-              </a>
-            ))}
-            {/* Source and binary, in that order: the icon is for people who came
-                to read the code, the pill for people who came to use it. Wrapped
-                so the pair sits closer to each other than to the nav links. */}
-            <span className="nav-actions">
-              <GitHubLink href={REPO} surface="nav-desktop" className="nav-icon-btn" ariaLabel="GitHub">
-                <GitHubMark size={18} />
-              </GitHubLink>
-              <DownloadPill copy={c.downloads} label={c.getApp} className="nav-cta" />
-            </span>
-            <LocaleSwitcher current={locale} />
-            <ThemeToggle />
-          </nav>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <MobileMenu items={c.nav} githubLabel="GitHub ↗" appLabel={c.getApp} downloads={c.downloads} locale={locale} />
-          </div>
-        </div>
-      </header>
+      <SiteHeader locale={locale} landing />
 
       <main>
         <span id="top" aria-hidden="true" />
@@ -307,15 +266,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={REPO} surface="hero-primary" className="btn-secondary">{c.hero.ctaGithub}</GitHubLink>
               <RoleField copy={c.hero.field} labels={roleLabels} />
             </div>
-            {/* The tour was the primary button; it stays one click away as a secondary link. */}
-            <p style={{ margin: "0.875rem 0 0", fontSize: "0.9375rem" }}>
-              <a href="#what" className="footer-link">{c.hero.ctaTour}</a>
-            </p>
           </div>
         </section>
 
         {/* ============ Teams band: one sentence → a team (AIOS 0.8.19) ============ */}
-        <TeamsBand t={c.teams} />
 
         {/* ============ 00 — YOUR AIOS (role-first, before 01) ============ */}
         <YourAios
@@ -474,6 +428,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             <SectionLabel num="03">{c.how.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.how.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch" }}>{c.how.intro}</p>
+
+            {/* — One sentence, a whole team: the first thing that shows how it works (AIOS 0.8.19) — */}
+            <TeamsBand t={c.teams} embedded />
 
             {/* — The three words: session / agent / skill — */}
             <SubLabel>{c.how.subModel}</SubLabel>
@@ -662,6 +619,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <strong style={INK}>{c.containment.body1Bold}</strong>
               {c.containment.body1Post}
             </p>
+            <p className="body-text" style={{ marginBottom: "1rem" }}>
+              <a href="#security" className="link-inline">{SECURITY_JUMP[locale]}</a>
+            </p>
             <Reveal className="graphic-frame" style={{ marginBottom: "1.5rem" }}>
               <TwoMachines />
               <p className="graphic-caption">{c.containment.caption}</p>
@@ -715,14 +675,16 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               })}
             </Reveal>
 
-            <p className="caption" style={{ textTransform: "none", letterSpacing: 0 }}>{c.roadmap.note}</p>
           </div>
         </section>
 
-        {/* ============ 05 — MANUAL (setup story + the artifact) ============ */}
+        {/* ============ 05 — SECURITY ("is it safe?", right before the install) ============ */}
+        <SecuritySection locale={locale} label={<SectionLabel num="05">{SECURITY_LABEL[locale]}</SectionLabel>} />
+
+        {/* ============ 06 — SETUP (setup story + the artifact) ============ */}
         <section id="setup" className="section">
           <div className="container">
-            <SectionLabel num="05">{c.setup.eyebrow}</SectionLabel>
+            <SectionLabel num="06">{c.setup.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "18ch" }}><HL h={c.setup.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2.5rem" }}>{c.setup.intro}</p>
 
@@ -732,36 +694,10 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 whose whole point is that you never open one. */}
             <div className="path-fork" aria-hidden="true"><span /><span className="path-fork-label">{c.setup.pathsLabel}</span><span /></div>
 
-            <Reveal className="reveal-cards" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
-              {/* Both cards render the identical three beats — question, install,
-                  outcome — so the two doors read as equals. The only difference is
-                  what fills the third slot: a command, or the absence of one. */}
-              {c.setup.paths.map((p) => (
-                <div key={p.pill} className="card path-card">
-                  <span className="tag-pill" style={{ alignSelf: "flex-start", marginBottom: "0.875rem" }}>{p.pill}</span>
-                  <h4 className="path-q">{p.q}</h4>
-                  <p className="path-b">{p.b}</p>
-                  {/* The panel content is wrapped so the panel itself can be a centring
-                      flex box — it stretches to absorb the height difference between the
-                      two cards, which is what keeps the gap above it equal to the gap
-                      below it in both. */}
-                  {/* The panel IS the action — no separate CTA below it. */}
-                  {p.cmd ? (
-                    <CopyPanel text={SETUP_LINE} label={p.cmd.copy} done={p.cmd.copied}>
-                      › {SETUP_LINE}
-                    </CopyPanel>
-                  ) : (
-                    /* The app door follows the visitor's OS, and always keeps a route to the
-                       other platforms — a sniff picks the default, it does not take the choice
-                       away. Its label and note come from c.downloads, not from p.dl/p.note. */
-                    <DownloadPanel copy={c.downloads} />
-                  )}
-                </div>
-              ))}
+            <Reveal className="reveal-cards" style={{ marginBottom: "2.5rem" }}>
+              <SetupDoors locale={locale} paths={c.setup.paths} line={SETUP_LINE} downloads={c.downloads} />
             </Reveal>
 
-            {/* What happens next — true of both doors, so it sits below both. */}
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "2rem" }}>{c.setup.step1Body}</p>
 
             {/* the question a visitor has right here: is it safe to give it access? */}
             <SafeByConstruction c={c.safe} />
@@ -785,7 +721,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         {/* ============ 06 — GLASS: THE INTERFACE ============ */}
         <section id="glass" className="section hero-glow">
           <div className="container">
-            <SectionLabel num="06">{c.how.subGlass}</SectionLabel>
+            <SectionLabel num="07">{c.how.subGlass}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1.5rem", maxWidth: "16ch" }}><HL h={c.glass.h} /></h2>
 
             {/* Movement 1 — the two surfaces, each with its own mockup.
@@ -848,7 +784,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
         {/* ============ 07 — THE MANUAL (the artifact) ============ */}
         <section id="manual" className="section">
           <div className="container">
-            <SectionLabel num="07">{c.manual.eyebrow}</SectionLabel>
+            <SectionLabel num="08">{c.manual.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1rem", maxWidth: "22ch" }}><HL h={c.manual.h} /></h2>
             <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.manual.body}</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", marginBottom: "2rem" }}>
@@ -902,6 +838,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={ORG} surface="footer-org" className="footer-link">GitHub · The-AIOS</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/SETUP.md`} surface="footer-setup" className="footer-link">SETUP.md</GitHubLink>
               <GitHubLink href={`${REPO}/blob/main/FORTRESS.md`} surface="fortress-section" className="footer-link">FORTRESS.md</GitHubLink>
+              <a href="#security" className="footer-link">{SECURITY_FOOTER[locale]}</a>
             </FooterCol>
 
             <FooterCol title={c.footer.narrative}>
