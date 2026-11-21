@@ -15,6 +15,7 @@ import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import { NavDropdown } from "./NavDropdown";
 import { DownloadPill } from "@/components/DownloadCTA";
+import { DiscordMark, DISCORD_INVITE } from "./DiscordInvite";
 
 const REPO = "https://github.com/The-AIOS/aios";
 
@@ -64,6 +65,9 @@ export function SiteHeader({
             <GitHubLink href={REPO} surface="nav-desktop" className="nav-icon-btn" ariaLabel="GitHub">
               <GitHubMark size={18} />
             </GitHubLink>
+            <a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer" className="nav-icon-btn nav-icon-ghost" aria-label="Discord">
+              <DiscordMark size={18} />
+            </a>
             <DownloadPill copy={c.downloads} label={c.getApp} className="nav-cta" />
           </span>
           <LocaleSwitcher current={locale} paths={paths} />

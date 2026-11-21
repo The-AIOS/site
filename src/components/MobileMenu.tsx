@@ -1,5 +1,6 @@
 "use client";
 
+import { DiscordMark, DISCORD_INVITE } from "./DiscordInvite";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { GitHubLink } from "./GitHubLink";
@@ -121,6 +122,9 @@ export function MobileMenu({
               >
                 <GitHubMark size={18} />
               </GitHubLink>
+              <a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer" className="nav-icon-btn nav-icon-ghost" aria-label="Discord" onClick={() => setOpen(false)}>
+                <DiscordMark size={18} />
+              </a>
               <span onClick={() => setOpen(false)} style={{ display: "inline-flex" }}>
                 <DownloadPill copy={downloads} label={appLabel} className="nav-cta" />
               </span>

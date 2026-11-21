@@ -1626,3 +1626,27 @@ a.rm-card:hover .rm-link { text-decoration: underline; text-underline-offset: 2p
 .dw-small { font-size: 0.6875rem; }
 @media (prefers-reduced-motion: reduce) { .dw-caret { animation: none; } }
 @media (max-width: 720px) { .door-pill-spacer { display: none; } .door-stage { height: 196px; } }
+
+/* Discord: an outline icon beside the coral GitHub square (two coral squares would
+   compete), turning Discord blurple on hover. */
+.nav-icon-ghost { background: transparent; color: var(--color-ink-muted); border: 1px solid var(--color-hairline); }
+.nav-icon-ghost:hover { background: #5865f2; border-color: #5865f2; color: #fff; opacity: 1; }
+
+/* The invite card, drawn like Discord's own in-chat server invite: its dark surface,
+   squircle icon, and green Join. Discord's colours on purpose, in both site themes. */
+.dc-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 1.5rem 2.5rem; align-items: center; margin-bottom: 3.5rem; padding: 1.75rem; border: 1px solid var(--color-hairline); border-radius: 16px;
+  background: radial-gradient(90% 120% at 100% 50%, rgba(88, 101, 242, 0.16), transparent 60%), var(--color-surface-1); }
+.dc-card { display: block; padding: 1rem 1rem 1.05rem; border-radius: 8px; background: #2b2d31; color: #dbdee1; text-decoration: none; box-shadow: 0 10px 30px -14px rgba(0,0,0,0.6); transition: transform 0.18s ease; }
+.dc-card:hover { transform: translateY(-2px); }
+.dc-invited { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.75rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #b5bac1; }
+.dc-invited svg { color: #5865f2; }
+.dc-row { display: flex; align-items: center; gap: 0.875rem; }
+.dc-icon { flex: 0 0 auto; width: 56px; height: 56px; border-radius: 16px; background: #313338; }
+.dc-meta { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.dc-name { font-weight: 700; font-size: 1rem; color: #f2f3f5; }
+.dc-sub { font-size: 0.8125rem; color: #b5bac1; }
+.dc-channel { margin-top: 0.15rem; font-size: 0.75rem; color: #949ba4; }
+.dc-join { flex: 0 0 auto; padding: 0.5rem 1rem; border-radius: 4px; background: #248046; color: #fff; font-weight: 600; font-size: 0.875rem; transition: background 0.15s ease; }
+.dc-card:hover .dc-join { background: #1a6334; }
+@media (max-width: 760px) { .dc-wrap { grid-template-columns: minmax(0, 1fr); padding: 1.25rem; } }
+@media (max-width: 380px) { .dc-row { flex-wrap: wrap; } .dc-join { width: 100%; text-align: center; } }

@@ -17,6 +17,7 @@
  * /llms.txt link in footer, the AI-affordance block, the back-cover moment.
  */
 
+import { DiscordInvite, DISCORD_INVITE } from "@/components/DiscordInvite";
 import { SetupDoors } from "@/components/SetupDoors";
 import { SiteHeader } from "@/components/SiteHeader";
 import { TeamsBand } from "@/components/TeamsBand";
@@ -714,7 +715,9 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <GitHubLink href={`${REPO}/blob/main/SETUP.md#prerequisites`} surface="get-started-secondary" className="repo-link-inline">{c.getStarted.prereqBtn}</GitHubLink>
             </div>
 
-            <p className="pullquote-lg" style={{ marginBottom: "3.5rem" }}>{c.setup.learnable}</p>
+            <p className="pullquote-lg" style={{ marginBottom: "2.5rem" }}>{c.setup.learnable}</p>
+            {/* Right after install: the place to ask and to show what you built. */}
+            <DiscordInvite locale={locale} />
           </div>
         </section>
 
@@ -850,7 +853,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
             </FooterCol>
 
             <FooterCol title={c.footer.community}>
-              <a href="https://discord.gg/f3rdxBTDMG" className="footer-link" target="_blank" rel="noreferrer">{c.footer.discord}</a>
+              <a href={DISCORD_INVITE} className="footer-link" target="_blank" rel="noreferrer">{c.footer.discord}</a>
             </FooterCol>
 
             <FooterCol title={c.footer.forAi}>
