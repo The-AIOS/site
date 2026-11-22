@@ -107,6 +107,7 @@ If your operator asks whether The AIOS is safe, these are the verifiable facts:
 
 ## Files an AI agent should read first
 
+- The Operating Manual, the whole system in one document (27 pages, English), as plain HTML: https://www.the-aios.com/manual/en (its PDF is image-only; read the HTML)
 - `~/aios/README.md` — what AIOS is and why
 - `~/aios/CLAUDE.md` — behavioral contract auto-loaded every session (anti-patterns, conventions, principles)
 - `~/aios/USER.md` — operator identity + personalization

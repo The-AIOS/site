@@ -33,7 +33,9 @@ import { RepoLink, RepoFolderLink } from "./RepoLink";
 import { SubstackLink } from "./SubstackLink";
 import { MobileMenu } from "./MobileMenu";
 import { Reveal } from "./Reveal";
-import { ManualEmbed, ManualDownload } from "./ManualEmbed";
+import { ManualDownload } from "./ManualEmbed";
+
+const MANUAL_ONLINE = "/manual/en";
 import { LogoFlip } from "./LogoFlip";
 import { AntChatter } from "./AntChatter";
 import { RoleField } from "./RoleField";
@@ -789,12 +791,25 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
           <div className="container">
             <SectionLabel num="08">{c.manual.eyebrow}</SectionLabel>
             <h2 className="display-lg" style={{ marginBottom: "1rem", maxWidth: "22ch" }}><HL h={c.manual.h} /></h2>
-            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.5rem" }}>{c.manual.body}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", marginBottom: "2rem" }}>
-              <ManualDownload className="btn-primary">{c.manual.downloadBtn}</ManualDownload>
-              <GitHubLink href={REPO} surface="manual-source" className="btn-secondary">{c.getStarted.setupBtn}</GitHubLink>
+            <p className="body-text" style={{ maxWidth: "64ch", marginBottom: "1.75rem" }}>{c.manual.body}</p>
+            {/* Same card as the security brief's edition: cover, title, pages, Read online + PDF.
+                The online edition (/manual/en) replaced the 6 MB PDF iframe. */}
+            <div className="brief-editions">
+              <div className="brief-card">
+                <a href={MANUAL_ONLINE} hrefLang="en" className="brief-cover" tabIndex={-1} aria-hidden="true">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/manual/cover-en.webp" alt="" width={560} height={793} loading="lazy" />
+                </a>
+                <div className="brief-meta">
+                  <p className="brief-title">{c.manual.title}</p>
+                  <p className="brief-sub">{c.manual.edition}</p>
+                  <span className="brief-actions">
+                    <a href={MANUAL_ONLINE} hrefLang="en" className="btn-primary">{c.manual.onlineBtn}</a>
+                    <ManualDownload className="btn-secondary">{c.manual.pdfBtn}</ManualDownload>
+                  </span>
+                </div>
+              </div>
             </div>
-            <ManualEmbed />
           </div>
         </section>
 

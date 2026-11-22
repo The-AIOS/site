@@ -214,8 +214,9 @@ export type Content = {
     caption: string; body2: string; closingPull: H; link: string;
   };
   manual: {
-    eyebrow: string; h: H; body: string; readBtn: string; downloadBtn: string;
-    coverSub: string;
+    eyebrow: string; h: H; body: string;
+    /* The edition card: the manual exists in English only, so ES/PT say so. */
+    title: string; edition: string; onlineBtn: string; pdfBtn: string;
   };
   getStarted: {
     eyebrow: string; h: H; prompt: string; codeComment: string; consent: string;
@@ -892,8 +893,7 @@ const en: Content = {
   manual: {
     eyebrow: "The manual", h: ["The whole system, ", "one document", "."],
     body: "Twenty-one sections — from first principles to 24/7 containment. The design language, the architecture, the fleet, the rituals and the trust contract, in one branded artifact. This very site is its web-native sibling. Read it online, or take the PDF into your next meeting.",
-    readBtn: "Read the manual →", downloadBtn: "Download PDF",
-    coverSub: "21 sections — first principles to the one-page map",
+    title: "The Operating Manual", edition: "English · 27 pages", onlineBtn: "Read online", pdfBtn: "PDF",
   },
   getStarted: {
     eyebrow: "Get started", h: ["Running in ", "30 seconds", "."],
@@ -1531,8 +1531,7 @@ const es: Content = {
   manual: {
     eyebrow: "El manual", h: ["Todo el sistema, ", "un solo documento", "."],
     body: "Veintiuna secciones — de los primeros principios a la contención 24/7. El lenguaje de diseño, la arquitectura, la flota, los rituales y el contrato de confianza, en un solo artefacto de marca. Este mismo sitio es su hermano web. Léelo en línea, o llévate el PDF a tu próxima reunión.",
-    readBtn: "Lee el manual →", downloadBtn: "Descargar PDF",
-    coverSub: "21 secciones — de los primeros principios al mapa de una página",
+    title: "El manual operativo", edition: "En inglés · 27 páginas", onlineBtn: "Leer en línea", pdfBtn: "PDF",
   },
   getStarted: {
     eyebrow: "Empezar", h: ["Funcionando en ", "30 segundos", "."],
@@ -2170,8 +2169,7 @@ const pt: Content = {
   manual: {
     eyebrow: "O manual", h: ["O sistema inteiro, ", "um só documento", "."],
     body: "Vinte e uma seções — dos primeiros princípios à contenção 24/7. A linguagem de design, a arquitetura, a frota, os rituais e o contrato de confiança, em um só artefato de marca. Este próprio site é o irmão web dele. Leia online, ou leve o PDF para a sua próxima reunião.",
-    readBtn: "Leia o manual →", downloadBtn: "Baixar PDF",
-    coverSub: "21 seções — dos primeiros princípios ao mapa de uma página",
+    title: "O manual operacional", edition: "Em inglês · 27 páginas", onlineBtn: "Ler online", pdfBtn: "PDF",
   },
   getStarted: {
     eyebrow: "Começar", h: ["Rodando em ", "30 segundos", "."],
