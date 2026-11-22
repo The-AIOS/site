@@ -33,7 +33,7 @@ import { RepoLink, RepoFolderLink } from "./RepoLink";
 import { SubstackLink } from "./SubstackLink";
 import { MobileMenu } from "./MobileMenu";
 import { Reveal } from "./Reveal";
-import { ManualDownload } from "./ManualEmbed";
+import { ManualDownload, ManualOnline } from "./ManualEmbed";
 
 const MANUAL_ONLINE = "/manual/en";
 import { LogoFlip } from "./LogoFlip";
@@ -798,13 +798,15 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
               <div className="brief-card">
                 <a href={MANUAL_ONLINE} hrefLang="en" className="brief-cover" tabIndex={-1} aria-hidden="true">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/manual/cover-en.webp" alt="" width={560} height={793} loading="lazy" />
+                  <img src="/manual/cover-en.webp" alt="" width={560} height={793} loading="lazy" className="cover-dark" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/manual/cover-en-light.webp" alt="" width={560} height={793} loading="lazy" className="cover-light" />
                 </a>
                 <div className="brief-meta">
                   <p className="brief-title">{c.manual.title}</p>
                   <p className="brief-sub">{c.manual.edition}</p>
                   <span className="brief-actions">
-                    <a href={MANUAL_ONLINE} hrefLang="en" className="btn-primary">{c.manual.onlineBtn}</a>
+                    <ManualOnline className="btn-primary">{c.manual.onlineBtn}</ManualOnline>
                     <ManualDownload className="btn-secondary">{c.manual.pdfBtn}</ManualDownload>
                   </span>
                 </div>

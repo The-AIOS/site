@@ -10,8 +10,8 @@ import { FolderDiagram } from "./FolderDiagram";
  * The facts behind it are the framework's SECURITY.md and FORTRESS.md, linked as sources. */
 
 export const BRIEF = {
-  en: { html: "/security-brief/en", pdf: "/security-brief/the-aios-security-brief-en.pdf", cover: "/security-brief/cover-en.webp" },
-  es: { html: "/security-brief/es", pdf: "/security-brief/the-aios-security-brief-es.pdf", cover: "/security-brief/cover-es.webp" },
+  en: { html: "/security-brief/en", pdf: "/security-brief/the-aios-security-brief-en.pdf", cover: "/security-brief/cover-en.webp", coverDark: "/security-brief/cover-en-dark.webp" },
+  es: { html: "/security-brief/es", pdf: "/security-brief/the-aios-security-brief-es.pdf", cover: "/security-brief/cover-es.webp", coverDark: "/security-brief/cover-es-dark.webp" },
 } as const;
 
 type Copy = {
@@ -166,7 +166,9 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
             <div key={e.lang} className="brief-card">
               <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="brief-cover" tabIndex={-1} aria-hidden="true">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={BRIEF[e.lang].cover} alt="" width={560} height={793} loading="lazy" />
+                <img src={BRIEF[e.lang].coverDark} alt="" width={560} height={793} loading="lazy" className="cover-dark" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={BRIEF[e.lang].cover} alt="" width={560} height={793} loading="lazy" className="cover-light" />
               </a>
               <div className="brief-meta">
                 <p className="brief-title">{e.lang === "es" ? "Guía de seguridad" : "Security brief"}</p>

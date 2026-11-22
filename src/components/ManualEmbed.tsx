@@ -15,3 +15,14 @@ export function ManualDownload({ className, children }: { className?: string; ch
     </a>
   );
 }
+
+/** Theme-aware link to the manual's web edition: dark → /manual/en, light → /manual/en-light.
+ *  (Each page also switches to its sibling on load if the stored theme differs.) */
+export function ManualOnline({ className, children }: { className?: string; children: React.ReactNode }) {
+  const theme = useTheme();
+  return (
+    <a href={theme === "light" ? "/manual/en-light" : "/manual/en"} hrefLang="en" className={className}>
+      {children}
+    </a>
+  );
+}
