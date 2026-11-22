@@ -164,7 +164,7 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
         <div className={`brief-editions${t.editions.length > 1 ? " brief-editions-2" : ""}`}>
           {t.editions.map((e) => (
             <div key={e.lang} className="brief-card">
-              <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="brief-cover" tabIndex={-1} aria-hidden="true">
+              <a href={BRIEF[e.lang].html} hrefLang={e.lang} target="_blank" rel="noopener" className="brief-cover" tabIndex={-1} aria-hidden="true">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={BRIEF[e.lang].coverDark} alt="" width={560} height={793} loading="lazy" className="cover-dark" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -174,7 +174,7 @@ export function SecuritySection({ locale, label }: { locale: Locale; label: Reac
                 <p className="brief-title">{e.lang === "es" ? "Guía de seguridad" : "Security brief"}</p>
                 <p className="brief-sub">{e.label}</p>
                 <span className="brief-actions">
-                  <a href={BRIEF[e.lang].html} hrefLang={e.lang} className="btn-primary">{e.online}</a>
+                  <a href={BRIEF[e.lang].html} hrefLang={e.lang} target="_blank" rel="noopener" className="btn-primary">{e.online}</a>
                   <a href={BRIEF[e.lang].pdf} hrefLang={e.lang} className="btn-secondary" download>{e.pdf}</a>
                 </span>
               </div>

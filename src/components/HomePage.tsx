@@ -796,7 +796,7 @@ export default function HomePage({ locale = "en" }: { m?: unknown; locale?: Loca
                 The online edition (/manual/en) replaced the 6 MB PDF iframe. */}
             <div className="brief-editions">
               <div className="brief-card">
-                <a href={MANUAL_ONLINE} hrefLang="en" className="brief-cover" tabIndex={-1} aria-hidden="true">
+                <a href={MANUAL_ONLINE} hrefLang="en" target="_blank" rel="noopener" className="brief-cover" tabIndex={-1} aria-hidden="true">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/manual/cover-en.webp" alt="" width={560} height={793} loading="lazy" className="cover-dark" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -21,7 +21,7 @@ export function ManualDownload({ className, children }: { className?: string; ch
 export function ManualOnline({ className, children }: { className?: string; children: React.ReactNode }) {
   const theme = useTheme();
   return (
-    <a href={theme === "light" ? "/manual/en-light" : "/manual/en"} hrefLang="en" className={className}>
+    <a href={theme === "light" ? "/manual/en-light" : "/manual/en"} hrefLang="en" target="_blank" rel="noopener" className={className}>
       {children}
     </a>
   );
