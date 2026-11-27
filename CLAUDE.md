@@ -49,7 +49,7 @@ src/app/
   (pt)/layout.tsx   → RootShell lang="pt-BR"  · /pt
   global-not-found.tsx   → the app-wide 404 (produces out/404.html)
   siteMetadata.ts        → shared metadata defaults, incl. metadataBase
-  globals.css · icon.svg
+  globals.css · DESIGN.md · icon.svg
 ```
 
 **Why:** `<html lang>` is server-rendered and only a root layout can render it. The site used to hardcode `lang="en"` and patch it client-side per locale, which React flagged as a hydration mismatch and which served the wrong `lang` to anything that does not run JS. Route groups create **no** path segments, so the URLs are unchanged.
@@ -70,6 +70,7 @@ Consequences to respect:
 
 ## Conventions
 
+- **Design tokens:** `src/app/globals.css` is the source of truth; `src/app/DESIGN.md` mirrors it in the DESIGN.md format. A token change updates both in the same pull request, and `npx @google/design.md lint src/app/DESIGN.md` stays at 0 errors.
 - **Measure, don't eyeball.** Two traps that have both bitten here: `document.documentElement.scrollWidth` reads **zero overflow** on a genuinely clipped layout, because `html` is `overflow-x: clip` and sections are `overflow-x: hidden` — compare per-element `getBoundingClientRect().right` against the container instead. And a production build **cannot** reproduce a React hydration *attribute* mismatch, because those warnings are stripped from prod builds — compare the served HTML against the post-hydration DOM.
 - **Narrow viewports:** headless Chrome clamps `--window-size` to ~500px, so a 390px screenshot is a left-crop of a 500px layout and shows overflow that is not there. Use CDP `Emulation.setDeviceMetricsOverride`.
 - `minmax(400px, 1fr)` keeps a 400px track even in a narrower container. Use `minmax(min(400px, 100%), 1fr)`.

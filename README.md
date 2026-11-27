@@ -13,9 +13,9 @@ Static-generation-first. No database, no auth, no server runtime — designed fo
 
 ## Design
 
-**Calm Editorial** — single chromatic accent (`#b8946f` warm bronze) used sparingly over a deep-black canvas. Serif display (Playfair) + serif body (Source Serif Pro) + sans labels (Inter). Hairline rules + accent rules for structure. Distinct from Sovra blue and ChuyCepeda Bricolage palettes — this is the framework brand.
+**Coral on black, Inter throughout.** One chromatic accent (`#ff5d4d`), spent three to five times a page, over a deep-black canvas, with a warm near-white light theme. Inter for display, body and labels; JetBrains Mono for code. Status is shown by shape, never by a second colour.
 
-Reference: lifted recipe shape from `vault/02 - assets/refs/calm-editorial-deck-reference.html` (an EO Boston keynote deck), with bronze accent + warm ink tuned specifically for "AI Operating System framework" tone.
+The tokens live in `src/app/globals.css`, the source of truth. [`src/app/DESIGN.md`](src/app/DESIGN.md) describes them in the [DESIGN.md format](https://github.com/google-labs-code/design.md), with the rules for using them. A change to a token updates both in the same pull request.
 
 ## Development
 
@@ -81,6 +81,7 @@ Run: `npm run i18n:audit`. Exit code 1 on errors; warnings are non-blocking but 
 src/
 ├── app/
 │   ├── globals.css          # design tokens + typography primitives
+│   ├── DESIGN.md            # the design system in DESIGN.md format (mirrors globals.css)
 │   ├── layout.tsx           # root layout, font preload, AI affordance HTML comment
 │   ├── page.tsx             # / (English homepage — default)
 │   ├── es/page.tsx          # /es (Spanish homepage)
